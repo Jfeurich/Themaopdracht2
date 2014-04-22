@@ -1,0 +1,13 @@
+Beste groepsgenoten:
+
+Als je iets verandert moet je de verandering committen naar de master branch!
+Control + "+" opent het commit menu.
+Voeg commentaar toe.
+Kies voor "Commit and push" zodat de veranderingen ook doorgevoerd worden in de master branch.
+Ik moet nog kijken of ik de testbranch default kan maken voor de veranderingen.
+
+Laat eventueel in de ruimte onderaan deze readme comments achter voor elkaar.
+Lees dit bestand dus als eerst bij werken aan de themaopdracht.
+
+// Ruimte voor commentaar //
+
