@@ -1,6 +1,6 @@
 <project name="Themaopdracht" default="deploy" basedir=".">
 <property name="war_dir" location="war" />
-<property name="deploy_dir" location="C:\Users\Angie\Downloads\apache-tomcat-8.0.5\webapps" />
+<property name="deploy_dir" location="C:\apache-tomcat-8.0.5\webapps" />
 <target name="init" description="remove war-file" >
 <delete file="${ant.project.name}.war" />
 </target>
