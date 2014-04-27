@@ -47,9 +47,7 @@
 					Product hetProduct = (Product)gevonden;
 					out.println("Gevonden product:");
 					out.println(hetProduct.toString());
-					request.setAttribute("product", hetProduct);
-					RequestDispatcher rd = request.getRequestDispatcher("VoorraadOverzichtServlet.java");
-					rd.forward(request, response);
+					out.println("<input type=hidden name=product value=" + hetProduct.getArtikelNr() + " />");
 					out.println("<input type=submit name=knop value=wijzig />");
 				}
 				else{

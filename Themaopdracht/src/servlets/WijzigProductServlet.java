@@ -1,6 +1,7 @@
 package servlets;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -12,10 +13,21 @@ import domeinklassen.Product;
 
 public class WijzigProductServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		ArrayList<Product> deVoorraad = new ArrayList<Product>();
+		Product p1 = new Product("Band, Type1", 111, 10, "stuk", 50.0);
+		Product p2 = new Product("Moertje", 123, 100, "stuk", 0.50);
+		Product p3 = new Product("Diesel", 001, 50, "liter", 3.50);
+		deVoorraad.add(p1); deVoorraad.add(p2); deVoorraad.add(p3);
+		
 		String knop = req.getParameter("knop");
 		if(knop.equals("wijzig")){
-			Object p = req.getAttribute("hetProduct");
-			Product hetProduct = (Product)p;
+			String p = req.getParameter("product");
+			Product hetProduct = null;
+			for(Product zoek : deVoorraad){
+				if(zoek.getArtikelNr() == Integer.parseInt(p)){
+					hetProduct = zoek;
+				}
+			}
 			String naam = req.getParameter("naam");
 			String at = req.getParameter("aantal");
 			String eenheid = req.getParameter("eenheid");

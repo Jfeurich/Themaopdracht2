@@ -26,9 +26,7 @@
 					p = (Product)hetProduct;
 				}
 				if(p != null){
-					request.setAttribute("hetProduct", p);
-					RequestDispatcher rd = request.getRequestDispatcher("WijzigProductServlet.java");
-					rd.forward(request, response);
+					out.println("<input type=hidden name=product value=" + p.getArtikelNr() + " />");
 					out.println("<h3>Voer nieuwe waarden in voor de gewenste velden</h3>");
 					out.println("<table>");
 						out.println("<tr>");
@@ -60,7 +58,7 @@
 				}
 				else{
 					out.println("<h3>Deze pagina is pas bruikbaar als een product uit de voorraad is geselecteerd!</h3>");
-					out.println("<a href=voorraad.jsp/>Terug naar hoofdmenu voorraad</a>");
+					out.println("<a href=voorraad.jsp>Terug naar hoofdmenu voorraad</a>");
 				}
 			%>
 		</div>

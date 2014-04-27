@@ -127,11 +127,16 @@ public class VoorraadOverzichtServlet extends HttpServlet{
 		
 		//wijzig gezochte product
 		else if(knop.equals("wijzig")){
-			Object p = req.getAttribute("product");
+			String hetProduct = req.getParameter("product");
+			Product p = null;
+			for(Product zoek : deVoorraad){
+				if(zoek.getArtikelNr() == Integer.parseInt(hetProduct)){
+					p = zoek;
+				}
+			}
 			req.setAttribute("product", p);
 			RequestDispatcher rd = req.getRequestDispatcher("wijzigproduct.jsp");
 			rd.forward(req, resp);
-			System.out.println(p);
 		}
 	}
 }
