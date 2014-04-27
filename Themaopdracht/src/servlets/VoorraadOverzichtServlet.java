@@ -9,17 +9,15 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import domeinklassen.ConnectDBVoorraad;
 import domeinklassen.Product;
 
 public class VoorraadOverzichtServlet extends HttpServlet{
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		String knop = req.getParameter("knop");
+		ConnectDBVoorraad conn = new ConnectDBVoorraad();	
 		
-		ArrayList<Product> deVoorraad = new ArrayList<Product>();
-		Product p1 = new Product("Band, Type1", 111, 10, "stuk", 50.0);
-		Product p2 = new Product("Moertje", 123, 100, "stuk", 0.50);
-		Product p3 = new Product("Diesel", 001, 50, "liter", 3.50);
-		deVoorraad.add(p1); deVoorraad.add(p2); deVoorraad.add(p3);
+		ArrayList<Product> deVoorraad = conn.getVoorraad();
 		
 		//forward voorraadlijst naar de overzicht-pagina.
 		if(knop.equals("overzicht")){
@@ -80,8 +78,7 @@ public class VoorraadOverzichtServlet extends HttpServlet{
 		//zoek product op naam of artikelnummer
 		else if(knop.equals("zoek")){
 			String nm = req.getParameter("zoeknaam");
-			String anr = req.getParameter("zoeknummer");
-			
+			String anr = req.getParameter("zoeknummer");	
 			boolean zoekNaam = !nm.equals("");
 			boolean zoekNummer = !anr.equals("");
 			Product gezochte = null;
@@ -94,22 +91,12 @@ public class VoorraadOverzichtServlet extends HttpServlet{
 				}
 				else{
 					int nummer = Integer.parseInt(anr);
-					for(Product p: deVoorraad){
-						if(p.getArtikelNr() == nummer){
-							gezochte = p;
-							break;
-						}
-					}
+					gezochte = conn.zoekProduct(nummer);	
 				}
 			}
 			else if(zoekNaam){
-				for(Product p: deVoorraad){
-					if(p.getNaam().equals(nm)){
-						gezochte = p;
-						break;
-					}
-				}				
-			}
+				gezochte = conn.zoekProduct(nm);
+			}				
 			else{
 				req.setAttribute("zoekmsg", "Vul een zoekcriterium in!");
 			}
@@ -127,14 +114,8 @@ public class VoorraadOverzichtServlet extends HttpServlet{
 		
 		//wijzig gezochte product
 		else if(knop.equals("wijzig")){
-			String hetProduct = req.getParameter("product");
-			Product p = null;
-			for(Product zoek : deVoorraad){
-				if(zoek.getArtikelNr() == Integer.parseInt(hetProduct)){
-					p = zoek;
-				}
-			}
-			req.setAttribute("product", p);
+			String productnummer = req.getParameter("product");
+			req.setAttribute("product", productnummer);
 			RequestDispatcher rd = req.getRequestDispatcher("wijzigproduct.jsp");
 			rd.forward(req, resp);
 		}
