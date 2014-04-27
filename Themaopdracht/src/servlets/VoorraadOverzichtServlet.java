@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import domeinklassen.Product;
 
 public class VoorraadOverzichtServlet extends HttpServlet{
-	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		String knop = req.getParameter("knop");
 		
 		ArrayList<Product> deVoorraad = new ArrayList<Product>();
@@ -77,6 +77,7 @@ public class VoorraadOverzichtServlet extends HttpServlet{
 			rd.forward(req, resp);
 		}
 		
+		//zoek product op naam of artikelnummer
 		else if(knop.equals("zoek")){
 			String nm = req.getParameter("zoeknaam");
 			String anr = req.getParameter("zoeknummer");
@@ -122,6 +123,15 @@ public class VoorraadOverzichtServlet extends HttpServlet{
 			}
 			RequestDispatcher rd = req.getRequestDispatcher("voorraad.jsp");
 			rd.forward(req, resp);
+		}
+		
+		//wijzig gezochte product
+		else if(knop.equals("wijzig")){
+			Object p = req.getAttribute("product");
+			req.setAttribute("product", p);
+			RequestDispatcher rd = req.getRequestDispatcher("wijzigproduct.jsp");
+			rd.forward(req, resp);
+			System.out.println(p);
 		}
 	}
 }

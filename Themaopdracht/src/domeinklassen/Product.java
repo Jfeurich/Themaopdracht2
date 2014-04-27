@@ -45,6 +45,18 @@ public class Product{
 	public String getEenheid(){
 		return eenheid;
 	}
+	public void setNaam(String naam) {
+		this.naam = naam;
+	}
+	public void setArtikelNr(int artikelNr) {
+		this.artikelNr = artikelNr;
+	}
+	public void setEenheid(String eenheid) {
+		this.eenheid = eenheid;
+	}
+	public void setPrijsPerStuk(double prijsPerStuk) {
+		this.prijsPerStuk = prijsPerStuk;
+	}
 	//methode om het aantal te verhogen bij een levering van een bestelling
 	public void voegAantalToe(int aa){
 		aantal += aa;

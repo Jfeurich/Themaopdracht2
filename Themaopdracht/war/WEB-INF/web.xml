@@ -13,4 +13,12 @@
 		<servlet-name>Voorraad</servlet-name>
 		<url-pattern>/VoorraadOverzichtServlet.do</url-pattern>
 	</servlet-mapping>
+	<servlet>
+		<servlet-name>WijzigProduct</servlet-name>
+		<servlet-class>servlets.WijzigProductServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>WijzigProduct</servlet-name>
+		<url-pattern>/WijzigProductServlet.do</url-pattern>
+	</servlet-mapping>
 </web-app>

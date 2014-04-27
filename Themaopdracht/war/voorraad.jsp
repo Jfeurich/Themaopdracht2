@@ -5,7 +5,7 @@
 	<title>Voorraad Menu</title>
 </head>
 <body>
-	<form action="VoorraadOverzichtServlet.do" method="get">
+	<form action="VoorraadOverzichtServlet.do" method="post">
 		<%@ page import="domeinklassen.Product" %>
 		<div>
 			<h2>Overzicht totale voorraad</h2>
@@ -47,6 +47,10 @@
 					Product hetProduct = (Product)gevonden;
 					out.println("Gevonden product:");
 					out.println(hetProduct.toString());
+					request.setAttribute("product", hetProduct);
+					RequestDispatcher rd = request.getRequestDispatcher("VoorraadOverzichtServlet.java");
+					rd.forward(request, response);
+					out.println("<input type=submit name=knop value=wijzig />");
 				}
 				else{
 					Object zoekmsg = request.getAttribute("zoekmsg");
