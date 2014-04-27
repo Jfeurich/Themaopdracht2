@@ -9,6 +9,19 @@ Ik moet nog kijken of ik de testbranch default kan maken voor de veranderingen.
 Laat eventueel in de ruimte onderaan deze readme comments achter voor elkaar.
 Lees dit bestand dus als eerst bij werken aan de themaopdracht.
 
+bij het syncen van je locale bestanden: 
+
+in GIT kies voor sync, als het goed is staat er een blauw icoontje naast.
+Als git je zegt dat je nog locale dingen moet committen en het zijn metadata bestanden klik met je rechtermuisknop 
+op de de te committen bestanden in de lijst en kiest voor discard changes. Is het een bestand dat wel geupdate moet worden
+dan moet je dit natuurlijk comitten.
+
+in eclipse:
+
+wil je veranderingen uploaden, klik dan op het project of op het veranderde bestand met je rechtermuisknop
+ga naar team > commit ("control" + "#") en in dat menu voeg je commentaar toe. Kies voor commit + push en niet alleen voor
+commit.
+
 // Ruimte voor commentaar //
 
 27-04 Angie: Eens kijken of dit werkt...
