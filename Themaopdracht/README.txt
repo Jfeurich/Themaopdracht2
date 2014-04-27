@@ -1,7 +1,7 @@
 Beste groepsgenoten:
 
 Als je iets verandert moet je de verandering committen naar de master branch!
-Control + "+" opent het commit menu.
+Control + "#" opent het commit menu.
 Voeg commentaar toe.
 Kies voor "Commit and push" zodat de veranderingen ook doorgevoerd worden in de master branch.
 Ik moet nog kijken of ik de testbranch default kan maken voor de veranderingen.
@@ -12,3 +12,4 @@ Lees dit bestand dus als eerst bij werken aan de themaopdracht.
 // Ruimte voor commentaar //
 
 27-04 Angie: Eens kijken of dit werkt...
+27-04 Jay: het werkt
