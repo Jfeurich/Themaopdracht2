@@ -14,6 +14,7 @@ public class Product{
 		minimumAanwezig = mA;
 		eenheid = ee;
 		aantal = 0;
+		prijsPerStuk = 0.0;
 	}
 	public Product(String nm, int aNr, int mA, String ee, double pPS){
 		naam = nm;

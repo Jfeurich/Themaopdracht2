@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -24,21 +25,9 @@ public class VoorraadOverzichtServlet extends HttpServlet{
 		deVoorraad.add(p1); deVoorraad.add(p2); deVoorraad.add(p3);
 		
 		if(knop.equals("overzicht")){
-			out.println("<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Strict//EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd\">");
-			out.println("<html xmlns=\"http://www.w3.org/1999/xhtml\">");
-			out.println("<head>");
-			out.println("<meta http-equiv=\"content-type\" content=\"text/html; charset=iso-8859-1\" />");
-			out.println("<title>Overzicht Voorraad</title>");
-			out.println("</head>");
-			out.println("<body>");
-			out.println("<h2>Alle producten in de voorraadlijst</h2>");
-			if(deVoorraad.size() > 0){
-				for(Product p : deVoorraad){
-					out.println("<p>" + p.toString() + "</p>");
-				}
-			}
-			out.println("</body>");
-			out.println("</html>");
+			req.setAttribute("voorraadlijst", deVoorraad);
+			RequestDispatcher rd = req.getRequestDispatcher("voorraadoverzicht.jsp");
+			rd.forward(req, resp);
 		}
 		
 		else if(knop.equals("nieuw")){
