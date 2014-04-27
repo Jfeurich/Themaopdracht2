@@ -1,7 +1,6 @@
 package servlets;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.ArrayList;
 
 import javax.servlet.RequestDispatcher;
@@ -15,8 +14,6 @@ import domeinklassen.Product;
 public class VoorraadOverzichtServlet extends HttpServlet{
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		String knop = req.getParameter("knop");
-		PrintWriter out = resp.getWriter();
-		resp.setContentType("text/html");
 		
 		ArrayList<Product> deVoorraad = new ArrayList<Product>();
 		Product p1 = new Product("Band, Type1", 111, 10, "stuk", 50.0);
@@ -24,55 +21,107 @@ public class VoorraadOverzichtServlet extends HttpServlet{
 		Product p3 = new Product("Diesel", 001, 50, "liter", 3.50);
 		deVoorraad.add(p1); deVoorraad.add(p2); deVoorraad.add(p3);
 		
+		//forward voorraadlijst naar de overzicht-pagina.
 		if(knop.equals("overzicht")){
 			req.setAttribute("voorraadlijst", deVoorraad);
 			RequestDispatcher rd = req.getRequestDispatcher("voorraadoverzicht.jsp");
 			rd.forward(req, resp);
 		}
 		
+		//maak een nieuw product aan
 		else if(knop.equals("nieuw")){
 			String nm = req.getParameter("naam");
-			String anr = req.getParameter("artikelnr");
 			String ma = req.getParameter("minaantal");
 			String eh = req.getParameter("eenheid");
 			String pps = req.getParameter("pps");
-			if((nm != null) && (anr != null) && (ma != null) && (eh != null)){
-				if(!anr.matches("((-|\\+)?[0-9]+(\\.[0-9]+)?)+")){
-					//stuur errorbericht "Geen geldig artikelnummer"
+			ArrayList<String> velden = new ArrayList<String>();
+			velden.add(nm); velden.add(ma); velden.add(eh);
+			
+			//check of nodige velden in zijn gevuld (artikelnummer bestaat niet meer omdat de database die straks gaat aanmaken)
+			boolean allesIngevuld = true;
+			for(String s : velden){
+				if(s.equals("")){
+					allesIngevuld = false;
+					req.setAttribute("nieuwmsg", "Vul alle niet-optionele velden in!");
+					break;
 				}
-				else if(!ma.matches("((-|\\+)?[0-9]+(\\.[0-9]+)?)+")){
-					//stuur errorbericht "Geen geldig minimumaantal"
+			}
+			
+			//als gegevens ingevuld
+			if(allesIngevuld){
+				
+				//check voor geldig minimumaantal (int)
+				if(!ma.matches("((-|\\+)?[0-9]+(\\.[0-9]+)?)+")){
+					req.setAttribute("nieuwmsg", "Minimum aantal is geen geldig nummer!");
 				}
 				else{
-					int artikelnr = Integer.parseInt(anr);
-					boolean beschikbaarnummer = true;
-					for(Product p : deVoorraad){
-						if(p.getArtikelNr() == artikelnr){
-							beschikbaarnummer = false;
-							//geef errorbericht "Artikelnummer is al in gebruik"
-							break;
-						}
-					}
-					if(beschikbaarnummer && (pps == null)){
-						Product p = new Product(nm, artikelnr, Integer.parseInt(ma), eh);
+					//check aanwezigheid prijs per stuk
+					if(pps.equals("")){
+						Product p = new Product(nm, 1, Integer.parseInt(ma), eh);
 						deVoorraad.add(p);
 					}
-					else if(beschikbaarnummer){
+					else{
+						//check voor geldige prijs per stuk (boolean)
 						if(!pps.matches("((-|\\+)?[0-9]+(\\.[0-9]+)?)+")){
-							//geef errorbericht "Geen geldige prijs"
+							req.setAttribute("nieuwmsg", "Prijs per stuk is geen geldig nummer!");
 						}
 						else{
 							double prijs = Double.parseDouble(pps);
-							Product p = new Product(nm, artikelnr, Integer.parseInt(ma), eh, prijs);
+							Product p = new Product(nm, 1, Integer.parseInt(ma), eh, prijs);
 							deVoorraad.add(p);
 						}
 					}
 				}
 			}
+			RequestDispatcher rd = req.getRequestDispatcher("voorraad.jsp");
+			rd.forward(req, resp);
 		}
 		
 		else if(knop.equals("zoek")){
+			String nm = req.getParameter("zoeknaam");
+			String anr = req.getParameter("zoeknummer");
 			
+			boolean zoekNaam = !nm.equals("");
+			boolean zoekNummer = !anr.equals("");
+			Product gezochte = null;
+			
+			//check welke zoekterm er in is gevoerd
+			if(zoekNummer){
+				//check voor geldig artikelnummer (int)
+				if(!anr.matches("((-|\\+)?[0-9]+(\\.[0-9]+)?)+")){
+					req.setAttribute("zoekmsg", "Vul een geldig artikelnummer in!");
+				}
+				else{
+					int nummer = Integer.parseInt(anr);
+					for(Product p: deVoorraad){
+						if(p.getArtikelNr() == nummer){
+							gezochte = p;
+							break;
+						}
+					}
+				}
+			}
+			else if(zoekNaam){
+				for(Product p: deVoorraad){
+					if(p.getNaam().equals(nm)){
+						gezochte = p;
+						break;
+					}
+				}				
+			}
+			else{
+				req.setAttribute("zoekmsg", "Vul een zoekcriterium in!");
+			}
+			
+			//check of het product is gevonden
+			if(gezochte != null){
+				req.setAttribute("productgevonden", gezochte);				
+			}
+			else if(zoekNaam || zoekNummer){
+				req.setAttribute("zoekmsg", "Dit product staat niet op de voorraadlijst.");	
+			}
+			RequestDispatcher rd = req.getRequestDispatcher("voorraad.jsp");
+			rd.forward(req, resp);
 		}
 	}
 }

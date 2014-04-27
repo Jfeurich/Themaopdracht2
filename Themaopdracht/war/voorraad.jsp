@@ -6,20 +6,23 @@
 </head>
 <body>
 	<form action="VoorraadOverzichtServlet.do" method="get">
+		<%@ page import="domeinklassen.Product" %>
 		<div>
 			<h2>Overzicht totale voorraad</h2>
 			<input type="submit" name="knop" value="overzicht" />
 		</div>
 		<div>
 			<h2>Nieuw product aanmaken</h2>
+			<%
+				Object nieuwmsg = request.getAttribute("nieuwmsg");
+				if(nieuwmsg != null){
+					out.println(nieuwmsg);
+				}
+			%>
 			<table>
 				<tr>
 					<td>Naam:</td>
 					<td><input type="text" name="naam" /></td>
-				</tr>
-				<tr>
-					<td>Artikelnummer:</td>
-					<td><input type="text" name="artikelnr" /></td>
 				</tr>
 				<tr>
 					<td>Minimum aantal:</td>
@@ -38,6 +41,20 @@
 		</div>
 		<div>
 			<h2>Zoek product</h2>
+			<%
+				Object gevonden = request.getAttribute("productgevonden");
+				if(gevonden != null){
+					Product hetProduct = (Product)gevonden;
+					out.println("Gevonden product:");
+					out.println(hetProduct.toString());
+				}
+				else{
+					Object zoekmsg = request.getAttribute("zoekmsg");
+					if(zoekmsg != null){
+						out.println(zoekmsg);
+					}
+				}
+			%>
 			<table>
 				<tr>
 					<td>Naam:</td>
@@ -45,7 +62,7 @@
 				</tr>
 				<tr>
 					<td>Artikelnummer:</td>
-					<td><input type="text" name="zoekartikelnr" /></td>
+					<td><input type="text" name="zoeknummer" /></td>
 				</tr>
 			</table>
 			<input type="submit" name="knop" value="zoek" />
