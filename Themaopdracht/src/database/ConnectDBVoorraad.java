@@ -117,7 +117,7 @@ public class ConnectDBVoorraad {
 		try{			
 			Connection con = DriverManager.getConnection(databaseURL, "root", "");
 			//maak nieuw product met gegeven waarden
-			String sql = "INSERT INTO Product (naam, minimumAanwezig, eenheid, prijsPerStuk, bedrijfid) VALUES ('" + nm + "', " + min + ", '" + eh + "', " + pps + ", 1);";
+			String sql = "INSERT INTO Product (naam, minimumAanwezig, eenheid, prijsPerStuk) VALUES ('" + nm + "', " + min + ", '" + eh + "', " + pps + ");";
 			Statement stmt = con.createStatement();
 			stmt.executeUpdate(sql);
 			stmt.close();

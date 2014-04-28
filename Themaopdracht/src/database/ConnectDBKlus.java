@@ -74,7 +74,7 @@ public class ConnectDBKlus {
 		    java.sql.Date dat = new java.sql.Date(datum.getTime());		
 			Connection con = DriverManager.getConnection(databaseURL, "root", "");
 			//maak nieuwe klus met gegeven waarden
-			String sql = "INSERT INTO Klus (datum, beschrijving, soort, autoid, bedrijfid) VALUES ('" + dat + "', '" + bes + "', '" + tp + "', " + autoid + ", 1);";
+			String sql = "INSERT INTO Klus (datum, beschrijving, soort, autoid) VALUES ('" + dat + "', '" + bes + "', '" + tp + "', " + autoid + ");";
 			Statement stmt = con.createStatement();
 			stmt.executeUpdate(sql);
 			stmt.close();
