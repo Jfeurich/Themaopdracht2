@@ -9,13 +9,13 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import database.ConnectDBVoorraad;
+import database.ConnectDBProduct;
 import domeinklassen.Product;
 
 public class WijzigProductServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		String knop = req.getParameter("knop");
-		ConnectDBVoorraad conn = new ConnectDBVoorraad();
+		ConnectDBProduct conn = new ConnectDBProduct();
 		
 		if(knop.equals("wijzig")){
 			String p = req.getParameter("product");
@@ -87,7 +87,7 @@ public class WijzigProductServlet extends HttpServlet {
 			if(conn.verwijderProduct(Integer.parseInt(p))){
 				req.setAttribute("msg", "Product met succes verwijderd.");
 			}
-			ArrayList deVoorraad = conn.getVoorraad();
+			ArrayList deVoorraad = conn.getProducten();
 			req.setAttribute("voorraadlijst", deVoorraad);
 			RequestDispatcher rd = req.getRequestDispatcher("voorraadoverzicht.jsp");
 			rd.forward(req, resp);	

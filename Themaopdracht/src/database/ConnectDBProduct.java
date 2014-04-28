@@ -8,12 +8,12 @@ import java.util.ArrayList;
 
 import domeinklassen.Product;
 
-public class ConnectDBVoorraad {
+public class ConnectDBProduct {
 	final static String DB_DRIV = "com.mysql.jdbc.Driver";
 	private String databaseURL = "jdbc:mysql://localhost:3306/ThemaopdrachtDB";
 	
 	//maak connectie
-	public ConnectDBVoorraad(){
+	public ConnectDBProduct(){
 		try{
 			Class.forName(DB_DRIV).newInstance();
 		}
@@ -21,7 +21,7 @@ public class ConnectDBVoorraad {
 			System.out.println(ex);
 		}
 	}
-	public ArrayList<Product> getVoorraad(){
+	public ArrayList<Product> getProducten(){
 		ArrayList<Product> deVoorraad = new ArrayList<Product>();
 		try{
 			Connection con = DriverManager.getConnection(databaseURL, "root", "");

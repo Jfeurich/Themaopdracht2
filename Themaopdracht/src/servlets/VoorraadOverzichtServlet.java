@@ -9,15 +9,15 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import database.ConnectDBVoorraad;
+import database.ConnectDBProduct;
 import domeinklassen.Product;
 
 public class VoorraadOverzichtServlet extends HttpServlet{
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		String knop = req.getParameter("knop");
-		ConnectDBVoorraad conn = new ConnectDBVoorraad();	
+		ConnectDBProduct conn = new ConnectDBProduct();	
 		
-		ArrayList<Product> deVoorraad = conn.getVoorraad();
+		ArrayList<Product> deVoorraad = conn.getProducten();
 		
 		//forward voorraadlijst naar de overzicht-pagina.
 		if(knop.equals("overzicht")){
@@ -117,7 +117,7 @@ public class VoorraadOverzichtServlet extends HttpServlet{
 			if(conn.verwijderProduct(Integer.parseInt(p))){
 				req.setAttribute("msg", "Product met succes verwijderd.");
 			}
-			deVoorraad = conn.getVoorraad();
+			deVoorraad = conn.getProducten();
 			req.setAttribute("voorraadlijst", deVoorraad);
 			RequestDispatcher rd = req.getRequestDispatcher("voorraadoverzicht.jsp");
 			rd.forward(req, resp);			
