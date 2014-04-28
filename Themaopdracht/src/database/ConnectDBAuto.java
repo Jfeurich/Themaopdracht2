@@ -51,6 +51,7 @@ public class ConnectDBAuto {
 		return terug;
 	}
 
+	//zoek naar alle autos van een bepaalde klant (per klantid)
 	public ArrayList<Auto> getAutosVan(int zoekid){
 		ArrayList<Auto> terug = new ArrayList<Auto>();
 		try{

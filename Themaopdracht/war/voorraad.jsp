@@ -6,7 +6,7 @@
 </head>
 <body>
 	<form action="VoorraadOverzichtServlet.do" method="post">
-		<%@ page import="domeinklassen.Product" %>
+		<%@ page import="domeinklassen.Product,java.util.ArrayList" %>
 		<div>
 			<h2>Overzicht totale voorraad</h2>
 			<input type="submit" name="knop" value="overzicht" />
@@ -42,19 +42,27 @@
 		<div>
 			<h2>Zoek product</h2>
 			<%
+				Object zoekmsg = request.getAttribute("zoekmsg");
+				if(zoekmsg != null){
+					out.println(zoekmsg);
+				}
 				Object gevonden = request.getAttribute("productgevonden");
+				Object arraygevonden = request.getAttribute("arraygevonden");
 				if(gevonden != null){
 					Product hetProduct = (Product)gevonden;
-					out.println("Gevonden product:");
+					out.println("<p>Gevonden product:</p>");
 					out.println("<p>" + hetProduct.toString() + "</p>");
 					out.println("<input type=hidden name=product value=" + hetProduct.getArtikelNr() + " />");
 					out.println("<p><input type=submit name=knop value=wijzig /></p>");
 				}
-				else{
-					Object zoekmsg = request.getAttribute("zoekmsg");
-					if(zoekmsg != null){
-						out.println(zoekmsg);
+				else if(arraygevonden != null){
+					ArrayList<Product> lijst = (ArrayList<Product>)arraygevonden;
+					out.println("<p>Gevonden product(en):</p>");
+					out.println("<p>Selecteer een product om te wijzigen:</p>");
+					for(Product p: lijst){
+						out.println("<input type=radio name=product value=" + p.getArtikelNr() + " /><p>" + p.toString() + "</p>");			
 					}
+					out.println("<p><input type=submit name=knop value=wijzig /></p>");	
 				}
 			%>
 			<table>

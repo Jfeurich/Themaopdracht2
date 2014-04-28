@@ -73,32 +73,33 @@ public class VoorraadOverzichtServlet extends HttpServlet{
 			String anr = req.getParameter("zoeknummer");	
 			boolean zoekNaam = !nm.equals("");
 			boolean zoekNummer = !anr.equals("");
-			Product gezochte = null;
-			
+
+			//in principe wordt het antwoord gegeven dat het product niet op de voorraadlijst staat
+			if(zoekNaam || zoekNummer){
+				req.setAttribute("zoekmsg", "Dit product staat niet op de voorraadlijst.");	
+			}
 			//check welke zoekterm er in is gevoerd
 			if(zoekNummer){
 				//check voor geldig artikelnummer (int)
 				if(!anr.matches("((-|\\+)?[0-9]+(\\.[0-9]+)?)+")){
-					req.setAttribute("zoekmsg", "Vul een geldig artikelnummer in!");
+					req.setAttribute("error", "Vul een geldig artikelnummer in!");
 				}
 				else{
 					int nummer = Integer.parseInt(anr);
-					gezochte = conn.zoekProduct(nummer);	
+					Product p = conn.zoekProduct(nummer);
+					//wijzig antwoord naar gevonden en geef product mee
+					req.setAttribute("zoekmsg", "Product gevonden!");		
+					req.setAttribute("productgevonden", p);	
 				}
 			}
 			else if(zoekNaam){
-				gezochte = conn.zoekProduct(nm);
+				//wijzig antwoord naar gevonden en geef product(en) mee
+				ArrayList<Product> producten = conn.zoekProduct(nm);
+				req.setAttribute("zoekmsg", "Product(en) gevonden!");	
+				req.setAttribute("arraygevonden", producten);	
 			}				
 			else{
-				req.setAttribute("zoekmsg", "Vul een zoekcriterium in!");
-			}
-			
-			//check of het product is gevonden
-			if(gezochte != null){
-				req.setAttribute("productgevonden", gezochte);				
-			}
-			else if(zoekNaam || zoekNummer){
-				req.setAttribute("zoekmsg", "Dit product staat niet op de voorraadlijst.");	
+				req.setAttribute("error", "Vul een zoekcriterium in!");
 			}
 			RequestDispatcher rd = req.getRequestDispatcher("voorraad.jsp");
 			rd.forward(req, resp);

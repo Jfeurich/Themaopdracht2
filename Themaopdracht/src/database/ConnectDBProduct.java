@@ -82,8 +82,10 @@ public class ConnectDBProduct {
 		}
 		return terug;
 	}
-	public Product zoekProduct(String naam){
-		Product terug = null;
+	
+	//zoek producten die de zoekterm in hun naam hebben
+	public ArrayList<Product> zoekProduct(String naam){
+		ArrayList<Product> terug = new ArrayList<Product>();
 		try{
 			Connection con = DriverManager.getConnection(databaseURL, "root", "");
 			String sql = "SELECT * FROM PRODUCT WHERE naam LIKE '%" + naam + "%'";
@@ -95,14 +97,15 @@ public class ConnectDBProduct {
 				int mA = rs.getInt("minimumAanwezig");
 				String ee = rs.getString("eenheid");
 				double pPS = rs.getDouble("prijsPerStuk");
-				terug = new Product(nm, aNr, mA, ee, pPS);
+				Product p = new Product(nm, aNr, mA, ee, pPS);
 				try{
 					int aantal = rs.getInt("aantal");
-					terug.setAantal(aantal);
+					p.setAantal(aantal);
 				}
 				catch(Exception e){
 					System.out.println(e);
 				}
+				terug.add(p);
 			}
 			stmt.close();
 			con.close();
