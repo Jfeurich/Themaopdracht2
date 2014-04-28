@@ -15,7 +15,7 @@
 					out.println("<h2>Error!</h2>");
 					out.println(error);
 				}
-				else if{
+				else{
 					Object msg = request.getAttribute("msg");
 					if(msg != null){
 						out.println(msg);
@@ -47,8 +47,8 @@
 									out.println("<td>" + k.getPlaats() + "</td>");
 								out.println("</tr>");
 							}
-							out.println("</table">);
-							out.println("<input type=submit name=knop value=autos");
+							out.println("</table>");
+							out.println("<input type=submit name=knop value=autos />");
 						}
 					}
 					else{
@@ -70,8 +70,8 @@
 								out.println("<td>" + a.getEigenaar().getNaam() + "</td>");
 							out.println("</tr>");
 						}
-						out.println("</table">);
-						out.println("<input type=submit name=knop value=kiesauto");
+						out.println("</table>");
+						out.println("<input type=submit name=knop value=kiesauto />");
 					}
 				}
 				else{
@@ -79,21 +79,21 @@
 					out.println("<h2>Vul het formulier in en klik op 'voeg toe' om de nieuwe klus aan te maken</h2>");
 					out.println("<table>");
 						out.println("<tr>");
-							out.println("<td>Onderhoudsbeurt</td");
-							out.println("<td>Reparatie</td");
+							out.println("<td>Onderhoudsbeurt</td>");
+							out.println("<td>Reparatie</td>");
 						out.println("</tr>");
 						out.println("<tr>");
-							out.println("<td><input type=radio name=type value=onderhoud /></td");
-							out.println("<td><input type=radio name=type value=reparatie /></td");
+							out.println("<td><input type=radio name=type value=onderhoud /></td>");
+							out.println("<td><input type=radio name=type value=reparatie /></td>");
 						out.println("</tr>");
 						out.println("<tr>");
-							out.println("<td>Datum: </td");
-							out.println("<td><input type=text name=datum placeholder=dd-mm-jjjj /></td");
+							out.println("<td>Datum: </td>");
+							out.println("<td><input type=text name=datum placeholder=dd-mm-jjjj /></td>");
 						out.println("</tr>");
-					out.println("</table">);
-					out.println("textarea name=beschrijving placeholder=Omschrijving van de klus ");
+						out.println("</table>");
+					out.println("<textarea name=beschrijving placeholder=Omschrijving van de klus></textarea>");
 					out.println("<input type=hidden name=autovanklus value=" + deAuto.getID() + " />");
-					out.println("<input type=submit name=knop value=voeg toe");		
+					out.println("<input type=submit name=knop value=nieuw />");		
 				}
 			%>
 		</div>

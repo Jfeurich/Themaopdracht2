@@ -21,6 +21,7 @@
 		<servlet-name>WijzigProduct</servlet-name>
 		<url-pattern>/WijzigProductServlet.do</url-pattern>
 	</servlet-mapping>
+	<servlet>
 	<servlet-name>NieuweKlus</servlet-name>
 	<servlet-class>servlets.NieuweKlusServlet</servlet-class>
 	</servlet>

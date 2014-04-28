@@ -29,7 +29,7 @@ public class ConnectDBKlus {
 		Klus terug = null;
 		try{
 			Connection con = DriverManager.getConnection(databaseURL, "root", "");
-			String sql = "SELECT * FROM PRODUCT WHERE klusid=" + zoeknummer;
+			String sql = "SELECT * FROM Klus WHERE klusid=" + zoeknummer;
 			Statement stmt = con.createStatement();
 			ResultSet rs = stmt.executeQuery(sql);
 			while (rs.next()) {   // rs.next() geeft false als er niets meer is 
@@ -74,7 +74,7 @@ public class ConnectDBKlus {
 		    java.sql.Date dat = new java.sql.Date(datum.getTime());		
 			Connection con = DriverManager.getConnection(databaseURL, "root", "");
 			//maak nieuwe klus met gegeven waarden
-			String sql = "INSERT INTO Klus (datum, beschrijving, soort, autoid, bedrijfid) VALUES ('" + dat + "', " + bes + ", '" + tp + "', " + autoid + ", 1);";
+			String sql = "INSERT INTO Klus (datum, beschrijving, soort, autoid, bedrijfid) VALUES ('" + dat + "', '" + bes + "', '" + tp + "', " + autoid + ", 1);";
 			Statement stmt = con.createStatement();
 			stmt.executeUpdate(sql);
 			stmt.close();
@@ -89,8 +89,8 @@ public class ConnectDBKlus {
 			stmt2.close();
 			//zoek product op basis van gevonden artikelnummer
 			Klus k = zoekKlus(zoeknummer);
-			con.close();
 			terug = k;
+			con.close();
 		}
 		catch(Exception ex){
 			System.out.println(ex);

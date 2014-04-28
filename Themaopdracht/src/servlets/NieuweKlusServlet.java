@@ -43,22 +43,24 @@ public class NieuweKlusServlet extends HttpServlet {
 			ConnectDBAuto autoconn = new ConnectDBAuto();
 			String autoid = req.getParameter("gekozenauto");
 			Auto deAuto = autoconn.zoekAuto(Integer.parseInt(autoid));
-			req.setAttribute("gekozen", deAuto);
+			req.setAttribute("deAuto", deAuto);
 		}
-		else if(knop.equals("voeg toe")){
+		else if(knop.equals("nieuw")){
 			ConnectDBKlus klusconn = new ConnectDBKlus();
 			String type = req.getParameter("type");
 			String dat = req.getParameter("datum");
 			String beschrijving = req.getParameter("beschrijving");
 			String auto = req.getParameter("autovanklus");
+			int autoid = Integer.parseInt(auto);
 			
-			boolean allesIngevuld = !type.equals("") && !dat.equals("") && !beschrijving.equals("");
+			boolean allesIngevuld = (type!=null) && (dat!=null) && (beschrijving!=null);
+			boolean gemaakt = false;
+			
 			if(allesIngevuld){
 				//check voor geldige datum
 				try{
 					SimpleDateFormat df = new SimpleDateFormat("dd-MM-yyyy");
 					Date datum = df.parse(dat);
-					int autoid = Integer.parseInt(auto);
 					Klus nieuw = klusconn.nieuweKlus(datum, beschrijving, type, autoid);
 					if(nieuw != null){
 						String terug = "Nieuwe klus toevoegd voor: " + nieuw.getAuto().getKenteken();
@@ -69,6 +71,7 @@ public class NieuweKlusServlet extends HttpServlet {
 							terug = "Nieuwe reparatie toevoegd voor: " + nieuw.getAuto().getKenteken();
 						}
 						req.setAttribute("msg", terug);
+						gemaakt = true;
 					}
 					else{
 						req.setAttribute("msg", "Kan deze klus niet toevoegen!");	
@@ -80,7 +83,12 @@ public class NieuweKlusServlet extends HttpServlet {
 				}
 			}
 			else{
-				req.setAttribute("error", "Vul alle velden in en kies een klustype!");	
+				req.setAttribute("error", "Vul alle velden in en kies een klustype!");
+			}
+			if(!gemaakt){
+				ConnectDBAuto autoconn = new ConnectDBAuto();
+				Auto deAuto = autoconn.zoekAuto(autoid);
+				req.setAttribute("deAuto", deAuto);
 			}
 		}
 		RequestDispatcher rd = req.getRequestDispatcher("nieuweklus.jsp");
