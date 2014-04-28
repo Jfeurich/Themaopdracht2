@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import domeinklassen.ConnectDBVoorraad;
+import database.ConnectDBVoorraad;
 import domeinklassen.Product;
 
 public class VoorraadOverzichtServlet extends HttpServlet{

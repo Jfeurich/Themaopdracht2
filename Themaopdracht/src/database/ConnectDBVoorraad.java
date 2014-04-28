@@ -1,10 +1,12 @@
-package domeinklassen;
+package database;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
+
+import domeinklassen.Product;
 
 public class ConnectDBVoorraad {
 	final static String DB_DRIV = "com.mysql.jdbc.Driver";
