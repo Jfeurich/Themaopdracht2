@@ -5,8 +5,13 @@
 	<title>Voorraad Menu</title>
 </head>
 <body>
+	<form action="VoorraadOverzichtServlet.do" method="post">
 		<%@ page import="java.util.ArrayList,domeinklassen.Product" %>
 		<%
+			Object msg = request.getAttribute("msg");
+			if(msg != null){
+				out.println(msg);
+			}
 			ArrayList<Product> voorraadlijst =(ArrayList<Product>)request.getAttribute("voorraadlijst");
 			if(voorraadlijst == null){
 				out.println("<h2>Error!</h2>");
@@ -16,6 +21,7 @@
 				out.println("<h2>De huidige voorraad</h2>");
 				out.println("<table>");
 				out.println("<tr>");
+					out.println("<td>Kies</td>");
 					out.println("<td>Artikelnummer</td>");
 					out.println("<td>Artikelnaam</td>");
 					out.println("<td>Aantal anwezig</td>");
@@ -25,6 +31,7 @@
 				out.println("</tr>");	
 				for(Product p : voorraadlijst){
 					out.println("<tr>");
+						out.println("<td><input type=radio name=product value=" + p.getArtikelNr() + " /></td>");
 						out.println("<td>" + p.getArtikelNr() + "</td>");
 						out.println("<td>" + p.getNaam() + "</td>");
 						out.println("<td>" + p.getAantal() + "</td>");
@@ -34,7 +41,11 @@
 					out.println("</tr>");
 				}
 				out.println("</table>");
+				out.println("<input type=submit name=knop value=wijzig />");
+				out.println("<input type=submit name=knop value=verwijder />");
 			}
+			out.println("<a href=voorraad.jsp>Terug naar hoofdmenu voorraad</a>");
 		%>
+	</form>
 </body>
 </html>

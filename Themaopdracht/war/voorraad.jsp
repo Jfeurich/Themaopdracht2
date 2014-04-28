@@ -46,9 +46,9 @@
 				if(gevonden != null){
 					Product hetProduct = (Product)gevonden;
 					out.println("Gevonden product:");
-					out.println(hetProduct.toString());
+					out.println("<p>" + hetProduct.toString() + "</p>");
 					out.println("<input type=hidden name=product value=" + hetProduct.getArtikelNr() + " />");
-					out.println("<input type=submit name=knop value=wijzig />");
+					out.println("<p><input type=submit name=knop value=wijzig /></p>");
 				}
 				else{
 					Object zoekmsg = request.getAttribute("zoekmsg");

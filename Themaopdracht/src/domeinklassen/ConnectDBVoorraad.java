@@ -37,8 +37,8 @@ public class ConnectDBVoorraad {
 					int aantal = rs.getInt("aantal");
 					p.setAantal(aantal);
 				}
-				catch(Exception e){
-					System.out.println(e);
+				catch(Exception ex){
+					System.out.println(ex);
 				}
 				deVoorraad.add(p);
 			}
@@ -68,8 +68,8 @@ public class ConnectDBVoorraad {
 					int aantal = rs.getInt("aantal");
 					terug.setAantal(aantal);
 				}
-				catch(Exception e){
-					System.out.println(e);
+				catch(Exception ex){
+					System.out.println(ex);
 				}
 			}
 			stmt.close();
@@ -84,7 +84,7 @@ public class ConnectDBVoorraad {
 		Product terug = null;
 		try{
 			Connection con = DriverManager.getConnection(databaseURL, "root", "");
-			String sql = "SELECT * FROM PRODUCT WHERE naam=" + naam;
+			String sql = "SELECT * FROM PRODUCT WHERE naam LIKE '%" + naam + "%'";
 			Statement stmt = con.createStatement();
 			ResultSet rs = stmt.executeQuery(sql);
 			while (rs.next()) {   // rs.next() geeft false als er niets meer is 
@@ -109,5 +109,64 @@ public class ConnectDBVoorraad {
 			System.out.println(ex);
 		}
 		return terug;
+	}
+	public Product nieuwProduct(String nm, int min, String eh, double pps){
+		Product terug = null;
+		try{			
+			Connection con = DriverManager.getConnection(databaseURL, "root", "");
+			//maak nieuw product met gegeven waarden
+			String sql = "INSERT INTO Product (naam, minimumAanwezig, eenheid, prijsPerStuk, bedrijfid) VALUES ('" + nm + "', " + min + ", '" + eh + "', " + pps + ", 1);";
+			Statement stmt = con.createStatement();
+			stmt.executeUpdate(sql);
+			stmt.close();
+			//zoek meest recente product (hoogste artikelnr) momenteel in database (dat is degene die we net toe hebben gevoegd)
+			String sql2 = "SELECT MAX(productid) FROM PRODUCT";
+			Statement stmt2 = con.createStatement();
+			ResultSet rs = stmt2.executeQuery(sql2);
+			int zoeknummer = 0;
+			while(rs.next()){
+				zoeknummer = rs.getInt(1);			
+			}
+			stmt2.close();
+			//zoek product op basis van gevonden artikelnummer
+			terug = zoekProduct(zoeknummer);
+			con.close();
+		}
+		catch(Exception ex){
+			System.out.println(ex);
+		}
+		return terug;
+	}
+	public boolean updateProduct(Product p){
+		try{
+			Connection con = DriverManager.getConnection(databaseURL, "root", "");
+			String sql = "UPDATE Product SET naam='" + p.getNaam() + "',  minimumAanwezig=" + p.getMinimumAanwezig() + 
+					", eenheid='" + p.getEenheid() + "', prijsPerStuk=" + p.getPrijsPerStuk() + ", aantal=" + p.getAantal()+ 
+					" WHERE productid = " + p.getArtikelNr();
+			Statement stmt = con.createStatement();
+			stmt.executeUpdate(sql);	
+			stmt.close();
+			con.close();
+			return true;
+		}
+		catch(Exception ex){
+			System.out.println(ex);
+		}
+		return false;
+	}
+	public boolean verwijderProduct(int nummer){
+		try{
+			Connection con = DriverManager.getConnection(databaseURL, "root", "");
+			String sql = "DELETE FROM Product WHERE productid=" + nummer;
+			Statement stmt = con.createStatement();
+			stmt.executeUpdate(sql);
+			stmt.close();
+			con.close();
+			return true;
+		}
+		catch(Exception ex){
+			System.out.println(ex);
+		}
+		return false;
 	}
 }

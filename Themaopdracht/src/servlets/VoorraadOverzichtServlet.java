@@ -33,42 +33,34 @@ public class VoorraadOverzichtServlet extends HttpServlet{
 			String eh = req.getParameter("eenheid");
 			String pps = req.getParameter("pps");
 			ArrayList<String> velden = new ArrayList<String>();
-			velden.add(nm); velden.add(ma); velden.add(eh);
+			velden.add(nm); velden.add(ma); velden.add(eh); velden.add("pps");
 			
 			//check of nodige velden in zijn gevuld (artikelnummer bestaat niet meer omdat de database die straks gaat aanmaken)
 			boolean allesIngevuld = true;
 			for(String s : velden){
 				if(s.equals("")){
 					allesIngevuld = false;
-					req.setAttribute("nieuwmsg", "Vul alle niet-optionele velden in!");
+					req.setAttribute("nieuwmsg", "Vul alle velden in!");
 					break;
 				}
 			}
 			
 			//als gegevens ingevuld
-			if(allesIngevuld){
-				
+			if(allesIngevuld){			
 				//check voor geldig minimumaantal (int)
 				if(!ma.matches("((-|\\+)?[0-9]+(\\.[0-9]+)?)+")){
 					req.setAttribute("nieuwmsg", "Minimum aantal is geen geldig nummer!");
 				}
+				//check voor geldige prijs (double)
+				else if(!pps.matches("((-|\\+)?[0-9]+(\\.[0-9]+)?)+")){
+					req.setAttribute("nieuwmsg", "Prijs per stuk is geen geldig nummer!");
+				}
 				else{
-					//check aanwezigheid prijs per stuk
-					if(pps.equals("")){
-						Product p = new Product(nm, 1, Integer.parseInt(ma), eh);
-						deVoorraad.add(p);
-					}
-					else{
-						//check voor geldige prijs per stuk (boolean)
-						if(!pps.matches("((-|\\+)?[0-9]+(\\.[0-9]+)?)+")){
-							req.setAttribute("nieuwmsg", "Prijs per stuk is geen geldig nummer!");
-						}
-						else{
-							double prijs = Double.parseDouble(pps);
-							Product p = new Product(nm, 1, Integer.parseInt(ma), eh, prijs);
-							deVoorraad.add(p);
-						}
-					}
+					//maak product aan in database en haal op
+					Product nieuw = conn.nieuwProduct(nm, Integer.parseInt(ma), eh, Double.parseDouble(pps));
+					//stuur toString() van nieuwe product terug
+					String terug = "Nieuw product aangemaakt: " + nieuw.toString();
+					req.setAttribute("nieuwmsg", terug);
 				}
 			}
 			RequestDispatcher rd = req.getRequestDispatcher("voorraad.jsp");
@@ -115,9 +107,20 @@ public class VoorraadOverzichtServlet extends HttpServlet{
 		//wijzig gezochte product
 		else if(knop.equals("wijzig")){
 			String productnummer = req.getParameter("product");
-			req.setAttribute("product", productnummer);
+			Product hetProduct = conn.zoekProduct(Integer.parseInt(productnummer));
+			req.setAttribute("product", hetProduct);
 			RequestDispatcher rd = req.getRequestDispatcher("wijzigproduct.jsp");
 			rd.forward(req, resp);
+		}		
+		else if(knop.equals("verwijder")){
+			String p = req.getParameter("product");
+			if(conn.verwijderProduct(Integer.parseInt(p))){
+				req.setAttribute("msg", "Product met succes verwijderd.");
+			}
+			deVoorraad = conn.getVoorraad();
+			req.setAttribute("voorraadlijst", deVoorraad);
+			RequestDispatcher rd = req.getRequestDispatcher("voorraadoverzicht.jsp");
+			rd.forward(req, resp);			
 		}
 	}
 }

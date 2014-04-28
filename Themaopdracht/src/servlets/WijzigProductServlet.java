@@ -1,6 +1,7 @@
 package servlets;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -14,10 +15,10 @@ import domeinklassen.Product;
 public class WijzigProductServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		String knop = req.getParameter("knop");
+		ConnectDBVoorraad conn = new ConnectDBVoorraad();
 		
 		if(knop.equals("wijzig")){
 			String p = req.getParameter("product");
-			ConnectDBVoorraad conn = new ConnectDBVoorraad();
 			Product hetProduct = conn.zoekProduct(Integer.parseInt(p));
 			String naam = req.getParameter("naam");
 			String at = req.getParameter("aantal");
@@ -67,7 +68,12 @@ public class WijzigProductServlet extends HttpServlet {
 				}
 			}
 			if(wijzigen){
-				req.setAttribute("msg", "Het product is gewijzigd.");
+				if(conn.updateProduct(hetProduct)){
+					req.setAttribute("msg", "Het product is gewijzigd.");
+				}
+				else{
+					req.setAttribute("msg", "Het is niet gelukt om dit product te wijzigen.");
+				}
 			}
 			else{
 				req.setAttribute("msg", "Geen wijzigingen aangebracht.");
@@ -75,6 +81,16 @@ public class WijzigProductServlet extends HttpServlet {
 			req.setAttribute("product", hetProduct);
 			RequestDispatcher rd = req.getRequestDispatcher("wijzigproduct.jsp");
 			rd.forward(req, resp);
+		}
+		else if(knop.equals("verwijder")){
+			String p = req.getParameter("product");
+			if(conn.verwijderProduct(Integer.parseInt(p))){
+				req.setAttribute("msg", "Product met succes verwijderd.");
+			}
+			ArrayList deVoorraad = conn.getVoorraad();
+			req.setAttribute("voorraadlijst", deVoorraad);
+			RequestDispatcher rd = req.getRequestDispatcher("voorraadoverzicht.jsp");
+			rd.forward(req, resp);	
 		}
 	}
 }
