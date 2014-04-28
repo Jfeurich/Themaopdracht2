@@ -7,6 +7,7 @@ import java.util.Date;
 
 public class Klant {
 
+	private int klantnummer;
 	private String naam, adres, plaats, rekeningnummer;
 	private Date datum = new Date();
 	private int telefoonnummer;
@@ -14,7 +15,8 @@ public class Klant {
 	private ArrayList<Auto> deAutos = new ArrayList<Auto>();
 	private ArrayList<Herinneringsbrief> deBrieven;
 
-	public Klant(String nm, String adr, String wp, String rnr, int nr){
+	public Klant(int kn, String nm, String adr, String wp, String rnr, int nr){
+		klantnummer = kn;
 		naam = nm;
 		adres = adr;
 		plaats = wp;
@@ -27,8 +29,40 @@ public class Klant {
 		return "Naam " + naam + "; adres " + adres + "; woonplaats " + plaats + "; rekeningnummer " + rekeningnummer + "; telefoonnummer " + telefoonnummer;
 	}
 
+	public int getKlantnummer(){
+		return klantnummer;
+	}
+	
 	public String getNaam(){
 		return naam;
+	}
+
+	public String getAdres() {
+		return adres;
+	}
+
+	public String getPlaats() {
+		return plaats;
+	}
+
+	public String getRekeningnummer() {
+		return rekeningnummer;
+	}
+
+	public int getTelefoonnummer() {
+		return telefoonnummer;
+	}
+
+	public SimpleDateFormat getDf() {
+		return df;
+	}
+
+	public ArrayList<Auto> getDeAutos() {
+		return deAutos;
+	}
+
+	public ArrayList<Herinneringsbrief> getDeBrieven() {
+		return deBrieven;
 	}
 
 	public ArrayList<Auto> getAutos(){

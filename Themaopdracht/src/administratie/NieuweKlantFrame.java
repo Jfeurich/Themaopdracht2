@@ -70,7 +70,7 @@ public class NieuweKlantFrame extends JFrame implements ActionListener {
 						JOptionPane.showMessageDialog(null, "Deze klant bestaat al", "Error!", JOptionPane.PLAIN_MESSAGE);
 					}
 					else{
-						Klant k = new Klant(tf1.getText(), tf2.getText(), tf5.getText(), tf4.getText(), Integer.parseInt(tf3.getText()));
+						Klant k = new Klant(1, tf1.getText(), tf2.getText(), tf5.getText(), tf4.getText(), Integer.parseInt(tf3.getText()));
 						bedrijf.voegKlantToe(k);
 						JOptionPane.showMessageDialog(null, "Klant is succesvol toegevoegd! \n" + k, "Gelukt!", JOptionPane.PLAIN_MESSAGE);
 						tf1.setText("");
