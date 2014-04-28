@@ -9,6 +9,11 @@
 
 
 
+Let goed op de volgende datatypes:
+
+-booleans bestaan niet in sql. In plaats daarvan heb ik CHAR(1) gebruikt, met als standaard waardes 'f' voor "false" en  't' voor "true". 
+	Wees hier alsjeblieft consistent mee, want als je een ander char gebruikt werkt de code niet meer.
+-Date in java en sql is niet hetzelfde. Zie ConnectDBKlus voor hoe je het ene type kan vertalen naar het andere.
 
 Over de database:
 

@@ -13,10 +13,10 @@ DROP TABLE IF EXISTS Klant;
 /* Klant */
 
 CREATE TABLE Klant (
-klantid		INTEGER 	NOT NULL PRIMARY KEY AUTO_INCREMENT,
-naam 		VARCHAR(30) 	NOT NULL,
-adres 		VARCHAR(50)	NOT NULL,
-plaats		VARCHAR(30)	NOT NULL,
+klantid			INTEGER 	NOT NULL PRIMARY KEY AUTO_INCREMENT,
+naam 			VARCHAR(30) NOT NULL,
+adres 			VARCHAR(50)	NOT NULL,
+plaats			VARCHAR(30)	NOT NULL,
 rekeningnummer	VARCHAR(20)	NOT NULL,
 telefoonnummer	INTEGER		NOT NULL
 );
@@ -30,11 +30,11 @@ INSERT INTO Klant (naam, adres, plaats, telefoonnummer, rekeningnummer) VALUES
 /* User */
 
 CREATE TABLE User (
-userid 		INTEGER NOT NULL PRIMARY KEY AUTO_INCREMENT,
+userid 			INTEGER 	NOT NULL PRIMARY KEY AUTO_INCREMENT,
 gebruikersnaam	VARCHAR(30)	NOT NULL,
-wachtwoord	VARCHAR(30)	NOT NULL,
-type		INTEGER		NOT NULL,
-klantid		INTEGER		,
+wachtwoord		VARCHAR(30)	NOT NULL,
+type			INTEGER		NOT NULL,
+klantid			INTEGER		,
 FOREIGN KEY (klantid) REFERENCES Klant(klantid)
 );
 
@@ -52,12 +52,12 @@ INSERT INTO User (gebruikersnaam, wachtwoord, type) VALUES
 /* Product */
 
 CREATE TABLE Product (
-productid	INTEGER 	NOT NULL PRIMARY KEY AUTO_INCREMENT,
-naam 		VARCHAR(30)	NOT NULL,
+productid		INTEGER 	NOT NULL PRIMARY KEY AUTO_INCREMENT,
+naam 			VARCHAR(30)	NOT NULL,
 minimumAanwezig INTEGER		NOT NULL,
-eenheid 	VARCHAR(30)	NOT NULL,
+eenheid 		VARCHAR(30)	NOT NULL,
 prijsPerStuk	DOUBLE		NOT NULL,
-aantal 		INTEGER	
+aantal 			INTEGER	
 );
 
 INSERT INTO Product (naam, minimumAanwezig, eenheid, prijsPerStuk) VALUES
@@ -70,25 +70,25 @@ INSERT INTO Product (naam, minimumAanwezig, eenheid, prijsPerStuk) VALUES
 
 CREATE TABLE Bestelling (
 bestellingid	INTEGER 	NOT NULL PRIMARY KEY AUTO_INCREMENT,
-datum		DATE		NOT NULL,
-isGeleverd	SMALLINT	
+datum			DATE		NOT NULL,
+isGeleverd		CHAR(1)		NOT NULL	
 );
 
-INSERT INTO Bestelling (datum) VALUES
-('2011-04-17'),
-('2007-11-20'),
-('2013-12-14')
+INSERT INTO Bestelling (datum, isGeleverd) VALUES
+('2011-04-17', 'f'),
+('2007-11-20', 'f'),
+('2013-12-14', 'f')
 ;
 
 /* BesteldProduct*/
 
 CREATE TABLE BesteldProduct (
-besteldproductid INTEGER 	NOT NULL PRIMARY KEY AUTO_INCREMENT,
-hoeveelheid	 INTEGER 	NOT NULL,
-productid	 INTEGER 	NOT NULL,
-bestellingid	 INTEGER 	NOT NULL,
-FOREIGN 	 KEY (productid) REFERENCES Product(productid),
-FOREIGN 	 KEY (bestellingid) REFERENCES Bestelling(bestellingid) 
+besteldproductid 	INTEGER 	NOT NULL PRIMARY KEY AUTO_INCREMENT,
+hoeveelheid	 		INTEGER 	NOT NULL,
+productid	 		INTEGER 	NOT NULL,
+bestellingid		INTEGER 	NOT NULL,
+FOREIGN KEY (productid) REFERENCES Product(productid),
+FOREIGN KEY (bestellingid) REFERENCES Bestelling(bestellingid) 
 );
 
 INSERT INTO BesteldProduct (productid, hoeveelheid, bestellingid) VALUES
@@ -100,11 +100,11 @@ INSERT INTO BesteldProduct (productid, hoeveelheid, bestellingid) VALUES
 /* Auto */
 
 CREATE TABLE Auto (
-autoid 	 INTEGER 	NOT NULL PRIMARY KEY AUTO_INCREMENT,
+autoid 	 INTEGER 		NOT NULL PRIMARY KEY AUTO_INCREMENT,
 kenteken VARCHAR(20)	NOT NULL,
 merk	 VARCHAR(20)	NOT NULL,
 type	 VARCHAR(20)	NOT NULL,
-klantid	 INTEGER 	NOT NULL,
+klantid	 INTEGER 		NOT NULL,
 FOREIGN KEY (klantid) REFERENCES Klant(klantid) 
 );
 
@@ -117,13 +117,13 @@ INSERT INTO Auto (kenteken, merk, type, klantid) VALUES
 /* Klus */
 
 CREATE TABLE Klus (
-klusid 		INTEGER 	NOT NULL PRIMARY KEY AUTO_INCREMENT,	
-datum 		DATE	 	NOT NULL,
+klusid 			INTEGER 		NOT NULL PRIMARY KEY AUTO_INCREMENT,	
+datum 			DATE	 		NOT NULL,
 beschrijving 	VARCHAR(100)	NOT NULL,
-manuren 	INTEGER		,
-status 		VARCHAR(20)	,
-soort 		VARCHAR(20)	NOT NULL,
-autoid		INTEGER 	NOT NULL,
+manuren 		INTEGER			,
+status 			VARCHAR(20)		,
+soort 			VARCHAR(20)		NOT NULL,
+autoid			INTEGER 		NOT NULL,
 FOREIGN KEY (autoid) REFERENCES Auto(autoid) 
 );
 
@@ -136,29 +136,29 @@ INSERT INTO Klus (datum, beschrijving, soort, autoid) VALUES
 /* Factuur */
 
 CREATE TABLE Factuur (
-factuurid		INTEGER 	NOT NULL PRIMARY KEY AUTO_INCREMENT,	
-aanmaakDatum		DATE		,
-betaalDatum		DATE		NOT NULL,
-betalingswijze 		VARCHAR(30)	NOT NULL,
+factuurid			INTEGER 	NOT NULL PRIMARY KEY AUTO_INCREMENT,	
+aanmaakDatum		DATE		NOT NULL,
+betaalDatum			DATE		,
+betalingswijze 		VARCHAR(30)	,
 kortingsPercentage	INTEGER		,
-isBetaald		SMALLINT	,
-klusid			INTEGER 	NOT NULL,
+isBetaald			CHAR(1)		NOT NULL,
+klusid				INTEGER 	NOT NULL,
 FOREIGN KEY (klusid) REFERENCES Klus(klusid) 
 );
 
-INSERT INTO Factuur (betalingswijze, betaalDatum, klusid) VALUES
-('contant', '2010-04-25', 1),
-('leven', '2012-12-12', 2),
-('human sacrifice', '2006-06-06', 3)
+INSERT INTO Factuur (aanmaakDatum, klusid, isBetaald) VALUES
+('2010-04-25', 1, 'f'),
+('2012-12-12', 2, 'f'),
+('2006-06-06', 3, 'f')
 ;
 
 /* GebruiktProduct */
 
 CREATE TABLE GebruiktProduct (
 gebruiktproductid 	INTEGER 	NOT NULL PRIMARY KEY AUTO_INCREMENT,
-aantal 			INTEGER		NOT NULL,
-klusid			INTEGER 	NOT NULL,
-productid		INTEGER 	NOT NULL,
+aantal 				INTEGER		NOT NULL,
+klusid				INTEGER 	NOT NULL,
+productid			INTEGER 	NOT NULL,
 FOREIGN KEY (productid) REFERENCES Product(productid), 
 FOREIGN KEY (klusid) REFERENCES Klus(klusid) 
 );	 
@@ -172,10 +172,10 @@ INSERT INTO GebruiktProduct (aantal, productid, klusid) VALUES
 /* Herinneringsbrief */
 
 CREATE TABLE Herinneringsbrief (
-herinneringsbriefid	INTEGER 	NOT NULL PRIMARY KEY AUTO_INCREMENT,
-reden			VARCHAR(100)	NOT NULL,
-datum			DATE		NOT NULL,
-klantid			INTEGER 	NOT NULL,
+herinneringsbriefid	INTEGER 		NOT NULL PRIMARY KEY AUTO_INCREMENT,
+reden				VARCHAR(100)	NOT NULL,
+datum				DATE			NOT NULL,
+klantid				INTEGER 		NOT NULL,
 FOREIGN KEY (klantid) REFERENCES Klant(klantid) 
 );
 
@@ -189,10 +189,10 @@ INSERT INTO Herinneringsbrief (klantid, reden, datum) VALUES
 
 CREATE TABLE Reservering (
 reserveringid 	INTEGER NOT NULL PRIMARY KEY AUTO_INCREMENT,
-beginDat	DATE	NOT NULL,
-eindDat		DATE	NOT NULL,
+beginDat		DATE	NOT NULL,
+eindDat			DATE	NOT NULL,
 deParkeerplek	INTEGER	NOT NULL,
-autoid		INTEGER NOT NULL,
+autoid			INTEGER NOT NULL,
 FOREIGN KEY (autoid) REFERENCES Auto(autoid)
 );
 
