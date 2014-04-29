@@ -5,24 +5,18 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Calendar;
 
 import domeinklassen.Klant;
-import domeinklassen.Product;
 
-public class ConnectDBKlant {
-	final static String DB_DRIV = "com.mysql.jdbc.Driver";
-	private String databaseURL = "jdbc:mysql://localhost:3306/ThemaopdrachtDB";
+public class ConnectDBKlant extends ConnectDB{
 	
 	//maak connectie
 	public ConnectDBKlant(){
-		try{
-			Class.forName(DB_DRIV).newInstance();
-		}
-		catch(Exception ex){
-			System.out.println(ex);
-		}
+		super();
 	}
 
+	//alle klanten in de database
 	public ArrayList<Klant> getKlanten(){
 		ArrayList<Klant> terug = new ArrayList<Klant>();
 		try{
@@ -49,6 +43,7 @@ public class ConnectDBKlant {
 		return terug;
 	}
 	
+	//zoek klant op klantnummer
 	public Klant zoekKlant(int klantnummer){
 		Klant terug = null;
 		try{
@@ -72,5 +67,69 @@ public class ConnectDBKlant {
 			System.out.println(ex);
 		}
 		return terug;		
+	}
+	
+	//maakt nieuwe klant.  id wordt automatisch toegewezen. geeft klant-object terug zodat je het id weet.
+	public Klant nieuweKlant(String nm, String adr, String wp, String rnr, int nr){
+		Klant terug = null;
+		try{			
+			Connection con = DriverManager.getConnection(databaseURL, "root", "");
+			//maak nieuw product met gegeven waarden
+			String sql = "INSERT INTO Klant (naam, adres, plaats, telefoonnummer, rekeningnummer) VALUES ('" + nm + "', '" + adr + "', '" + wp + "', '" + rnr + "', " + nr + ");";
+			Statement stmt = con.createStatement();
+			stmt.executeUpdate(sql);
+			stmt.close();
+			//zoek meest recente klant (hoogste id) momenteel in database (dat is degene die we net toe hebben gevoegd)
+			String sql2 = "SELECT MAX(klantid) FROM Klant";
+			Statement stmt2 = con.createStatement();
+			ResultSet rs = stmt2.executeQuery(sql2);
+			while(rs.next()){
+				int klantid = rs.getInt(1);	
+				//zoek klant op basis van gevonden klantnummer
+				terug = zoekKlant(klantid);		
+			}
+			stmt2.close();
+			con.close();
+		}
+		catch(Exception ex){
+			System.out.println(ex);
+		}
+		return terug;
+	}
+	
+	//wijzigt klant in database naar alle waarden van ingevoerde klant-object (exclusief het id)
+	public boolean updateKlant(Klant k){
+		try{
+			Connection con = DriverManager.getConnection(databaseURL, "root", "");
+			String sql = "UPDATE Klant SET naam='" + k.getNaam() + "',  adres='" + k.getAdres() + 
+					"', plaats='" + k.getPlaats() + "', telefoonnummer=" + k.getTelefoonnummer() + ", ' rekeningnummer='" + 
+					k.getRekeningnummer() + "' WHERE klantid = " + k.getKlantnummer();
+			Statement stmt = con.createStatement();
+			stmt.executeUpdate(sql);	
+			stmt.close();
+			con.close();
+			return true;
+		}
+		catch(Exception ex){
+			System.out.println(ex);
+		}
+		return false;
+	}
+	
+	//delete tabelrij met ingevoerd klantid
+	public boolean verwijderKlant(int klantid){
+		try{
+			Connection con = DriverManager.getConnection(databaseURL, "root", "");
+			String sql = "DELETE FROM Klant WHERE klantid=" + klantid;
+			Statement stmt = con.createStatement();
+			stmt.executeUpdate(sql);
+			stmt.close();
+			con.close();
+			return true;
+		}
+		catch(Exception ex){
+			System.out.println(ex);
+		}
+		return false;
 	}
 }

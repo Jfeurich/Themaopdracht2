@@ -8,19 +8,14 @@ import java.util.ArrayList;
 
 import domeinklassen.Product;
 
-public class ConnectDBProduct {
-	final static String DB_DRIV = "com.mysql.jdbc.Driver";
-	private String databaseURL = "jdbc:mysql://localhost:3306/ThemaopdrachtDB";
+public class ConnectDBProduct extends ConnectDB{
 	
 	//maak connectie
 	public ConnectDBProduct(){
-		try{
-			Class.forName(DB_DRIV).newInstance();
-		}
-		catch(Exception ex){
-			System.out.println(ex);
-		}
+		super();
 	}
+	
+	//alle producten in het systeem
 	public ArrayList<Product> getProducten(){
 		ArrayList<Product> deVoorraad = new ArrayList<Product>();
 		try{
@@ -52,6 +47,8 @@ public class ConnectDBProduct {
 		}
 		return deVoorraad;
 	}
+	
+	//zoek product op productid
 	public Product zoekProduct(int artikelnr){
 		Product terug = null;
 		try{
@@ -115,6 +112,8 @@ public class ConnectDBProduct {
 		}
 		return terug;
 	}
+	
+	//maakt nieuw product.  id wordt automatisch toegewezen. geeft product-object terug zodat je het id weet.
 	public Product nieuwProduct(String nm, int min, String eh, double pps){
 		Product terug = null;
 		try{			
@@ -142,6 +141,8 @@ public class ConnectDBProduct {
 		}
 		return terug;
 	}
+	
+	//wijzigt product in database naar alle waarden van ingevoerde product-object (exclusief het id)
 	public boolean updateProduct(Product p){
 		try{
 			Connection con = DriverManager.getConnection(databaseURL, "root", "");
@@ -159,10 +160,12 @@ public class ConnectDBProduct {
 		}
 		return false;
 	}
-	public boolean verwijderProduct(int nummer){
+	
+	//delete tabelrij met ingevoerd productid
+	public boolean verwijderProduct(int productid){
 		try{
 			Connection con = DriverManager.getConnection(databaseURL, "root", "");
-			String sql = "DELETE FROM Product WHERE productid=" + nummer;
+			String sql = "DELETE FROM Product WHERE productid=" + productid;
 			Statement stmt = con.createStatement();
 			stmt.executeUpdate(sql);
 			stmt.close();

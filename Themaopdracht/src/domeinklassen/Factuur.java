@@ -4,6 +4,7 @@ import java.util.Date;
 import java.text.*;
 
 public class Factuur {
+	private int factuurid;
 	private Date aanmaakDatum;
 	private Date betaaldDatum;
 	private String betalingswijze;
@@ -43,9 +44,21 @@ public class Factuur {
 		s += "\nTotaal: €" + totaal;
 		return s;
 	}
-
+	
+	public int getID(){
+		return factuurid;
+	}
+	
+	public void setID(int id){
+		factuurid = id;
+	}
+	
 	public Date getDatum(){
 		return aanmaakDatum;
+	}
+	
+	public int getKorting(){
+		return kortingsPercentage;
 	}
 
 	public void setKortingsPercentage(int kP){

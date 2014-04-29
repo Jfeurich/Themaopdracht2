@@ -6,6 +6,7 @@ import java.util.Date;
 
 public abstract class Klus {
 
+	public int id;
 	protected Date datum;
 	protected String beschrijving;
 	protected int manuren;
@@ -32,6 +33,10 @@ public abstract class Klus {
 		dA.voegKlusToe(this);
 		deFactuur = null;
 	}
+	
+	public int getID(){
+		return id;
+	}
 
 	public Auto getAuto(){
 		return deAuto;
@@ -43,9 +48,16 @@ public abstract class Klus {
 	public Date getDatum(){
 		return datum;
 	}
+	public String getBeschrijving(){
+		return beschrijving;
+	}
 
 	public void setStatus(String st){
 		status = st;
+	}
+	
+	public void setID(int i){
+		id = i;
 	}
 
 	public  int getManuren(){

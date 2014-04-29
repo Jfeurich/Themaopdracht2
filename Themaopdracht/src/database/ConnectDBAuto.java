@@ -8,21 +8,15 @@ import java.util.ArrayList;
 
 import domeinklassen.Auto;
 import domeinklassen.Klant;
-import domeinklassen.Product;
 
-public class ConnectDBAuto {
-	final static String DB_DRIV = "com.mysql.jdbc.Driver";
-	private String databaseURL = "jdbc:mysql://localhost:3306/ThemaopdrachtDB";
+public class ConnectDBAuto extends ConnectDB{
 	
 	//maak connectie
 	public ConnectDBAuto(){
-		try{
-			Class.forName(DB_DRIV).newInstance();
-		}
-		catch(Exception ex){
-			System.out.println(ex);
-		}
+		super();
 	}
+	
+	//alle autos in het systeem
 	public ArrayList<Auto> getAutos(){
 		ArrayList<Auto> terug = new ArrayList<Auto>();
 		try{
@@ -79,6 +73,7 @@ public class ConnectDBAuto {
 		return terug;
 	}
 	
+	//zoek auto op id
 	public Auto zoekAuto(int autoid){
 		Auto terug = null;
 		try{
@@ -92,18 +87,79 @@ public class ConnectDBAuto {
 				String mk = rs.getString("merk");
 				String tp = rs.getString("type");
 				int klantid = rs.getInt("klantid");
+				stmt.close();
+				con.close();
 				ConnectDBKlant klantconn = new ConnectDBKlant();
 				Klant eigenaar = klantconn.zoekKlant(klantid);
 				Auto a = new Auto(ken, mk, tp, eigenaar);
 				a.setID(id);
 				terug = a;
 			}
-			stmt.close();
-			con.close();
 		}
 		catch(Exception ex){
 			System.out.println(ex);
 		}
 		return terug;		
+	}
+	
+	//maak nieuwe auto. id wordt automatisch toegewezen. geeft auto-object terug zodat je het id weet.
+	public Auto nieuweAuto(String kenteken, String merk, String type, Klant eigenaar){
+		Auto terug = null;
+		try{
+			Connection con = DriverManager.getConnection(databaseURL, "root", "");
+			String sql = "INSERT INTO Auto (kenteken, merk, type, klantid) VALUES ('" + kenteken + "', '" + merk + "', '" + type + "', " + eigenaar.getKlantnummer() + ")";
+			Statement stmt = con.createStatement();
+			stmt.executeUpdate(sql);
+			stmt.close();
+			String sql2 = "SELECT MAX(autoid) FROM Auto";
+			Statement stmt2 = con.createStatement();
+			ResultSet rs = stmt2.executeQuery(sql2);
+			while(rs.next()){
+				int autoid = rs.getInt(1);
+				terug = new Auto(kenteken, merk, type, eigenaar);
+				terug.setID(autoid);			
+			}
+			stmt2.close();
+			con.close();
+		}
+		catch(Exception ex){
+			System.out.println(ex);
+		}
+		return terug;
+	}
+
+	//zet alle waardes van auto in database naar waardes van ingevoerd auto-object. met uitzondering van id. 
+	public boolean updateAuto(Auto a){
+		try{
+			Connection con = DriverManager.getConnection(databaseURL, "root", "");
+			String sql = "UPDATE Auto SET kenteken='" + a.getKenteken() + "',  merk='" + a.getMerk() + 
+					"', type='" + a.getType() + "' WHERE autoid = " + a.getID();
+			Statement stmt = con.createStatement();
+			stmt.executeUpdate(sql);	
+			stmt.close();
+			con.close();
+			return true;
+		}
+		catch(Exception ex){
+			System.out.println(ex);
+		}
+		return false;
+	}
+	
+	//verwijderd tabelrij met ingevoerd autoid
+	public boolean verwijderAuto(int autoid){
+		try{
+			Connection con = DriverManager.getConnection(databaseURL, "root", "");
+			String sql = "DELETE FROM Auto WHERE autoid=" + autoid;
+			Statement stmt = con.createStatement();
+			stmt.executeUpdate(sql);
+			stmt.close();
+			con.close();
+			return true;
+		}
+		catch(Exception ex){
+			System.out.println(ex);
+		}
+		return false;
 	}
 }
