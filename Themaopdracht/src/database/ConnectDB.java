@@ -3,7 +3,7 @@ package database;
 public abstract class ConnectDB {
 	
 	protected final static String DB_DRIV = "com.mysql.jdbc.Driver";
-	protected String databaseURL = "jdbc:mysql://localhost:3306/practicum1db";
+	protected String databaseURL = "jdbc:mysql://localhost:3306/ThemaopdrachtDB";
 	
 	public ConnectDB() {
 		try{
