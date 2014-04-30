@@ -27,3 +27,4 @@ commit.
 27-04 Angie: Eens kijken of dit werkt...
 27-04 Jay: het werkt
 28-04 Angie: Deelse implementatie van de database. Zie de DatabaseREADME voor instructies.
+30-04 Paul: Het is een wonder, het werkt
