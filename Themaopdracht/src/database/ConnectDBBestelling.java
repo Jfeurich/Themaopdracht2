@@ -17,6 +17,7 @@ public class ConnectDBBestelling extends ConnectDB{
 		super();
 	}
 	
+	//alle bestellingen in het systeem
 	public ArrayList<Bestelling> getBestellingen(){
 		ArrayList<Bestelling> terug = new ArrayList<Bestelling>();
 		try{			
@@ -49,6 +50,36 @@ public class ConnectDBBestelling extends ConnectDB{
 		return terug;
 	}
 	
+	//alle bestellingen in het systeem die nog NIET zijn geleverd
+	public ArrayList<Bestelling> getBestellingenNietGeleverd(){
+		ArrayList<Bestelling> terug = new ArrayList<Bestelling>();
+		try{			
+			Connection con = DriverManager.getConnection(databaseURL, "root", "");
+			String sql = "SELECT * FROM Bestelling WHERE isGeleverd='f'";
+			Statement stmt = con.createStatement();
+			ResultSet rs = stmt.executeQuery(sql);
+			while (rs.next()) {   // rs.next() geeft false als er niets meer is 
+				int id = rs.getInt("bestellingid");
+				java.sql.Date dat = rs.getDate("datum");
+				java.util.Date datum = new java.util.Date(dat.getTime());
+				Bestelling b = new Bestelling(id);
+				if(datum != null){
+					b.setVerwachteDatum(datum);
+				}
+				ConnectDBBesteldProduct bpconn = new ConnectDBBesteldProduct();
+				b.setBesteldeProducten(bpconn.getProductenVanBestelling(id));
+				terug.add(b);
+			}
+			stmt.close();
+			con.close();
+		}
+		catch(Exception ex){
+			System.out.println(ex);
+		}		
+		return terug;
+	}
+	
+	//zoek bestelling (per id)
 	public Bestelling zoekBestelling(int id){
 		Bestelling terug = null;
 		try{			
@@ -80,6 +111,7 @@ public class ConnectDBBestelling extends ConnectDB{
 		return terug;
 	}
 	
+	//maak nieuwe bestelling (per Bestelling-object)
 	public Bestelling nieuwBestelling(Bestelling deBestelling){
 		Bestelling terug = null;
 		try{			
@@ -99,7 +131,7 @@ public class ConnectDBBestelling extends ConnectDB{
 			rs.next();
 			int bestellingid = rs.getInt("bestellingid");			
 			stmt2.close();
-			//de producten aan de bestelling toevoegen
+			//BesteldeProducten aanmaken
 			String sql3 = "INSERT INTO BesteldProduct (hoeveelheid, productid, bestellingid) VALUES (?, ?, " + bestellingid + ");";
 			PreparedStatement pstmt = con.prepareStatement(sql3);
 			for(BesteldProduct bp: deBestelling.getBesteldeProducten()){

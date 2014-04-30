@@ -50,6 +50,42 @@ public class ConnectDBProduct extends ConnectDB{
 		return deVoorraad;
 	}
 	
+	//alle producten waarvan de voorraad lager is dan de minimumvoorraad
+	public ArrayList<Product> getProductenOnderMinimum(){
+		ArrayList<Product> deVoorraad = new ArrayList<Product>();
+		try{
+			Connection con = DriverManager.getConnection(databaseURL, "root", "");
+			String sql = "SELECT * FROM PRODUCT";
+			Statement stmt = con.createStatement();
+			ResultSet rs = stmt.executeQuery(sql);
+			while (rs.next()) {   // rs.next() geeft false als er niets meer is 
+				String nm = rs.getString("naam");
+				int aNr = rs.getInt("productid");
+				int mA = rs.getInt("minimumAanwezig");
+				String ee = rs.getString("eenheid");
+				double pPS = rs.getDouble("prijsPerStuk");
+				Product p = new Product(nm, aNr, mA, ee, pPS);
+				try{
+					int aantal = rs.getInt("aantal");
+					p.setAantal(aantal);
+					//toevoegen als er voorraad is, en deze te laag is
+					if(aantal < mA){
+						deVoorraad.add(p);
+					}
+				}
+				catch(Exception ex){
+					System.out.println(ex);
+				}
+			}
+			stmt.close();
+			con.close();
+		}
+		catch(Exception ex){
+			System.out.println(ex);
+		}
+		return deVoorraad;
+	}
+	
 	//zoek product op productid
 	public Product zoekProduct(int artikelnr){
 		Product terug = null;

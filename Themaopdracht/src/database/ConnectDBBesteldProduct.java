@@ -11,6 +11,11 @@ import domeinklassen.Klant;
 
 public class ConnectDBBesteldProduct extends ConnectDB {
 	
+	public ConnectDBBesteldProduct(){
+		super();
+	}
+	
+	//alle bestelde producten
 	public ArrayList<BesteldProduct> getBesteldeProducten(){
 		ArrayList<BesteldProduct> terug = new ArrayList<BesteldProduct>();
 		try{
@@ -36,6 +41,7 @@ public class ConnectDBBesteldProduct extends ConnectDB {
 		return terug;
 	}
 	
+	//alle producten van een bestelling (per bestellingid)
 	public ArrayList<BesteldProduct> getProductenVanBestelling(int bestellingid){
 		ArrayList<BesteldProduct> terug = new ArrayList<BesteldProduct>();
 		try{
@@ -61,6 +67,7 @@ public class ConnectDBBesteldProduct extends ConnectDB {
 		return terug;
 	}
 	
+	//get bestellingen met een bepaald product erin (per productid)
 	public ArrayList<BesteldProduct> getBestellingenVanProduct(int pid){
 		ArrayList<BesteldProduct> terug = new ArrayList<BesteldProduct>();
 		try{
@@ -85,6 +92,7 @@ public class ConnectDBBesteldProduct extends ConnectDB {
 		return terug;		
 	}
 	
+	//zoek specifiek besteld product
 	public BesteldProduct zoekBesteldProduct(int bpid){
 		BesteldProduct terug = null;
 		int pid = 0;
@@ -109,6 +117,7 @@ public class ConnectDBBesteldProduct extends ConnectDB {
 		return terug;
 	}
 	
+	//maak besteldproduct aan
 	public BesteldProduct nieuwBesteldProduct(int bestellingid, int productid, int hoeveelheid){
 		BesteldProduct terug = null;
 		try{			
@@ -137,6 +146,7 @@ public class ConnectDBBesteldProduct extends ConnectDB {
 		return terug;
 	}
 	
+	//verander hoeveelheid
 	public boolean updateBesteldProduct(BesteldProduct bp){
 		try{
 			Connection con = DriverManager.getConnection(databaseURL, "root", "");
@@ -153,6 +163,7 @@ public class ConnectDBBesteldProduct extends ConnectDB {
 		return false;
 	}
 	
+	//verwijder besteld product
 	public boolean verwijderBesteldProduct(int bpid){
 		try{
 			Connection con = DriverManager.getConnection(databaseURL, "root", "");

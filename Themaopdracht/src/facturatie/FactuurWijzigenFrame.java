@@ -74,7 +74,7 @@ public class FactuurWijzigenFrame extends JFrame implements ActionListener {
 							}
 							else{
 								//check zodat de meest recente factuur van deze auto wordt geselecteerd
-								if(f.getDatum().before(k.getFactuur().getDatum())){
+								if(f.getAanmaakDatum().before(k.getFactuur().getAanmaakDatum())){
 									f = k.getFactuur();
 								}
 							}

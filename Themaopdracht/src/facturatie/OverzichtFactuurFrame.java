@@ -116,7 +116,7 @@ public class OverzichtFactuurFrame extends JFrame implements ActionListener {
 						box.removeAllItems();
 						for(Klus k : bedrijf.getKlussen()){
 							if(k.getFactuur() != null && begDat != null && eindDat != null){
-								if(k.getFactuur().getDatum().after(begDat) && k.getFactuur().getDatum().before(eindDat)){
+								if(k.getFactuur().getAanmaakDatum().after(begDat) && k.getFactuur().getAanmaakDatum().before(eindDat)){
 									box.addItem(k.getAuto().getKenteken());
 								}
 							}
@@ -131,7 +131,7 @@ public class OverzichtFactuurFrame extends JFrame implements ActionListener {
 		}
 		else if(event.getSource() == toonKnop){
 			for(Klus k : bedrijf.getKlussen()){
-				if(k.getAuto().getKenteken().equalsIgnoreCase(geselecteerde) && k.getFactuur().getDatum().after(begDat) && k.getFactuur().getDatum().before(eindDat)){
+				if(k.getAuto().getKenteken().equalsIgnoreCase(geselecteerde) && k.getFactuur().getAanmaakDatum().after(begDat) && k.getFactuur().getAanmaakDatum().before(eindDat)){
 					Factuur f = k.getFactuur();
 					//de factuur wordt getoond
 					JOptionPane.showMessageDialog(null, "Factuur gevonden: \n" + f.toString(bedrijf.getBTW()), "Voorbeeld!", JOptionPane.PLAIN_MESSAGE);

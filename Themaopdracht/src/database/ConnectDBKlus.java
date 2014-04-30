@@ -370,7 +370,7 @@ public class ConnectDBKlus extends ConnectDB{
 			}
 			//en de (eventuele) factuur
 			ConnectDBFactuur fconn = new ConnectDBFactuur();
-			fconn.verwijderFactuur(fconn.getFactuurVanKlus(klusid).getID());
+			fconn.verwijderFactuur(fconn.getFactuurVanKlus(klusid));
 			//en vervolgens de klus zelf
 			Connection con = DriverManager.getConnection(databaseURL, "root", "");
 			String sql = "DELETE FROM Klus WHERE klusid=" + klusid;

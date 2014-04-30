@@ -97,8 +97,8 @@ public class BTWOverzichtFrame extends JFrame implements ActionListener {
 						for(Klus k: bedrijf.getKlussen()){
 							if(k.getFactuur() != null){
 								Factuur f = k.getFactuur();
-								if(f.getDatum().after(begDat) && f.getDatum().before(eindDat)){
-									s += "\nDatum: " + df.format(f.getDatum()) + "; Kenteken: " + k.getAuto().getKenteken() + "; Totaalbedrag zonder BTW: " + f.getTotaal() + "; BTW: " + f.getBTW(bedrijf.getBTW());
+								if(f.getAanmaakDatum().after(begDat) && f.getAanmaakDatum().before(eindDat)){
+									s += "\nDatum: " + df.format(f.getAanmaakDatum()) + "; Kenteken: " + k.getAuto().getKenteken() + "; Totaalbedrag zonder BTW: " + f.getTotaal() + "; BTW: " + f.getBTW(bedrijf.getBTW());
 								}
 							}
 						}

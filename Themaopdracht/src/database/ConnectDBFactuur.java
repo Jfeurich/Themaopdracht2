@@ -17,6 +17,7 @@ public class ConnectDBFactuur extends ConnectDB {
 		super();
 	}
 	
+	//alle facturen in het systeem
 	public ArrayList<Factuur> getFacturen(){
 		ArrayList<Factuur> terug = new ArrayList<Factuur>();
 		try{
@@ -47,6 +48,7 @@ public class ConnectDBFactuur extends ConnectDB {
 		return terug;
 	}
 	
+	//alle facturen aangemaakt tussen begindatum en einddatum
 	public ArrayList<Factuur> getFacturenTussen(java.util.Date begindat, java.util.Date einddat){
 		ArrayList<Factuur> terug = new ArrayList<Factuur>();
 		try{
@@ -78,6 +80,7 @@ public class ConnectDBFactuur extends ConnectDB {
 		return terug;
 	}
 	
+	//alle facturen die nog niet zijn betaald
 	public ArrayList<Factuur> getFacturenNietBetaald(){
 		ArrayList<Factuur> terug = new ArrayList<Factuur>();
 		try{
@@ -134,6 +137,7 @@ public class ConnectDBFactuur extends ConnectDB {
 		return terug;		
 	}
 	
+	//zoek factuur (per id)
 	public Factuur zoekFactuur(int factuurid){
 		Factuur terug = null;
 		try{
@@ -162,6 +166,7 @@ public class ConnectDBFactuur extends ConnectDB {
 		return terug;
 	}
 	
+	//nieuwe factuur (per Klus)
 	public Factuur nieuweFactuur(Klus k){
 		Factuur terug = null;
 		java.util.Date vandaag = Calendar.getInstance().getTime();
@@ -189,6 +194,7 @@ public class ConnectDBFactuur extends ConnectDB {
 		return terug;
 	}
 	
+	//zet alle waardes van factuur in database naar die van ingevoerde factuur-object
 	public boolean updateFactuur(Factuur f){
 		try{
 			java.util.Date aanmaak = f.getAanmaakDatum();
@@ -215,10 +221,11 @@ public class ConnectDBFactuur extends ConnectDB {
 		return false;
 	}
 	
-	public boolean verwijderFactuur(int factuurid){
+	//verwijder factuur (per id, geeft false als de gekoppelde klus nog in de database staat)
+	public boolean verwijderFactuur(Factuur f){
 		try{
 			Connection con = DriverManager.getConnection(databaseURL, "root", "");
-			String sql = "DELETE FROM Factuur WHERE factuurid=" + factuurid;
+			String sql = "DELETE FROM Factuur WHERE factuurid=" + f.getID();
 			Statement stmt = con.createStatement();
 			stmt.executeUpdate(sql);
 			stmt.close();
