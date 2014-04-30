@@ -61,6 +61,30 @@ public class ConnectDBGebruiktProduct extends ConnectDB {
 		return terug;
 	}
 	
+	public ArrayList<GebruiktProduct> getGebruikVanProduct(int pid){
+		ArrayList<GebruiktProduct> terug = new ArrayList<GebruiktProduct>();
+		try{
+			Connection con = DriverManager.getConnection(databaseURL, "root", "");
+			String sql = "SELECT * FROM GebruiktProduct WHERE productid=" + pid;
+			Statement stmt = con.createStatement();
+			ResultSet rs = stmt.executeQuery(sql);
+			while (rs.next()) {   // rs.next() geeft false als er niets meer is 
+				int bpid = rs.getInt("besteldproductid");
+				int h = rs.getInt("hoeveelheid");
+				GebruiktProduct bp = new GebruiktProduct(bpid, h);
+				ConnectDBProduct pconn = new ConnectDBProduct();
+				bp.setHetProduct(pconn.zoekProduct(pid));
+				terug.add(bp);
+			}
+			stmt.close();
+			con.close();
+		}
+		catch(Exception ex){
+			System.out.println(ex);
+		}
+		return terug;		
+	}	
+	
 	public GebruiktProduct zoekGebruiktProduct(int gpid){
 		GebruiktProduct terug = null;
 		int pid = 0;

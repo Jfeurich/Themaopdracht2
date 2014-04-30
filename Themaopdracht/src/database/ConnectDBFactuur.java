@@ -107,6 +107,33 @@ public class ConnectDBFactuur extends ConnectDB {
 		return terug;
 	}
 	
+	public Factuur getFactuurVanKlus(int klusid){
+		Factuur terug = null;
+		try{
+			Connection con = DriverManager.getConnection(databaseURL, "root", "");
+			String sql = "SELECT * FROM Factuur WHERE klusid=" + klusid;
+			Statement stmt = con.createStatement();
+			ResultSet rs = stmt.executeQuery(sql);
+			while (rs.next()) {   // rs.next() geeft false als er niets meer is 
+				int factuurid = rs.getInt("factuurid");
+				java.sql.Date dat = rs.getDate("aanmaakDatum");
+				java.util.Date datum = new java.util.Date(dat.getTime());
+				ConnectDBKlus klusconn = new ConnectDBKlus();
+				Klus deKlus = klusconn.zoekKlus(klusid);
+				Factuur f = new Factuur(datum, deKlus);
+				f.setID(factuurid);
+				//try voor extra waardes bij betaald
+				terug = f;
+			}
+			stmt.close();
+			con.close();
+		}
+		catch(Exception ex){
+			System.out.println(ex);
+		}
+		return terug;		
+	}
+	
 	public Factuur zoekFactuur(int factuurid){
 		Factuur terug = null;
 		try{
@@ -118,10 +145,9 @@ public class ConnectDBFactuur extends ConnectDB {
 				int klusid = rs.getInt("klusid");
 				java.sql.Date dat = rs.getDate("aanmaakDatum");
 				java.util.Date datum = new java.util.Date(dat.getTime());
-				Klus deKlus = null;
 				//NOG CHECKEN OF DIT KAN (2 connecties tegelijkertijd??
 				ConnectDBKlus klusconn = new ConnectDBKlus();
-				deKlus = klusconn.zoekKlus(klusid);
+				Klus deKlus = klusconn.zoekKlus(klusid);
 				Factuur f = new Factuur(datum, deKlus);
 				f.setID(factuurid);
 				//try voor extra waardes bij betaald

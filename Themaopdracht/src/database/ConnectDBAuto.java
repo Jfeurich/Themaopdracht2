@@ -8,6 +8,7 @@ import java.util.ArrayList;
 
 import domeinklassen.Auto;
 import domeinklassen.Klant;
+import domeinklassen.Klus;
 
 public class ConnectDBAuto extends ConnectDB{
 	
@@ -149,6 +150,13 @@ public class ConnectDBAuto extends ConnectDB{
 	//verwijderd tabelrij met ingevoerd autoid
 	public boolean verwijderAuto(int autoid){
 		try{
+			//verwijder eerst alle klussen van deze auto
+			ConnectDBKlus kconn = new ConnectDBKlus();
+			ArrayList<Klus> deKlussen = kconn.getKlussenVoorAuto(autoid);
+			for(Klus k : deKlussen){
+				kconn.verwijderKlus(k.getID());
+			}
+			//en vervolgens de auto zelf
 			Connection con = DriverManager.getConnection(databaseURL, "root", "");
 			String sql = "DELETE FROM Auto WHERE autoid=" + autoid;
 			Statement stmt = con.createStatement();

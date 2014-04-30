@@ -5,8 +5,8 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.Calendar;
 
+import domeinklassen.Auto;
 import domeinklassen.Klant;
 
 public class ConnectDBKlant extends ConnectDB{
@@ -120,6 +120,13 @@ public class ConnectDBKlant extends ConnectDB{
 	//delete tabelrij met ingevoerd klantid
 	public boolean verwijderKlant(int klantid){
 		try{
+			//verwijder eerst alle autos van deze klant
+			ConnectDBAuto aconn = new ConnectDBAuto();
+			ArrayList<Auto> deAutos = aconn.getAutosVan(klantid);
+			for(Auto a : deAutos){
+				aconn.verwijderAuto(a.getID());
+			}
+			//en vervolgens de klant zelf
 			Connection con = DriverManager.getConnection(databaseURL, "root", "");
 			String sql = "DELETE FROM Klant WHERE klantid=" + klantid;
 			Statement stmt = con.createStatement();

@@ -6,6 +6,8 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
 
+import domeinklassen.BesteldProduct;
+import domeinklassen.GebruiktProduct;
 import domeinklassen.Product;
 
 public class ConnectDBProduct extends ConnectDB{
@@ -164,6 +166,19 @@ public class ConnectDBProduct extends ConnectDB{
 	//delete tabelrij met ingevoerd productid
 	public boolean verwijderProduct(int productid){
 		try{
+			//verwijder eerst alle gebruikte producten met dit id
+			ConnectDBGebruiktProduct gconn = new ConnectDBGebruiktProduct();
+			ArrayList<GebruiktProduct> gproducten = gconn.getGebruikVanProduct(productid);
+			for(GebruiktProduct gp: gproducten){
+				gconn.verwijderGebruiktProduct(gp.getID());
+			}
+			//en alle bestelde producten met dit id
+			ConnectDBBesteldProduct bconn = new ConnectDBBesteldProduct();
+			ArrayList<BesteldProduct> bproducten = bconn.getBestellingenVanProduct(productid);
+			for(BesteldProduct bp: bproducten){
+				bconn.verwijderBesteldProduct(bp.getID());
+			}
+			//en vervolgens het product zelf
 			Connection con = DriverManager.getConnection(databaseURL, "root", "");
 			String sql = "DELETE FROM Product WHERE productid=" + productid;
 			Statement stmt = con.createStatement();

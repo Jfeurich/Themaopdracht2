@@ -61,6 +61,30 @@ public class ConnectDBBesteldProduct extends ConnectDB {
 		return terug;
 	}
 	
+	public ArrayList<BesteldProduct> getBestellingenVanProduct(int pid){
+		ArrayList<BesteldProduct> terug = new ArrayList<BesteldProduct>();
+		try{
+			Connection con = DriverManager.getConnection(databaseURL, "root", "");
+			String sql = "SELECT * FROM BesteldProduct WHERE productid=" + pid;
+			Statement stmt = con.createStatement();
+			ResultSet rs = stmt.executeQuery(sql);
+			while (rs.next()) {   // rs.next() geeft false als er niets meer is 
+				int bpid = rs.getInt("besteldproductid");
+				int h = rs.getInt("hoeveelheid");
+				BesteldProduct bp = new BesteldProduct(bpid, h);
+				ConnectDBProduct pconn = new ConnectDBProduct();
+				bp.setProduct(pconn.zoekProduct(pid));
+				terug.add(bp);
+			}
+			stmt.close();
+			con.close();
+		}
+		catch(Exception ex){
+			System.out.println(ex);
+		}
+		return terug;		
+	}
+	
 	public BesteldProduct zoekBesteldProduct(int bpid){
 		BesteldProduct terug = null;
 		int pid = 0;
@@ -94,7 +118,7 @@ public class ConnectDBBesteldProduct extends ConnectDB {
 			Statement stmt = con.createStatement();
 			stmt.executeUpdate(sql);
 			stmt.close();
-			//zoek meest recente klant (hoogste id) momenteel in database (dat is degene die we net toe hebben gevoegd)
+			//zoek meest recente product (hoogste id) momenteel in database (dat is degene die we net toe hebben gevoegd)
 			String sql2 = "SELECT MAX(besteldproductid) FROM BesteldProduct";
 			Statement stmt2 = con.createStatement();
 			ResultSet rs = stmt2.executeQuery(sql2);
@@ -104,7 +128,7 @@ public class ConnectDBBesteldProduct extends ConnectDB {
 			}
 			stmt2.close();
 			con.close();
-			//zoek klant op basis van gevonden klantnummer
+			//zoek product op basis van gevonden klantnummer
 			terug = zoekBesteldProduct(bpid);	
 		}
 		catch(Exception ex){

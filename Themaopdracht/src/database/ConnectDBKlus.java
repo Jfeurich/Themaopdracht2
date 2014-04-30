@@ -180,11 +180,11 @@ public class ConnectDBKlus extends ConnectDB{
 	}
 	
 	//geeft alle klussen voor het ingevoerde auto-object
-	public ArrayList<Klus> getKlussenVoorAuto(Auto a){
+	public ArrayList<Klus> getKlussenVoorAuto(int autoid){
 		ArrayList<Klus> terug = new ArrayList<Klus>();
 		try{
 			Connection con = DriverManager.getConnection(databaseURL, "root", "");
-			String sql = "SELECT * FROM Klus WHERE autoid='" + a.getID() + "'";
+			String sql = "SELECT * FROM Klus WHERE autoid='" + autoid + "'";
 			Statement stmt = con.createStatement();
 			ResultSet rs = stmt.executeQuery(sql);
 			stmt.close();
@@ -195,6 +195,8 @@ public class ConnectDBKlus extends ConnectDB{
 				String bes = rs.getString("beschrijving");
 				String type = rs.getString("soort");
 				int id = rs.getInt("klusid");
+				ConnectDBAuto autoconn = new ConnectDBAuto();
+				Auto deAuto = autoconn.zoekAuto(rs.getInt(autoid));
 				Onderhoudsbeurt o = null;
 				Reparatie r = null;
 				if(type.equals("onderhoudsbeurt")){
@@ -202,8 +204,6 @@ public class ConnectDBKlus extends ConnectDB{
 					o.setID(id);
 					ConnectDBGebruiktProduct gpconn = new ConnectDBGebruiktProduct();
 					o.setGebruikteProducten(gpconn.getProductenVanKlus(id));
-					ConnectDBAuto autoconn = new ConnectDBAuto();
-					Auto deAuto = autoconn.zoekAuto(rs.getInt("autoid"));
 					o.setDeAuto(deAuto);
 					try{
 						int manuren = rs.getInt("manuren");
@@ -226,8 +226,6 @@ public class ConnectDBKlus extends ConnectDB{
 					r.setID(id);
 					ConnectDBGebruiktProduct gpconn = new ConnectDBGebruiktProduct();
 					r.setGebruikteProducten(gpconn.getProductenVanKlus(id));
-					ConnectDBAuto autoconn = new ConnectDBAuto();
-					Auto deAuto = autoconn.zoekAuto(rs.getInt("autoid"));
 					r.setDeAuto(deAuto);
 					try{
 						int manuren = rs.getInt("manuren");
@@ -364,6 +362,16 @@ public class ConnectDBKlus extends ConnectDB{
 	//delete tabelrij met ingevoerd klusid
 	public boolean verwijderKlus(int klusid){
 		try{
+			//verwijder eerst de gebruikte producten
+			ConnectDBGebruiktProduct gpconn = new ConnectDBGebruiktProduct();
+			ArrayList<GebruiktProduct> deProducten = gpconn.getProductenVanKlus(klusid);
+			for(GebruiktProduct gp : deProducten){
+				gpconn.verwijderGebruiktProduct(gp.getID());
+			}
+			//en de (eventuele) factuur
+			ConnectDBFactuur fconn = new ConnectDBFactuur();
+			fconn.verwijderFactuur(fconn.getFactuurVanKlus(klusid).getID());
+			//en vervolgens de klus zelf
 			Connection con = DriverManager.getConnection(databaseURL, "root", "");
 			String sql = "DELETE FROM Klus WHERE klusid=" + klusid;
 			Statement stmt = con.createStatement();

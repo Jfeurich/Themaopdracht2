@@ -5,7 +5,9 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.Calendar;
+
 import domeinklassen.BesteldProduct;
 import domeinklassen.Bestelling;
 
@@ -14,6 +16,70 @@ public class ConnectDBBestelling extends ConnectDB{
 	public ConnectDBBestelling(){
 		super();
 	}
+	
+	public ArrayList<Bestelling> getBestellingen(){
+		ArrayList<Bestelling> terug = new ArrayList<Bestelling>();
+		try{			
+			Connection con = DriverManager.getConnection(databaseURL, "root", "");
+			String sql = "SELECT * FROM Bestelling";
+			Statement stmt = con.createStatement();
+			ResultSet rs = stmt.executeQuery(sql);
+			while (rs.next()) {   // rs.next() geeft false als er niets meer is 
+				int id = rs.getInt("bestellingid");
+				java.sql.Date dat = rs.getDate("datum");
+				String isGeleverd = rs.getString("isGeleverd");
+				java.util.Date datum = new java.util.Date(dat.getTime());
+				Bestelling b = new Bestelling(id);
+				if(isGeleverd.equals("t")){
+					b.setIsGeleverd(true);
+				}
+				if(datum != null){
+					b.setVerwachteDatum(datum);
+				}
+				ConnectDBBesteldProduct bpconn = new ConnectDBBesteldProduct();
+				b.setBesteldeProducten(bpconn.getProductenVanBestelling(id));
+				terug.add(b);
+			}
+			stmt.close();
+			con.close();
+		}
+		catch(Exception ex){
+			System.out.println(ex);
+		}		
+		return terug;
+	}
+	
+	public Bestelling zoekBestelling(int id){
+		Bestelling terug = null;
+		try{			
+			Connection con = DriverManager.getConnection(databaseURL, "root", "");
+			String sql = "SELECT * FROM Bestelling WHERE bestellingid=" + id;
+			Statement stmt = con.createStatement();
+			ResultSet rs = stmt.executeQuery(sql);
+			while (rs.next()) {   // rs.next() geeft false als er niets meer is 
+				java.sql.Date dat = rs.getDate("datum");
+				String isGeleverd = rs.getString("isGeleverd");
+				java.util.Date datum = new java.util.Date(dat.getTime());
+				Bestelling b = new Bestelling(id);
+				if(isGeleverd.equals("t")){
+					b.setIsGeleverd(true);
+				}
+				if(datum != null){
+					b.setVerwachteDatum(datum);
+				}
+				ConnectDBBesteldProduct bpconn = new ConnectDBBesteldProduct();
+				b.setBesteldeProducten(bpconn.getProductenVanBestelling(id));
+				terug = b;
+			}
+			stmt.close();
+			con.close();
+		}
+		catch(Exception ex){
+			System.out.println(ex);
+		}
+		return terug;
+	}
+	
 	public Bestelling nieuwBestelling(Bestelling deBestelling){
 		Bestelling terug = null;
 		try{			
@@ -74,6 +140,13 @@ public class ConnectDBBestelling extends ConnectDB{
 	//boolean verwijderClass	
 	public boolean verwijderBestelling(int bestellingid){
 		try{
+			//verwijder eerst alle producten van deze bestelling
+			ConnectDBBesteldProduct bpconn = new ConnectDBBesteldProduct();
+			ArrayList<BesteldProduct> deProducten = bpconn.getProductenVanBestelling(bestellingid);
+			for(BesteldProduct bp : deProducten){
+				bpconn.verwijderBesteldProduct(bp.getID());
+			}
+			//en vervolgens de bestelling zelf
 			Connection con = DriverManager.getConnection(databaseURL, "root", "");
 			String sql = "DELETE FROM Bestelling WHERE bestellingid=" + bestellingid;
 			Statement stmt = con.createStatement();
