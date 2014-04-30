@@ -20,7 +20,9 @@ public class ConnectDBBestelling extends ConnectDB{
 			Connection con = DriverManager.getConnection(databaseURL, "root", "");
 			//maak een bestelling aan
 			Calendar now = Calendar.getInstance();
-			String sql1 = "INSERT INTO Bestelling (datum) VALUES (now);";
+			java.util.Date datum = now.getTime();
+			java.sql.Date dat = new java.sql.Date(datum.getTime());
+			String sql1 = "INSERT INTO Bestelling (datum) VALUES ('" + dat + "');";
 			Statement stmt = con.createStatement();
 			stmt.executeUpdate(sql1);
 			stmt.close();
@@ -32,7 +34,7 @@ public class ConnectDBBestelling extends ConnectDB{
 			int bestellingid = rs.getInt("bestellingid");			
 			stmt2.close();
 			//de producten aan de bestelling toevoegen
-			String sql3 = "INSERT INTO BesteldProduct (hoeveelheid, productid, bestellingid) VALUES ( ?, ?, " + bestellingid + ")";
+			String sql3 = "INSERT INTO BesteldProduct (hoeveelheid, productid, bestellingid) VALUES (?, ?, " + bestellingid + ");";
 			PreparedStatement pstmt = con.prepareStatement(sql3);
 			for(BesteldProduct bp: deBestelling.getBesteldeProducten()){
 				pstmt.setInt(1, bp.getHoeveelheid());
