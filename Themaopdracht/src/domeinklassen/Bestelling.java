@@ -11,19 +11,16 @@ public class Bestelling {
 	private Date datum;
 	private ArrayList<BesteldProduct> deBesteldeProducten;
 	
-<<<<<<< HEAD
 	public Bestelling(int bN){
 		bestelNummer = bN;
 		isGeleverd = false;
 		datum = null;
 	}
 
-=======
 	public Bestelling(){
 		isGeleverd = false;
 		datum = null;
 	}
->>>>>>> f0446b9d2f95ab35f0a862faebf5ea4e939c2215
 	public Bestelling(int bN, ArrayList<BesteldProduct> deBP) {
 		bestelNummer = bN;
 		deBesteldeProducten = deBP;
@@ -54,12 +51,9 @@ public class Bestelling {
 	}
 	public void setVerwachteDatum(String da) throws Exception{
 		datum = df.parse(da);
-<<<<<<< HEAD
 	}	
 	public void setVerwachteDatum(Date da) throws Exception{
 		datum = da;
-=======
->>>>>>> f0446b9d2f95ab35f0a862faebf5ea4e939c2215
 	}
 	public Date getVerwachteDatum(){
 		return datum;
