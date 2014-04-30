@@ -10,7 +10,11 @@ public class Bestelling {
 	private SimpleDateFormat df = new SimpleDateFormat("dd-MM-yyyy");
 	private Date datum;
 	private ArrayList<BesteldProduct> deBesteldeProducten;
-
+	
+	public Bestelling(){
+		isGeleverd = false;
+		datum = null;
+	}
 	public Bestelling(int bN, ArrayList<BesteldProduct> deBP) {
 		bestelNummer = bN;
 		deBesteldeProducten = deBP;
