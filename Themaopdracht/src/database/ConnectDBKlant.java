@@ -83,13 +83,14 @@ public class ConnectDBKlant extends ConnectDB{
 			String sql2 = "SELECT MAX(klantid) FROM Klant";
 			Statement stmt2 = con.createStatement();
 			ResultSet rs = stmt2.executeQuery(sql2);
+			int klantid = 0;
 			while(rs.next()){
-				int klantid = rs.getInt(1);	
-				//zoek klant op basis van gevonden klantnummer
-				terug = zoekKlant(klantid);		
+				klantid = rs.getInt(1);		
 			}
 			stmt2.close();
 			con.close();
+			//zoek klant op basis van gevonden klantnummer
+			terug = zoekKlant(klantid);	
 		}
 		catch(Exception ex){
 			System.out.println(ex);

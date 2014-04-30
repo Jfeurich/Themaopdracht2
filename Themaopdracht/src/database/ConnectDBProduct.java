@@ -132,9 +132,9 @@ public class ConnectDBProduct extends ConnectDB{
 				zoeknummer = rs.getInt(1);			
 			}
 			stmt2.close();
+			con.close();
 			//zoek product op basis van gevonden artikelnummer
 			terug = zoekProduct(zoeknummer);
-			con.close();
 		}
 		catch(Exception ex){
 			System.out.println(ex);

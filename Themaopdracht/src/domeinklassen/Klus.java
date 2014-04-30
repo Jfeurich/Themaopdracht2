@@ -16,6 +16,13 @@ public abstract class Klus {
 	protected ArrayList<GebruiktProduct> gebruikteProducten = new ArrayList<GebruiktProduct>();
 	private SimpleDateFormat df = new SimpleDateFormat("dd-MM-yyyy");
 
+	public Klus(Date dat, String b){
+		datum = dat;
+		beschrijving = b;
+		manuren = 0;
+		deAuto = null;
+		deFactuur = null;	
+	}
 	public Klus(Date dat, String b, Auto dA){
 		datum = dat;
 		beschrijving = b;
@@ -32,6 +39,11 @@ public abstract class Klus {
 		deAuto = dA;
 		dA.voegKlusToe(this);
 		deFactuur = null;
+	}
+	
+	public void setDeAuto(Auto a){
+		deAuto = a;
+		a.voegKlusToe(this);
 	}
 	
 	public int getID(){
@@ -69,6 +81,10 @@ public abstract class Klus {
 
 	public ArrayList<GebruiktProduct> getGebruikteProducten(){
 		return gebruikteProducten;
+	}
+	
+	public void setGebruikteProducten(ArrayList<GebruiktProduct> array){
+		gebruikteProducten = array;
 	}
 	public void addGebruiktProduct(GebruiktProduct g){
 		gebruikteProducten.add(g);

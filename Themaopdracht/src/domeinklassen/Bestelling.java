@@ -10,6 +10,12 @@ public class Bestelling {
 	private SimpleDateFormat df = new SimpleDateFormat("dd-MM-yyyy");
 	private Date datum;
 	private ArrayList<BesteldProduct> deBesteldeProducten;
+	
+	public Bestelling(int bN){
+		bestelNummer = bN;
+		isGeleverd = false;
+		datum = null;
+	}
 
 	public Bestelling(int bN, ArrayList<BesteldProduct> deBP) {
 		bestelNummer = bN;
@@ -41,6 +47,9 @@ public class Bestelling {
 	}
 	public void setVerwachteDatum(String da) throws Exception{
 		datum = df.parse(da);
+	}	
+	public void setVerwachteDatum(Date da) throws Exception{
+		datum = da;
 	}
 	public Date getVerwachteDatum(){
 		return datum;

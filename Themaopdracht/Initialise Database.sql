@@ -70,7 +70,7 @@ INSERT INTO Product (naam, minimumAanwezig, eenheid, prijsPerStuk) VALUES
 
 CREATE TABLE Bestelling (
 bestellingid	INTEGER 	NOT NULL PRIMARY KEY AUTO_INCREMENT,
-datum			DATE		NOT NULL,
+datum			DATE		,
 isGeleverd		CHAR(1)		NOT NULL	
 );
 

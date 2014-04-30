@@ -7,6 +7,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 
 import domeinklassen.Auto;
+import domeinklassen.GebruiktProduct;
 import domeinklassen.Klus;
 import domeinklassen.Onderhoudsbeurt;
 import domeinklassen.Reparatie;
@@ -26,17 +27,24 @@ public class ConnectDBKlus extends ConnectDB{
 			String sql = "SELECT * FROM Klus";
 			Statement stmt = con.createStatement();
 			ResultSet rs = stmt.executeQuery(sql);
+			stmt.close();
+			con.close();
 			while (rs.next()) {   // rs.next() geeft false als er niets meer is 
 			    java.sql.Date datum = rs.getDate("datum");
 			    java.util.Date dat = new java.util.Date(datum.getTime());
 				String bes = rs.getString("beschrijving");
 				String type = rs.getString("soort");
+				int id = rs.getInt("klusid");
 				ConnectDBAuto autoconn = new ConnectDBAuto();
 				Auto deAuto = autoconn.zoekAuto(rs.getInt("autoid"));
+				ConnectDBGebruiktProduct gp = new ConnectDBGebruiktProduct();
+				ArrayList<GebruiktProduct> deProducten = gp.getProductenVanKlus(id);
 				Onderhoudsbeurt o = null;
 				Reparatie r = null;
 				if(type.equals("onderhoudsbeurt")){
 					o = new Onderhoudsbeurt(dat, bes, deAuto);
+					o.setID(id);
+					o.setGebruikteProducten(deProducten);
 					try{
 						int manuren = rs.getInt("manuren");
 						o.addManuren(manuren);
@@ -55,6 +63,8 @@ public class ConnectDBKlus extends ConnectDB{
 				}
 				else if(type.equals("reparatie")){
 					r = new Reparatie(dat, bes, deAuto);
+					r.setID(id);
+					r.setGebruikteProducten(deProducten);
 					try{
 						int manuren = rs.getInt("manuren");
 						r.addManuren(manuren);
@@ -72,8 +82,6 @@ public class ConnectDBKlus extends ConnectDB{
 					terug.add(r);
 				}
 			}
-			stmt.close();
-			con.close();
 		}
 		catch(Exception ex){
 			System.out.println(ex);
@@ -89,13 +97,15 @@ public class ConnectDBKlus extends ConnectDB{
 			String sql = "SELECT * FROM Klus WHERE soort='onderhoudsbeurt'";
 			Statement stmt = con.createStatement();
 			ResultSet rs = stmt.executeQuery(sql);
+			stmt.close();
+			con.close();
 			while (rs.next()) {   // rs.next() geeft false als er niets meer is 
 			    java.sql.Date datum = rs.getDate("datum");
 			    java.util.Date dat = new java.util.Date(datum.getTime());
 				String bes = rs.getString("beschrijving");
-				ConnectDBAuto autoconn = new ConnectDBAuto();
-				Auto deAuto = autoconn.zoekAuto(rs.getInt("autoid"));
-				Onderhoudsbeurt o = new Onderhoudsbeurt(dat, bes, deAuto);
+				int id = rs.getInt("klusid");
+				Onderhoudsbeurt o = new Onderhoudsbeurt(dat, bes);
+				o.setID(id);
 				try{
 					int manuren = rs.getInt("manuren");
 					o.addManuren(manuren);
@@ -110,10 +120,13 @@ public class ConnectDBKlus extends ConnectDB{
 				catch(Exception e){
 					System.out.println(e);
 				}
+				ConnectDBAuto autoconn = new ConnectDBAuto();
+				Auto deAuto = autoconn.zoekAuto(rs.getInt("autoid"));
+				o.setDeAuto(deAuto);
+				ConnectDBGebruiktProduct gpconn = new ConnectDBGebruiktProduct();
+				o.setGebruikteProducten(gpconn.getProductenVanKlus(id));
 				terug.add(o);
 			}
-			stmt.close();
-			con.close();
 		}
 		catch(Exception ex){
 			System.out.println(ex);
@@ -129,13 +142,15 @@ public class ConnectDBKlus extends ConnectDB{
 			String sql = "SELECT * FROM Klus WHERE soort='reparatie'";
 			Statement stmt = con.createStatement();
 			ResultSet rs = stmt.executeQuery(sql);
+			stmt.close();
+			con.close();
 			while (rs.next()) {   // rs.next() geeft false als er niets meer is 
 			    java.sql.Date datum = rs.getDate("datum");
 			    java.util.Date dat = new java.util.Date(datum.getTime());
 				String bes = rs.getString("beschrijving");
-				ConnectDBAuto autoconn = new ConnectDBAuto();
-				Auto deAuto = autoconn.zoekAuto(rs.getInt("autoid"));
-				Reparatie r = new Reparatie(dat, bes, deAuto);
+				int id = rs.getInt("klusid");
+				Reparatie r = new Reparatie(dat, bes);
+				r.setID(id);
 				try{
 					int manuren = rs.getInt("manuren");
 					r.addManuren(manuren);
@@ -150,10 +165,13 @@ public class ConnectDBKlus extends ConnectDB{
 				catch(Exception e){
 					System.out.println(e);
 				}
+				ConnectDBAuto autoconn = new ConnectDBAuto();
+				Auto deAuto = autoconn.zoekAuto(rs.getInt("autoid"));
+				r.setDeAuto(deAuto);
+				ConnectDBGebruiktProduct gpconn = new ConnectDBGebruiktProduct();
+				r.setGebruikteProducten(gpconn.getProductenVanKlus(id));
 				terug.add(r);
 			}
-			stmt.close();
-			con.close();
 		}
 		catch(Exception ex){
 			System.out.println(ex);
@@ -169,17 +187,24 @@ public class ConnectDBKlus extends ConnectDB{
 			String sql = "SELECT * FROM Klus WHERE autoid='" + a.getID() + "'";
 			Statement stmt = con.createStatement();
 			ResultSet rs = stmt.executeQuery(sql);
+			stmt.close();
+			con.close();
 			while (rs.next()) {   // rs.next() geeft false als er niets meer is 
 			    java.sql.Date datum = rs.getDate("datum");
 			    java.util.Date dat = new java.util.Date(datum.getTime());
 				String bes = rs.getString("beschrijving");
 				String type = rs.getString("soort");
-				ConnectDBAuto autoconn = new ConnectDBAuto();
-				Auto deAuto = autoconn.zoekAuto(rs.getInt("autoid"));
+				int id = rs.getInt("klusid");
 				Onderhoudsbeurt o = null;
 				Reparatie r = null;
 				if(type.equals("onderhoudsbeurt")){
-					o = new Onderhoudsbeurt(dat, bes, deAuto);
+					o = new Onderhoudsbeurt(dat, bes);
+					o.setID(id);
+					ConnectDBGebruiktProduct gpconn = new ConnectDBGebruiktProduct();
+					o.setGebruikteProducten(gpconn.getProductenVanKlus(id));
+					ConnectDBAuto autoconn = new ConnectDBAuto();
+					Auto deAuto = autoconn.zoekAuto(rs.getInt("autoid"));
+					o.setDeAuto(deAuto);
 					try{
 						int manuren = rs.getInt("manuren");
 						o.addManuren(manuren);
@@ -197,7 +222,13 @@ public class ConnectDBKlus extends ConnectDB{
 					terug.add(o);
 				}
 				else if(type.equals("reparatie")){
-					r = new Reparatie(dat, bes, deAuto);
+					r = new Reparatie(dat, bes);
+					r.setID(id);
+					ConnectDBGebruiktProduct gpconn = new ConnectDBGebruiktProduct();
+					r.setGebruikteProducten(gpconn.getProductenVanKlus(id));
+					ConnectDBAuto autoconn = new ConnectDBAuto();
+					Auto deAuto = autoconn.zoekAuto(rs.getInt("autoid"));
+					r.setDeAuto(deAuto);
 					try{
 						int manuren = rs.getInt("manuren");
 						r.addManuren(manuren);
@@ -215,8 +246,6 @@ public class ConnectDBKlus extends ConnectDB{
 					terug.add(r);
 				}
 			}
-			stmt.close();
-			con.close();
 		}
 		catch(Exception ex){
 			System.out.println(ex);
@@ -237,14 +266,12 @@ public class ConnectDBKlus extends ConnectDB{
 			    java.util.Date dat = new java.util.Date(datum.getTime());
 				String bes = rs.getString("beschrijving");
 				String type = rs.getString("soort");
-				ConnectDBAuto autoconn = new ConnectDBAuto();
-				Auto deAuto = autoconn.zoekAuto(rs.getInt("autoid"));
 				if(type.equals("onderhoudsbeurt")){
-					terug = new Onderhoudsbeurt(dat, bes, deAuto);
+					terug = new Onderhoudsbeurt(dat, bes);
 					terug.setID(klusid);
 				}
 				else if(type.equals("reparatie")){
-					terug = new Reparatie(dat, bes, deAuto);
+					terug = new Reparatie(dat, bes);
 					terug.setID(klusid);
 				}
 				try{
@@ -264,6 +291,11 @@ public class ConnectDBKlus extends ConnectDB{
 			}
 			stmt.close();
 			con.close();
+			ConnectDBAuto autoconn = new ConnectDBAuto();
+			Auto deAuto = autoconn.zoekAuto(rs.getInt("autoid"));
+			ConnectDBGebruiktProduct gpconn = new ConnectDBGebruiktProduct();
+			terug.setGebruikteProducten(gpconn.getProductenVanKlus(klusid));
+			terug.setDeAuto(deAuto);
 		}
 		catch(Exception ex){
 			System.out.println(ex);
@@ -286,14 +318,15 @@ public class ConnectDBKlus extends ConnectDB{
 			String sql2 = "SELECT MAX(klusid) FROM Klus";
 			Statement stmt2 = con.createStatement();
 			ResultSet rs = stmt2.executeQuery(sql2);
+			int klusid = 0;
 			while(rs.next()){
-				int klusid = rs.getInt(1);	
-				//zoek product op basis van gevonden artikelnummer
-				Klus k = zoekKlus(klusid);
-				terug = k;		
+				klusid = rs.getInt(1);	
 			}
 			stmt2.close();
 			con.close();
+			//zoek product op basis van gevonden artikelnummer
+			Klus k = zoekKlus(klusid);
+			terug = k;		
 		}
 		catch(Exception ex){
 			System.out.println(ex);

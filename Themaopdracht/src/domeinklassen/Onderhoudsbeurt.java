@@ -4,6 +4,10 @@ import java.util.Date;
 
 public class Onderhoudsbeurt extends Klus {
 
+	public Onderhoudsbeurt(Date dat, String b){
+		super(dat, b);
+	}
+	
 	public Onderhoudsbeurt(Date dat, String b, Auto dA){
 		super(dat, b, dA);
 	}

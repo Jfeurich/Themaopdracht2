@@ -114,13 +114,13 @@ public class ConnectDBAuto extends ConnectDB{
 			String sql2 = "SELECT MAX(autoid) FROM Auto";
 			Statement stmt2 = con.createStatement();
 			ResultSet rs = stmt2.executeQuery(sql2);
+			int autoid = 0;
 			while(rs.next()){
-				int autoid = rs.getInt(1);
-				terug = new Auto(kenteken, merk, type, eigenaar);
-				terug.setID(autoid);			
+				autoid = rs.getInt(1);		
 			}
 			stmt2.close();
 			con.close();
+			terug = zoekAuto(autoid);
 		}
 		catch(Exception ex){
 			System.out.println(ex);

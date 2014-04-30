@@ -53,8 +53,12 @@ public class Factuur {
 		factuurid = id;
 	}
 	
-	public Date getDatum(){
+	public Date getAanmaakDatum(){
 		return aanmaakDatum;
+	}
+	
+	public Date getBetaalDatum(){
+		return betaaldDatum;
 	}
 	
 	public int getKorting(){
@@ -66,6 +70,10 @@ public class Factuur {
 	}
 	public Klus getDeKlus(){
 		return deKlus;
+	}
+	
+	public String getBetaalwijze(){
+		return betalingswijze;
 	}
 	public double getTotaal(){
 		double totaal = 0.0;

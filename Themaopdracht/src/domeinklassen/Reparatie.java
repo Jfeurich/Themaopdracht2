@@ -4,6 +4,10 @@ import java.util.Date;
 
 public class Reparatie extends Klus {
 
+	public Reparatie(Date dat, String b){
+		super(dat, b);
+	}
+
 	public Reparatie(Date dat, String b, Auto dA){
 		super(dat, b, dA);
 	}
