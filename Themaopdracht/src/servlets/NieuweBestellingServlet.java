@@ -21,7 +21,7 @@ public class NieuweBestellingServlet extends HttpServlet{
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		String knop = req.getParameter("knop");
 		if(knop.equals("Done")){
-			
+			resp.sendRedirect("homepage.jsp");
 		}
 		else{
 			if(knop.equals("MaakBestelling")){
