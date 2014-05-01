@@ -29,4 +29,20 @@
 		<servlet-name>NieuweKlus</servlet-name>
 		<url-pattern>/NieuweKlusServlet.do</url-pattern>
 	</servlet-mapping>
+	<servlet>
+	<servlet-name>NieuweBestelling</servlet-name>
+	<servlet-class>servlets.NieuweBestellingServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>NieuweBestelling</servlet-name>
+		<url-pattern>/NieuweBestellingServlet.do</url-pattern>
+	</servlet-mapping>
+		<servlet>
+	<servlet-name>StatusWijzigenFactuur</servlet-name>
+	<servlet-class>servlets.StatusWijzigenFactuurServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>StatusWijzigenFactuur</servlet-name>
+		<url-pattern>/StatusWijzigenFactuurServlet.do</url-pattern>
+	</servlet-mapping>
 </web-app>
