@@ -113,7 +113,7 @@ public class ConnectDBBestelling extends ConnectDB{
 	
 	//maak nieuwe bestelling (per Bestelling-object)
 	public Bestelling nieuwBestelling(Bestelling deBestelling){
-		Bestelling terug = null;
+		Bestelling terug = deBestelling;
 		try{			
 			Connection con = DriverManager.getConnection(databaseURL, "root", "");
 			//maak een bestelling aan
@@ -131,6 +131,7 @@ public class ConnectDBBestelling extends ConnectDB{
 			rs.next();
 			int bestellingid = rs.getInt("bestellingid");			
 			stmt2.close();
+			terug.setBestelNummer(bestellingid);
 			//BesteldeProducten aanmaken
 			String sql3 = "INSERT INTO BesteldProduct (hoeveelheid, productid, bestellingid) VALUES (?, ?, " + bestellingid + ");";
 			PreparedStatement pstmt = con.prepareStatement(sql3);

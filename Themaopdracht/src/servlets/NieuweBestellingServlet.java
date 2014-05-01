@@ -9,9 +9,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import database.ConnectDBAuto;
+import database.ConnectDBBestelling;
 import database.ConnectDBProduct;
-import domeinklassen.Auto;
 import domeinklassen.BesteldProduct;
 import domeinklassen.Bestelling;
 import domeinklassen.Product;
@@ -21,31 +20,49 @@ public class NieuweBestellingServlet extends HttpServlet{
 	
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		String knop = req.getParameter("knop");
-		
-		if(knop.equals("maakBestelling")){
-			ConnectDBProduct productcon = new ConnectDBProduct();	
-			ArrayList<Product> producten = productcon.getProducten();
-			req.setAttribute("producten", producten);
-			Bestelling deBestelling = new Bestelling();
-			req.setAttribute("deBestelling", deBestelling);
-		}
-		else if(knop.equals("kiesProducten")){
-			ConnectDBProduct productcon = new ConnectDBProduct();
-			String[] gekozenProducten = req.getParameterValues("gekozenProduct");
-			ArrayList<Product> teBestellenProducten = new ArrayList<Product>();
-			for(int i = 0; i < gekozenProducten.length; i++){
-				teBestellenProducten.add(productcon.zoekProduct(Integer.parseInt(gekozenProducten[i])));
-			}
-			req.setAttribute("teBestellenProducten", teBestellenProducten);
-		}
-		else if(knop.equals("bestel")){
-			//input van html naar BesteldProduct(en) omzetten
-			ArrayList<BesteldProduct> deBesteldeProducten= new ArrayList<BesteldProduct>();
-			Bestelling deBestelling = (Bestelling) req.getAttribute("deBestelling");
-			deBestelling.setBesteldeProducten(deBesteldeProducten);
+		if(knop.equals("Done")){
 			
 		}
-		RequestDispatcher rd = req.getRequestDispatcher("nieuweklus.jsp");
-		rd.forward(req, resp);	
+		else{
+			if(knop.equals("MaakBestelling")){
+				ConnectDBProduct productcon = new ConnectDBProduct();	
+				ArrayList<Product> producten = productcon.getProducten();
+				req.setAttribute("producten", producten);
+				req.setAttribute("stap1", "done");
+			}
+			else if(knop.equals("KiesProducten")){
+				ConnectDBProduct productcon = new ConnectDBProduct();
+				String[] gekozenProducten = req.getParameterValues("gekozenProduct");
+				ArrayList<Product> teBestellenProducten = new ArrayList<Product>();
+				for(int i = 0; i < gekozenProducten.length; i++){
+					teBestellenProducten.add(productcon.zoekProduct(Integer.parseInt(gekozenProducten[i])));
+				}
+				req.setAttribute("teBestellenProducten", teBestellenProducten);
+				req.setAttribute("stap2", "done");
+			}
+			else if(knop.equals("Bestel")){
+				ArrayList<BesteldProduct> deBesteldeProducten = new ArrayList<BesteldProduct>();
+				Bestelling deBestelling = new Bestelling();
+				ConnectDBProduct productcon = new ConnectDBProduct();
+				int teller1 = 0;
+				int teller2 = 0;
+				for(int i = 1; i <= productcon.hoogsteArtNr(); i ++){
+					teller1++;
+					if(req.getParameter("" + i) != null){
+						teller2++;
+						int aantal = Integer.parseInt(req.getParameter("" + i));
+						deBesteldeProducten.add(new BesteldProduct(productcon.zoekProduct(i), aantal));
+					}
+				}
+				req.setAttribute("teller1", teller1);
+				req.setAttribute("teller2", teller2);
+				deBestelling.setBesteldeProducten(deBesteldeProducten);
+				ConnectDBBestelling bestellingcon = new ConnectDBBestelling();
+				req.setAttribute("deBestelling", bestellingcon.nieuwBestelling(deBestelling));
+				req.setAttribute("stap3", "done");
+			}
+			RequestDispatcher rd = req.getRequestDispatcher("nieuwebestelling.jsp");
+			rd.forward(req, resp);	
+		}
 	}
 }

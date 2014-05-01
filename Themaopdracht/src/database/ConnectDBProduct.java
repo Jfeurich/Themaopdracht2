@@ -3,6 +3,7 @@ package database;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
@@ -227,5 +228,23 @@ public class ConnectDBProduct extends ConnectDB{
 			System.out.println(ex);
 		}
 		return false;
+	}
+	
+	//hoogste artikelnummer
+	public int hoogsteArtNr(){
+		try {
+			Connection con = DriverManager.getConnection(databaseURL, "root", "");
+			String sql = "SELECT MAX(productid) AS max FROM Product";
+			Statement stmt;
+			stmt = con.createStatement();
+			ResultSet rs = stmt.executeQuery(sql);
+			rs.next();
+			int maximum = rs.getInt(1);			
+			stmt.close();
+			con.close();
+			return maximum;
+		} catch (SQLException e) {
+			return -1;
+		}
 	}
 }

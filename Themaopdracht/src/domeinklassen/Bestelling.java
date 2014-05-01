@@ -30,6 +30,9 @@ public class Bestelling {
 	public int getBestelNummer(){
 		return bestelNummer;
 	}
+	public void setBestelNummer(int nr){
+		bestelNummer = nr;
+	}
 	public int getTotaal(){
 		int totaal = 0;
 		for(BesteldProduct bp: deBesteldeProducten){
@@ -71,9 +74,6 @@ public class Bestelling {
 		}
 		else{
 			s += "; verwachte leverdatum: " + df.format(datum);
-		}
-		for(BesteldProduct bp: deBesteldeProducten){
-			s += "\n" + bp;
 		}
 		return s;
 	}
