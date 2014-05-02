@@ -2,6 +2,7 @@ package servlets;
 
 import java.io.IOException;
 import java.util.Calendar;
+import java.util.Date;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -31,8 +32,8 @@ public class StatusWijzigenFactuurServlet extends HttpServlet{
 			else if(knop.equals("Betaal")){
 				ConnectDBFactuur factuurcon = new ConnectDBFactuur();
 				Factuur deFactuur = factuurcon.zoekFactuur(Integer.parseInt(req.getParameter("factuurid")));
-				Calendar now = Calendar.getInstance();
-				deFactuur.betaal(req.getParameter("betaalmiddel"), now);
+				Date datum = new Date();
+				deFactuur.betaal(req.getParameter("betaalmiddel"), datum);
 				req.setAttribute("stap1", "done");
 			}
 			RequestDispatcher rd = req.getRequestDispatcher("statuswijzigenfactuur.jsp");

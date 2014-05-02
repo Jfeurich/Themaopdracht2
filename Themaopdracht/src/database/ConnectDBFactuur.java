@@ -169,7 +169,7 @@ public class ConnectDBFactuur extends ConnectDB {
 	//nieuwe factuur (per Klus)
 	public Factuur nieuweFactuur(Klus k){
 		Factuur terug = null;
-		java.util.Date vandaag = Calendar.getInstance().getTime();
+		java.util.Date vandaag = new java.util.Date();
 		java.sql.Date datum = new java.sql.Date(vandaag.getTime());
 		try{
 			Connection con = DriverManager.getConnection(databaseURL, "root", "");
