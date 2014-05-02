@@ -3,10 +3,30 @@
 <head>
 	<meta http-equiv="content-type" content="text/html; charset=iso-8859-1" />
 	<title>Nieuwe bestelling</title>
+	<script>
+		function updatePrijs()
+		{
+			var totaal = parseFloat("0");
+			var array = document.getElementsByTagName("wijzigaantal");
+		    var aantal = [].slice.call(array);
+			
+			for(int i = 0, i < aantal.length, i++){
+				var text = aantal[i].value;
+				try{
+					totaal += parseFloat(text);
+				}
+				catch(Exception ex){
+					System.out.println(ex);
+				}
+			}
+			var prijsveld = document.getElementByID("totaalprijs");
+			prijsveld.innerHTML = "Totaalprijs: E" + totaal;
+		}
+	</script>
 </head>
 <body>
 	<form action="NieuweBestellingServlet.do" method="post">
-		<%@ page import="java.util.ArrayList, domeinklassen.Bestelling, domeinklassen.Product, domeinklassen.BesteldProduct" %>
+		<%@ page import="java.util.ArrayList,domeinklassen.Bestelling,domeinklassen.Product,domeinklassen.BesteldProduct" %>
 		<div>
 			<h2>Nieuwe bestelling aanmaken</h2>
 			<% 				
@@ -63,10 +83,12 @@
 								out.println("<td>" + p.getMinimumAanwezig() + "</td>");
 								out.println("<td>" + p.getAantal() + "</td>");
 								out.println("<td>" + p.getPrijsPerStuk() + "</td>");
-								out.println("<td><input type=text name=" + p.getArtikelNr() + " /></td>");
+								out.println("<td><input type=text onkeyup=updatePrijs() name=wijzigaantal /></td>");
 							out.println("</tr>");
+							out.println("<input type=hidden onkeyup=updatePrijs() name=wijzig value=" + p.getArtikelNr() + " />");
 						}
 					out.println("</table>");
+					out.println("<p id=totaalprijs>Totaalprijs: </p>");
 					out.println("<input type=submit name=knop value=Bestel />");		
 				}
 				else if(request.getAttribute("stap3") != null){

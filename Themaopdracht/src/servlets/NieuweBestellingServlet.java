@@ -46,17 +46,19 @@ public class NieuweBestellingServlet extends HttpServlet{
 				Bestelling deBestelling = new Bestelling();
 				ConnectDBProduct productcon = new ConnectDBProduct();
 				boolean goed = true;
-				for(int i = 1; i <= productcon.hoogsteArtNr(); i ++){
-					if(req.getParameter("" + i) != null){
-						teBestellenProducten.add(productcon.zoekProduct(i));
+				String[] gewijzigdeproducten = req.getParameterValues("wijzig");
+				String[] wijzigaantal =  req.getParameterValues("wijzigaantal");
+				if(gewijzigdeproducten.length != 0){
+					for(int i = 0; i < gewijzigdeproducten.length; i++){
 						try{
-							int aantal = Integer.parseInt(req.getParameter("" + i));
+							int aantal = Integer.parseInt(wijzigaantal[i]);
 							deBesteldeProducten.add(new BesteldProduct(productcon.zoekProduct(i), aantal));
 						}
 						catch(Exception e){
 							goed = false;
 							req.setAttribute("msg", "Ongeldige waarde ingevoerd!");
-						}
+							break;
+						}	
 					}
 				}
 				if(goed == true){
