@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import database.ConnectDBAuto;
 import database.ConnectDBKlant;
 import domeinklassen.Klant;
 
@@ -28,10 +29,17 @@ public class AutoToevoegenServlet extends HttpServlet{
 				req.setAttribute("stap1", "done");
 			}
 			if(knop.equals("VoegAutoToe")){
-				ConnectDBKlant klantcon = new ConnectDBKlant();	
-				ArrayList<Klant> klanten = klantcon.getKlanten();
-				req.setAttribute("klanten", klanten);
-				req.setAttribute("stap2", "done");
+				ConnectDBAuto autocon = new ConnectDBAuto();	
+				String ken = req.getParameter("kenteken");
+				String mk = req.getParameter("merk");
+				String tp = req.getParameter("type");
+				String klanten = req.getParameter("autovanklant");
+				
+				boolean allesIngevuld = (ken!=null) && (mk!=null) && (tp!=null);
+				if(!allesIngevuld){ 
+					req.setAttribute("error", "Vul alle velden in!");
+				}
+				
 			}	
 			RequestDispatcher rd = req.getRequestDispatcher("autotoevoegen.jsp");
 			rd.forward(req, resp);	
