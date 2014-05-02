@@ -39,6 +39,7 @@
 						out.println("</tr>");
 					}
 					out.println("</table>");
+					out.println("<input type=hidden name=autovanklant value=" + klanten.getID() + " />");
 					out.println("<input type=submit name=knop value=KiesKlant />");	
 				}
 				else if(request.getAttribute("stap2") != null){
