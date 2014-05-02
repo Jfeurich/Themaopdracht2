@@ -42,24 +42,34 @@ public class NieuweBestellingServlet extends HttpServlet{
 			}
 			else if(knop.equals("Bestel")){
 				ArrayList<BesteldProduct> deBesteldeProducten = new ArrayList<BesteldProduct>();
+				ArrayList<Product> teBestellenProducten = new ArrayList<Product>();
 				Bestelling deBestelling = new Bestelling();
 				ConnectDBProduct productcon = new ConnectDBProduct();
-				int teller1 = 0;
-				int teller2 = 0;
+				boolean goed = true;
 				for(int i = 1; i <= productcon.hoogsteArtNr(); i ++){
-					teller1++;
 					if(req.getParameter("" + i) != null){
-						teller2++;
-						int aantal = Integer.parseInt(req.getParameter("" + i));
-						deBesteldeProducten.add(new BesteldProduct(productcon.zoekProduct(i), aantal));
+						teBestellenProducten.add(productcon.zoekProduct(i));
+						try{
+							int aantal = Integer.parseInt(req.getParameter("" + i));
+							deBesteldeProducten.add(new BesteldProduct(productcon.zoekProduct(i), aantal));
+						}
+						catch(Exception e){
+							goed = false;
+							req.setAttribute("msg", "Ongeldige waarde ingevoerd!");
+						}
 					}
 				}
-				req.setAttribute("teller1", teller1);
-				req.setAttribute("teller2", teller2);
-				deBestelling.setBesteldeProducten(deBesteldeProducten);
-				ConnectDBBestelling bestellingcon = new ConnectDBBestelling();
-				req.setAttribute("deBestelling", bestellingcon.nieuwBestelling(deBestelling));
-				req.setAttribute("stap3", "done");
+				if(goed == true){
+					deBestelling.setBesteldeProducten(deBesteldeProducten);
+					ConnectDBBestelling bestellingcon = new ConnectDBBestelling();
+					req.setAttribute("deBestelling", bestellingcon.nieuwBestelling(deBestelling));
+					req.setAttribute("stap3", "done");
+				}
+				//als er een ongeldige waarde is ingevuld
+				else{
+					req.setAttribute("teBestellenProducten", teBestellenProducten);
+					req.setAttribute("stap2", "done");
+				}
 			}
 			RequestDispatcher rd = req.getRequestDispatcher("nieuwebestelling.jsp");
 			rd.forward(req, resp);	
