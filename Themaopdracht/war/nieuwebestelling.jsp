@@ -1,28 +1,8 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-	<meta http-equiv="content-type" content="text/html; charset=iso-8859-1" />
+	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
 	<title>Nieuwe bestelling</title>
-	<script>
-		function updatePrijs()
-		{
-			var totaal = parseFloat("0");
-			var array = document.getElementsByTagName("wijzigaantal");
-		    var aantal = [].slice.call(array);
-			
-			for(int i = 0, i < aantal.length, i++){
-				var text = aantal[i].value;
-				try{
-					totaal += parseFloat(text);
-				}
-				catch(Exception ex){
-					System.out.println(ex);
-				}
-			}
-			var prijsveld = document.getElementByID("totaalprijs");
-			prijsveld.innerHTML = "Totaalprijs: E" + totaal;
-		}
-	</script>
 </head>
 <body>
 	<form action="NieuweBestellingServlet.do" method="post">
@@ -41,7 +21,7 @@
 						out.println(msg);
 					}
 				}
-				if(request.getAttribute("stap1") != null){
+				if(request.getAttribute("stap1") != null) {
 					ArrayList<Product> producten = (ArrayList<Product>)request.getAttribute("producten");	
 					out.println("<h2>Kies de te bestellen producten</h2>");
 					out.println("<table>");
@@ -82,13 +62,13 @@
 								out.println("<td>" + p.getEenheid() + "</td>");
 								out.println("<td>" + p.getMinimumAanwezig() + "</td>");
 								out.println("<td>" + p.getAantal() + "</td>");
-								out.println("<td>" + p.getPrijsPerStuk() + "</td>");
+								out.println("<td name=prijsperstuk >" + p.getPrijsPerStuk() + "</td>");
 								out.println("<td><input type=text onkeyup=updatePrijs() name=wijzigaantal /></td>");
 							out.println("</tr>");
-							out.println("<input type=hidden onkeyup=updatePrijs() name=wijzig value=" + p.getArtikelNr() + " />");
+							out.println("<input type=hidden name=wijzig value=" + p.getArtikelNr() + " />");
 						}
 					out.println("</table>");
-					out.println("<p id=totaalprijs>Totaalprijs: </p>");
+					out.println("<p id=totaalprijs >Totaalprijs: </p>");
 					out.println("<input type=submit name=knop value=Bestel />");		
 				}
 				else if(request.getAttribute("stap3") != null){
@@ -119,6 +99,22 @@
 				}
 			%>
 		</div>
+		<script type="text/javascript">
+			function updatePrijs(){
+				var totaal=parseFloat("0");
+				var array=document.getElementsByName("wijzigaantal");
+			    var aantal=[].slice.call(array);
+				var array2=document.getElementsByName("prijsperstuk");
+			    var pps=[].slice.call(array2);
+				
+				for(var i=parseFloat("0"); i<aantal.length; i++){
+					var text=aantal[i].value;
+					var prijs=pps[i].innerHTML;
+					totaal += parseFloat(text) * parseFloat(prijs);
+				}
+				document.getElementById("totaalprijs").innerHTML="Totaalprijs: " + totaal + " euro";
+			}
+		</script>
 	</form>
 </body>
 </html>

@@ -51,8 +51,9 @@ public class NieuweBestellingServlet extends HttpServlet{
 				if(gewijzigdeproducten.length != 0){
 					for(int i = 0; i < gewijzigdeproducten.length; i++){
 						try{
+							int productid = Integer.parseInt(gewijzigdeproducten[i]);
 							int aantal = Integer.parseInt(wijzigaantal[i]);
-							deBesteldeProducten.add(new BesteldProduct(productcon.zoekProduct(i), aantal));
+							deBesteldeProducten.add(new BesteldProduct(productcon.zoekProduct(productid), aantal));
 						}
 						catch(Exception e){
 							goed = false;
