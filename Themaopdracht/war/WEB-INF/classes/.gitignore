@@ -1,8 +1,8 @@
-/domeinklassen
-/servlets
 /database
-/administratie
+/domeinklassen
 /facturatie
 /klantenbinding
 /parkeergarage
-/werkplaats
+/servlets
+/voorraadbeheer
+/administratie
