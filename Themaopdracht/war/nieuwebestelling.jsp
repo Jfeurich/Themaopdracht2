@@ -86,6 +86,7 @@
 								out.println("<td>" + bp.getProduct().getNaam() + "</td>");
 								out.println("<td>" + bp.getProduct().getEenheid() + "</td>");
 								out.println("<td>" + bp.getHoeveelheid() + "</td>");
+								out.println("<td>" + bp.getProduct().getPrijsPerStuk() + "</td>");	
 							out.println("</tr>");
 						}
 					out.println("</table>");
