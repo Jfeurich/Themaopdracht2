@@ -4,6 +4,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class Reservering {
+	private int id;
 	private Date beginDat;
 	private Date eindDat;
 	private SimpleDateFormat df = new SimpleDateFormat("dd-MM-yyyy");
@@ -11,6 +12,14 @@ public class Reservering {
 	private Auto deAuto;
 
 	public Reservering(Date bD, Date eD, int dP){
+		beginDat = bD;
+		eindDat = eD;
+		deParkeerplek = dP;
+	}
+	
+	public Reservering(Auto a, int i, Date bD, Date eD, int dP){
+		deAuto = a;
+		id = i;
 		beginDat = bD;
 		eindDat = eD;
 		deParkeerplek = dP;
@@ -27,7 +36,13 @@ public class Reservering {
 	public void voegAutoToe(Auto a){
 		deAuto = a;
 	}
+	public int getID(){
+		return id;
+	}
 	public Date getBegDat(){
+		return beginDat;
+	}
+	public Date getEindDat(){
 		return beginDat;
 	}
 	public Auto getAuto(){

@@ -6,6 +6,7 @@ import java.util.Date;
 
 public class Herinneringsbrief{
 
+	private int id;
 	private Klant deKlant;
 	private String reden;
 	private Date datum;
@@ -18,8 +19,28 @@ public class Herinneringsbrief{
 		datum = new Date();
 	}
 
+	public Herinneringsbrief(int i, Klant k, String r, Date dat){
+		id = i;
+		deKlant = k;
+		k.voegBriefToe(this);
+		reden = r;
+		datum = dat;
+	}
+
+	public Klant getDeKlant() {
+		return deKlant;
+	}
+
+	public String getReden() {
+		return reden;
+	}
+
 	public Date getDatum(){
 		return datum;
+	}
+	
+	public int getID(){
+		return id;
 	}
 
 	//kijkt of het om een herinnering voor onderhoud gaat of een klant die al lang niet meer is geweest

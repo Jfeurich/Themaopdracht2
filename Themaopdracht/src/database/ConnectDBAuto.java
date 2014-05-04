@@ -83,7 +83,6 @@ public class ConnectDBAuto extends ConnectDB{
 			Statement stmt = con.createStatement();
 			ResultSet rs = stmt.executeQuery(sql);
 			while (rs.next()) {   // rs.next() geeft false als er niets meer is 
-				int id = rs.getInt("autoid");
 				String ken = rs.getString("kenteken");
 				String mk = rs.getString("merk");
 				String tp = rs.getString("type");
@@ -93,7 +92,7 @@ public class ConnectDBAuto extends ConnectDB{
 				ConnectDBKlant klantconn = new ConnectDBKlant();
 				Klant eigenaar = klantconn.zoekKlant(klantid);
 				Auto a = new Auto(ken, mk, tp, eigenaar);
-				a.setID(id);
+				a.setID(autoid);
 				terug = a;
 			}
 		}
