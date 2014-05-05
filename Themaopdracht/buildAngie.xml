@@ -5,6 +5,7 @@
 <delete file="${ant.project.name}.war" />
 </target>
 <target name="deploy" depends="init" description="generate and deploy project" >
+<jar jarfile="${ant.project.name}.war" basedir="${war_dir}" />
 <copy file="${ant.project.name}.war" todir="${deploy_dir}"/>
 </target>
 </project>
