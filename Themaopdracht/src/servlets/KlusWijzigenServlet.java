@@ -36,7 +36,7 @@ public class KlusWijzigenServlet extends HttpServlet {
 			ArrayList<Auto> autos = autoconn.getAutosVan(klantnummer);
 			req.setAttribute("autos", autos);
 		}
-		//roep al het werk aan wat aan deze auto is gedaan en laat nieuweklus.jsp het forumulier tonen om een klus toe te voegen
+		//kies auto
 		else if(knop.equals("kiesauto")){
 			ConnectDBAuto autoconn = new ConnectDBAuto();
 			String autoid = req.getParameter("gekozenauto");
