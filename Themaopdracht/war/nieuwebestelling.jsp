@@ -110,7 +110,10 @@
 				for(var i=parseFloat("0"); i<aantal.length; i++){
 					var text=aantal[i].value;
 					var prijs=pps[i].innerHTML;
-					totaal += parseFloat(text) * parseFloat(prijs);
+					var plus=parseFloat(text);
+					if(!isNaN(plus)){
+						totaal += plus * parseFloat(prijs);
+					}
 				}
 				document.getElementById("totaalprijs").innerHTML="Totaalprijs: " + totaal + " euro";
 			}
