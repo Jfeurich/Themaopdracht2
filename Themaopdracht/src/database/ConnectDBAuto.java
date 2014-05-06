@@ -39,7 +39,7 @@ public class ConnectDBAuto{
 			stmt.close();
 		}
 		catch(Exception ex){
-			System.out.println(ex);
+			System.out.println("Probleem bij ophalen autos" + ex);
 		}
 		return terug;
 	}
@@ -65,7 +65,7 @@ public class ConnectDBAuto{
 			stmt.close();
 		}
 		catch(Exception ex){
-			System.out.println(ex);
+			System.out.println("Probleem bij ophalen autos van klant" + ex);
 		}
 		return terug;
 	}
@@ -91,7 +91,7 @@ public class ConnectDBAuto{
 			stmt.close();
 		}
 		catch(Exception ex){
-			System.out.println("Auto: " + ex);
+			System.out.println("Probleem bij zoeken naar auto" + ex);
 		}
 		return terug;		
 	}
@@ -115,7 +115,7 @@ public class ConnectDBAuto{
 			terug = zoekAuto(autoid);
 		}
 		catch(Exception ex){
-			System.out.println(ex);
+			System.out.println("Probleem bij nieuwe auto maken" + ex);
 		}
 		return terug;
 	}
@@ -131,7 +131,7 @@ public class ConnectDBAuto{
 			return true;
 		}
 		catch(Exception ex){
-			System.out.println(ex);
+			System.out.println("Probleem bij auto updaten" + ex);
 		}
 		return false;
 	}
@@ -153,7 +153,7 @@ public class ConnectDBAuto{
 			return true;
 		}
 		catch(Exception ex){
-			System.out.println(ex);
+			System.out.println("Probleem bij auto verwijderen " + ex);
 		}
 		return false;
 	}

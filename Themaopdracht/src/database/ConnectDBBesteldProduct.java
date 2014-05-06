@@ -36,7 +36,7 @@ public class ConnectDBBesteldProduct{
 			stmt.close();
 		}
 		catch(Exception ex){
-			System.out.println(ex);
+			System.out.println("Probleem bij bestelde producten ophalen " + ex);
 		}
 		return terug;
 	}
@@ -60,7 +60,7 @@ public class ConnectDBBesteldProduct{
 			stmt.close();
 		}
 		catch(Exception ex){
-			System.out.println(ex);
+			System.out.println("Probleem bij producten van bestelling ophalen " + ex);
 		}
 		return terug;
 	}
@@ -83,7 +83,7 @@ public class ConnectDBBesteldProduct{
 			stmt.close();
 		}
 		catch(Exception ex){
-			System.out.println(ex);
+			System.out.println("Probleem bij bestellingen per product ophalen " + ex);
 		}
 		return terug;		
 	}
@@ -106,7 +106,7 @@ public class ConnectDBBesteldProduct{
 			stmt.close();
 		}
 		catch(Exception ex){
-			System.out.println(ex);
+			System.out.println("Probleem bij besteldproduct zoeken " + ex);
 		}
 		return terug;
 	}
@@ -133,7 +133,7 @@ public class ConnectDBBesteldProduct{
 			terug = zoekBesteldProduct(bpid);	
 		}
 		catch(Exception ex){
-			System.out.println(ex);
+			System.out.println("Probleem bij nieuw besteldproduct" + ex);
 		}
 		return terug;
 	}
@@ -163,7 +163,7 @@ public class ConnectDBBesteldProduct{
 			return true;
 		}
 		catch(Exception ex){
-			System.out.println(ex);
+			System.out.println("Probleem bij update besteldproduct" + ex);
 		}
 		return false;
 	}

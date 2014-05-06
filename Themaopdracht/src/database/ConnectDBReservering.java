@@ -42,7 +42,7 @@ public class ConnectDBReservering{
 			stmt.close();
 		}
 		catch(Exception ex){
-			System.out.println(ex);
+			System.out.println("Probleem bij reserveringen ophalen" + ex);
 		}
 		return terug;
 	}
@@ -72,7 +72,7 @@ public class ConnectDBReservering{
 			stmt.close();
 		}
 		catch(Exception ex){
-			System.out.println(ex);
+			System.out.println("Probleem bij reserveringen tussen data ophalen " + ex);
 		}
 		return terug;
 	}
@@ -98,7 +98,7 @@ public class ConnectDBReservering{
 			stmt.close();
 		}
 		catch(Exception ex){
-			System.out.println(ex);
+			System.out.println("Probleem bij reservering zoeken " + ex);
 		}
 		return terug;		
 	}
@@ -125,7 +125,7 @@ public class ConnectDBReservering{
 			terug = zoekReservering(id);
 		}
 		catch(Exception ex){
-			System.out.println(ex);
+			System.out.println("Probleem bij nieuwe reservering" + ex);
 		}
 		return terug;
 	}
@@ -145,7 +145,7 @@ public class ConnectDBReservering{
 			return true;
 		}
 		catch(Exception ex){
-			System.out.println(ex);
+			System.out.println("Probleem bij reservering updaten " + ex);
 		}
 		return false;
 	}
@@ -160,7 +160,7 @@ public class ConnectDBReservering{
 			return true;
 		}
 		catch(Exception ex){
-			System.out.println(ex);
+			System.out.println("Probleem bij reservering verwijderen " + ex);
 		}
 		return false;
 	}

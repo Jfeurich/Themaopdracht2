@@ -42,7 +42,7 @@ public class ConnectDBUser{
 			stmt.close();
 		}
 		catch(Exception ex){
-			System.out.println(ex);
+			System.out.println("Probleem bij users ophalen " + ex);
 		}
 		return terug;
 	}
@@ -70,7 +70,7 @@ public class ConnectDBUser{
 			stmt.close();
 		}
 		catch(Exception ex){
-			System.out.println(ex);
+			System.out.println("Probleem bij users ophalen per type " + ex);
 		}
 		return terug;
 	}
@@ -98,7 +98,7 @@ public class ConnectDBUser{
 			stmt.close();
 		}
 		catch(Exception ex){
-			System.out.println(ex);
+			System.out.println("Probleem bij user zoeken " + ex);
 		}
 		return terug;		
 	}
@@ -122,7 +122,7 @@ public class ConnectDBUser{
 			terug = zoekUser(id);
 		}
 		catch(Exception ex){
-			System.out.println(ex);
+			System.out.println("Probleem bij nieuwe user(NIET klant) " + ex);
 		}
 		return terug;
 	}
@@ -146,7 +146,7 @@ public class ConnectDBUser{
 			terug = zoekUser(id);
 		}
 		catch(Exception ex){
-			System.out.println(ex);
+			System.out.println("Probleem bij nieuwe user(WEL klant)" + ex);
 		}
 		return terug;
 	}
@@ -161,7 +161,7 @@ public class ConnectDBUser{
 			return true;
 		}
 		catch(Exception ex){
-			System.out.println(ex);
+			System.out.println("Probleem bij user updaten " + ex);
 		}
 		return false;
 	}
@@ -176,7 +176,7 @@ public class ConnectDBUser{
 			return true;
 		}
 		catch(Exception ex){
-			System.out.println(ex);
+			System.out.println("Probleem bij user verwijderen " + ex);
 		}
 		return false;
 	}

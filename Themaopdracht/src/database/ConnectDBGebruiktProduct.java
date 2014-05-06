@@ -34,7 +34,7 @@ public class ConnectDBGebruiktProduct{
 			stmt.close();
 		}
 		catch(Exception ex){
-			System.out.println(ex);
+			System.out.println("Probleem bij gebruikte producten ophalen " + ex);
 		}
 		return terug;
 	}
@@ -57,7 +57,7 @@ public class ConnectDBGebruiktProduct{
 			stmt.close();
 		}
 		catch(Exception ex){
-			System.out.println("Gebruiktproduct: " + ex);
+			System.out.println("Probleem bij producten van klus ophalen " + ex);
 		}
 		return terug;
 	}
@@ -79,7 +79,7 @@ public class ConnectDBGebruiktProduct{
 			stmt.close();
 		}
 		catch(Exception ex){
-			System.out.println(ex);
+			System.out.println("Probleem bij klussen met gebruiktproduct ophalen" + ex);
 		}
 		return terug;		
 	}	
@@ -101,7 +101,7 @@ public class ConnectDBGebruiktProduct{
 			stmt.close();
 		}
 		catch(Exception ex){
-			System.out.println(ex);
+			System.out.println("Probleem bij gebruiktproduct zoeken " + ex);
 		}
 		return terug;
 	}
@@ -125,7 +125,7 @@ public class ConnectDBGebruiktProduct{
 			terug = zoekGebruiktProduct(gpid);	
 		}
 		catch(Exception ex){
-			System.out.println(ex);
+			System.out.println("Probleem bij nieuw gebruiktproduct" + ex);
 		}
 		return terug;
 	}
@@ -139,7 +139,7 @@ public class ConnectDBGebruiktProduct{
 			return true;
 		}
 		catch(Exception ex){
-			System.out.println(ex);
+			System.out.println("Probleem bij gebruiktproduct updaten " + ex);
 		}
 		return false;
 	}
@@ -153,7 +153,7 @@ public class ConnectDBGebruiktProduct{
 			return true;
 		}
 		catch(Exception ex){
-			System.out.println(ex);
+			System.out.println("Probleem bij gebruiktproduct verwijderen" + ex);
 		}
 		return false;
 	}

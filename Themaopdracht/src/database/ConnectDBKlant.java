@@ -36,7 +36,7 @@ public class ConnectDBKlant{
 			stmt.close();
 		}
 		catch(Exception ex){
-			System.out.println(ex);
+			System.out.println("Probleem bij klanten ophalen " + ex);
 		}
 		return terug;
 	}
@@ -60,7 +60,7 @@ public class ConnectDBKlant{
 			stmt.close();
 		}
 		catch(Exception ex){
-			System.out.println("Klant: " + ex);
+			System.out.println("Probleem bij klant zoeken" + ex);
 		}
 		return terug;		
 	}
@@ -87,7 +87,7 @@ public class ConnectDBKlant{
 			terug = zoekKlant(klantid);	
 		}
 		catch(Exception ex){
-			System.out.println(ex);
+			System.out.println("Probleem bij nieuwe klant " + ex);
 		}
 		return terug;
 	}
@@ -104,7 +104,7 @@ public class ConnectDBKlant{
 			return true;
 		}
 		catch(Exception ex){
-			System.out.println(ex);
+			System.out.println("Probleem bij klant updaten " + ex);
 		}
 		return false;
 	}
@@ -126,7 +126,7 @@ public class ConnectDBKlant{
 			return true;
 		}
 		catch(Exception ex){
-			System.out.println(ex);
+			System.out.println("Probleem bij klant verwijderen " + ex);
 		}
 		return false;
 	}

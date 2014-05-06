@@ -57,21 +57,14 @@ public class KlusWijzigenServlet extends HttpServlet {
 			ConnectDBKlus klusconn = new ConnectDBKlus(con);
 			int klusid = Integer.parseInt(req.getParameter("gekozenklus"));
 			Klus deKlus = klusconn.zoekKlus(klusid);
+			String klusstatus = deKlus.getStatus();	
 			req.setAttribute("deKlus", deKlus);
-		}
-		
-		else if(knop.equals("getstatus")){
-			//haal de status van de klus uit de database
-			ConnectDBKlus klusconn = new ConnectDBKlus(con);
-			int klusid = Integer.parseInt(req.getParameter("gekozenklus"));
-			Klus deKlus = klusconn.zoekKlus(klusid);
-			String klusstatus = req.getParameter("deKlus.getStatus()");	
+			req.setAttribute("gekozenklus", deKlus.getID());
 			req.setAttribute("klusstatus", klusstatus);
 		}
 		
-		else if(knop.equals("setstatus")){
+		else if(knop.equals("bevestig")){
 			// sla de nieuwe status op in de klus
-			ConnectDBKlus kluscon = new ConnectDBKlus(con);
 			String dat = req.getParameter("datum");
 			String beschrijving = req.getParameter("beschrijving");
 			String status = req.getParameter("status");
@@ -79,17 +72,16 @@ public class KlusWijzigenServlet extends HttpServlet {
 			
 			boolean allesIngevuld = (dat!=null) && (beschrijving!=null)&& (status!=null);
 			boolean gemaakt = false;
-			if(allesIngevuld){
+			if(status!=null){	//VERANDER IN ALLESINGEVULD als de rest van de velden in de jsp toe zijn gevoegd
 				//check voor geldige datum
 				try{
-					ConnectDBKlus klusconn = new ConnectDBKlus(con);
-					
-					SimpleDateFormat df = new SimpleDateFormat("dd-MM-yyyy");
-					Date datum = df.parse(dat);
+					ConnectDBKlus klusconn = new ConnectDBKlus(con);				
+					//SimpleDateFormat df = new SimpleDateFormat("dd-MM-yyyy");
+					//Date datum = df.parse(dat);
 					Klus deKlus = klusconn.zoekKlus(klusid);
 					//verander hier de klusstatus
 					deKlus.setStatus(status);
-					if(klusconn.updateKlus(deKlus) != false){
+					if(klusconn.updateKlus(deKlus)){
 						String terug = "Status gewijzigd";
 						req.setAttribute("msg", terug);
 						gemaakt = true;
@@ -113,8 +105,8 @@ public class KlusWijzigenServlet extends HttpServlet {
 			}
 
 		}
+		database.sluitVerbinding(con);
 		RequestDispatcher rd = req.getRequestDispatcher("kluswijzigen.jsp");
 		rd.forward(req, resp);
-		database.sluitVerbinding(con);
 	}
 }

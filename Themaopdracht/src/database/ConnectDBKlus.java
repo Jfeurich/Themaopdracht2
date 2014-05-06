@@ -82,7 +82,7 @@ public class ConnectDBKlus{
 			stmt.close();
 		}
 		catch(Exception ex){
-			System.out.println(ex);
+			System.out.println("Probleem bij klussen ophalen " + ex);
 		}
 		return terug;
 	}
@@ -125,7 +125,7 @@ public class ConnectDBKlus{
 			stmt.close();
 		}
 		catch(Exception ex){
-			System.out.println(ex);
+			System.out.println("Probleem bij onderhoudsbeurten ophalen " + ex);
 		}
 		return terug;
 	}
@@ -168,7 +168,7 @@ public class ConnectDBKlus{
 			stmt.close();
 		}
 		catch(Exception ex){
-			System.out.println(ex);
+			System.out.println("Probleem bij reparaties ophalen " + ex);
 		}
 		return terug;
 	}
@@ -235,7 +235,7 @@ public class ConnectDBKlus{
 			stmt.close();
 		}
 		catch(Exception ex){
-			System.out.println("buiten: " + ex);
+			System.out.println("Probleem bij klussen van auto ophalen " + ex);
 		}
 		return terug;
 	}
@@ -283,7 +283,7 @@ public class ConnectDBKlus{
 			terug.setDeAuto(deAuto);
 		}
 		catch(Exception ex){
-			System.out.println(ex);
+			System.out.println("Probleem bij klus zoeken " + ex);
 		}
 		return terug;		
 	}
@@ -312,7 +312,7 @@ public class ConnectDBKlus{
 			terug = k;		
 		}
 		catch(Exception ex){
-			System.out.println(ex);
+			System.out.println("Probleem bij nieuwe klus " + ex);
 		}
 		return terug;
 	}
@@ -337,7 +337,7 @@ public class ConnectDBKlus{
 			return true;
 		}
 		catch(Exception ex){
-			System.out.println(ex);
+			System.out.println("Probleem bij klus updaten" + ex);
 		}
 		return false;
 	}
@@ -362,7 +362,7 @@ public class ConnectDBKlus{
 			return true;
 		}
 		catch(Exception ex){
-			System.out.println(ex);
+			System.out.println("Probleem bij klus verwijderen " + ex);
 		}
 		return false;
 	}

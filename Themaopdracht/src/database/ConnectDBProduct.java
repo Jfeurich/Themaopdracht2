@@ -44,7 +44,7 @@ public class ConnectDBProduct{
 			stmt.close();
 		}
 		catch(Exception ex){
-			System.out.println(ex);
+			System.out.println("Probleem bij producten ophalen " + ex);
 		}
 		return deVoorraad;
 	}
@@ -78,7 +78,7 @@ public class ConnectDBProduct{
 			stmt.close();
 		}
 		catch(Exception ex){
-			System.out.println(ex);
+			System.out.println("Probleem bij producten onder minimumvoorraad ophalen " + ex);
 		}
 		return deVoorraad;
 	}
@@ -108,7 +108,7 @@ public class ConnectDBProduct{
 			stmt.close();
 		}
 		catch(Exception ex){
-			System.out.println(ex);
+			System.out.println("Probleem bij product zoeken op artikelnr " + ex);
 		}
 		return terug;
 	}
@@ -139,7 +139,7 @@ public class ConnectDBProduct{
 			stmt.close();
 		}
 		catch(Exception ex){
-			System.out.println(ex);
+			System.out.println("Probleem bij product zoeken op naam " + ex);
 		}
 		return terug;
 	}
@@ -166,7 +166,7 @@ public class ConnectDBProduct{
 			terug = zoekProduct(zoeknummer);
 		}
 		catch(Exception ex){
-			System.out.println(ex);
+			System.out.println("Probleem bij nieuw product " + ex);
 		}
 		return terug;
 	}
@@ -183,7 +183,7 @@ public class ConnectDBProduct{
 			return true;
 		}
 		catch(Exception ex){
-			System.out.println(ex);
+			System.out.println("Probleem bij product updaten " + ex);
 		}
 		return false;
 	}
@@ -211,7 +211,7 @@ public class ConnectDBProduct{
 			return true;
 		}
 		catch(Exception ex){
-			System.out.println(ex);
+			System.out.println("Probleem bij product verwijderen " + ex);
 		}
 		return false;
 	}
@@ -227,7 +227,9 @@ public class ConnectDBProduct{
 			int maximum = rs.getInt(1);			
 			stmt.close();
 			return maximum;
-		} catch (SQLException e) {
+		} 
+		catch (SQLException e) {
+			System.out.println("Probleem bij product met hoogste artikelnr zoeken" + e);
 			return -1;
 		}
 	}

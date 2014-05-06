@@ -45,7 +45,7 @@ public class ConnectDBBestelling{
 			stmt.close();
 		}
 		catch(Exception ex){
-			System.out.println(ex);
+			System.out.println("Probleem bij bestellingen ophalen" + ex);
 		}		
 		return terug;
 	}
@@ -72,7 +72,7 @@ public class ConnectDBBestelling{
 			stmt.close();
 		}
 		catch(Exception ex){
-			System.out.println(ex);
+			System.out.println("Probleem bij niet-geleverde bestellingen ophalen" + ex);
 		}		
 		return terug;
 	}
@@ -102,7 +102,7 @@ public class ConnectDBBestelling{
 			stmt.close();
 		}
 		catch(Exception ex){
-			System.out.println(ex);
+			System.out.println("Probleem bij bestelling zoeken" + ex);
 		}
 		return terug;
 	}
@@ -138,7 +138,7 @@ public class ConnectDBBestelling{
 			pstmt.close();
 		}
 		catch(Exception ex){
-			System.out.println(ex);
+			System.out.println("Probleem bij nieuwe bestelling maken" + ex);
 		}
 		return terug;
 	}
@@ -158,7 +158,7 @@ public class ConnectDBBestelling{
 			return true;
 		}
 		catch(Exception ex){
-			System.out.println(ex);
+			System.out.println("Probleem bij bestelling updaten" + ex);
 		}
 		return false;
 	}
@@ -179,7 +179,7 @@ public class ConnectDBBestelling{
 			return true;
 		}
 		catch(Exception ex){
-			System.out.println(ex);
+			System.out.println("Probleem bij bestelling verwijderen " + ex);
 		}		
 		return false;
 	}

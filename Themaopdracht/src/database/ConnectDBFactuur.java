@@ -43,7 +43,7 @@ public class ConnectDBFactuur{
 			stmt.close();
 		}
 		catch(Exception ex){
-			System.out.println(ex);
+			System.out.println("Probleem bij facturen ophalen " + ex);
 		}
 		return terug;
 	}
@@ -73,7 +73,7 @@ public class ConnectDBFactuur{
 			stmt.close();
 		}
 		catch(Exception ex){
-			System.out.println(ex);
+			System.out.println("Probleem bij facturen tussen data ophalen " + ex);
 		}
 		return terug;
 	}
@@ -100,7 +100,7 @@ public class ConnectDBFactuur{
 			stmt.close();
 		}
 		catch(Exception ex){
-			System.out.println(ex);
+			System.out.println("Probleem bij niet-betaalde facturen ophalen " + ex);
 		}
 		return terug;
 	}
@@ -125,7 +125,7 @@ public class ConnectDBFactuur{
 			stmt.close();
 		}
 		catch(Exception ex){
-			System.out.println(ex);
+			System.out.println("Probleem bij factuur van klus zoeken " + ex);
 		}
 		return terug;		
 	}
@@ -152,7 +152,7 @@ public class ConnectDBFactuur{
 			stmt.close();
 		}
 		catch(Exception ex){
-			System.out.println(ex);
+			System.out.println("Probleem bij factuur zoeken " + ex);
 		}
 		return terug;
 	}
@@ -178,7 +178,7 @@ public class ConnectDBFactuur{
 			terug = zoekFactuur(factuurid);
 		}
 		catch(Exception ex){
-			System.out.println(ex);
+			System.out.println("Probleem bij nieuwe factuur " + ex);
 		}
 		return terug;
 	}
@@ -203,7 +203,7 @@ public class ConnectDBFactuur{
 			return true;
 		}
 		catch(Exception ex){
-			System.out.println(ex);
+			System.out.println("Probleem bij factuur updaten" + ex);
 		}
 		return false;
 	}
@@ -218,7 +218,7 @@ public class ConnectDBFactuur{
 			return true;
 		}
 		catch(Exception ex){
-			System.out.println(ex);
+			System.out.println("Probleem bij factuur verwijderen" + ex);
 		}
 		return false;
 	}

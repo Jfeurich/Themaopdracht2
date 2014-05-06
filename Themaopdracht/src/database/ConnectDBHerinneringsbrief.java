@@ -38,7 +38,7 @@ public class ConnectDBHerinneringsbrief{
 			stmt.close();
 		}
 		catch(Exception ex){
-			System.out.println(ex);
+			System.out.println("Probleem bij brieven ophalen " + ex);
 		}
 		return terug;
 	}
@@ -64,7 +64,7 @@ public class ConnectDBHerinneringsbrief{
 			stmt.close();
 		}
 		catch(Exception ex){
-			System.out.println(ex);
+			System.out.println("Probleem bij brieven van klant ophalen " + ex);
 		}
 		return terug;
 	}
@@ -89,7 +89,7 @@ public class ConnectDBHerinneringsbrief{
 			stmt.close();
 		}
 		catch(Exception ex){
-			System.out.println(ex);
+			System.out.println("Probleem bij brief zoeken " + ex);
 		}
 		return terug;		
 	}
@@ -115,7 +115,7 @@ public class ConnectDBHerinneringsbrief{
 			terug = zoekBrief(id);
 		}
 		catch(Exception ex){
-			System.out.println(ex);
+			System.out.println("Probleem bij nieuwe brief " + ex);
 		}
 		return terug;
 	}
@@ -133,7 +133,7 @@ public class ConnectDBHerinneringsbrief{
 			return true;
 		}
 		catch(Exception ex){
-			System.out.println(ex);
+			System.out.println("Probleem bij brief updaten" + ex);
 		}
 		return false;
 	}
@@ -148,7 +148,7 @@ public class ConnectDBHerinneringsbrief{
 			return true;
 		}
 		catch(Exception ex){
-			System.out.println(ex);
+			System.out.println("Probleem bij brief verwijderen" + ex);
 		}
 		return false;
 	}
