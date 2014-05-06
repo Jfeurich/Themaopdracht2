@@ -9,17 +9,18 @@ import java.util.ArrayList;
 import domeinklassen.BesteldProduct;
 import domeinklassen.Klant;
 
-public class ConnectDBBesteldProduct extends ConnectDB {
+public class ConnectDBBesteldProduct{
 	
-	public ConnectDBBesteldProduct(){
-		super();
+	private Connection con = null;
+	
+	public ConnectDBBesteldProduct(Connection c){
+		con = c;;
 	}
 	
 	//alle bestelde producten
 	public ArrayList<BesteldProduct> getBesteldeProducten(){
 		ArrayList<BesteldProduct> terug = new ArrayList<BesteldProduct>();
 		try{
-			Connection con = DriverManager.getConnection(databaseURL, "root", "");
 			String sql = "SELECT * FROM BesteldProduct";
 			Statement stmt = con.createStatement();
 			ResultSet rs = stmt.executeQuery(sql);
@@ -28,12 +29,11 @@ public class ConnectDBBesteldProduct extends ConnectDB {
 				int pid = rs.getInt("productid");
 				int h = rs.getInt("hoeveelheid");
 				BesteldProduct bp = new BesteldProduct(bpid, h);
-				ConnectDBProduct pconn = new ConnectDBProduct();
+				ConnectDBProduct pconn = new ConnectDBProduct(con);
 				bp.setProduct(pconn.zoekProduct(pid));
 				terug.add(bp);
 			}
 			stmt.close();
-			con.close();
 		}
 		catch(Exception ex){
 			System.out.println(ex);
@@ -45,7 +45,6 @@ public class ConnectDBBesteldProduct extends ConnectDB {
 	public ArrayList<BesteldProduct> getProductenVanBestelling(int bestellingid){
 		ArrayList<BesteldProduct> terug = new ArrayList<BesteldProduct>();
 		try{
-			Connection con = DriverManager.getConnection(databaseURL, "root", "");
 			String sql = "SELECT * FROM BesteldProduct WHERE bestellingid=" + bestellingid;
 			Statement stmt = con.createStatement();
 			ResultSet rs = stmt.executeQuery(sql);
@@ -54,12 +53,11 @@ public class ConnectDBBesteldProduct extends ConnectDB {
 				int pid = rs.getInt("productid");
 				int h = rs.getInt("hoeveelheid");
 				BesteldProduct bp = new BesteldProduct(bpid, h);
-				ConnectDBProduct pconn = new ConnectDBProduct();
+				ConnectDBProduct pconn = new ConnectDBProduct(con);
 				bp.setProduct(pconn.zoekProduct(pid));
 				terug.add(bp);
 			}
 			stmt.close();
-			con.close();
 		}
 		catch(Exception ex){
 			System.out.println(ex);
@@ -71,7 +69,6 @@ public class ConnectDBBesteldProduct extends ConnectDB {
 	public ArrayList<BesteldProduct> getBestellingenVanProduct(int pid){
 		ArrayList<BesteldProduct> terug = new ArrayList<BesteldProduct>();
 		try{
-			Connection con = DriverManager.getConnection(databaseURL, "root", "");
 			String sql = "SELECT * FROM BesteldProduct WHERE productid=" + pid;
 			Statement stmt = con.createStatement();
 			ResultSet rs = stmt.executeQuery(sql);
@@ -79,12 +76,11 @@ public class ConnectDBBesteldProduct extends ConnectDB {
 				int bpid = rs.getInt("besteldproductid");
 				int h = rs.getInt("hoeveelheid");
 				BesteldProduct bp = new BesteldProduct(bpid, h);
-				ConnectDBProduct pconn = new ConnectDBProduct();
+				ConnectDBProduct pconn = new ConnectDBProduct(con);
 				bp.setProduct(pconn.zoekProduct(pid));
 				terug.add(bp);
 			}
 			stmt.close();
-			con.close();
 		}
 		catch(Exception ex){
 			System.out.println(ex);
@@ -97,7 +93,6 @@ public class ConnectDBBesteldProduct extends ConnectDB {
 		BesteldProduct terug = null;
 		int pid = 0;
 		try{
-			Connection con = DriverManager.getConnection(databaseURL, "root", "");
 			String sql = "SELECT * FROM BesteldProduct WHERE besteldproductid=" + bpid;
 			Statement stmt = con.createStatement();
 			ResultSet rs = stmt.executeQuery(sql);
@@ -105,11 +100,10 @@ public class ConnectDBBesteldProduct extends ConnectDB {
 				pid = rs.getInt("productid");
 				int h = rs.getInt("hoeveelheid");
 				terug = new BesteldProduct(bpid, h);
-				ConnectDBProduct pconn = new ConnectDBProduct();
+				ConnectDBProduct pconn = new ConnectDBProduct(con);
 				terug.setProduct(pconn.zoekProduct(pid));
 			}
 			stmt.close();
-			con.close();
 		}
 		catch(Exception ex){
 			System.out.println(ex);
@@ -121,7 +115,6 @@ public class ConnectDBBesteldProduct extends ConnectDB {
 	public BesteldProduct nieuwBesteldProduct(int bestellingid, int productid, int hoeveelheid){
 		BesteldProduct terug = null;
 		try{			
-			Connection con = DriverManager.getConnection(databaseURL, "root", "");
 			//maak nieuw product met gegeven waarden
 			String sql = "INSERT INTO BesteldProduct (bestellingid, productid, hoeveelheid) VALUES (" + bestellingid + ", " + productid + ", " + hoeveelheid + ");";
 			Statement stmt = con.createStatement();
@@ -136,7 +129,6 @@ public class ConnectDBBesteldProduct extends ConnectDB {
 				bpid = rs.getInt(1);		
 			}
 			stmt2.close();
-			con.close();
 			//zoek product op basis van gevonden klantnummer
 			terug = zoekBesteldProduct(bpid);	
 		}
@@ -149,12 +141,10 @@ public class ConnectDBBesteldProduct extends ConnectDB {
 	//verander hoeveelheid
 	public boolean updateBesteldProduct(BesteldProduct bp){
 		try{
-			Connection con = DriverManager.getConnection(databaseURL, "root", "");
 			String sql = "UPDATE BesteldProduct SET hoeveelheid=" + bp.getHoeveelheid() + " WHERE besteldproductid = " + bp.getID();
 			Statement stmt = con.createStatement();
 			stmt.executeUpdate(sql);	
 			stmt.close();
-			con.close();
 			return true;
 		}
 		catch(Exception ex){
@@ -166,12 +156,10 @@ public class ConnectDBBesteldProduct extends ConnectDB {
 	//verwijder besteld product
 	public boolean verwijderBesteldProduct(int bpid){
 		try{
-			Connection con = DriverManager.getConnection(databaseURL, "root", "");
 			String sql = "DELETE FROM BesteldProduct WHERE besteldproductid=" + bpid;
 			Statement stmt = con.createStatement();
 			stmt.executeUpdate(sql);
 			stmt.close();
-			con.close();
 			return true;
 		}
 		catch(Exception ex){

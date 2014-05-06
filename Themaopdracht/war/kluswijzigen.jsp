@@ -84,7 +84,7 @@
 							out.println("<td>Kies</td>");
 							out.println("<td>Datum</td>");
 							out.println("<td>Beschrijving</td>");
-							out.println("<td>Status/td>");
+							out.println("<td>Status</td>");
 						out.println("</tr>");
 						for(Klus k : klussen ){
 							out.println("<tr>");

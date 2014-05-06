@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.sql.Connection;
+import database.ConnectDB;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -21,17 +23,21 @@ import domeinklassen.Klus;
 
 public class KlusWijzigenServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		
+		ConnectDB database = new ConnectDB();
+		Connection con = database.maakVerbinding();
+		
 		String knop = req.getParameter("knop");
 		
 		//roep alle klanten van het bedrijf op
 		if(knop.equals("klanten")){
-			ConnectDBKlant klantconn = new ConnectDBKlant();	
+			ConnectDBKlant klantconn = new ConnectDBKlant(con);	
 			ArrayList<Klant> klanten = klantconn.getKlanten();
 			req.setAttribute("klanten", klanten);
 		}
 		//roep alle autos van de geselecteerde klant op
 		else if(knop.equals("autos")){
-			ConnectDBAuto autoconn = new ConnectDBAuto();
+			ConnectDBAuto autoconn = new ConnectDBAuto(con);
 			String knr = req.getParameter("gekozenklant");
 			int klantnummer = Integer.parseInt(knr);
 			ArrayList<Auto> autos = autoconn.getAutosVan(klantnummer);
@@ -40,7 +46,7 @@ public class KlusWijzigenServlet extends HttpServlet {
 
 		else if(knop.equals("klus")){
 			//haal de klussen uit de database
-			ConnectDBKlus klusconn = new ConnectDBKlus();
+			ConnectDBKlus klusconn = new ConnectDBKlus(con);
 			int autoid = Integer.parseInt(req.getParameter("gekozenauto"));
 			ArrayList<Klus> klussen = klusconn.getKlussenVoorAuto(autoid);
 			req.setAttribute("klussen", klussen);
@@ -48,7 +54,7 @@ public class KlusWijzigenServlet extends HttpServlet {
 		
 		else if(knop.equals("status")){
 			//roep de klus op uit de database
-			ConnectDBKlus klusconn = new ConnectDBKlus();
+			ConnectDBKlus klusconn = new ConnectDBKlus(con);
 			int klusid = Integer.parseInt(req.getParameter("gekozenklus"));
 			Klus deKlus = klusconn.zoekKlus(klusid);
 			req.setAttribute("deKlus", deKlus);
@@ -56,7 +62,7 @@ public class KlusWijzigenServlet extends HttpServlet {
 		
 		else if(knop.equals("getstatus")){
 			//haal de status van de klus uit de database
-			ConnectDBKlus klusconn = new ConnectDBKlus();
+			ConnectDBKlus klusconn = new ConnectDBKlus(con);
 			int klusid = Integer.parseInt(req.getParameter("gekozenklus"));
 			Klus deKlus = klusconn.zoekKlus(klusid);
 			String klusstatus = req.getParameter("deKlus.getStatus()");	
@@ -65,7 +71,7 @@ public class KlusWijzigenServlet extends HttpServlet {
 		
 		else if(knop.equals("setstatus")){
 			// sla de nieuwe status op in de klus
-			ConnectDBKlus kluscon = new ConnectDBKlus();
+			ConnectDBKlus kluscon = new ConnectDBKlus(con);
 			String dat = req.getParameter("datum");
 			String beschrijving = req.getParameter("beschrijving");
 			String status = req.getParameter("status");
@@ -76,7 +82,7 @@ public class KlusWijzigenServlet extends HttpServlet {
 			if(allesIngevuld){
 				//check voor geldige datum
 				try{
-					ConnectDBKlus klusconn = new ConnectDBKlus();
+					ConnectDBKlus klusconn = new ConnectDBKlus(con);
 					
 					SimpleDateFormat df = new SimpleDateFormat("dd-MM-yyyy");
 					Date datum = df.parse(dat);
@@ -101,13 +107,14 @@ public class KlusWijzigenServlet extends HttpServlet {
 				req.setAttribute("error", "/*foutmelding*/");
 			}
 			if(!gemaakt){
-				ConnectDBKlus klusconn = new ConnectDBKlus();
+				ConnectDBKlus klusconn = new ConnectDBKlus(con);
 				Klus deKlus = klusconn.zoekKlus(klusid);
 				req.setAttribute("deKlus",deKlus);
 			}
 
 		}
 		RequestDispatcher rd = req.getRequestDispatcher("kluswijzigen.jsp");
-		rd.forward(req, resp);	
+		rd.forward(req, resp);
+		database.sluitVerbinding(con);
 	}
 }

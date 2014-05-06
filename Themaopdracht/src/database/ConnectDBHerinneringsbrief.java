@@ -2,7 +2,6 @@ package database;
 
 import java.sql.Connection;
 import java.sql.Date;
-import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
@@ -10,18 +9,18 @@ import java.util.ArrayList;
 import domeinklassen.Herinneringsbrief;
 import domeinklassen.Klant;
 
-public class ConnectDBHerinneringsbrief extends ConnectDB{
+public class ConnectDBHerinneringsbrief{
 	
+	private Connection con = null;
 	//maak connectie
-	public ConnectDBHerinneringsbrief(){
-		super();
+	public ConnectDBHerinneringsbrief(Connection c){
+		con = c;
 	}
 	
 	//alle herinneringsbrieven in het systeem
 	public ArrayList<Herinneringsbrief> getBrieven(){
 		ArrayList<Herinneringsbrief> terug = new ArrayList<Herinneringsbrief>();
 		try{
-			Connection con = DriverManager.getConnection(databaseURL, "root", "");
 			String sql = "SELECT * FROM Herinneringsbrief";
 			Statement stmt = con.createStatement();
 			ResultSet rs = stmt.executeQuery(sql);
@@ -31,13 +30,12 @@ public class ConnectDBHerinneringsbrief extends ConnectDB{
 				java.sql.Date dat = rs.getDate("datum");
 				java.util.Date datum = new Date(dat.getTime());
 				int klantid = rs.getInt("klantid");
-				ConnectDBKlant klantconn = new ConnectDBKlant();
+				ConnectDBKlant klantconn = new ConnectDBKlant(con);
 				Klant deKlant = klantconn.zoekKlant(klantid);
 				Herinneringsbrief h = new Herinneringsbrief(id, deKlant, reden, datum);
 				terug.add(h);
 			}
 			stmt.close();
-			con.close();
 		}
 		catch(Exception ex){
 			System.out.println(ex);
@@ -49,7 +47,6 @@ public class ConnectDBHerinneringsbrief extends ConnectDB{
 	public ArrayList<Herinneringsbrief> getBrievenVan(int zoekid){
 		ArrayList<Herinneringsbrief> terug = new ArrayList<Herinneringsbrief>();
 		try{
-			Connection con = DriverManager.getConnection(databaseURL, "root", "");
 			String sql = "SELECT * FROM Herinneringsbrief WHERE klantid=" + zoekid;
 			Statement stmt = con.createStatement();
 			ResultSet rs = stmt.executeQuery(sql);
@@ -59,13 +56,12 @@ public class ConnectDBHerinneringsbrief extends ConnectDB{
 				java.sql.Date dat = rs.getDate("datum");
 				java.util.Date datum = new Date(dat.getTime());
 				int klantid = rs.getInt("klantid");
-				ConnectDBKlant klantconn = new ConnectDBKlant();
+				ConnectDBKlant klantconn = new ConnectDBKlant(con);
 				Klant deKlant = klantconn.zoekKlant(klantid);
 				Herinneringsbrief h = new Herinneringsbrief(id, deKlant, reden, datum);
 				terug.add(h);
 			}
 			stmt.close();
-			con.close();
 		}
 		catch(Exception ex){
 			System.out.println(ex);
@@ -77,7 +73,6 @@ public class ConnectDBHerinneringsbrief extends ConnectDB{
 	public Herinneringsbrief zoekBrief(int id){
 		Herinneringsbrief terug = null;
 		try{
-			Connection con = DriverManager.getConnection(databaseURL, "root", "");
 			String sql = "SELECT * FROM Herinneringsbrief WHERE herinneringsbriefid=" + id;
 			Statement stmt = con.createStatement();
 			ResultSet rs = stmt.executeQuery(sql);
@@ -86,11 +81,12 @@ public class ConnectDBHerinneringsbrief extends ConnectDB{
 				java.sql.Date dat = rs.getDate("datum");
 				java.util.Date datum = new Date(dat.getTime());
 				int klantid = rs.getInt("klantid");
-				ConnectDBKlant klantconn = new ConnectDBKlant();
+				ConnectDBKlant klantconn = new ConnectDBKlant(con);
 				Klant deKlant = klantconn.zoekKlant(klantid);
 				Herinneringsbrief h = new Herinneringsbrief(id, deKlant, reden, datum);
 				terug = h;
 			}
+			stmt.close();
 		}
 		catch(Exception ex){
 			System.out.println(ex);
@@ -104,7 +100,6 @@ public class ConnectDBHerinneringsbrief extends ConnectDB{
 		try{
 			java.util.Date dat = new java.util.Date();
 			java.sql.Date datum = new java.sql.Date(dat.getTime());
-			Connection con = DriverManager.getConnection(databaseURL, "root", "");
 			String sql = "INSERT INTO Herinneringsbrief (klantid, reden, datum) VALUES (" + deKlant.getKlantnummer() + ", '" + reden + "', '" + datum + "');";
 			Statement stmt = con.createStatement();
 			stmt.executeUpdate(sql);
@@ -117,7 +112,6 @@ public class ConnectDBHerinneringsbrief extends ConnectDB{
 				id = rs.getInt(1);		
 			}
 			stmt2.close();
-			con.close();
 			terug = zoekBrief(id);
 		}
 		catch(Exception ex){
@@ -131,13 +125,11 @@ public class ConnectDBHerinneringsbrief extends ConnectDB{
 		try{
 			java.util.Date dat = h.getDatum();
 			java.sql.Date datum = new java.sql.Date(dat.getTime());
-			Connection con = DriverManager.getConnection(databaseURL, "root", "");
 			String sql = "UPDATE Herinneringsbrief SET reden='" + h.getReden() + "',  datum='" + datum + 
 					"', klantid=" + h.getDeKlant().getKlantnummer() + " WHERE herinneringsbriefid= " + h.getID();
 			Statement stmt = con.createStatement();
 			stmt.executeUpdate(sql);	
 			stmt.close();
-			con.close();
 			return true;
 		}
 		catch(Exception ex){
@@ -149,12 +141,10 @@ public class ConnectDBHerinneringsbrief extends ConnectDB{
 	//verwijderd tabelrij met ingevoerd id
 	public boolean verwijderBrief(int id){
 		try{
-			Connection con = DriverManager.getConnection(databaseURL, "root", "");
 			String sql = "DELETE FROM Herinneringsbrief WHERE herinneringsbriefid=" + id;
 			Statement stmt = con.createStatement();
 			stmt.executeUpdate(sql);
 			stmt.close();
-			con.close();
 			return true;
 		}
 		catch(Exception ex){

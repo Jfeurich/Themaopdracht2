@@ -1,7 +1,6 @@
 package database;
 
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
@@ -9,18 +8,18 @@ import java.util.ArrayList;
 import domeinklassen.Auto;
 import domeinklassen.Klant;
 
-public class ConnectDBKlant extends ConnectDB{
+public class ConnectDBKlant{
 	
+	private Connection con;
 	//maak connectie
-	public ConnectDBKlant(){
-		super();
+	public ConnectDBKlant(Connection c){
+		con = c;
 	}
 
 	//alle klanten in de database
 	public ArrayList<Klant> getKlanten(){
 		ArrayList<Klant> terug = new ArrayList<Klant>();
 		try{
-			Connection con = DriverManager.getConnection(databaseURL, "root", "");
 			String sql = "SELECT * FROM Klant";
 			Statement stmt = con.createStatement();
 			ResultSet rs = stmt.executeQuery(sql);
@@ -35,7 +34,6 @@ public class ConnectDBKlant extends ConnectDB{
 				terug.add(k);
 			}
 			stmt.close();
-			con.close();
 		}
 		catch(Exception ex){
 			System.out.println(ex);
@@ -47,7 +45,6 @@ public class ConnectDBKlant extends ConnectDB{
 	public Klant zoekKlant(int klantnummer){
 		Klant terug = null;
 		try{
-			Connection con = DriverManager.getConnection(databaseURL, "root", "");
 			String sql = "SELECT * FROM Klant WHERE klantid=" + klantnummer;
 			Statement stmt = con.createStatement();
 			ResultSet rs = stmt.executeQuery(sql);
@@ -61,10 +58,9 @@ public class ConnectDBKlant extends ConnectDB{
 				terug = new Klant(kn, nm, adr, wp, rnr, nr);
 			}
 			stmt.close();
-			con.close();
 		}
 		catch(Exception ex){
-			System.out.println(ex);
+			System.out.println("Klant: " + ex);
 		}
 		return terug;		
 	}
@@ -73,7 +69,6 @@ public class ConnectDBKlant extends ConnectDB{
 	public Klant nieuweKlant(String nm, String adr, String wp, String rnr, int nr){
 		Klant terug = null;
 		try{			
-			Connection con = DriverManager.getConnection(databaseURL, "root", "");
 			//maak nieuw product met gegeven waarden
 			String sql = "INSERT INTO Klant (naam, adres, plaats, telefoonnummer, rekeningnummer) VALUES ('" + nm + "', '" + adr + "', '" + wp + "', '" + rnr + "', " + nr + ");";
 			Statement stmt = con.createStatement();
@@ -88,7 +83,6 @@ public class ConnectDBKlant extends ConnectDB{
 				klantid = rs.getInt(1);		
 			}
 			stmt2.close();
-			con.close();
 			//zoek klant op basis van gevonden klantnummer
 			terug = zoekKlant(klantid);	
 		}
@@ -101,14 +95,12 @@ public class ConnectDBKlant extends ConnectDB{
 	//wijzigt klant in database naar alle waarden van ingevoerde klant-object (exclusief het id)
 	public boolean updateKlant(Klant k){
 		try{
-			Connection con = DriverManager.getConnection(databaseURL, "root", "");
 			String sql = "UPDATE Klant SET naam='" + k.getNaam() + "',  adres='" + k.getAdres() + 
 					"', plaats='" + k.getPlaats() + "', telefoonnummer=" + k.getTelefoonnummer() + ", ' rekeningnummer='" + 
 					k.getRekeningnummer() + "' WHERE klantid = " + k.getKlantnummer();
 			Statement stmt = con.createStatement();
 			stmt.executeUpdate(sql);	
 			stmt.close();
-			con.close();
 			return true;
 		}
 		catch(Exception ex){
@@ -121,18 +113,16 @@ public class ConnectDBKlant extends ConnectDB{
 	public boolean verwijderKlant(int klantid){
 		try{
 			//verwijder eerst alle autos van deze klant
-			ConnectDBAuto aconn = new ConnectDBAuto();
+			ConnectDBAuto aconn = new ConnectDBAuto(con);
 			ArrayList<Auto> deAutos = aconn.getAutosVan(klantid);
 			for(Auto a : deAutos){
 				aconn.verwijderAuto(a.getID());
 			}
 			//en vervolgens de klant zelf
-			Connection con = DriverManager.getConnection(databaseURL, "root", "");
 			String sql = "DELETE FROM Klant WHERE klantid=" + klantid;
 			Statement stmt = con.createStatement();
 			stmt.executeUpdate(sql);
 			stmt.close();
-			con.close();
 			return true;
 		}
 		catch(Exception ex){

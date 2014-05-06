@@ -7,6 +7,22 @@
 !!!!!!!!!!!!!!!!!             ANDERS MAAKT JAVA GEEN VERBINDING             !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
 
+!!!            WIJZIGINGEN PER 06-05             !!!
+
+
+BEGIN voortaan iedere doPost methode voor servlets waar je de database bij nodig hebt met de volgende code:
+	ConnectDB database = new ConnectDB();
+	Connection con = database.maakVerbinding();
+En EINDIG met dit:
+	database.sluitVerbinding(con);
+In de constructor van iedere ConnectDB<Klassenaam> geef je voortaan con mee, like so: 
+	ConnectDBAuto autocon = new ConnectDBAuto(con)
+	
+Zo hebben we namelijk maar 1 database-verbinding per servlet, en kan de error waar we vandaag tegenaan liepen nooit meer gebeuren. 
+Bovendien is dit een stuk efficienter in het gebruik van resources en kan ons programma sneller draaien.
+	
+	
+!!!            WIJZIGINGEN PER 06-05             !!!
 
 
 Let goed op de volgende datatypes:

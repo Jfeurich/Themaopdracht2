@@ -2,7 +2,6 @@ package database;
 
 import java.sql.Connection;
 import java.sql.Date;
-import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
@@ -12,18 +11,18 @@ import domeinklassen.Herinneringsbrief;
 import domeinklassen.Klant;
 import domeinklassen.Reservering;
 
-public class ConnectDBReservering extends ConnectDB{
+public class ConnectDBReservering{
 	
+	private Connection con;
 	//maak connectie
-	public ConnectDBReservering(){
-		super();
+	public ConnectDBReservering(Connection c){
+		con = c;
 	}
 	
 	//alle reserveringen in het systeem
 	public ArrayList<Reservering> getReserveringen(){
 		ArrayList<Reservering> terug = new ArrayList<Reservering>();
 		try{
-			Connection con = DriverManager.getConnection(databaseURL, "root", "");
 			String sql = "SELECT * FROM Reservering";
 			Statement stmt = con.createStatement();
 			ResultSet rs = stmt.executeQuery(sql);
@@ -35,13 +34,12 @@ public class ConnectDBReservering extends ConnectDB{
 				java.sql.Date edat = rs.getDate("eindDat");
 				java.util.Date eD = new Date(edat.getTime());
 				int autoid = rs.getInt("autoid");
-				ConnectDBAuto autoconn = new ConnectDBAuto();
+				ConnectDBAuto autoconn = new ConnectDBAuto(con);
 				Auto a = autoconn.zoekAuto(autoid);
 				Reservering r = new Reservering(a, id, bD, eD, dP);
 				terug.add(r);
 			}
 			stmt.close();
-			con.close();
 		}
 		catch(Exception ex){
 			System.out.println(ex);
@@ -55,7 +53,6 @@ public class ConnectDBReservering extends ConnectDB{
 		try{
 			java.sql.Date beginDat = new java.sql.Date(begin.getTime());
 			java.sql.Date eindDat = new java.sql.Date(eind.getTime());
-			Connection con = DriverManager.getConnection(databaseURL, "root", "");
 			String sql = "SELECT * FROM Reservering WHERE '" + eindDat + "'>beginDat OR '" + beginDat + "'<eindDat";
 			Statement stmt = con.createStatement();
 			ResultSet rs = stmt.executeQuery(sql);
@@ -67,13 +64,12 @@ public class ConnectDBReservering extends ConnectDB{
 				java.sql.Date edat = rs.getDate("eindDat");
 				java.util.Date eD = new Date(edat.getTime());
 				int autoid = rs.getInt("autoid");
-				ConnectDBAuto autoconn = new ConnectDBAuto();
+				ConnectDBAuto autoconn = new ConnectDBAuto(con);
 				Auto a = autoconn.zoekAuto(autoid);
 				Reservering r = new Reservering(a, id, bD, eD, dP);
 				terug.add(r);
 			}
 			stmt.close();
-			con.close();
 		}
 		catch(Exception ex){
 			System.out.println(ex);
@@ -85,7 +81,6 @@ public class ConnectDBReservering extends ConnectDB{
 	public Reservering zoekReservering(int id){
 		Reservering terug = null;
 		try{
-			Connection con = DriverManager.getConnection(databaseURL, "root", "");
 			String sql = "SELECT * FROM Reservering WHERE reserveringid=" + id;
 			Statement stmt = con.createStatement();
 			ResultSet rs = stmt.executeQuery(sql);
@@ -96,10 +91,11 @@ public class ConnectDBReservering extends ConnectDB{
 				java.sql.Date edat = rs.getDate("eindDat");
 				java.util.Date eD = new Date(edat.getTime());
 				int autoid = rs.getInt("autoid");
-				ConnectDBAuto autoconn = new ConnectDBAuto();
+				ConnectDBAuto autoconn = new ConnectDBAuto(con);
 				Auto a = autoconn.zoekAuto(autoid);
 				terug = new Reservering(a, id, bD, eD, dP);
 			}
+			stmt.close();
 		}
 		catch(Exception ex){
 			System.out.println(ex);
@@ -113,7 +109,6 @@ public class ConnectDBReservering extends ConnectDB{
 		try{
 			java.sql.Date beginDat = new java.sql.Date(bD.getTime());
 			java.sql.Date eindDat = new java.sql.Date(eD.getTime());
-			Connection con = DriverManager.getConnection(databaseURL, "root", "");
 			String sql = "INSERT INTO Reservering (beginDat, eindDat, autoid, deParkeerplek) VALUES ('" + beginDat + "', '" + 
 			eindDat + "', " + a.getID() + ", " + dP + ");";
 			Statement stmt = con.createStatement();
@@ -127,7 +122,6 @@ public class ConnectDBReservering extends ConnectDB{
 				id = rs.getInt(1);		
 			}
 			stmt2.close();
-			con.close();
 			terug = zoekReservering(id);
 		}
 		catch(Exception ex){
@@ -143,13 +137,11 @@ public class ConnectDBReservering extends ConnectDB{
 			java.util.Date edat = r.getEindDat();
 			java.sql.Date beginDat = new java.sql.Date(bdat.getTime());
 			java.sql.Date eindDat = new java.sql.Date(edat.getTime());
-			Connection con = DriverManager.getConnection(databaseURL, "root", "");
 			String sql = "UPDATE Reservering SET beginDat='" + beginDat + "',  eindDat='" + eindDat + 
 					"', deParkeerplek=" + r.getDeParkeerplek() + " WHERE reserveringid=" + r.getID();
 			Statement stmt = con.createStatement();
 			stmt.executeUpdate(sql);	
 			stmt.close();
-			con.close();
 			return true;
 		}
 		catch(Exception ex){
@@ -161,12 +153,10 @@ public class ConnectDBReservering extends ConnectDB{
 	//verwijderd tabelrij met ingevoerd id
 	public boolean verwijderReservering(int id){
 		try{
-			Connection con = DriverManager.getConnection(databaseURL, "root", "");
 			String sql = "DELETE FROM Reservering WHERE reserveringid=" + id;
 			Statement stmt = con.createStatement();
 			stmt.executeUpdate(sql);
 			stmt.close();
-			con.close();
 			return true;
 		}
 		catch(Exception ex){
