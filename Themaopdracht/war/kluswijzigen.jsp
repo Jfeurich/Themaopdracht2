@@ -6,7 +6,7 @@
 	<title>Status Klus wijzigen</title>
 </head>
 <body>
-	<form action="NieuweFactuurServlet.do" method="post">
+	<form action="KlusWijzigenServlet.do" method="post">
 		<%@ page import="java.util.ArrayList,domeinklassen.Klant,domeinklassen.Auto,domeinklassen.Klus" %>
 		<div>
 			<h2>Status Klus wijzigen</h2>
