@@ -1,4 +1,5 @@
 package servlets;
+//GITHUB Y U NOT WORK
 
 import java.io.IOException;
 import java.text.SimpleDateFormat;
@@ -31,11 +32,13 @@ public class NieuweFactuurServlet extends HttpServlet{
 			resp.sendRedirect("homepage.jsp");
 		}
 		else if(knop.equals("klanten")){
+			//haal klanten uit de database
 			ConnectDBKlant klantconn = new ConnectDBKlant();
 			ArrayList<Klant> klanten = klantconn.getKlanten();
 			req.setAttribute("klanten", klanten);
 		}
 		else if(knop.equals("autos")){
+			// haal auto's uit de database
 			ConnectDBAuto autoconn = new ConnectDBAuto();
 			String knr = req.getParameter("gekozenklant");
 			int klantnummer = Integer.parseInt(knr);
@@ -43,44 +46,47 @@ public class NieuweFactuurServlet extends HttpServlet{
 			req.setAttribute("autos", autos);
 		}
 		else if(knop.equals("klus")){
+			//haal klussen uit de database
 			ConnectDBKlus klusconn = new ConnectDBKlus();
 			int autoid = Integer.parseInt(req.getParameter("gekozenauto"));
 			ArrayList<Klus> klussen = klusconn.getKlussenVoorAuto(autoid);
 			req.setAttribute("klussen", klussen);
 		}
-		/*else if(knop.equals("maakfactuur")){
+		else if(knop.equals("nieuw")){
 			// hier wordt de klus geselecteerd om een factuur aan te maken.
 			ConnectDBKlus klusconn = new ConnectDBKlus();
-			req.setAttribute("factuur",factuur );
-			Factuur nieuweFactuur = 
-		}*/
-		else if(knop.equals("nieuw")){
+			int klusid = Integer.parseInt(req.getParameter("gekozenklus"));
+			Klus deKlus = klusconn.zoekKlus(klusid);
+			req.setAttribute("deKlus", deKlus);
+		}
+		else if(knop.equals("bevestig")){
+			//kies een klus uit waarvan de status voltooid is.
 			ConnectDBFactuur factuurconn = new ConnectDBFactuur();
-			int kortingspercentage = Integer.parseInt(req.getParameter("kortingspercentage"));
-			int autoid = Integer.parseInt(auto);
+			String dat = req.getParameter("datum");
+			String beschrijving = req.getParameter("beschrijving");
+			String status = req.getParameter("status");
+			int klusid = Integer.parseInt(req.getParameter("gekozenklus"));
+
+			boolean allesIngevuld = (dat!=null) && (beschrijving!=null)&& (status.equals("voltooid"));
 			
-			boolean allesIngevuld = (type!=null) && (dat!=null) && (beschrijving!=null);
 			boolean gemaakt = false;
-			
+
 			if(allesIngevuld){
 				//check voor geldige datum
 				try{
+					ConnectDBKlus klusconn = new ConnectDBKlus();
+					
 					SimpleDateFormat df = new SimpleDateFormat("dd-MM-yyyy");
 					Date datum = df.parse(dat);
-					Klus nieuw = klusconn.nieuweKlus(datum, beschrijving, type, autoid);
+					Klus deKlus = klusconn.zoekKlus(klusid);
+					Factuur nieuw = factuurconn.nieuweFactuur(deKlus);
 					if(nieuw != null){
-						String terug = "Nieuwe klus toevoegd voor: " + nieuw.getAuto().getKenteken();
-						if(nieuw instanceof Onderhoudsbeurt){
-							terug = "Nieuwe onderhoudsbeurt toevoegd voor: " + nieuw.getAuto().getKenteken();
-						}
-						else if(nieuw instanceof Reparatie){
-							terug = "Nieuwe reparatie toevoegd voor: " + nieuw.getAuto().getKenteken();
-						}
+						String terug = "Factuur aangemaakt";
 						req.setAttribute("msg", terug);
 						gemaakt = true;
 					}
 					else{
-						req.setAttribute("msg", "Kan deze klus niet toevoegen!");	
+						req.setAttribute("msg", "Factuur kan niet aangemaakt worden");
 					}
 				}
 				catch(Exception ex){
@@ -89,14 +95,16 @@ public class NieuweFactuurServlet extends HttpServlet{
 				}
 			}
 			else{
-				req.setAttribute("error", "Vul alle velden in en kies een klustype!");
+				req.setAttribute("error", "/*foutmelding*/");
 			}
 			if(!gemaakt){
-				ConnectDBAuto autoconn = new ConnectDBAuto();
-				Auto deAuto = autoconn.zoekAuto(autoid);
-				req.setAttribute("deAuto", deAuto);
+				ConnectDBKlus klusconn = new ConnectDBKlus();
+				Klus deKlus = klusconn.zoekKlus(klusid);
+				req.setAttribute("deKlus",deKlus);
 			}
+
 		}
-		
+		RequestDispatcher rd = req.getRequestDispatcher("nieuwefactuur.jsp");
+		rd.forward(req, resp);
 	}
 }
