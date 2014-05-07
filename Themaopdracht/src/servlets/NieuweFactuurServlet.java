@@ -58,13 +58,6 @@ public class NieuweFactuurServlet extends HttpServlet{
 			req.setAttribute("klussen", klussen);
 		}
 		else if(knop.equals("nieuw")){
-			// hier wordt de klus geselecteerd om een factuur aan te maken.
-			ConnectDBKlus klusconn = new ConnectDBKlus(con);
-			int klusid = Integer.parseInt(req.getParameter("gekozenklus"));
-			Klus deKlus = klusconn.zoekKlus(klusid);
-			req.setAttribute("deKlus", deKlus);
-		}
-		else if(knop.equals("bevestig")){
 			//kies een klus uit waarvan de status voltooid is.
 			ConnectDBFactuur factuurconn = new ConnectDBFactuur(con);
 			String dat = req.getParameter("datum");
@@ -87,7 +80,7 @@ public class NieuweFactuurServlet extends HttpServlet{
 					Factuur nieuw = factuurconn.nieuweFactuur(deKlus);
 					if(nieuw != null){
 						String terug = "Factuur aangemaakt";
-						req.setAttribute("msg", terug);
+						req.setAttribute("deFactuur", nieuw);
 						gemaakt = true;
 					}
 					else{
@@ -107,7 +100,28 @@ public class NieuweFactuurServlet extends HttpServlet{
 				Klus deKlus = klusconn.zoekKlus(klusid);
 				req.setAttribute("deKlus",deKlus);
 			}
-
+		}
+		else if(knop.equals("bevestig")){
+			// hier wordt de klus geselecteerd om een factuur aan te maken.
+			ConnectDBKlus klusconn = new ConnectDBKlus(con);
+			int klusid = Integer.parseInt(req.getParameter("gekozenklus"));
+			Klus deKlus = klusconn.zoekKlus(klusid);
+			req.setAttribute("deKlus", deKlus);
+		}
+		else if(knop.equals("setkorting")){
+			String factuurid = req.getParameter("factuurvoorkorting");
+			String korting = req.getParameter("korting");
+			try{
+				int dekorting = Integer.parseInt(korting);
+				ConnectDBFactuur factuurcon = new ConnectDBFactuur(con);
+				Factuur deFactuur = factuurcon.zoekFactuur(Integer.parseInt(factuurid));
+				deFactuur.setKortingsPercentage(dekorting);
+				factuurcon.updateFactuur(deFactuur);
+				req.setAttribute("msg", "Database is geupdate");
+			}
+			catch(Exception e){
+				req.setAttribute("error", "Geen geldige waarde");
+			}
 		}
 		RequestDispatcher rd = req.getRequestDispatcher("nieuwefactuur.jsp");
 		rd.forward(req, resp);
