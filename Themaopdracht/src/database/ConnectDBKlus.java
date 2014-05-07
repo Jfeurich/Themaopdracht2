@@ -247,11 +247,13 @@ public class ConnectDBKlus{
 			String sql = "SELECT * FROM Klus WHERE klusid=" + klusid;
 			Statement stmt = con.createStatement();
 			ResultSet rs = stmt.executeQuery(sql);
+			int autoid = 0;
 			while (rs.next()) {   // rs.next() geeft false als er niets meer is 
 			    java.sql.Date datum = rs.getDate("datum");
 			    java.util.Date dat = new java.util.Date(datum.getTime());
 				String bes = rs.getString("beschrijving");
 				String type = rs.getString("soort");
+				autoid = rs.getInt("autoid");
 				if(type.equals("onderhoudsbeurt")){
 					terug = new Onderhoudsbeurt(dat, bes);
 					terug.setID(klusid);
@@ -277,10 +279,10 @@ public class ConnectDBKlus{
 			}
 			stmt.close();
 			ConnectDBAuto autoconn = new ConnectDBAuto(con);
-			Auto deAuto = autoconn.zoekAuto(rs.getInt("autoid"));
+			Auto deAuto = autoconn.zoekAuto(autoid);
+			terug.setDeAuto(deAuto);
 			ConnectDBGebruiktProduct gpconn = new ConnectDBGebruiktProduct(con);
 			terug.setGebruikteProducten(gpconn.getProductenVanKlus(klusid));
-			terug.setDeAuto(deAuto);
 		}
 		catch(Exception ex){
 			System.out.println("Probleem bij klus zoeken " + ex);

@@ -23,7 +23,14 @@
 					}
 				}
 				Object fact = request.getAttribute("deFactuur");
-				if(fact == null);
+				if (fact != null){
+					Factuur deFactuur = (Factuur)fact;
+					out.println("<h2>Voer kortingspercentage in</h2>");
+					out.println("<input type=text name=korting />");
+					out.println("<input type=hidden name=factuurvoorkorting value="+ deFactuur.getID() +" />");
+					out.println("<input type=submit name=knop value=setkorting />");
+				}
+				else{
 					Object gekozen = request.getAttribute("deKlus");
 					if(gekozen == null){
 						ArrayList<Klus> klussen = (ArrayList<Klus>)request.getAttribute("klussen");
@@ -95,8 +102,9 @@
 									out.println("<td>" + k.getBeschrijving() + "</td>");
 									out.println("<td>" + k.getStatus() + "</td>");
 								out.println("</tr>");
+								out.println("<input type=hidden name=status value=" + k.getStatus() + " />");
 							}
-							out.println("</table>");
+							out.println("</table>");	
 							out.println("<input type=submit name=knop value=nieuw />");						
 						}					
 					}
@@ -106,13 +114,6 @@
 						out.println("<h1>Hier moet ik nog een manier gaan vinden om de factuur af te drukken</h1>");
 						out.println("<input type=submit name=knop value=bevestig />");
 					}
-				}
-				else{
-					Factuur deFactuur = (Factuur)fact;
-					out.println("<h2>Voer kortingspercentage in</h2>");
-					out.println("<input type=text name=korting />");
-					out.println("<input type=hidden name=factuurvoorkorting value="+ deFactuur.getID() +" />");
-					out.println("<input type=submit name=knop value=setkorting />");
 				}
 			%>
 		</div>

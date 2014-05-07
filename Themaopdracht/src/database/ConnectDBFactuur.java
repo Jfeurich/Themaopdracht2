@@ -196,7 +196,7 @@ public class ConnectDBFactuur{
 			}
 			String sql = "UPDATE Factuur SET aanmaakDatum='" + aD + "',  betaalDatum='" + bD + 
 					"', betalingswijze='" + f.getBetaalwijze() + "', kortingspercentage=" + f.getKorting() + 
-					", ' isBetaald='" + isBetaald + "' WHERE factuurid = " + f.getID();
+					", isBetaald='" + isBetaald + "' WHERE factuurid = " + f.getID();
 			Statement stmt = con.createStatement();
 			stmt.executeUpdate(sql);	
 			stmt.close();

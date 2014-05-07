@@ -69,4 +69,12 @@
 		<servlet-name>AutoToevoegen</servlet-name>
 		<url-pattern>/AutoToevoegenServlet.do</url-pattern>
 	</servlet-mapping>
+	<servlet>
+		<servlet-name>NieuweFactuur</servlet-name>
+		<servlet-class>servlets.NieuweFactuurServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>NieuweFactuur</servlet-name>
+		<url-pattern>/NieuweFactuurServlet.do</url-pattern>
+	</servlet-mapping>
 </web-app>

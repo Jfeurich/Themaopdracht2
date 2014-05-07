@@ -60,26 +60,18 @@ public class NieuweFactuurServlet extends HttpServlet{
 		else if(knop.equals("nieuw")){
 			//kies een klus uit waarvan de status voltooid is.
 			ConnectDBFactuur factuurconn = new ConnectDBFactuur(con);
-			String dat = req.getParameter("datum");
-			String beschrijving = req.getParameter("beschrijving");
 			String status = req.getParameter("status");
 			int klusid = Integer.parseInt(req.getParameter("gekozenklus"));
-
-			boolean allesIngevuld = (dat!=null) && (beschrijving!=null)&& (status.equals("voltooid"));
 			
 			boolean gemaakt = false;
-
-			if(allesIngevuld){
+			if(status.equals("Voltooid") || status.equals("voltooid")){
 				//check voor geldige datum
 				try{
 					ConnectDBKlus klusconn = new ConnectDBKlus(con);
-					
-					SimpleDateFormat df = new SimpleDateFormat("dd-MM-yyyy");
-					Date datum = df.parse(dat);
 					Klus deKlus = klusconn.zoekKlus(klusid);
 					Factuur nieuw = factuurconn.nieuweFactuur(deKlus);
 					if(nieuw != null){
-						String terug = "Factuur aangemaakt";
+						req.setAttribute("msg", "Factuur aangemaakt");
 						req.setAttribute("deFactuur", nieuw);
 						gemaakt = true;
 					}
@@ -93,7 +85,7 @@ public class NieuweFactuurServlet extends HttpServlet{
 				}
 			}
 			else{
-				req.setAttribute("error", "/*foutmelding*/");
+				req.setAttribute("error", "Deze klus is nog niet voltooid!");
 			}
 			if(!gemaakt){
 				ConnectDBKlus klusconn = new ConnectDBKlus(con);
