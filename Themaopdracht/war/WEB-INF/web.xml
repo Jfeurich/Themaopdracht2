@@ -45,4 +45,12 @@
 		<servlet-name>StatusWijzigenFactuur</servlet-name>
 		<url-pattern>/StatusWijzigenFactuurServlet.do</url-pattern>
 	</servlet-mapping>
+		<servlet>
+	<servlet-name>Facturennietbetaald</servlet-name>
+	<servlet-class>servlets.OverzichtFacturenNietBetaaldServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>Facturennietbetaald</servlet-name>
+		<url-pattern>/OverzichtFacturenNietBetaaldServlet.do</url-pattern>
+	</servlet-mapping>
 </web-app>

@@ -98,7 +98,11 @@
 						out.println("<input type=submit name=knop value=nieuw />");
 						
 					}
-				
+					else{
+						out.println("<h2>Voer kortingspercentage in</h2>");
+						out.println("<input type=text name= />");
+					}
+					
 				}
 				else{
 					Klus deKlus = (Klus)gekozen;
