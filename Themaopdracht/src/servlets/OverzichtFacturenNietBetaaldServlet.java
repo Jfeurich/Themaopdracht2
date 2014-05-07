@@ -21,12 +21,15 @@ public class OverzichtFacturenNietBetaaldServlet extends HttpServlet {
 		Connection con = database.maakVerbinding();
 		ConnectDBFactuur conn = new ConnectDBFactuur(con);	
 		ArrayList<Factuur> terug = conn.getFacturenNietBetaald();
-		
+		RequestDispatcher rd = req.getRequestDispatcher("onbetaaldefactuuroverzicht.jsp");;
 		if(knop.equals("overzicht")){
 			req.setAttribute("OverzichtFacturenNietBetaald", terug);
-			RequestDispatcher rd = req.getRequestDispatcher("onbetaaldefactuuroverzicht.jsp");
-			rd.forward(req, resp);
 		}
+		else if(knop.equals("betaal")){
+			req.setAttribute(req.getParameter("factuurid"), "factuurid");
+			rd = req.getRequestDispatcher("statuswijzigenfactuur.jsp");
+		}
+		rd.forward(req, resp);
 		database.sluitVerbinding(con);
 	}
 }

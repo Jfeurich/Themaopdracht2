@@ -5,6 +5,7 @@
 		<title>Voorraad Menu</title>
 	</head>
 	<body>
+		<form action="OverzichtFacturenNetBetaaldServlet.do" method="post">
 		<%@ page import="java.util.ArrayList,domeinklassen.Factuur,domeinklassen.Klus" %>
 		<%
 			Object msg = request.getAttribute("msg");
@@ -24,24 +25,25 @@
 					out.println("<td>FactuurID</td>");
 					out.println("<td>AanmaakDatum</td>");
 					out.println("<td>BetaalDatum</td>");
-					out.println("<td>Kortin</td>");
+					out.println("<td>Korting</td>");
 					out.println("<td>De Klus</td>");
 					out.println("<td>Totaal</td>");
 				out.println("</tr>");	
 				for(Factuur f : OverzichtFacturenNietBetaald){
 					out.println("<tr>");
-						out.println("<td><input type=radio name=product value=" + f.getID() + " /></td>");
+						out.println("<td><input type=radio name=factuurid value=" + f.getID() + " /></td>");
 						out.println("<td>" + f.getID() + "</td>");
 						out.println("<td>" + f.getAanmaakDatum() + "</td>");
 						out.println("<td>" + f.getBetaalDatum() + "</td>");
 						out.println("<td>" + f.getKorting() + "</td>");
-					
 						out.println("<td>" + f.getTotaal() + "</td>");
 					out.println("</tr>");
 				}
 				out.println("</table>");
+				out.println("<input type=submit name=knop value=Betaal />");
 			}
 			out.println("<a href=factuur.jsp>Terug naar hoofdmenu factuur</a>");
-		%>	
+		%>
+		</form>	
 	</body>
 </html>
