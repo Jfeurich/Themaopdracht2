@@ -5,7 +5,7 @@
 		<title>Voorraad Menu</title>
 	</head>
 	<body>
-		<%@ page import="java.util.ArrayList,domeinklassen.Factuur" %>
+		<%@ page import="java.util.ArrayList,domeinklassen.Factuur,domeinklassen.Klus" %>
 		<%
 			Object msg = request.getAttribute("msg");
 			if(msg != null){
@@ -32,11 +32,11 @@
 					out.println("<tr>");
 						out.println("<td><input type=radio name=product value=" + f.getID() + " /></td>");
 						out.println("<td>" + f.getID() + "</td>");
-						out.println("<td>" + p.getAanmaakDatum() + "</td>");
-						out.println("<td>" + p.getBetaalDatum() + "</td>");
-						out.println("<td>" + p.getKorting() + "</td>");
-						out.println("<td>" + p.getDeKlus() + "</td>");
-						out.println("<td>" + p.getTotaal() + "</td>");
+						out.println("<td>" + f.getAanmaakDatum() + "</td>");
+						out.println("<td>" + f.getBetaalDatum() + "</td>");
+						out.println("<td>" + f.getKorting() + "</td>");
+					
+						out.println("<td>" + f.getTotaal() + "</td>");
 					out.println("</tr>");
 				}
 				out.println("</table>");
