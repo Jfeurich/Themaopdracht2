@@ -54,10 +54,16 @@ public class KlusWijzigenServlet extends HttpServlet {
 		
 		else if(knop.equals("status")){
 			//roep de klus op uit de database
+			String klusstatus = null;
 			ConnectDBKlus klusconn = new ConnectDBKlus(con);
 			int klusid = Integer.parseInt(req.getParameter("gekozenklus"));
 			Klus deKlus = klusconn.zoekKlus(klusid);
-			String klusstatus = deKlus.getStatus();	
+			if(deKlus.getStatus().equals("")){
+				deKlus.setStatus("Nog niet aan begonnen");
+			}
+			else{
+				klusstatus = deKlus.getStatus();	
+			}
 			req.setAttribute("deKlus", deKlus);
 			req.setAttribute("gekozenklus", deKlus.getID());
 			req.setAttribute("klusstatus", klusstatus);
@@ -72,7 +78,8 @@ public class KlusWijzigenServlet extends HttpServlet {
 			
 			boolean allesIngevuld = (dat!=null) && (beschrijving!=null)&& (status!=null);
 			boolean gemaakt = false;
-			if(status!=null){	//VERANDER IN ALLESINGEVULD als de rest van de velden in de jsp toe zijn gevoegd
+			if(status!=null){	
+				//VERANDER IN ALLESINGEVULD als de rest van de velden in de jsp toe zijn gevoegd
 				//check voor geldige datum
 				try{
 					ConnectDBKlus klusconn = new ConnectDBKlus(con);				
