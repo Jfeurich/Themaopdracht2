@@ -1,5 +1,4 @@
 package servlets;
-//GITHUB Y U NOT WORK
 
 import java.io.IOException;
 import java.text.SimpleDateFormat;
