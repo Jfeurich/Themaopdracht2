@@ -37,24 +37,25 @@
 		<servlet-name>NieuweBestelling</servlet-name>
 		<url-pattern>/NieuweBestellingServlet.do</url-pattern>
 	</servlet-mapping>
-		<servlet>
-	<servlet-name>StatusWijzigenFactuur</servlet-name>
-	<servlet-class>servlets.StatusWijzigenFactuurServlet</servlet-class>
+	<servlet>
+		<servlet-name>StatusWijzigenFactuur</servlet-name>
+		<servlet-class>servlets.StatusWijzigenFactuurServlet</servlet-class>
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>StatusWijzigenFactuur</servlet-name>
 		<url-pattern>/StatusWijzigenFactuurServlet.do</url-pattern>
 	</servlet-mapping>
 	<servlet>
-	<servlet-name>Facturennietbetaald</servlet-name>
-	<servlet-class>servlets.OverzichtFacturenNietBetaaldServlet</servlet-class>
+		<servlet-name>Facturennietbetaald</servlet-name>
+		<servlet-class>servlets.OverzichtFacturenNietBetaaldServlet</servlet-class>
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>Facturennietbetaald</servlet-name>
 		<url-pattern>/OverzichtFacturenNietBetaaldServlet.do</url-pattern>
 	</servlet-mapping>
-	<servlet-name>KlusWijzigen</servlet-name>
-	<servlet-class>servlets.KlusWijzigenServlet</servlet-class>
+	<servlet>
+		<servlet-name>KlusWijzigen</servlet-name>
+		<servlet-class>servlets.KlusWijzigenServlet</servlet-class>
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>KlusWijzigen</servlet-name>
