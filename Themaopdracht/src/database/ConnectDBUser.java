@@ -2,7 +2,6 @@ package database;
 	
 import java.sql.Connection;
 import java.sql.Date;
-import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
@@ -11,16 +10,18 @@ import domeinklassen.Herinneringsbrief;
 import domeinklassen.Klant;
 import domeinklassen.User;
 	
-public class ConnectDBUser extends ConnectDB {
-	public ConnectDBUser(){
-		super();
+public class ConnectDBUser{
+	
+	private Connection con;
+	
+	public ConnectDBUser(Connection c){
+		con = c;
 	}
 	
 	//alle users in het systeem
 	public ArrayList<User> getUsers(){
 		ArrayList<User> terug = new ArrayList<User>();
 		try{
-			Connection con = DriverManager.getConnection(databaseURL, "root", "");
 			String sql = "SELECT * FROM User";
 			Statement stmt = con.createStatement();
 			ResultSet rs = stmt.executeQuery(sql);
@@ -32,17 +33,16 @@ public class ConnectDBUser extends ConnectDB {
 				int klantid = rs.getInt("klantid");
 				User u = new User(id, type, unm, ww);
 				if(type == 3){ //als het de account van een klant is, stel de klant dan in
-					ConnectDBKlant klantconn = new ConnectDBKlant();
+					ConnectDBKlant klantconn = new ConnectDBKlant(con);
 					Klant deKlant = klantconn.zoekKlant(klantid);
 					u.setDeKlant(deKlant);
 				}
 				terug.add(u);
 			}
 			stmt.close();
-			con.close();
 		}
 		catch(Exception ex){
-			System.out.println(ex);
+			System.out.println("Probleem bij users ophalen " + ex);
 		}
 		return terug;
 	}
@@ -51,7 +51,6 @@ public class ConnectDBUser extends ConnectDB {
 	public ArrayList<User> getUsersVanType(int nummer){
 		ArrayList<User> terug = new ArrayList<User>();
 		try{
-			Connection con = DriverManager.getConnection(databaseURL, "root", "");
 			String sql = "SELECT * FROM User WHERE type=" + nummer;
 			Statement stmt = con.createStatement();
 			ResultSet rs = stmt.executeQuery(sql);
@@ -62,17 +61,16 @@ public class ConnectDBUser extends ConnectDB {
 				int klantid = rs.getInt("klantid");
 				User u = new User(id, nummer, unm, ww);
 				if(nummer == 3){ //als het de account van een klant is, stel de klant dan in
-					ConnectDBKlant klantconn = new ConnectDBKlant();
+					ConnectDBKlant klantconn = new ConnectDBKlant(con);
 					Klant deKlant = klantconn.zoekKlant(klantid);
 					u.setDeKlant(deKlant);
 				}
 				terug.add(u);
 			}
 			stmt.close();
-			con.close();
 		}
 		catch(Exception ex){
-			System.out.println(ex);
+			System.out.println("Probleem bij users ophalen per type " + ex);
 		}
 		return terug;
 	}
@@ -81,7 +79,6 @@ public class ConnectDBUser extends ConnectDB {
 	public User zoekUser(int id){
 		User terug = null;
 		try{
-			Connection con = DriverManager.getConnection(databaseURL, "root", "");
 			String sql = "SELECT * FROM User WHERE userid=" + id;
 			Statement stmt = con.createStatement();
 			ResultSet rs = stmt.executeQuery(sql);
@@ -92,15 +89,16 @@ public class ConnectDBUser extends ConnectDB {
 				int klantid = rs.getInt("klantid");
 				User u = new User(id, type, unm, ww);
 				if(type == 3){ //als het de account van een klant is, stel de klant dan in
-					ConnectDBKlant klantconn = new ConnectDBKlant();
+					ConnectDBKlant klantconn = new ConnectDBKlant(con);
 					Klant deKlant = klantconn.zoekKlant(klantid);
 					u.setDeKlant(deKlant);
 				}
 				terug = u;
 			}
+			stmt.close();
 		}
 		catch(Exception ex){
-			System.out.println(ex);
+			System.out.println("Probleem bij user zoeken " + ex);
 		}
 		return terug;		
 	}
@@ -109,7 +107,6 @@ public class ConnectDBUser extends ConnectDB {
 	public User nieuweUserNietKlant(int tp, String unm, String pw){
 		User terug = null;
 		try{
-			Connection con = DriverManager.getConnection(databaseURL, "root", "");
 			String sql = "INSERT INTO User (gebruikersnaam, wachtwoord, type) VALUES ('" + unm + "', '" + pw + "', " + tp + ");";
 			Statement stmt = con.createStatement();
 			stmt.executeUpdate(sql);
@@ -122,11 +119,10 @@ public class ConnectDBUser extends ConnectDB {
 				id = rs.getInt(1);		
 			}
 			stmt2.close();
-			con.close();
 			terug = zoekUser(id);
 		}
 		catch(Exception ex){
-			System.out.println(ex);
+			System.out.println("Probleem bij nieuwe user(NIET klant) " + ex);
 		}
 		return terug;
 	}
@@ -135,7 +131,6 @@ public class ConnectDBUser extends ConnectDB {
 	public User nieuweUserIsKlant(Klant deKlant, String unm, String pw){
 		User terug = null;
 		try{
-			Connection con = DriverManager.getConnection(databaseURL, "root", "");
 			String sql = "INSERT INTO User (gebruikersnaam, wachtwoord, type, klantid) VALUES ('" + unm + "', '" + pw + "', 3, " + deKlant.getKlantnummer() + ");";
 			Statement stmt = con.createStatement();
 			stmt.executeUpdate(sql);
@@ -148,11 +143,10 @@ public class ConnectDBUser extends ConnectDB {
 				id = rs.getInt(1);		
 			}
 			stmt2.close();
-			con.close();
 			terug = zoekUser(id);
 		}
 		catch(Exception ex){
-			System.out.println(ex);
+			System.out.println("Probleem bij nieuwe user(WEL klant)" + ex);
 		}
 		return terug;
 	}
@@ -160,16 +154,14 @@ public class ConnectDBUser extends ConnectDB {
 	//stel nieuw wachtwoord in. 
 	public boolean updateUser(User u){
 		try{
-			Connection con = DriverManager.getConnection(databaseURL, "root", "");
 			String sql = "UPDATE User SET wachtwoord='" + u.getWachtwoord() + "' WHERE userid= " + u.getID();
 			Statement stmt = con.createStatement();
 			stmt.executeUpdate(sql);	
 			stmt.close();
-			con.close();
 			return true;
 		}
 		catch(Exception ex){
-			System.out.println(ex);
+			System.out.println("Probleem bij user updaten " + ex);
 		}
 		return false;
 	}
@@ -177,16 +169,14 @@ public class ConnectDBUser extends ConnectDB {
 	//verwijderd tabelrij met ingevoerd id
 	public boolean verwijderUser(int id){
 		try{
-			Connection con = DriverManager.getConnection(databaseURL, "root", "");
 			String sql = "DELETE FROM User WHERE userid=" + id;
 			Statement stmt = con.createStatement();
 			stmt.executeUpdate(sql);
 			stmt.close();
-			con.close();
 			return true;
 		}
 		catch(Exception ex){
-			System.out.println(ex);
+			System.out.println("Probleem bij user verwijderen " + ex);
 		}
 		return false;
 	}

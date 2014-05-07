@@ -11,17 +11,18 @@ import java.util.Calendar;
 import domeinklassen.BesteldProduct;
 import domeinklassen.Bestelling;
 
-public class ConnectDBBestelling extends ConnectDB{
+public class ConnectDBBestelling{
+	
+	private Connection con = null;
 	//maak connectie
-	public ConnectDBBestelling(){
-		super();
+	public ConnectDBBestelling(Connection c){
+		con = c;
 	}
 	
 	//alle bestellingen in het systeem
 	public ArrayList<Bestelling> getBestellingen(){
 		ArrayList<Bestelling> terug = new ArrayList<Bestelling>();
 		try{			
-			Connection con = DriverManager.getConnection(databaseURL, "root", "");
 			String sql = "SELECT * FROM Bestelling";
 			Statement stmt = con.createStatement();
 			ResultSet rs = stmt.executeQuery(sql);
@@ -37,15 +38,14 @@ public class ConnectDBBestelling extends ConnectDB{
 				if(datum != null){
 					b.setVerwachteDatum(datum);
 				}
-				ConnectDBBesteldProduct bpconn = new ConnectDBBesteldProduct();
+				ConnectDBBesteldProduct bpconn = new ConnectDBBesteldProduct(con);
 				b.setBesteldeProducten(bpconn.getProductenVanBestelling(id));
 				terug.add(b);
 			}
 			stmt.close();
-			con.close();
 		}
 		catch(Exception ex){
-			System.out.println(ex);
+			System.out.println("Probleem bij bestellingen ophalen" + ex);
 		}		
 		return terug;
 	}
@@ -54,7 +54,6 @@ public class ConnectDBBestelling extends ConnectDB{
 	public ArrayList<Bestelling> getBestellingenNietGeleverd(){
 		ArrayList<Bestelling> terug = new ArrayList<Bestelling>();
 		try{			
-			Connection con = DriverManager.getConnection(databaseURL, "root", "");
 			String sql = "SELECT * FROM Bestelling WHERE isGeleverd='f'";
 			Statement stmt = con.createStatement();
 			ResultSet rs = stmt.executeQuery(sql);
@@ -66,15 +65,14 @@ public class ConnectDBBestelling extends ConnectDB{
 				if(datum != null){
 					b.setVerwachteDatum(datum);
 				}
-				ConnectDBBesteldProduct bpconn = new ConnectDBBesteldProduct();
+				ConnectDBBesteldProduct bpconn = new ConnectDBBesteldProduct(con);
 				b.setBesteldeProducten(bpconn.getProductenVanBestelling(id));
 				terug.add(b);
 			}
 			stmt.close();
-			con.close();
 		}
 		catch(Exception ex){
-			System.out.println(ex);
+			System.out.println("Probleem bij niet-geleverde bestellingen ophalen" + ex);
 		}		
 		return terug;
 	}
@@ -83,7 +81,6 @@ public class ConnectDBBestelling extends ConnectDB{
 	public Bestelling zoekBestelling(int id){
 		Bestelling terug = null;
 		try{			
-			Connection con = DriverManager.getConnection(databaseURL, "root", "");
 			String sql = "SELECT * FROM Bestelling WHERE bestellingid=" + id;
 			Statement stmt = con.createStatement();
 			ResultSet rs = stmt.executeQuery(sql);
@@ -98,15 +95,14 @@ public class ConnectDBBestelling extends ConnectDB{
 				if(datum != null){
 					b.setVerwachteDatum(datum);
 				}
-				ConnectDBBesteldProduct bpconn = new ConnectDBBesteldProduct();
+				ConnectDBBesteldProduct bpconn = new ConnectDBBesteldProduct(con);
 				b.setBesteldeProducten(bpconn.getProductenVanBestelling(id));
 				terug = b;
 			}
 			stmt.close();
-			con.close();
 		}
 		catch(Exception ex){
-			System.out.println(ex);
+			System.out.println("Probleem bij bestelling zoeken" + ex);
 		}
 		return terug;
 	}
@@ -115,7 +111,6 @@ public class ConnectDBBestelling extends ConnectDB{
 	public Bestelling nieuwBestelling(Bestelling deBestelling){
 		Bestelling terug = deBestelling;
 		try{			
-			Connection con = DriverManager.getConnection(databaseURL, "root", "");
 			//maak een bestelling aan
 			Calendar now = Calendar.getInstance();
 			java.util.Date datum = now.getTime();
@@ -141,10 +136,9 @@ public class ConnectDBBestelling extends ConnectDB{
 				pstmt.executeUpdate();
 			}
 			pstmt.close();
-			con.close();
 		}
 		catch(Exception ex){
-			System.out.println(ex);
+			System.out.println("Probleem bij nieuwe bestelling maken" + ex);
 		}
 		return terug;
 	}
@@ -157,16 +151,14 @@ public class ConnectDBBestelling extends ConnectDB{
 		    if(b.getIsGeleverd()){
 		    	isGeleverd = "t";
 		    }
-			Connection con = DriverManager.getConnection(databaseURL, "root", "");
 			String sql = "UPDATE Bestelling SET datum='" + dat + "',  isGeleverd='" + isGeleverd + "' WHERE bestellingid = " + b.getBestelNummer();
 			Statement stmt = con.createStatement();
 			stmt.executeUpdate(sql);	
 			stmt.close();
-			con.close();
 			return true;
 		}
 		catch(Exception ex){
-			System.out.println(ex);
+			System.out.println("Probleem bij bestelling updaten" + ex);
 		}
 		return false;
 	}
@@ -174,22 +166,20 @@ public class ConnectDBBestelling extends ConnectDB{
 	public boolean verwijderBestelling(int bestellingid){
 		try{
 			//verwijder eerst alle producten van deze bestelling
-			ConnectDBBesteldProduct bpconn = new ConnectDBBesteldProduct();
+			ConnectDBBesteldProduct bpconn = new ConnectDBBesteldProduct(con);
 			ArrayList<BesteldProduct> deProducten = bpconn.getProductenVanBestelling(bestellingid);
 			for(BesteldProduct bp : deProducten){
 				bpconn.verwijderBesteldProduct(bp.getID());
 			}
 			//en vervolgens de bestelling zelf
-			Connection con = DriverManager.getConnection(databaseURL, "root", "");
 			String sql = "DELETE FROM Bestelling WHERE bestellingid=" + bestellingid;
 			Statement stmt = con.createStatement();
 			stmt.executeUpdate(sql);
 			stmt.close();
-			con.close();
 			return true;
 		}
 		catch(Exception ex){
-			System.out.println(ex);
+			System.out.println("Probleem bij bestelling verwijderen " + ex);
 		}		
 		return false;
 	}

@@ -1,6 +1,9 @@
 package database;
 
-public abstract class ConnectDB {
+import java.sql.Connection;
+import java.sql.DriverManager;
+
+public class ConnectDB {
 	
 	protected final static String DB_DRIV = "com.mysql.jdbc.Driver";
 	protected String databaseURL = "jdbc:mysql://localhost:3306/ThemaopdrachtDB";
@@ -14,10 +17,23 @@ public abstract class ConnectDB {
 		}
 	}
 	
-	//standaard methodes (kan ze niet abstract maken omdat het verschillende soorten objecten zijn :S
-	//ArrayList<Class> getAlles
-	//Class zoekClass
-	//Class nieuweClass
-	//boolean updateClass
-	//boolean verwijderClass
+	public Connection maakVerbinding(){
+		Connection con = null;
+		try{
+			con = DriverManager.getConnection(databaseURL, "root", "");
+		}
+		catch(Exception ex){
+			System.out.println("Error bij verbinding met database! " + ex);
+		}
+		return con;
+	}
+	
+	public void sluitVerbinding(Connection con){
+		try{
+			con.close();
+		}
+		catch(Exception ex){
+			System.out.println("Error bij sluiten van database! " + ex);
+		}
+	}
 }

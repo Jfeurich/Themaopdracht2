@@ -22,7 +22,7 @@ public class Reparatie extends Klus {
 	}
 
 	public String toString(){
-		String s = "Reparatie: " + datum + "; " + deAuto.getKenteken();
+		String s = super.toString() + "Reparatie: " + datum + "; ";
 		return s;
 	}
 }

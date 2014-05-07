@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.sql.Connection;
+import database.ConnectDB;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -22,17 +24,21 @@ import domeinklassen.Reparatie;
 
 public class NieuweKlusServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		
+		ConnectDB database = new ConnectDB();
+		Connection con = database.maakVerbinding();
+		
 		String knop = req.getParameter("knop");
 		
 		//roep alle klanten van het bedrijf op
 		if(knop.equals("klanten")){
-			ConnectDBKlant klantconn = new ConnectDBKlant();	
+			ConnectDBKlant klantconn = new ConnectDBKlant(con);	
 			ArrayList<Klant> klanten = klantconn.getKlanten();
 			req.setAttribute("klanten", klanten);
 		}
 		//roep alle autos van de geselecteerde klant op
 		else if(knop.equals("autos")){
-			ConnectDBAuto autoconn = new ConnectDBAuto();
+			ConnectDBAuto autoconn = new ConnectDBAuto(con);
 			String knr = req.getParameter("gekozenklant");
 			int klantnummer = Integer.parseInt(knr);
 			ArrayList<Auto> autos = autoconn.getAutosVan(klantnummer);
@@ -40,13 +46,13 @@ public class NieuweKlusServlet extends HttpServlet {
 		}
 		//roep al het werk aan wat aan deze auto is gedaan en laat nieuweklus.jsp het forumulier tonen om een klus toe te voegen
 		else if(knop.equals("kiesauto")){
-			ConnectDBAuto autoconn = new ConnectDBAuto();
+			ConnectDBAuto autoconn = new ConnectDBAuto(con);
 			String autoid = req.getParameter("gekozenauto");
 			Auto deAuto = autoconn.zoekAuto(Integer.parseInt(autoid));
 			req.setAttribute("deAuto", deAuto);
 		}
 		else if(knop.equals("nieuw")){
-			ConnectDBKlus klusconn = new ConnectDBKlus();
+			ConnectDBKlus klusconn = new ConnectDBKlus(con);
 			String type = req.getParameter("type");
 			String dat = req.getParameter("datum");
 			String beschrijving = req.getParameter("beschrijving");
@@ -86,12 +92,13 @@ public class NieuweKlusServlet extends HttpServlet {
 				req.setAttribute("error", "Vul alle velden in en kies een klustype!");
 			}
 			if(!gemaakt){
-				ConnectDBAuto autoconn = new ConnectDBAuto();
+				ConnectDBAuto autoconn = new ConnectDBAuto(con);
 				Auto deAuto = autoconn.zoekAuto(autoid);
 				req.setAttribute("deAuto", deAuto);
 			}
 		}
 		RequestDispatcher rd = req.getRequestDispatcher("nieuweklus.jsp");
 		rd.forward(req, resp);	
+		database.sluitVerbinding(con);
 	}
 }

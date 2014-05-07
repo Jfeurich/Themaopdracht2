@@ -100,5 +100,7 @@ public abstract class Klus {
 		return deFactuur;
 	}
 
-	public abstract String toString();
+	public String toString(){
+		return "Bij deze klus is gewerkt aan: " + deAuto.getKenteken();
+	}
 }

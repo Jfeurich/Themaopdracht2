@@ -6,8 +6,8 @@
 	<title>Status Klus wijzigen</title>
 </head>
 <body>
-	<form action="NieuweFactuurServlet.do" method="post">
-		<%@ page import="java.util.ArrayList,domeinklassen.Klant,domeinklassen.Auto,domeinklassen.Klus" %>
+	<form action="KlusWijzigenServlet.do" method="post">
+		<%@ page import="java.util.ArrayList,domeinklassen.Klant,domeinklassen.Auto,domeinklassen.Klus,domeinklassen.Onderhoudsbeurt,domeinklassen.Reparatie,domeinklassen.GebruiktProduct,domeinklassen.Product" %>
 		<div>
 			<h2>Status Klus wijzigen</h2>
 			<%
@@ -84,28 +84,53 @@
 							out.println("<td>Kies</td>");
 							out.println("<td>Datum</td>");
 							out.println("<td>Beschrijving</td>");
-							out.println("<td>Status/td>");
+							out.println("<td>Status</td>");
 						out.println("</tr>");
 						for(Klus k : klussen ){
+							String status = k.getStatus();
+							if(status == null){status="Nog niet begonnen";}
 							out.println("<tr>");
 								out.println("<td><input type=radio name=gekozenklus value=" + k.getID() + " /></td>");
 								out.println("<td>" + k.getDatum() + "</td>");
 								out.println("<td>" + k.getBeschrijving() + "</td>");
-								out.println("<td>" + k.getStatus() + "</td>");
+								out.println("<td>" + status + "</td>");
 							out.println("</tr>");
+							ArrayList<GebruiktProduct> producten = k.getGebruikteProducten();
+							if(producten.size() > 0){
+								out.println("<tr>");
+									out.println("<td>Artikelnummer</td>");
+									out.println("<td>Naam</td>");
+									out.println("<td>Aantal</td>");
+									out.println("<td>Prijs per stuk</td>");
+								out.println("</tr>");
+								for(GebruiktProduct gp : producten){
+									Product hetProduct = gp.getHetProduct();
+									out.println("<tr>");
+										out.println("<td>" + hetProduct.getArtikelNr() + "</td>");
+										out.println("<td>" + hetProduct.getNaam() + "</td>");
+										out.println("<td>" + gp.getAantal() + "</td>");
+										out.println("<td>" + hetProduct.getPrijsPerStuk() + "</td>");
+									out.println("</tr>");
+								}
+							}
 						}
 						out.println("</table>");
-						out.println("<input type=submit name=knop value=nieuw />");
-						
+						out.println("<input type=submit name=knop value=status />");					
 					}
 				
 				}
 				else{
-					Klus deKlus = (Klus)gekozen;
-					out.println("<h2>Welke status moet de klus krijgen?</h2>");
-					out.println("<input type=radio name=status value=voltooid> Voltooid <br />");
-					out.println("<input type=radio name=status value=onvoltooid> Onvoltooid <br />");
-					out.println("<input type=radio name=status value=wachten op onderdelen> wachten op onderdelen <br />");
+					int klusid = (int)request.getAttribute("gekozenklus");
+					String status = (String)request.getAttribute("klusstatus");
+					if(status.equals("")){status="Nog niet begonnen";}
+					out.println("<h2>Huidige status: " + status + "</h2>");
+					out.println("<p>Welke status moet de klus krijgen?</p>");
+					out.println("<table>");
+					out.println("<tr><td><input type=radio name=status value=voltooid /></td<td>Voltooid</td></tr>");
+					out.println("<tr><td><input type=radio name=status value=onvoltooid /></td<td>Onvoltooid</td></tr>");
+					out.println("<tr><td><input type=radio name=status value=wachten op onderdelen /></td<td>Wachten op onderdelen</td></tr>");
+					out.println("</table>");
+					out.println("<td><input type=hidden name=gekozenklus value=" + klusid + " /></td>");
 					out.println("<input type=submit name=knop value=bevestig />");
 				}
 			%>

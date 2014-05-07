@@ -3,6 +3,8 @@ package servlets;
 import java.io.IOException;
 import java.util.Calendar;
 import java.util.Date;
+import java.sql.Connection;
+import database.ConnectDB;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -17,6 +19,10 @@ public class StatusWijzigenFactuurServlet extends HttpServlet{
 	private static final long serialVersionUID = 1L;
 	
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		
+		ConnectDB database = new ConnectDB();
+		Connection con = database.maakVerbinding();
+		
 		if(req.getAttribute("factuur") != null){
 			Factuur deFactuur = (Factuur) req.getAttribute("factuur");
 			if(deFactuur.getIsBetaald() == true){
@@ -30,7 +36,7 @@ public class StatusWijzigenFactuurServlet extends HttpServlet{
 				resp.sendRedirect("homepage.jsp");
 			}
 			else if(knop.equals("Betaal")){
-				ConnectDBFactuur factuurcon = new ConnectDBFactuur();
+				ConnectDBFactuur factuurcon = new ConnectDBFactuur(con);
 				Factuur deFactuur = factuurcon.zoekFactuur(Integer.parseInt(req.getParameter("factuurid")));
 				Date datum = new Date();
 				deFactuur.betaal(req.getParameter("betaalmiddel"), datum);
@@ -39,6 +45,7 @@ public class StatusWijzigenFactuurServlet extends HttpServlet{
 			RequestDispatcher rd = req.getRequestDispatcher("statuswijzigenfactuur.jsp");
 			rd.forward(req, resp);	
 		}
+		database.sluitVerbinding(con);
 	}
 }
 

@@ -1,7 +1,6 @@
 package database;
 
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -11,18 +10,18 @@ import domeinklassen.BesteldProduct;
 import domeinklassen.GebruiktProduct;
 import domeinklassen.Product;
 
-public class ConnectDBProduct extends ConnectDB{
+public class ConnectDBProduct{
 	
+	private Connection con;
 	//maak connectie
-	public ConnectDBProduct(){
-		super();
+	public ConnectDBProduct(Connection c){
+		con = c;
 	}
 	
 	//alle producten in het systeem
 	public ArrayList<Product> getProducten(){
 		ArrayList<Product> deVoorraad = new ArrayList<Product>();
 		try{
-			Connection con = DriverManager.getConnection(databaseURL, "root", "");
 			String sql = "SELECT * FROM PRODUCT";
 			Statement stmt = con.createStatement();
 			ResultSet rs = stmt.executeQuery(sql);
@@ -43,10 +42,9 @@ public class ConnectDBProduct extends ConnectDB{
 				deVoorraad.add(p);
 			}
 			stmt.close();
-			con.close();
 		}
 		catch(Exception ex){
-			System.out.println(ex);
+			System.out.println("Probleem bij producten ophalen " + ex);
 		}
 		return deVoorraad;
 	}
@@ -55,7 +53,6 @@ public class ConnectDBProduct extends ConnectDB{
 	public ArrayList<Product> getProductenOnderMinimum(){
 		ArrayList<Product> deVoorraad = new ArrayList<Product>();
 		try{
-			Connection con = DriverManager.getConnection(databaseURL, "root", "");
 			String sql = "SELECT * FROM PRODUCT";
 			Statement stmt = con.createStatement();
 			ResultSet rs = stmt.executeQuery(sql);
@@ -79,10 +76,9 @@ public class ConnectDBProduct extends ConnectDB{
 				}
 			}
 			stmt.close();
-			con.close();
 		}
 		catch(Exception ex){
-			System.out.println(ex);
+			System.out.println("Probleem bij producten onder minimumvoorraad ophalen " + ex);
 		}
 		return deVoorraad;
 	}
@@ -91,7 +87,6 @@ public class ConnectDBProduct extends ConnectDB{
 	public Product zoekProduct(int artikelnr){
 		Product terug = null;
 		try{
-			Connection con = DriverManager.getConnection(databaseURL, "root", "");
 			String sql = "SELECT * FROM PRODUCT WHERE productid=" + artikelnr;
 			Statement stmt = con.createStatement();
 			ResultSet rs = stmt.executeQuery(sql);
@@ -111,10 +106,9 @@ public class ConnectDBProduct extends ConnectDB{
 				}
 			}
 			stmt.close();
-			con.close();
 		}
 		catch(Exception ex){
-			System.out.println(ex);
+			System.out.println("Probleem bij product zoeken op artikelnr " + ex);
 		}
 		return terug;
 	}
@@ -123,7 +117,6 @@ public class ConnectDBProduct extends ConnectDB{
 	public ArrayList<Product> zoekProduct(String naam){
 		ArrayList<Product> terug = new ArrayList<Product>();
 		try{
-			Connection con = DriverManager.getConnection(databaseURL, "root", "");
 			String sql = "SELECT * FROM PRODUCT WHERE naam LIKE '%" + naam + "%'";
 			Statement stmt = con.createStatement();
 			ResultSet rs = stmt.executeQuery(sql);
@@ -144,10 +137,9 @@ public class ConnectDBProduct extends ConnectDB{
 				terug.add(p);
 			}
 			stmt.close();
-			con.close();
 		}
 		catch(Exception ex){
-			System.out.println(ex);
+			System.out.println("Probleem bij product zoeken op naam " + ex);
 		}
 		return terug;
 	}
@@ -156,7 +148,6 @@ public class ConnectDBProduct extends ConnectDB{
 	public Product nieuwProduct(String nm, int min, String eh, double pps){
 		Product terug = null;
 		try{			
-			Connection con = DriverManager.getConnection(databaseURL, "root", "");
 			//maak nieuw product met gegeven waarden
 			String sql = "INSERT INTO Product (naam, minimumAanwezig, eenheid, prijsPerStuk) VALUES ('" + nm + "', " + min + ", '" + eh + "', " + pps + ");";
 			Statement stmt = con.createStatement();
@@ -171,12 +162,11 @@ public class ConnectDBProduct extends ConnectDB{
 				zoeknummer = rs.getInt(1);			
 			}
 			stmt2.close();
-			con.close();
 			//zoek product op basis van gevonden artikelnummer
 			terug = zoekProduct(zoeknummer);
 		}
 		catch(Exception ex){
-			System.out.println(ex);
+			System.out.println("Probleem bij nieuw product " + ex);
 		}
 		return terug;
 	}
@@ -184,18 +174,16 @@ public class ConnectDBProduct extends ConnectDB{
 	//wijzigt product in database naar alle waarden van ingevoerde product-object (exclusief het id)
 	public boolean updateProduct(Product p){
 		try{
-			Connection con = DriverManager.getConnection(databaseURL, "root", "");
 			String sql = "UPDATE Product SET naam='" + p.getNaam() + "',  minimumAanwezig=" + p.getMinimumAanwezig() + 
 					", eenheid='" + p.getEenheid() + "', prijsPerStuk=" + p.getPrijsPerStuk() + ", aantal=" + p.getAantal()+ 
 					" WHERE productid = " + p.getArtikelNr();
 			Statement stmt = con.createStatement();
 			stmt.executeUpdate(sql);	
 			stmt.close();
-			con.close();
 			return true;
 		}
 		catch(Exception ex){
-			System.out.println(ex);
+			System.out.println("Probleem bij product updaten " + ex);
 		}
 		return false;
 	}
@@ -204,28 +192,26 @@ public class ConnectDBProduct extends ConnectDB{
 	public boolean verwijderProduct(int productid){
 		try{
 			//verwijder eerst alle gebruikte producten met dit id
-			ConnectDBGebruiktProduct gconn = new ConnectDBGebruiktProduct();
+			ConnectDBGebruiktProduct gconn = new ConnectDBGebruiktProduct(con);
 			ArrayList<GebruiktProduct> gproducten = gconn.getGebruikVanProduct(productid);
 			for(GebruiktProduct gp: gproducten){
 				gconn.verwijderGebruiktProduct(gp.getID());
 			}
 			//en alle bestelde producten met dit id
-			ConnectDBBesteldProduct bconn = new ConnectDBBesteldProduct();
+			ConnectDBBesteldProduct bconn = new ConnectDBBesteldProduct(con);
 			ArrayList<BesteldProduct> bproducten = bconn.getBestellingenVanProduct(productid);
 			for(BesteldProduct bp: bproducten){
 				bconn.verwijderBesteldProduct(bp.getID());
 			}
 			//en vervolgens het product zelf
-			Connection con = DriverManager.getConnection(databaseURL, "root", "");
 			String sql = "DELETE FROM Product WHERE productid=" + productid;
 			Statement stmt = con.createStatement();
 			stmt.executeUpdate(sql);
 			stmt.close();
-			con.close();
 			return true;
 		}
 		catch(Exception ex){
-			System.out.println(ex);
+			System.out.println("Probleem bij product verwijderen " + ex);
 		}
 		return false;
 	}
@@ -233,7 +219,6 @@ public class ConnectDBProduct extends ConnectDB{
 	//hoogste artikelnummer
 	public int hoogsteArtNr(){
 		try {
-			Connection con = DriverManager.getConnection(databaseURL, "root", "");
 			String sql = "SELECT MAX(productid) AS max FROM Product";
 			Statement stmt;
 			stmt = con.createStatement();
@@ -241,9 +226,10 @@ public class ConnectDBProduct extends ConnectDB{
 			rs.next();
 			int maximum = rs.getInt(1);			
 			stmt.close();
-			con.close();
 			return maximum;
-		} catch (SQLException e) {
+		} 
+		catch (SQLException e) {
+			System.out.println("Probleem bij product met hoogste artikelnr zoeken" + e);
 			return -1;
 		}
 	}

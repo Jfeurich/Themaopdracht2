@@ -1,7 +1,6 @@
 package database;
 
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
@@ -10,18 +9,18 @@ import domeinklassen.Auto;
 import domeinklassen.Klant;
 import domeinklassen.Klus;
 
-public class ConnectDBAuto extends ConnectDB{
+public class ConnectDBAuto{
 	
+	private Connection con = null;
 	//maak connectie
-	public ConnectDBAuto(){
-		super();
+	public ConnectDBAuto(Connection c){
+		con = c;
 	}
 	
 	//alle autos in het systeem
 	public ArrayList<Auto> getAutos(){
 		ArrayList<Auto> terug = new ArrayList<Auto>();
 		try{
-			Connection con = DriverManager.getConnection(databaseURL, "root", "");
 			String sql = "SELECT * FROM Auto";
 			Statement stmt = con.createStatement();
 			ResultSet rs = stmt.executeQuery(sql);
@@ -31,17 +30,16 @@ public class ConnectDBAuto extends ConnectDB{
 				String mk = rs.getString("merk");
 				String tp = rs.getString("type");
 				int klantid = rs.getInt("klantid");
-				ConnectDBKlant klantconn = new ConnectDBKlant();
+				ConnectDBKlant klantconn = new ConnectDBKlant(con);
 				Klant eigenaar = klantconn.zoekKlant(klantid);
 				Auto a = new Auto(ken, mk, tp, eigenaar);
 				a.setID(id);
 				terug.add(a);
 			}
 			stmt.close();
-			con.close();
 		}
 		catch(Exception ex){
-			System.out.println(ex);
+			System.out.println("Probleem bij ophalen autos" + ex);
 		}
 		return terug;
 	}
@@ -50,7 +48,6 @@ public class ConnectDBAuto extends ConnectDB{
 	public ArrayList<Auto> getAutosVan(int zoekid){
 		ArrayList<Auto> terug = new ArrayList<Auto>();
 		try{
-			Connection con = DriverManager.getConnection(databaseURL, "root", "");
 			String sql = "SELECT * FROM Auto WHERE klantid=" + zoekid;
 			Statement stmt = con.createStatement();
 			ResultSet rs = stmt.executeQuery(sql);
@@ -59,17 +56,16 @@ public class ConnectDBAuto extends ConnectDB{
 				String ken = rs.getString("kenteken");
 				String mk = rs.getString("merk");
 				String tp = rs.getString("type");
-				ConnectDBKlant klantconn = new ConnectDBKlant();
+				ConnectDBKlant klantconn = new ConnectDBKlant(con);
 				Klant eigenaar = klantconn.zoekKlant(zoekid);
 				Auto a = new Auto(ken, mk, tp, eigenaar);
 				a.setID(id);
 				terug.add(a);
 			}
 			stmt.close();
-			con.close();
 		}
 		catch(Exception ex){
-			System.out.println(ex);
+			System.out.println("Probleem bij ophalen autos van klant" + ex);
 		}
 		return terug;
 	}
@@ -78,7 +74,6 @@ public class ConnectDBAuto extends ConnectDB{
 	public Auto zoekAuto(int autoid){
 		Auto terug = null;
 		try{
-			Connection con = DriverManager.getConnection(databaseURL, "root", "");
 			String sql = "SELECT * FROM Auto WHERE autoid=" + autoid;
 			Statement stmt = con.createStatement();
 			ResultSet rs = stmt.executeQuery(sql);
@@ -87,17 +82,16 @@ public class ConnectDBAuto extends ConnectDB{
 				String mk = rs.getString("merk");
 				String tp = rs.getString("type");
 				int klantid = rs.getInt("klantid");
-				stmt.close();
-				con.close();
-				ConnectDBKlant klantconn = new ConnectDBKlant();
+				ConnectDBKlant klantconn = new ConnectDBKlant(con);
 				Klant eigenaar = klantconn.zoekKlant(klantid);
 				Auto a = new Auto(ken, mk, tp, eigenaar);
 				a.setID(autoid);
 				terug = a;
 			}
+			stmt.close();
 		}
 		catch(Exception ex){
-			System.out.println(ex);
+			System.out.println("Probleem bij zoeken naar auto" + ex);
 		}
 		return terug;		
 	}
@@ -106,7 +100,6 @@ public class ConnectDBAuto extends ConnectDB{
 	public Auto nieuweAuto(String kenteken, String merk, String type, Klant eigenaar){
 		Auto terug = null;
 		try{
-			Connection con = DriverManager.getConnection(databaseURL, "root", "");
 			String sql = "INSERT INTO Auto (kenteken, merk, type, klantid) VALUES ('" + kenteken + "', '" + merk + "', '" + type + "', " + eigenaar.getKlantnummer() + ")";
 			Statement stmt = con.createStatement();
 			stmt.executeUpdate(sql);
@@ -119,11 +112,10 @@ public class ConnectDBAuto extends ConnectDB{
 				autoid = rs.getInt(1);		
 			}
 			stmt2.close();
-			con.close();
 			terug = zoekAuto(autoid);
 		}
 		catch(Exception ex){
-			System.out.println(ex);
+			System.out.println("Probleem bij nieuwe auto maken" + ex);
 		}
 		return terug;
 	}
@@ -131,17 +123,15 @@ public class ConnectDBAuto extends ConnectDB{
 	//zet alle waardes van auto in database naar waardes van ingevoerd auto-object. met uitzondering van id. 
 	public boolean updateAuto(Auto a){
 		try{
-			Connection con = DriverManager.getConnection(databaseURL, "root", "");
 			String sql = "UPDATE Auto SET kenteken='" + a.getKenteken() + "',  merk='" + a.getMerk() + 
 					"', type='" + a.getType() + "' WHERE autoid = " + a.getID();
 			Statement stmt = con.createStatement();
 			stmt.executeUpdate(sql);	
 			stmt.close();
-			con.close();
 			return true;
 		}
 		catch(Exception ex){
-			System.out.println(ex);
+			System.out.println("Probleem bij auto updaten" + ex);
 		}
 		return false;
 	}
@@ -150,22 +140,20 @@ public class ConnectDBAuto extends ConnectDB{
 	public boolean verwijderAuto(int autoid){
 		try{
 			//verwijder eerst alle klussen van deze auto
-			ConnectDBKlus kconn = new ConnectDBKlus();
+			ConnectDBKlus kconn = new ConnectDBKlus(con);
 			ArrayList<Klus> deKlussen = kconn.getKlussenVoorAuto(autoid);
 			for(Klus k : deKlussen){
 				kconn.verwijderKlus(k.getID());
 			}
 			//en vervolgens de auto zelf
-			Connection con = DriverManager.getConnection(databaseURL, "root", "");
 			String sql = "DELETE FROM Auto WHERE autoid=" + autoid;
 			Statement stmt = con.createStatement();
 			stmt.executeUpdate(sql);
 			stmt.close();
-			con.close();
 			return true;
 		}
 		catch(Exception ex){
-			System.out.println(ex);
+			System.out.println("Probleem bij auto verwijderen " + ex);
 		}
 		return false;
 	}

@@ -22,7 +22,7 @@ public class Onderhoudsbeurt extends Klus {
 	}
 
 	public String toString(){
-		String s = "Onderhoudsbeurt: " + datum + "; " + deAuto.getKenteken();
+		String s = super.toString() + "Onderhoudsbeurt: " + datum + "; ";
 		return s;
 	}
 }

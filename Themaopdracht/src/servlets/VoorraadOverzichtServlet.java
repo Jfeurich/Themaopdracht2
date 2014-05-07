@@ -2,6 +2,8 @@ package servlets;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.sql.Connection;
+import database.ConnectDB;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -14,8 +16,12 @@ import domeinklassen.Product;
 
 public class VoorraadOverzichtServlet extends HttpServlet{
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		
+		ConnectDB database = new ConnectDB();
+		Connection con = database.maakVerbinding();
+		
 		String knop = req.getParameter("knop");
-		ConnectDBProduct conn = new ConnectDBProduct();	
+		ConnectDBProduct conn = new ConnectDBProduct(con);	
 		
 		ArrayList<Product> deVoorraad = conn.getProducten();
 		
@@ -123,5 +129,6 @@ public class VoorraadOverzichtServlet extends HttpServlet{
 			RequestDispatcher rd = req.getRequestDispatcher("voorraadoverzicht.jsp");
 			rd.forward(req, resp);			
 		}
+		database.sluitVerbinding(con);
 	}
 }
