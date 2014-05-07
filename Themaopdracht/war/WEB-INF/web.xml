@@ -61,4 +61,12 @@
 		<servlet-name>KlusWijzigen</servlet-name>
 		<url-pattern>/KlusWijzigenServlet.do</url-pattern>
 	</servlet-mapping>
+	<servlet>
+		<servlet-name>AutoToevoegen</servlet-name>
+		<servlet-class>servlets.AutoToevoegenServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>AutoToevoegen</servlet-name>
+		<url-pattern>/AutoToevoegenServlet.do</url-pattern>
+	</servlet-mapping>
 </web-app>

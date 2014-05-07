@@ -24,32 +24,43 @@ public class AutoToevoegenServlet extends HttpServlet{
 		Connection con = database.maakVerbinding();
 		
 		String knop = req.getParameter("knop");
-		if(knop.equals("Done")){
-			resp.sendRedirect("homepage.jsp");
+	
+		ConnectDBKlant klantcon = new ConnectDBKlant(con);
+		if(knop.equals("ZoekKlanten")){
+			ArrayList<Klant> klanten = klantcon.getKlanten();
+			req.setAttribute("klanten", klanten);	
 		}
-		else{
-			if(knop.equals("KiesKlant")){
-				ConnectDBKlant klantcon = new ConnectDBKlant(con);	
-				ArrayList<Klant> klanten = klantcon.getKlanten();
-				req.setAttribute("klanten", klanten);
-				req.setAttribute("stap1", "done");
+		else if(knop.equals("KiesKlant")){	
+			String klantnr = req.getParameter("autovanklant");
+			req.setAttribute("deKlant", klantnr);
+			System.out.println(klantnr);
+		}
+		else if(knop.equals("VoegAutoToe")){
+			String ken = req.getParameter("kenteken");
+			String mk = req.getParameter("merk");
+			String tp = req.getParameter("type");
+			
+			boolean allesIngevuld = (ken!=null) && (mk!=null) && (tp!=null);
+			if(!allesIngevuld){ 
+				req.setAttribute("error", "Vul alle velden in!");
 			}
-			if(knop.equals("VoegAutoToe")){
-				ConnectDBAuto autocon = new ConnectDBAuto(con);	
-				String ken = req.getParameter("kenteken");
-				String mk = req.getParameter("merk");
-				String tp = req.getParameter("type");
-				String klanten = req.getParameter("autovanklant");
-				
-				boolean allesIngevuld = (ken!=null) && (mk!=null) && (tp!=null);
-				if(!allesIngevuld){ 
-					req.setAttribute("error", "Vul alle velden in!");
+			else{
+				String klantnr = req.getParameter("klantnummer");
+				try{
+					int klantid = Integer.parseInt(klantnr);
+					Klant deKlant = klantcon.zoekKlant(klantid);
+					ConnectDBAuto autocon = new ConnectDBAuto(con);	
+					autocon.nieuweAuto(ken, mk, tp, deKlant);
+					req.setAttribute("msg", "Auto met succes toegevoegd!");
 				}
-				
-			}	
-			RequestDispatcher rd = req.getRequestDispatcher("autotoevoegen.jsp");
-			rd.forward(req, resp);	
+				catch(Exception ex){
+					String terug = "Kan auto niet toevoegen!" + ex;
+					req.setAttribute("error", terug);	
+				}
+			}		
 		}
 		database.sluitVerbinding(con);
+		RequestDispatcher rd = req.getRequestDispatcher("autotoevoegen.jsp");
+		rd.forward(req, resp);
 	}
 }
