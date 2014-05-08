@@ -29,7 +29,7 @@ commit.
 28-04 Angie: Deelse implementatie van de database. Zie de DatabaseREADME voor instructies.
 30-04 Paul: Het is een wonder, het werkt
 
-8-5 Paul:
+08-05 Paul:
 Af:
 Auto toevoegen
 Nieuwe Bestelling
@@ -40,8 +40,9 @@ Overzicht van voorraad producten
 Product wijzigen
 Nieuwe factuur
 Nieuwe klus
+Klus wijzigen
 
-Niet werkend:
-((Paul))Klus wijzigen, alles werkt tot: op de knop status wordt gedrukt om de status aan te passen, error: 
-	java.lang.NullPointerException
-	servlets.KlusWijzigenServlet.doPost(KlusWijzigenServlet.java:60)
+08-05 Angie: Database is weer veranderd, vergeet niet m te updaten ^^ 
+	NOTE!! ------------ WE MOETEN NOG ZORGEN DAT ALLE SERVLETS MET RADIO BUTTONS--------------------!!
+				----------CHECKEN OF ER UBERHAUPT EEN BUTTON IS GESELECTEERD-------------
+						momenteel geven ze namelijk allemaal een nullpointer =)

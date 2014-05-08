@@ -32,6 +32,8 @@ public class ConnectDBKlus{
 				String bes = rs.getString("beschrijving");
 				String type = rs.getString("soort");
 				int id = rs.getInt("klusid");
+				int manuren = rs.getInt("manuren");
+				String status = rs.getString("status");
 				ConnectDBAuto autoconn = new ConnectDBAuto(con);
 				Auto deAuto = autoconn.zoekAuto(rs.getInt("autoid"));
 				ConnectDBGebruiktProduct gp = new ConnectDBGebruiktProduct(con);
@@ -42,40 +44,16 @@ public class ConnectDBKlus{
 					o = new Onderhoudsbeurt(dat, bes, deAuto);
 					o.setID(id);
 					o.setGebruikteProducten(deProducten);
-					try{
-						int manuren = rs.getInt("manuren");
-						o.addManuren(manuren);
-					}
-					catch(Exception e){
-						System.out.println(e);
-					}
-					try{
-						String status = rs.getString("status");
-						o.setStatus(status);
-					}
-					catch(Exception e){
-						System.out.println(e);
-					}
+					o.addManuren(manuren);
+					o.setStatus(status);
 					terug.add(o);
 				}
 				else if(type.equals("reparatie")){
 					r = new Reparatie(dat, bes, deAuto);
 					r.setID(id);
 					r.setGebruikteProducten(deProducten);
-					try{
-						int manuren = rs.getInt("manuren");
-						r.addManuren(manuren);
-					}
-					catch(Exception e){
-						System.out.println(e);
-					}
-					try{
-						String status = rs.getString("status");
-						r.setStatus(status);
-					}
-					catch(Exception e){
-						System.out.println(e);
-					}
+					r.addManuren(manuren);
+					r.setStatus(status);
 					terug.add(r);
 				}
 			}
@@ -99,27 +77,17 @@ public class ConnectDBKlus{
 			    java.util.Date dat = new java.util.Date(datum.getTime());
 				String bes = rs.getString("beschrijving");
 				int id = rs.getInt("klusid");
+				int manuren = rs.getInt("manuren");
+				String status = rs.getString("status");
 				Onderhoudsbeurt o = new Onderhoudsbeurt(dat, bes);
 				o.setID(id);
-				try{
-					int manuren = rs.getInt("manuren");
-					o.addManuren(manuren);
-				}
-				catch(Exception e){
-					System.out.println(e);
-				}
-				try{
-					String status = rs.getString("status");
-					o.setStatus(status);
-				}
-				catch(Exception e){
-					System.out.println(e);
-				}
 				ConnectDBAuto autoconn = new ConnectDBAuto(con);
 				Auto deAuto = autoconn.zoekAuto(rs.getInt("autoid"));
 				o.setDeAuto(deAuto);
 				ConnectDBGebruiktProduct gpconn = new ConnectDBGebruiktProduct(con);
 				o.setGebruikteProducten(gpconn.getProductenVanKlus(id));
+				o.setStatus(status);
+				o.addManuren(manuren);
 				terug.add(o);
 			}
 			stmt.close();
@@ -142,27 +110,17 @@ public class ConnectDBKlus{
 			    java.util.Date dat = new java.util.Date(datum.getTime());
 				String bes = rs.getString("beschrijving");
 				int id = rs.getInt("klusid");
+				int manuren = rs.getInt("manuren");
+				String status = rs.getString("status");
 				Reparatie r = new Reparatie(dat, bes);
 				r.setID(id);
-				try{
-					int manuren = rs.getInt("manuren");
-					r.addManuren(manuren);
-				}
-				catch(Exception e){
-					System.out.println(e);
-				}
-				try{
-					String status = rs.getString("status");
-					r.setStatus(status);
-				}
-				catch(Exception e){
-					System.out.println(e);
-				}
 				ConnectDBAuto autoconn = new ConnectDBAuto(con);
 				Auto deAuto = autoconn.zoekAuto(rs.getInt("autoid"));
 				r.setDeAuto(deAuto);
 				ConnectDBGebruiktProduct gpconn = new ConnectDBGebruiktProduct(con);
 				r.setGebruikteProducten(gpconn.getProductenVanKlus(id));
+				r.setStatus(status);
+				r.addManuren(manuren);
 				terug.add(r);
 			}
 			stmt.close();
@@ -186,6 +144,8 @@ public class ConnectDBKlus{
 				String bes = rs.getString("beschrijving");
 				String type = rs.getString("soort");
 				int id = rs.getInt("klusid");
+				int manuren = rs.getInt("manuren");
+				String status = rs.getString("status");
 				ConnectDBAuto autoconn = new ConnectDBAuto(con);
 				Auto deAuto = autoconn.zoekAuto(autoid);
 				ConnectDBGebruiktProduct gpconn = new ConnectDBGebruiktProduct(con);
@@ -194,20 +154,8 @@ public class ConnectDBKlus{
 					o.setID(id);
 					o.setGebruikteProducten(gpconn.getProductenVanKlus(id));
 					o.setDeAuto(deAuto);
-					try{
-						int manuren = rs.getInt("manuren");
-						o.addManuren(manuren);
-					}
-					catch(Exception e){
-						System.out.println("onderhoudsbeurt manuren: " + e);
-					}
-					try{
-						String status = rs.getString("status");
-						o.setStatus(status);
-					}
-					catch(Exception e){
-						System.out.println("onderhoudsbeurt status: " + e);
-					}
+					o.addManuren(manuren);
+					o.setStatus(status);
 					terug.add(o);
 				}
 				else if(type.equals("reparatie")){
@@ -215,20 +163,8 @@ public class ConnectDBKlus{
 					r.setID(id);
 					r.setGebruikteProducten(gpconn.getProductenVanKlus(id));
 					r.setDeAuto(deAuto);
-					try{
-						int manuren = rs.getInt("manuren");
-						r.addManuren(manuren);
-					}
-					catch(Exception e){
-						System.out.println("reparatie manuren: " + e);
-					}
-					try{
-						String status = rs.getString("status");
-						r.setStatus(status);
-					}
-					catch(Exception e){
-						System.out.println("reparatie status: " + e);
-					}
+					r.addManuren(manuren);
+					r.setStatus(status);
 					terug.add(r);
 				}
 			}
@@ -253,6 +189,8 @@ public class ConnectDBKlus{
 			String bes = rs.getString("beschrijving");
 			String type = rs.getString("soort");
 			int autoid = rs.getInt("autoid");
+			int manuren = rs.getInt("manuren");
+			String status = rs.getString("status");
 			if(type.equals("onderhoudsbeurt")){
 				terug = new Onderhoudsbeurt(dat, bes);
 				terug.setID(klusid);
@@ -261,20 +199,8 @@ public class ConnectDBKlus{
 				terug = new Reparatie(dat, bes);
 				terug.setID(klusid);
 			}
-			try{
-				int manuren = rs.getInt("manuren");
-				terug.addManuren(manuren);
-			}
-			catch(Exception e){
-				System.out.println(e);
-			}
-			try{
-				String status = rs.getString("status");
-				terug.setStatus(status);
-			}
-			catch(Exception e){
-				System.out.println(e);
-			}
+			terug.addManuren(manuren);
+			terug.setStatus(status);
 			stmt.close();
 			ConnectDBAuto autoconn = new ConnectDBAuto(con);
 			Auto deAuto = autoconn.zoekAuto(autoid);
@@ -294,7 +220,7 @@ public class ConnectDBKlus{
 		try{	
 		    java.sql.Date dat = new java.sql.Date(datum.getTime());		
 			//maak nieuwe klus met gegeven waarden
-			String sql = "INSERT INTO Klus (datum, beschrijving, soort, autoid) VALUES ('" + dat + "', '" + bes + "', '" + tp + "', " + autoid + ");";
+			String sql = "INSERT INTO Klus (datum, beschrijving, soort, autoid, status, manuren) VALUES ('" + dat + "', '" + bes + "', '" + tp + "', " + autoid + ", 'Nog niet begonnen', 0);";
 			Statement stmt = con.createStatement();
 			stmt.executeUpdate(sql);
 			stmt.close();

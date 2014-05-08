@@ -9,8 +9,8 @@ public abstract class Klus {
 	public int id;
 	protected Date datum;
 	protected String beschrijving;
-	protected int manuren;
-	protected String status;
+	protected int manuren = 0;
+	protected String status = "Nog niet begonnen";
 	protected Factuur deFactuur;
 	protected Auto deAuto;
 	protected ArrayList<GebruiktProduct> gebruikteProducten = new ArrayList<GebruiktProduct>();

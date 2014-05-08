@@ -87,13 +87,11 @@
 							out.println("<td>Status</td>");
 						out.println("</tr>");
 						for(Klus k : klussen ){
-							String status = k.getStatus();
-							if(status == null){status="Nog niet begonnen";}
 							out.println("<tr>");
 								out.println("<td><input type=radio name=gekozenklus value=" + k.getID() + " /></td>");
 								out.println("<td>" + k.getDatum() + "</td>");
 								out.println("<td>" + k.getBeschrijving() + "</td>");
-								out.println("<td>" + status + "</td>");
+								out.println("<td>" + k.getStatus() + "</td>");
 							out.println("</tr>");
 							ArrayList<GebruiktProduct> producten = k.getGebruikteProducten();
 							if(producten.size() > 0){
@@ -122,7 +120,6 @@
 				else{
 					int klusid = (int)request.getAttribute("gekozenklus");
 					String status = (String)request.getAttribute("klusstatus");
-					if(status.equals("")){status="Nog niet begonnen";}
 					out.println("<h2>Huidige status: " + status + "</h2>");
 					out.println("<p>Welke status moet de klus krijgen?</p>");
 					out.println("<table>");

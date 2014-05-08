@@ -120,17 +120,17 @@ CREATE TABLE Klus (
 klusid 			INTEGER 		NOT NULL PRIMARY KEY AUTO_INCREMENT,	
 datum 			DATE	 		NOT NULL,
 beschrijving 	VARCHAR(100)	NOT NULL,
-manuren 		INTEGER			,
-status 			VARCHAR(20)		,
+manuren 		INTEGER			NOT NULL,
+status 			VARCHAR(20)		NOT NULL,
 soort 			VARCHAR(20)		NOT NULL,
 autoid			INTEGER 		NOT NULL,
 FOREIGN KEY (autoid) REFERENCES Auto(autoid) 
 );
 
-INSERT INTO Klus (datum, beschrijving, soort, autoid) VALUES 
-('2010-04-25', 'Band vervangen', 'onderhoudsbeurt', 1),
-('2012-12-12', 'Einde van de wereld voorkomen', 'reparatie', 2),
-('2006-06-06', 'Day of the Beast', 'reparatie', 3)
+INSERT INTO Klus (datum, beschrijving, soort, autoid, status, manuren) VALUES 
+('2010-04-25', 'Band vervangen', 'onderhoudsbeurt', 1, 'Nog niet begonnen', 0),
+('2012-12-12', 'Einde van de wereld voorkomen', 'reparatie', 2, 'Nog niet begonnen', 0),
+('2006-06-06', 'Day of the Beast', 'reparatie', 3, 'Nog niet begonnen', 0)
 ;
 
 /* Factuur */

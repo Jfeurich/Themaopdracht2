@@ -2,6 +2,7 @@ package servlets;
 //Resultaten uit het verleden bieden geen garanties voor de toekomst blijkt maar weer
 import java.io.IOException;
 import java.sql.Connection;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -15,7 +16,9 @@ import database.ConnectDB;
 import database.ConnectDBAuto;
 import database.ConnectDBKlant;
 import database.ConnectDBKlus;
-import domeinklassen.*;
+import domeinklassen.Auto;
+import domeinklassen.Klant;
+import domeinklassen.Klus;
 
 public class KlusWijzigenServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -52,16 +55,10 @@ public class KlusWijzigenServlet extends HttpServlet {
 		
 		else if(knop.equals("status")){
 			//roep de klus op uit de database
-			String klusstatus = null;
 			ConnectDBKlus klusconn = new ConnectDBKlus(con);
 			int klusid = Integer.parseInt(req.getParameter("gekozenklus"));
 			Klus deKlus = klusconn.zoekKlus(klusid);
-			if(deKlus.getStatus() == null){
-				deKlus.setStatus("Nog niet aan begonnen");
-			}
-			else{
-				klusstatus = deKlus.getStatus();	
-			}
+			String klusstatus = deKlus.getStatus();	
 			req.setAttribute("deKlus", deKlus);
 			req.setAttribute("gekozenklus", deKlus.getID());
 			req.setAttribute("klusstatus", klusstatus);
@@ -69,30 +66,26 @@ public class KlusWijzigenServlet extends HttpServlet {
 		
 		else if(knop.equals("bevestig")){
 			// sla de nieuwe status op in de klus
-			String dat = req.getParameter("datum");
-			String beschrijving = req.getParameter("beschrijving");
+			//String dat = req.getParameter("datum");
+			//String beschrijving = req.getParameter("beschrijving");
 			String status = req.getParameter("status");
 			int klusid = Integer.parseInt(req.getParameter("gekozenklus"));
+			ConnectDBKlus klusconn = new ConnectDBKlus(con);
+			Klus deKlus = klusconn.zoekKlus(klusid);
 			
-			boolean allesIngevuld = (dat!=null) && (beschrijving!=null)&& (status!=null);
+			//boolean allesIngevuld = (dat!=null) && (beschrijving!=null)&& (status!=null);
 			boolean gemaakt = false;
-			if(status!=null){	
-				//VERANDER IN ALLESINGEVULD als de rest van de velden in de jsp toe zijn gevoegd
-				//check voor geldige datum
-				try{
-					ConnectDBKlus klusconn = new ConnectDBKlus(con);				
+			if(!status.equals("")){	
+				try{				
 					//SimpleDateFormat df = new SimpleDateFormat("dd-MM-yyyy");
 					//Date datum = df.parse(dat);
-					Klus deKlus = klusconn.zoekKlus(klusid);
-					//verander hier de klusstatus
 					deKlus.setStatus(status);
 					if(klusconn.updateKlus(deKlus)){
-						String terug = "Status gewijzigd";
-						req.setAttribute("msg", terug);
+						req.setAttribute("msg", "Status gewijzigd");
 						gemaakt = true;
 					}
 					else{
-						req.setAttribute("msg", "Status kon niet worden gewijzigd");
+						req.setAttribute("error", "Status kon niet worden gewijzigd");
 					}
 				}
 				catch(Exception ex){
@@ -101,11 +94,9 @@ public class KlusWijzigenServlet extends HttpServlet {
 				}
 			}
 			else{
-				req.setAttribute("error", "/*foutmelding*/");
+				req.setAttribute("error", "Vul alle velden in!");
 			}
 			if(!gemaakt){
-				ConnectDBKlus klusconn = new ConnectDBKlus(con);
-				Klus deKlus = klusconn.zoekKlus(klusid);
 				req.setAttribute("deKlus",deKlus);
 			}
 
