@@ -33,9 +33,12 @@
 					out.println("<td>De Klus</td>");
 					out.println("<td>Totaal</td>");
 				out.println("</tr>");	
+				boolean eerste=true;
 				for(Factuur f : OverzichtFacturenNietBetaald){
 					out.println("<tr>");
-						out.println("<td><input type=radio name=factuurid value=" + f.getID() + " /></td>");
+						out.println("<td><input type=radio name=factuurid ");
+						if(eerste){out.println("checked=checked ");eerste=false;}
+						out.println("value=" + f.getID() + " /></td>");
 						out.println("<td>" + f.getID() + "</td>");
 						out.println("<td>" + f.getAanmaakDatum() + "</td>");
 						out.println("<td>" + f.getKorting() + "</td>");

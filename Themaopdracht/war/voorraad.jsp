@@ -59,8 +59,11 @@
 					ArrayList<Product> lijst = (ArrayList<Product>)arraygevonden;
 					out.println("<p>Gevonden product(en):</p>");
 					out.println("<p>Selecteer een product om te wijzigen:</p>");
+					boolean eerste = true;
 					for(Product p: lijst){
-						out.println("<input type=radio name=product value=" + p.getArtikelNr() + " /><p>" + p.toString() + "</p>");			
+						out.println("<input type=radio name=product ");
+						if(eerste){out.println("checked=checked ");eerste=false;}
+						out.println("value=" + p.getArtikelNr() + " /><p>" + p.toString() + "</p>");			
 					}
 					out.println("<p><input type=submit name=knop value=wijzig /></p>");	
 				}

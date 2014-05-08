@@ -29,9 +29,12 @@
 					out.println("<td>Minimum aantal</td>");
 					out.println("<td>Prijs per stuk</td>");
 				out.println("</tr>");	
+				boolean eerste = true;
 				for(Product p : voorraadlijst){
 					out.println("<tr>");
-						out.println("<td><input type=radio name=product value=" + p.getArtikelNr() + " /></td>");
+						out.println("<td><input type=radio name=product ");
+						if(eerste){out.println("checked=checked ");eerste=false;}
+						out.println("value=" + p.getArtikelNr() + " /></td>");
 						out.println("<td>" + p.getArtikelNr() + "</td>");
 						out.println("<td>" + p.getNaam() + "</td>");
 						out.println("<td>" + p.getAantal() + "</td>");

@@ -39,9 +39,12 @@
 								out.println("<td>Adres</td>");
 								out.println("<td>Woonplaats</td>");
 							out.println("</tr>");
+							boolean eerste=true;
 							for(Klant k : klanten){
 								out.println("<tr>");
-									out.println("<td><input type=radio name=gekozenklant value=" + k.getKlantnummer() + " /></td>");
+									out.println("<td><input type=radio name=gekozenklant ");
+									if(eerste){out.println("checked=checked ");eerste=false;}
+									out.println("value=" + k.getKlantnummer() + " /></td>");
 									out.println("<td>" + k.getNaam() + "</td>");
 									out.println("<td>" + k.getAdres() + "</td>");
 									out.println("<td>" + k.getPlaats() + "</td>");
@@ -61,9 +64,12 @@
 							out.println("<td>Type</td>");
 							out.println("<td>Eigenaar</td>");
 						out.println("</tr>");
+						boolean eerste = true;
 						for(Auto a : autos){
 							out.println("<tr>");
-								out.println("<td><input type=radio name=gekozenauto value=" + a.getID() + " /></td>");
+								out.println("<td><input type=radio name=gekozenauto ");
+								if(eerste){out.println("checked=checked ");eerste=false;}
+								out.println("value=" + a.getID() + " /></td>");
 								out.println("<td>" + a.getKenteken() + "</td>");
 								out.println("<td>" + a.getMerk() + "</td>");
 								out.println("<td>" + a.getType() + "</td>");

@@ -14,11 +14,14 @@ import javax.servlet.http.HttpServletResponse;
 
 import database.ConnectDB;
 import database.ConnectDBAuto;
+import database.ConnectDBGebruiktProduct;
 import database.ConnectDBKlant;
 import database.ConnectDBKlus;
+import database.ConnectDBProduct;
 import domeinklassen.Auto;
 import domeinklassen.Klant;
 import domeinklassen.Klus;
+import domeinklassen.Product;
 
 public class KlusWijzigenServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -29,6 +32,7 @@ public class KlusWijzigenServlet extends HttpServlet {
 		Connection con = database.maakVerbinding();
 		
 		String knop = req.getParameter("knop");
+		RequestDispatcher rd = req.getRequestDispatcher("kluswijzigen.jsp");
 		
 		//roep alle klanten van het bedrijf op
 		if(knop.equals("klanten")){
@@ -53,56 +57,98 @@ public class KlusWijzigenServlet extends HttpServlet {
 			req.setAttribute("klussen", klussen);
 		}
 		
-		else if(knop.equals("status")){
+		else if(knop.equals("wijzig")){
 			//roep de klus op uit de database
 			ConnectDBKlus klusconn = new ConnectDBKlus(con);
 			int klusid = Integer.parseInt(req.getParameter("gekozenklus"));
 			Klus deKlus = klusconn.zoekKlus(klusid);
-			String klusstatus = deKlus.getStatus();	
 			req.setAttribute("deKlus", deKlus);
-			req.setAttribute("gekozenklus", deKlus.getID());
-			req.setAttribute("klusstatus", klusstatus);
 		}
 		
 		else if(knop.equals("bevestig")){
-			// sla de nieuwe status op in de klus
-			//String dat = req.getParameter("datum");
-			//String beschrijving = req.getParameter("beschrijving");
+			String dat = req.getParameter("datum");
+			String beschrijving = req.getParameter("beschrijving");
 			String status = req.getParameter("status");
+			String mu = req.getParameter("manuren");
 			int klusid = Integer.parseInt(req.getParameter("gekozenklus"));
 			ConnectDBKlus klusconn = new ConnectDBKlus(con);
 			Klus deKlus = klusconn.zoekKlus(klusid);
 			
-			//boolean allesIngevuld = (dat!=null) && (beschrijving!=null)&& (status!=null);
+			boolean magMaken = true;
 			boolean gemaakt = false;
-			if(!status.equals("")){	
+			if(!dat.equals("")){	//als er een nieuwe datum in is gevuld, check of deze geldig is
 				try{				
-					//SimpleDateFormat df = new SimpleDateFormat("dd-MM-yyyy");
-					//Date datum = df.parse(dat);
-					deKlus.setStatus(status);
-					if(klusconn.updateKlus(deKlus)){
-						req.setAttribute("msg", "Status gewijzigd");
-						gemaakt = true;
-					}
-					else{
-						req.setAttribute("error", "Status kon niet worden gewijzigd");
-					}
+					SimpleDateFormat df = new SimpleDateFormat("dd-MM-yyyy");
+					Date datum = df.parse(dat);
+					deKlus.setDatum(datum);
 				}
 				catch(Exception ex){
 					System.out.println(ex);
 					req.setAttribute("error", "Geen geldige datum! Gebruik format dd-mm-jjjj");
+					magMaken = false;
 				}
 			}
-			else{
-				req.setAttribute("error", "Vul alle velden in!");
+			if(!mu.equals("")){		//als er uren in zijn gevuld, check of dit een geldig nummer is
+				try{				
+					int uren = Integer.parseInt(mu);
+					deKlus.addManuren(uren);
+				}
+				catch(Exception ex){
+					System.out.println(ex);
+					req.setAttribute("error", "Vul een geldig nummer in bij manuren!");
+					magMaken = false;
+				}
+			}
+			if(!beschrijving.equals("")){	//als er een beschijving in is gevuld, geef deze door
+				deKlus.setBeschrijving(beschrijving);
+			}
+			deKlus.setStatus(status);		//status wordt altijd gewijzigd
+			if(magMaken){
+				if(klusconn.updateKlus(deKlus)){
+					req.setAttribute("msg", "Klus gewijzigd");
+					gemaakt = true;
+				}
+				else{
+					req.setAttribute("error", "Klus kon niet worden gewijzigd");
+				}
 			}
 			if(!gemaakt){
 				req.setAttribute("deKlus",deKlus);
 			}
 
 		}
+		else if (knop.equals("nieuwArtikel")){
+			int klusid = Integer.parseInt(req.getParameter("gekozenklus"));
+			rd = req.getRequestDispatcher("artikeltoevoegenaanklus.jsp");
+			ConnectDBKlus klusconn = new ConnectDBKlus(con);
+			Klus deKlus = klusconn.zoekKlus(klusid);
+			req.setAttribute("deKlus",deKlus);
+			ConnectDBProduct conn = new ConnectDBProduct(con);	
+			ArrayList<Product> deVoorraad = conn.getProducten();
+			req.setAttribute("voorraadlijst", deVoorraad);		
+		}
+		else if(knop.equals("VoegArtikelToe")){
+			int klusid = Integer.parseInt(req.getParameter("gekozenklus"));
+			ConnectDBKlus klusconn = new ConnectDBKlus(con);
+			Klus deKlus = klusconn.zoekKlus(klusid);
+			req.setAttribute("deKlus",deKlus);
+			try{
+				int aantal = Integer.parseInt(req.getParameter("aantal"));
+				int productid = Integer.parseInt(req.getParameter("product"));
+				ConnectDBGebruiktProduct gpconn = new ConnectDBGebruiktProduct(con);
+				gpconn.nieuwGebruiktProduct(klusid, productid, aantal);
+				req.setAttribute("msg", "Product toegevoegd!");
+			}
+			catch(Exception ex){
+				System.out.println(ex);
+				req.setAttribute("error", "Voer een geldig aantal in!");
+				rd = req.getRequestDispatcher("artikeltoevoegenaanklus.jsp");
+				ConnectDBProduct conn = new ConnectDBProduct(con);	
+				ArrayList<Product> deVoorraad = conn.getProducten();
+				req.setAttribute("voorraadlijst", deVoorraad);	
+			}
+		}
 		database.sluitVerbinding(con);
-		RequestDispatcher rd = req.getRequestDispatcher("kluswijzigen.jsp");
 		rd.forward(req, resp);
 	}
 }

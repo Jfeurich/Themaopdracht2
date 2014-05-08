@@ -68,6 +68,13 @@ public abstract class Klus {
 		status = st;
 	}
 	
+	public void setBeschrijving(String b){
+		beschrijving = b;
+	}
+	
+	public void setDatum(Date d){
+		datum = d;
+	}
 	public void setID(int i){
 		id = i;
 	}
@@ -76,7 +83,7 @@ public abstract class Klus {
 		return manuren;
 	}
 	public void addManuren(int mu){
-		manuren = manuren + mu;
+		manuren += mu;
 	}
 
 	public ArrayList<GebruiktProduct> getGebruikteProducten(){
@@ -86,6 +93,7 @@ public abstract class Klus {
 	public void setGebruikteProducten(ArrayList<GebruiktProduct> array){
 		gebruikteProducten = array;
 	}
+	
 	public void addGebruiktProduct(GebruiktProduct g){
 		gebruikteProducten.add(g);
 	}

@@ -48,9 +48,12 @@
 						out.println("<td>Klantnummer</td>");
 						out.println("<td>Naam</td>");
 					out.println("</tr>");
+					boolean eerste=true;
 					for(Klant k : klanten){
 						out.println("<tr>");
-							out.println("<td><input type=radio name=autovanklant value=" + k.getKlantnummer() + " /></td>");
+							out.println("<td><input type=radio name=autovanklant ");
+							if(eerste){out.println("checked=checked ");eerste=false;}
+							out.println("value=" + k.getKlantnummer() + " /></td>");
 							out.println("<td>" + k.getNaam() + "</td>");
 						out.println("</tr>");
 					}

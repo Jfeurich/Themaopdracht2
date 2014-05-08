@@ -8,7 +8,7 @@
 		<form action="OnbetaaldeFacturenOverzichtServlet.do" method="post">
 			<%@ page import="domeinklassen.Factuur,java.util.ArrayList" %>
 			<div>
-				<h2>Overzicht totale voorraad</h2>
+				<h2>Overzicht Onbetaalde Facturen</h2>
 				<input type="submit" name="knop" value="overzicht" />
 			</div>
 			

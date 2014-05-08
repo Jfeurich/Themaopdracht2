@@ -31,9 +31,12 @@
 						out.println("<td>Minimum aanwezig</td>");
 						out.println("<td>Aantal aanwezig</td>");
 					out.println("</tr>");
+					boolean eerste=true;
 					for(Product p : producten){
 						out.println("<tr>");
-							out.println("<td><input type=checkbox name=gekozenProduct value=" + p.getArtikelNr() + " /></td>");
+							out.println("<td><input type=checkbox name=gekozenProduct ");
+							if(eerste){out.println("checked=checked ");eerste=false;}
+							out.println("value=" + p.getArtikelNr() + " /></td>");
 							out.println("<td>" + p.getNaam() + "</td>");
 							out.println("<td>" + p.getMinimumAanwezig() + "</td>");
 							out.println("<td>" + p.getAantal() + "</td>");
