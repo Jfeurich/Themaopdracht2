@@ -3,6 +3,7 @@ package servlets;
 import java.io.IOException;
 import java.sql.Connection;
 import java.util.ArrayList;
+import java.util.Date;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -14,9 +15,7 @@ import database.ConnectDB;
 import database.ConnectDBAuto;
 import database.ConnectDBKlant;
 import database.ConnectDBKlus;
-import domeinklassen.Auto;
-import domeinklassen.Klant;
-import domeinklassen.Klus;
+import domeinklassen.*;
 
 public class KlusWijzigenServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -57,7 +56,7 @@ public class KlusWijzigenServlet extends HttpServlet {
 			ConnectDBKlus klusconn = new ConnectDBKlus(con);
 			int klusid = Integer.parseInt(req.getParameter("gekozenklus"));
 			Klus deKlus = klusconn.zoekKlus(klusid);
-			if(deKlus.getStatus().equals("")){
+			if(deKlus.getStatus() == null){
 				deKlus.setStatus("Nog niet aan begonnen");
 			}
 			else{

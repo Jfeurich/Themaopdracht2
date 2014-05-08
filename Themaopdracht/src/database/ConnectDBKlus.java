@@ -247,35 +247,33 @@ public class ConnectDBKlus{
 			String sql = "SELECT * FROM Klus WHERE klusid=" + klusid;
 			Statement stmt = con.createStatement();
 			ResultSet rs = stmt.executeQuery(sql);
-			int autoid = 0;
-			while (rs.next()) {   // rs.next() geeft false als er niets meer is 
-			    java.sql.Date datum = rs.getDate("datum");
-			    java.util.Date dat = new java.util.Date(datum.getTime());
-				String bes = rs.getString("beschrijving");
-				String type = rs.getString("soort");
-				autoid = rs.getInt("autoid");
-				if(type.equals("onderhoudsbeurt")){
-					terug = new Onderhoudsbeurt(dat, bes);
-					terug.setID(klusid);
-				}
-				else if(type.equals("reparatie")){
-					terug = new Reparatie(dat, bes);
-					terug.setID(klusid);
-				}
-				try{
-					int manuren = rs.getInt("manuren");
-					terug.addManuren(manuren);
-				}
-				catch(Exception e){
-					System.out.println(e);
-				}
-				try{
-					String status = rs.getString("status");
-					terug.setStatus(status);
-				}
-				catch(Exception e){
-					System.out.println(e);
-				}
+			rs.next();   
+		    java.sql.Date datum = rs.getDate("datum");
+		    java.util.Date dat = new java.util.Date(datum.getTime());
+			String bes = rs.getString("beschrijving");
+			String type = rs.getString("soort");
+			int autoid = rs.getInt("autoid");
+			if(type.equals("onderhoudsbeurt")){
+				terug = new Onderhoudsbeurt(dat, bes);
+				terug.setID(klusid);
+			}
+			else if(type.equals("reparatie")){
+				terug = new Reparatie(dat, bes);
+				terug.setID(klusid);
+			}
+			try{
+				int manuren = rs.getInt("manuren");
+				terug.addManuren(manuren);
+			}
+			catch(Exception e){
+				System.out.println(e);
+			}
+			try{
+				String status = rs.getString("status");
+				terug.setStatus(status);
+			}
+			catch(Exception e){
+				System.out.println(e);
 			}
 			stmt.close();
 			ConnectDBAuto autoconn = new ConnectDBAuto(con);
