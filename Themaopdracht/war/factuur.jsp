@@ -5,7 +5,7 @@
 		<title>Factuur Menu</title>
 	</head>
 	<body>
-		<form action="OnbetaaldeFacturenServlet.do" method="post">
+		<form action="OnbetaaldeFacturenOverzichtServlet.do" method="post">
 			<%@ page import="domeinklassen.Factuur,java.util.ArrayList" %>
 			<div>
 				<h2>Overzicht totale voorraad</h2>
