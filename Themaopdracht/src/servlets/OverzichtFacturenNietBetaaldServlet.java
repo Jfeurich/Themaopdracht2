@@ -27,7 +27,7 @@ public class OverzichtFacturenNietBetaaldServlet extends HttpServlet {
 		}
 		else if(knop.equals("betaal")){
 			req.setAttribute(req.getParameter("factuurid"), "factuurid");
-			rd = req.getRequestDispatcher("statuswijzigenfactuur.jsp");
+			rd = req.getRequestDispatcher("StatusWijzigenFactuurServlet.do");
 		}
 		rd.forward(req, resp);
 		database.sluitVerbinding(con);

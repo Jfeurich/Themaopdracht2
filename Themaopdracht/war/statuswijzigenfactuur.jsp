@@ -26,7 +26,7 @@
 				out.println("<input type=submit name=knop value=Done />");
 			}
 			else {
-				out.println("<input type=hidden name=factuurid value=" + request.getAttribute("factuurid") + " />");
+				out.println("<input type=text name=factuurid value=" + request.getAttribute("factuurid") + " />");
 				out.println("<input type=radio name=betaalmiddel value=giro> Giro <br />");	
 				out.println("<input type=radio name=betaalmiddel value=pin> Pin <br />");
 				out.println("<input type=radio name=betaalmiddel value=contant> Contant <br />");

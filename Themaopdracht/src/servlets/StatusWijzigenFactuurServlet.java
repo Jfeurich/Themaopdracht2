@@ -22,13 +22,13 @@ public class StatusWijzigenFactuurServlet extends HttpServlet{
 		
 		ConnectDB database = new ConnectDB();
 		Connection con = database.maakVerbinding();
-		
-		if(req.getAttribute("factuur") != null){
-			Factuur deFactuur = (Factuur) req.getAttribute("factuur");
+		if(req.getParameter("factuur") != null){
+			int id = (int) req.getAttribute("factuur");
+			/*Factuur deFactuur = (Factuur) req.getAttribute("factuur");
 			if(deFactuur.getIsBetaald() == true){
 				resp.sendRedirect("homepage.jsp");
-			}
-			req.setAttribute("factuurid", deFactuur.getID());
+			}*/
+			req.setAttribute("factuurid", 8);
 		}
 		else{
 			String knop = req.getParameter("knop");

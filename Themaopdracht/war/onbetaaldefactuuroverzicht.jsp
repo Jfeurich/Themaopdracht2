@@ -5,7 +5,7 @@
 		<title>Voorraad Menu</title>
 	</head>
 	<body>
-		<form action="OverzichtFacturenNetBetaaldServlet.do" method="post">
+		<form action="OverzichtFacturenNietBetaaldServlet.do" method="post">
 		<%@ page import="java.util.ArrayList,domeinklassen.Factuur,domeinklassen.Klus" %>
 		<%
 			Object msg = request.getAttribute("msg");
@@ -40,7 +40,7 @@
 					out.println("</tr>");
 				}
 				out.println("</table>");
-				out.println("<input type=submit name=knop value=Betaal />");
+				out.println("<input type=submit name=knop value=betaal />");
 			}
 			out.println("<a href=factuur.jsp>Terug naar hoofdmenu factuur</a>");
 		%>
