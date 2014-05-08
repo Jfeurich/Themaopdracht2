@@ -33,14 +33,13 @@ public class AutoToevoegenServlet extends HttpServlet{
 		else if(knop.equals("KiesKlant")){	
 			String klantnr = req.getParameter("autovanklant");
 			req.setAttribute("deKlant", klantnr);
-			System.out.println(klantnr);
 		}
 		else if(knop.equals("VoegAutoToe")){
 			String ken = req.getParameter("kenteken");
 			String mk = req.getParameter("merk");
 			String tp = req.getParameter("type");
 			
-			boolean allesIngevuld = (ken!=null) && (mk!=null) && (tp!=null);
+			boolean allesIngevuld = (ken!="") && (mk!="") && (tp!="");
 			if(!allesIngevuld){ 
 				req.setAttribute("error", "Vul alle velden in!");
 			}
