@@ -28,3 +28,19 @@ commit.
 27-04 Jay: het werkt
 28-04 Angie: Deelse implementatie van de database. Zie de DatabaseREADME voor instructies.
 30-04 Paul: Het is een wonder, het werkt
+
+8-5 Paul:
+Af:
+Auto toevoegen
+Nieuwe Bestelling
+Overzicht niet-betaalde facturen
+
+Niet af:
+Hoofdmenu Factuur
+Klus wijzigen
+Nieuwe Factuur
+Nieuwe Klus
+Status factuur wijzigen
+Hoofdmenu product
+Overzicht van voorraad producten
+Product wijzigen

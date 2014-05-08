@@ -27,7 +27,7 @@ public class NieuweBestellingServlet extends HttpServlet{
 		
 		String knop = req.getParameter("knop");
 		if(knop.equals("Done")){
-			resp.sendRedirect("homepage.jsp");
+			resp.sendRedirect("index.html");
 		}
 		else{
 			if(knop.equals("MaakBestelling")){
