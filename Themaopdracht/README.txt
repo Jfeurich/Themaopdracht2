@@ -34,13 +34,13 @@ Af:
 Auto toevoegen
 Nieuwe Bestelling
 Overzicht niet-betaalde facturen
-
-Niet af:
-Hoofdmenu Factuur
-Klus wijzigen
-Nieuwe Factuur
-Nieuwe Klus
 Status factuur wijzigen
 Hoofdmenu product
 Overzicht van voorraad producten
 Product wijzigen
+
+Niet werkend:
+Hoofdmenu Factuur
+Klus wijzigen
+Nieuwe Factuur
+Nieuwe Klus
