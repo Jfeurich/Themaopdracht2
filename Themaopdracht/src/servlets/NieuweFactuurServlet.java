@@ -54,7 +54,7 @@ public class NieuweFactuurServlet extends HttpServlet{
 			req.setAttribute("klussen", klussen);
 		}
 		else if(knop.equals("nieuw")){
-			//kies een klus uit waarvan de status voltooid is.
+			//kies een klus uit waarvan de status voltooid is en maak de factuur aan
 			ConnectDBFactuur factuurconn = new ConnectDBFactuur(con);
 			String status = req.getParameter("status");
 			int klusid = Integer.parseInt(req.getParameter("gekozenklus"));
@@ -90,13 +90,6 @@ public class NieuweFactuurServlet extends HttpServlet{
 			}
 		}
 		else if(knop.equals("bevestig")){
-			// hier wordt de klus geselecteerd om een factuur aan te maken.
-			ConnectDBKlus klusconn = new ConnectDBKlus(con);
-			int klusid = Integer.parseInt(req.getParameter("gekozenklus"));
-			Klus deKlus = klusconn.zoekKlus(klusid);
-			req.setAttribute("deKlus", deKlus);
-		}
-		else if(knop.equals("setkorting")){
 			String factuurid = req.getParameter("factuurvoorkorting");
 			String korting = req.getParameter("korting");
 			try{

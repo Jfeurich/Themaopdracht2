@@ -183,17 +183,22 @@ public class ConnectDBFactuur{
 	//zet alle waardes van factuur in database naar die van ingevoerde factuur-object
 	public boolean updateFactuur(Factuur f){
 		try{
+			String sql = "";
 			java.util.Date aanmaak = f.getAanmaakDatum();
 			java.sql.Date aD = new java.sql.Date(aanmaak.getTime());
-			java.util.Date betaal = f.getBetaalDatum();
-			java.sql.Date bD = new java.sql.Date(betaal.getTime());
 			String isBetaald = "f";
 			if(f.getIsBetaald()){
 				isBetaald = "t";
+				java.util.Date betaal = f.getBetaalDatum();
+				java.sql.Date bD = new java.sql.Date(betaal.getTime());
+				sql = "UPDATE Factuur SET aanmaakDatum='" + aD + "',  betaalDatum='" + bD + 
+						"', betalingswijze='" + f.getBetaalwijze() + "', kortingspercentage=" + f.getKorting() + 
+						", isBetaald='" + isBetaald + "' WHERE factuurid = " + f.getID();
 			}
-			String sql = "UPDATE Factuur SET aanmaakDatum='" + aD + "',  betaalDatum='" + bD + 
-					"', betalingswijze='" + f.getBetaalwijze() + "', kortingspercentage=" + f.getKorting() + 
-					", isBetaald='" + isBetaald + "' WHERE factuurid = " + f.getID();
+			else{
+				sql = "UPDATE Factuur SET aanmaakDatum='" + aD + "', betalingswijze='" + "', kortingspercentage=" + 
+						f.getKorting() + ", isBetaald='" + isBetaald + "' WHERE factuurid = " + f.getID();
+			}
 			Statement stmt = con.createStatement();
 			stmt.executeUpdate(sql);	
 			stmt.close();
