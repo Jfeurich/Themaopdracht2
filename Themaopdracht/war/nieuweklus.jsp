@@ -83,7 +83,7 @@
 							out.println("<td>Reparatie</td>");
 						out.println("</tr>");
 						out.println("<tr>");
-							out.println("<td><input type=radio name=type value=onderhoud /></td>");
+							out.println("<td><input type=radio name=type value=onderhoudsbeurt /></td>");
 							out.println("<td><input type=radio name=type value=reparatie /></td>");
 						out.println("</tr>");
 						out.println("<tr>");

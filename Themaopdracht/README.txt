@@ -39,10 +39,9 @@ Hoofdmenu product
 Overzicht van voorraad producten
 Product wijzigen
 Nieuwe factuur
+Nieuwe klus
 
 Niet werkend:
-Klus wijzigen, alles werkt tot: op de knop status wordt gedrukt om de status aan te passen, error: 
+((Paul))Klus wijzigen, alles werkt tot: op de knop status wordt gedrukt om de status aan te passen, error: 
 	java.lang.NullPointerException
 	servlets.KlusWijzigenServlet.doPost(KlusWijzigenServlet.java:60)
-Nieuwe Klus, de nieuwe klus wordt aangemaakt, alleen soms komt er een error message dat de klus niet kan worden aangemaakt,
-maar de klus is dan wel toegevoegd aan de database

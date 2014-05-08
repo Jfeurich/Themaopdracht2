@@ -86,7 +86,6 @@ public class NieuweKlusServlet extends HttpServlet {
 					}
 				}
 				catch(Exception ex){
-					System.out.println(ex);
 					req.setAttribute("error", "Geen geldige datum! Gebruik format dd-mm-jjjj");
 				}
 			}
