@@ -63,16 +63,23 @@ public class NieuweFactuurServlet extends HttpServlet{
 			if(status.equals("Voltooid") || status.equals("voltooid")){
 				//check voor geldige datum
 				try{
-					ConnectDBKlus klusconn = new ConnectDBKlus(con);
-					Klus deKlus = klusconn.zoekKlus(klusid);
-					Factuur nieuw = factuurconn.nieuweFactuur(deKlus);
-					if(nieuw != null){
-						req.setAttribute("msg", "Factuur aangemaakt");
-						req.setAttribute("deFactuur", nieuw);
-						gemaakt = true;
+					ConnectDBFactuur fconn = new ConnectDBFactuur(con);
+					Factuur check = fconn.getFactuurVanKlus(klusid);
+					if(check == null){	//check of deze klus al een factuur heeft
+						ConnectDBKlus klusconn = new ConnectDBKlus(con);
+						Klus deKlus = klusconn.zoekKlus(klusid);
+						Factuur nieuw = factuurconn.nieuweFactuur(deKlus);
+						if(nieuw != null){
+							req.setAttribute("msg", "Factuur aangemaakt");
+							req.setAttribute("deFactuur", nieuw);
+							gemaakt = true;
+						}
+						else{
+							req.setAttribute("msg", "Factuur kan niet aangemaakt worden");
+						}
 					}
 					else{
-						req.setAttribute("msg", "Factuur kan niet aangemaakt worden");
+						req.setAttribute("error", "De factuur van deze klus bestaat al!");
 					}
 				}
 				catch(Exception ex){
