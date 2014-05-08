@@ -185,7 +185,7 @@ public class ConnectDBFactuur{
 		try{
 			java.util.Date aanmaak = f.getAanmaakDatum();
 			java.sql.Date aD = new java.sql.Date(aanmaak.getTime());
-			java.util.Date betaal = f.getAanmaakDatum();
+			java.util.Date betaal = f.getBetaalDatum();
 			java.sql.Date bD = new java.sql.Date(betaal.getTime());
 			String isBetaald = "f";
 			if(f.getIsBetaald()){

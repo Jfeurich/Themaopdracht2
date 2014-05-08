@@ -3,6 +3,7 @@ package servlets;
 import java.io.IOException;
 import java.sql.Connection;
 import java.util.ArrayList;
+import java.util.Date;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -14,23 +15,32 @@ import database.ConnectDB;
 import database.ConnectDBFactuur;
 import domeinklassen.Factuur;
 
-public class OverzichtFacturenNietBetaaldServlet extends HttpServlet {
+public class OnbetaaldeFacturenOverzichtServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		String knop = req.getParameter("knop");
-		
 		ConnectDB database = new ConnectDB();
 		Connection con = database.maakVerbinding();
-		ConnectDBFactuur conn = new ConnectDBFactuur(con);	
-		ArrayList<Factuur> terug = conn.getFacturenNietBetaald();
-		RequestDispatcher rd = req.getRequestDispatcher("onbetaaldefactuuroverzicht.jsp");;
+		RequestDispatcher rd = null;
 		if(knop.equals("overzicht")){
+			ConnectDBFactuur conn = new ConnectDBFactuur(con);	
+			ArrayList<Factuur> terug = conn.getFacturenNietBetaald();
+			rd = req.getRequestDispatcher("onbetaaldefactuuroverzicht.jsp");
 			req.setAttribute("OverzichtFacturenNietBetaald", terug);
 		}
+		else if(knop.equals("zoek")){
+			req.setAttribute("factuurid", req.getParameter("factuurid"));
+			rd = req.getRequestDispatcher("onbetaaldefactuuroverzicht.jsp");
+		}
 		else if(knop.equals("betaal")){
-			req.setAttribute(req.getParameter("factuurid"), "factuurid");
-			rd = req.getRequestDispatcher("StatusWijzigenFactuurServlet.do");
+			ConnectDBFactuur factuurcon = new ConnectDBFactuur(con);
+			Factuur deFactuur = factuurcon.zoekFactuur(Integer.parseInt(req.getParameter("factuurid")));
+			Date datum = new Date();
+			deFactuur.betaal(req.getParameter("betaalmiddel"), datum);
+			factuurcon.updateFactuur(deFactuur);
+			rd = req.getRequestDispatcher("onbetaaldefactuuroverzicht.jsp");
+			req.setAttribute("stap1", "done");
 		}
 		rd.forward(req, resp);
 		database.sluitVerbinding(con);
