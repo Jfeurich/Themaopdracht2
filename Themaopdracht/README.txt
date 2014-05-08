@@ -40,7 +40,13 @@ Overzicht van voorraad producten
 Product wijzigen
 
 Niet werkend:
-Hoofdmenu Factuur
-Klus wijzigen
-Nieuwe Factuur
-Nieuwe Klus
+Klus wijzigen, alles werkt tot: op de knop status wordt gedrukt om de status aan te passen, error: 
+java.lang.NullPointerException
+	servlets.KlusWijzigenServlet.doPost(KlusWijzigenServlet.java:60)
+Nieuwe Factuur, alles werkt tot: op de knop bevestig wordt gedrukt om de nieuwe factuur te maken, error:
+java.lang.NumberFormatException: null
+	java.lang.Integer.parseInt(Unknown Source)
+	java.lang.Integer.parseInt(Unknown Source)
+	servlets.NieuweFactuurServlet.doPost(NieuweFactuurServlet.java:95)
+Nieuwe Klus, de nieuwe klus wordt aangemaakt, alleen soms komt er een error message dat de klus niet kan worden aangemaakt,
+maar de klus is dan wel toegevoegd aan de database
