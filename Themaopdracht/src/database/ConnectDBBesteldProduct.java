@@ -1,13 +1,11 @@
 package database;
 
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
 
 import domeinklassen.BesteldProduct;
-import domeinklassen.Klant;
 
 public class ConnectDBBesteldProduct{
 	

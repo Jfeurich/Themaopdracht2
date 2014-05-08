@@ -7,8 +7,6 @@ import java.sql.Statement;
 import java.util.ArrayList;
 
 import domeinklassen.Auto;
-import domeinklassen.Herinneringsbrief;
-import domeinklassen.Klant;
 import domeinklassen.Reservering;
 
 public class ConnectDBReservering{

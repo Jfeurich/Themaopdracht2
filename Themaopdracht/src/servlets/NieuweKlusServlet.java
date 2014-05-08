@@ -1,11 +1,10 @@
 package servlets;
 
 import java.io.IOException;
+import java.sql.Connection;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-import java.sql.Connection;
-import database.ConnectDB;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -13,6 +12,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import database.ConnectDB;
 import database.ConnectDBAuto;
 import database.ConnectDBKlant;
 import database.ConnectDBKlus;
@@ -23,6 +23,8 @@ import domeinklassen.Onderhoudsbeurt;
 import domeinklassen.Reparatie;
 
 public class NieuweKlusServlet extends HttpServlet {
+	private static final long serialVersionUID = 1L;
+
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		
 		ConnectDB database = new ConnectDB();

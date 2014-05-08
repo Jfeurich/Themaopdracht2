@@ -1,11 +1,8 @@
 package servlets;
 
 import java.io.IOException;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
 import java.sql.Connection;
-import database.ConnectDB;
+import java.util.ArrayList;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -13,16 +10,15 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import database.ConnectDB;
 import database.ConnectDBAuto;
+import database.ConnectDBFactuur;
 import database.ConnectDBKlant;
 import database.ConnectDBKlus;
-import database.ConnectDBFactuur;
 import domeinklassen.Auto;
+import domeinklassen.Factuur;
 import domeinklassen.Klant;
 import domeinklassen.Klus;
-import domeinklassen.Onderhoudsbeurt;
-import domeinklassen.Reparatie;
-import domeinklassen.Factuur;
 
 public class NieuweFactuurServlet extends HttpServlet{
 	private static final long serialVersionUID = 1L;

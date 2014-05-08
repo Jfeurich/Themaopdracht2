@@ -1,7 +1,7 @@
 package domeinklassen;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.text.*;
 
 public class Factuur {
 	private int factuurid;

@@ -13,7 +13,6 @@ public class Bedrijf{
 	private ArrayList<Klant> deKlanten;
 	private ArrayList<Klus> deKlussen;
 	private ArrayList<Product> deVoorraad;
-	private ArrayList<Bestelling> deBestellingen;
 	private SimpleDateFormat df = new SimpleDateFormat("dd-MM-yyyy");
 
 	public Bedrijf(double b){

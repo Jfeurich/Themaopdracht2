@@ -1,12 +1,10 @@
 package database;
 	
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
 
-import domeinklassen.Herinneringsbrief;
 import domeinklassen.Klant;
 import domeinklassen.User;
 	

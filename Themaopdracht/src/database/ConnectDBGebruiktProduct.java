@@ -5,7 +5,6 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
 
-import domeinklassen.BesteldProduct;
 import domeinklassen.GebruiktProduct;
 
 public class ConnectDBGebruiktProduct{
