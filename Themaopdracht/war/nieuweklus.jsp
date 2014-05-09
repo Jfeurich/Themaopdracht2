@@ -8,7 +8,7 @@
 	<form action="NieuweKlusServlet.do" method="post">
 		<%@ page import="java.util.ArrayList,domeinklassen.Klant,domeinklassen.Auto" %>
 		<div>
-			<h2>Nieuwe klus aanmaken</h2>
+			<h2>28: Nieuwe klus aanmaken</h2>
 			<% 				
 				Object error =  request.getAttribute("error");
 				if(error != null){

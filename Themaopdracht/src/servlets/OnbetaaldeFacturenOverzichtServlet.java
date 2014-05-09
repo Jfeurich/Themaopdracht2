@@ -26,12 +26,12 @@ public class OnbetaaldeFacturenOverzichtServlet extends HttpServlet {
 		if(knop.equals("overzicht")){
 			ConnectDBFactuur conn = new ConnectDBFactuur(con);	
 			ArrayList<Factuur> terug = conn.getFacturenNietBetaald();
-			rd = req.getRequestDispatcher("onbetaaldefactuuroverzicht.jsp");
+			rd = req.getRequestDispatcher("onbetaaldefacturenoverzicht.jsp");
 			req.setAttribute("OverzichtFacturenNietBetaald", terug);
 		}
 		else if(knop.equals("zoek")){
 			req.setAttribute("factuurid", req.getParameter("factuurid"));
-			rd = req.getRequestDispatcher("onbetaaldefactuuroverzicht.jsp");
+			rd = req.getRequestDispatcher("onbetaaldefacturenoverzicht.jsp");
 		}
 		else if(knop.equals("betaal")){
 			ConnectDBFactuur factuurcon = new ConnectDBFactuur(con);
@@ -39,7 +39,7 @@ public class OnbetaaldeFacturenOverzichtServlet extends HttpServlet {
 			Date datum = new Date();
 			deFactuur.betaal(req.getParameter("betaalmiddel"), datum);
 			factuurcon.updateFactuur(deFactuur);
-			rd = req.getRequestDispatcher("onbetaaldefactuuroverzicht.jsp");
+			rd = req.getRequestDispatcher("onbetaaldefacturenoverzicht.jsp");
 			req.setAttribute("stap1", "done");
 		}
 		rd.forward(req, resp);

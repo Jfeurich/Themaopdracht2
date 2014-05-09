@@ -8,7 +8,7 @@
 	<form action="AutoToevoegenServlet.do" method="post">
 		<%@ page import="java.util.ArrayList,domeinklassen.Klant,domeinklassen.Auto" %>
 		<div>
-			<h2>Auto toevoegen</h2>
+			<h2>8: Auto toevoegen</h2>
 			<% 				
 				Object error =  request.getAttribute("error");
 				if(error != null){

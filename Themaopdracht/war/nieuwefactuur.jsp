@@ -1,5 +1,4 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-//GITHUB Y U NOT WORK
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 	<meta http-equiv="content-type" content="text/html; charset=iso-8859-1" />
@@ -9,7 +8,7 @@
 	<form action="NieuweFactuurServlet.do" method="post">
 		<%@ page import="java.util.ArrayList,domeinklassen.Klant,domeinklassen.Auto,domeinklassen.Klus,domeinklassen.Factuur" %>
 		<div>
-			<h2>Nieuwe Factuur aanmaken</h2>
+			<h2>6: Nieuwe Factuur aanmaken</h2>
 			<%
 				Object error =  request.getAttribute("error");
 				if(error != null){
@@ -97,7 +96,7 @@
 							out.println("<td>Kies</td>");
 							out.println("<td>Datum</td>");
 							out.println("<td>Beschrijving</td>");
-							out.println("<td>Status/td>");
+							out.println("<td>Status</td>");
 						out.println("</tr>");
 						boolean eerste=true;
 						for(Klus k : klussen ){

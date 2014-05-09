@@ -9,7 +9,7 @@
 	<form action="KlusWijzigenServlet.do" method="post">
 		<%@ page import="java.util.ArrayList,domeinklassen.Klus,domeinklassen.Onderhoudsbeurt,domeinklassen.Reparatie,domeinklassen.Product" %>
 		<div>
-			<h2>Kies het gewenste artikel en klik op "VoegArtikelToe"</h2>
+			<h2>5: Kies het gewenste artikel en klik op "VoegArtikelToe"</h2>
 			<%
 				Object error =  request.getAttribute("error");
 				if(error != null){

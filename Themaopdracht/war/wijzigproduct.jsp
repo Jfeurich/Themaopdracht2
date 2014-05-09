@@ -8,7 +8,7 @@
 	<form action="WijzigProductServlet.do" method="post">
 		<%@ page import="domeinklassen.Product" %>
 		<div>
-			<h2>Product wijzigen</h2>
+			<h2>14: Product wijzigen</h2>
 			<%
 				Object error =  request.getAttribute("error");
 				if(error != null){

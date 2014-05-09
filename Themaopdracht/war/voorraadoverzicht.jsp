@@ -18,7 +18,7 @@
 				out.println("<p>Er is geen voorraad ingevoerd!</p>");
 			}
 			else{
-				out.println("<h2>De huidige voorraad</h2>");
+				out.println("<h2>27: De huidige voorraad</h2>");
 				out.println("<table>");
 				out.println("<tr>");
 					out.println("<td>Kies</td>");

@@ -2,10 +2,10 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 	<head>
 		<meta http-equiv="content-type" content="text/html; charset=iso-8859-1" />
-		<title>Voorraad Menu</title>
+		<title>Onbetaalde facturen</title>
 	</head>
 	<body>
-		<form action="OverzichtFacturenNietBetaaldServlet.do" method="post">
+		<form action="OnbetaaldeFacturenOverzichtServlet.do" method="post">
 		<%@ page import="java.util.ArrayList,domeinklassen.Factuur,domeinklassen.Klus" %>
 		<%
 			Object msg = request.getAttribute("msg");
@@ -16,6 +16,7 @@
 			Object factuurid = request.getAttribute("factuurid");
 			if(factuurid != null){
 				int id = Integer.parseInt((String) factuurid);
+				out.println("<h2>18: Factuur betalen:</h2>");
 				out.println("<input type=hidden name=factuurid value=" + id + " />");
 				out.println("<input type=radio name=betaalmiddel value=giro checked> Giro <br />");	
 				out.println("<input type=radio name=betaalmiddel value=pin> Pin <br />");
@@ -23,7 +24,7 @@
 				out.println("<input type=submit name=knop value=betaal />");
 			}
 			else if(OverzichtFacturenNietBetaald != null){
-			out.println("<h2>De onbetaalde facturen zijn:</h2>");
+			out.println("<h2>21: De onbetaalde facturen zijn:</h2>");
 			out.println("<table>");
 				out.println("<tr>");
 					out.println("<td>Kies</td>");
