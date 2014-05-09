@@ -38,7 +38,7 @@ public class AutoToevoegenServlet extends HttpServlet{
 		}
 		//als de gebruiker een auto wil toevoegen...
 		else if(knop.equals("VoegAutoToe")){
-			String ken = req.getParameter("kenteken").toUpperCase();
+			String ken = req.getParameter("kenteken");
 			String mk = req.getParameter("merk");
 			String tp = req.getParameter("type");
 			boolean allesIngevuld = (ken!="") && (mk!="") && (tp!="");	//kijk of alles in is gevuld
@@ -46,6 +46,7 @@ public class AutoToevoegenServlet extends HttpServlet{
 				req.setAttribute("error", "Vul alle velden in!");
 			}
 			else{
+				ken = ken.toUpperCase();
 				String klantnr = req.getParameter("klantnummer");
 				int klantid = Integer.parseInt(klantnr);
 				Klant deKlant = klantcon.zoekKlant(klantid);

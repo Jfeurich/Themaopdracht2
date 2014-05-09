@@ -40,7 +40,12 @@ public class KlusWijzigenServlet extends HttpServlet {
 		if(knop.equals("klanten")){
 			ConnectDBKlant klantconn = new ConnectDBKlant(con);	
 			ArrayList<Klant> klanten = klantconn.getKlanten();
-			req.setAttribute("klanten", klanten);
+			if(klanten.size() > 0){
+				req.setAttribute("klanten", klanten);
+			}
+			else{
+				req.setAttribute("error", "Er staan nog geen klanten in het systeem!");
+			}
 		}
 		//roep alle autos van de geselecteerde klant op
 		else if(knop.equals("autos")){
@@ -48,21 +53,37 @@ public class KlusWijzigenServlet extends HttpServlet {
 			String knr = req.getParameter("gekozenklant");
 			int klantnummer = Integer.parseInt(knr);
 			ArrayList<Auto> autos = autoconn.getAutosVan(klantnummer);
-			req.setAttribute("autos", autos);
+			if(autos.size() > 0){
+				req.setAttribute("autos", autos);
+			}
+			else{
+				req.setAttribute("error", "Er staan geen autos geregistreerd voor deze klant!");
+			}
 		}
 		//haal de klussen van de gekozen auto uit de database
 		else if(knop.equals("klus")){
 			ConnectDBKlus klusconn = new ConnectDBKlus(con);
 			int autoid = Integer.parseInt(req.getParameter("gekozenauto"));
 			ArrayList<Klus> klussen = klusconn.getKlussenVoorAuto(autoid);
-			req.setAttribute("klussen", klussen);
+			if(klussen.size() > 0){
+				req.setAttribute("klussen", klussen);
+			}
+			else{
+				req.setAttribute("error", "Er zijn nog geen klussen uitgevoerd aan deze auto!");
+			}
 		}
 		//roep de gekozen klus op uit de database
 		else if(knop.equals("wijzig")){
-			ConnectDBKlus klusconn = new ConnectDBKlus(con);
-			int klusid = Integer.parseInt(req.getParameter("gekozenklus"));
-			Klus deKlus = klusconn.zoekKlus(klusid);
-			req.setAttribute("deKlus", deKlus);
+			String klus = req.getParameter("gekozenklus");
+			if(klus != null){
+				int klusid = Integer.parseInt(klus);
+				ConnectDBKlus klusconn = new ConnectDBKlus(con);
+				Klus deKlus = klusconn.zoekKlus(klusid);
+				req.setAttribute("deKlus", deKlus);
+			}
+			else{
+				req.setAttribute("error", "Er is geen klus geselecteerd!");
+			}
 		}
 		//probeer de gegeven waardes te wijzigen bij de gekozen klus
 		else if(knop.equals("bevestig")){

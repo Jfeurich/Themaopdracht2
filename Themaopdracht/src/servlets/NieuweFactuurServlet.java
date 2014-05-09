@@ -56,41 +56,47 @@ public class NieuweFactuurServlet extends HttpServlet{
 		//gebruiker heeft een klus geselecteerd en wil een factuur maken
 		else if(knop.equals("nieuw")){
 			String status = req.getParameter("status");
-			int klusid = Integer.parseInt(req.getParameter("gekozenklus"));
+			String klus = req.getParameter("gekozenklus");
 			boolean gemaakt = false;
-			if(status.equals("voltooid")){	//is de status van de klus wel "voltooid?"
-				//check voor geldige datum
-				try{
-					ConnectDBFactuur fconn = new ConnectDBFactuur(con);
-					if(fconn.getFactuurVanKlus(klusid) == null){	//check of deze klus al een factuur heeft
-						ConnectDBKlus klusconn = new ConnectDBKlus(con);
-						Klus deKlus = klusconn.zoekKlus(klusid);
-						Factuur nieuw = fconn.nieuweFactuur(deKlus);
-						if(nieuw != null){		//kijk of de factuur met succes in de database is gezet
-							req.setAttribute("msg", "Factuur aangemaakt");
-							req.setAttribute("deFactuur", nieuw);
-							gemaakt = true;
+			if(req.getParameter("klus") != null){
+				int klusid = Integer.parseInt(klus);
+				if(status.equals("voltooid")){	//is de status van de klus wel "voltooid?"
+					//check voor geldige datum
+					try{
+						ConnectDBFactuur fconn = new ConnectDBFactuur(con);
+						if(fconn.getFactuurVanKlus(klusid) == null){	//check of deze klus al een factuur heeft
+							ConnectDBKlus klusconn = new ConnectDBKlus(con);
+							Klus deKlus = klusconn.zoekKlus(klusid);
+							Factuur nieuw = fconn.nieuweFactuur(deKlus);
+							if(nieuw != null){		//kijk of de factuur met succes in de database is gezet
+								req.setAttribute("msg", "Factuur aangemaakt");
+								req.setAttribute("deFactuur", nieuw);
+								gemaakt = true;
+							}
+							else{
+								req.setAttribute("msg", "Factuur kan niet aangemaakt worden");
+							}
 						}
 						else{
-							req.setAttribute("msg", "Factuur kan niet aangemaakt worden");
+							req.setAttribute("error", "De factuur van deze klus bestaat al!");
 						}
 					}
-					else{
-						req.setAttribute("error", "De factuur van deze klus bestaat al!");
+					catch(Exception ex){
+						System.out.println(ex);
+						req.setAttribute("error", "Geen geldige datum! Gebruik format dd-mm-jjjj");
 					}
 				}
-				catch(Exception ex){
-					System.out.println(ex);
-					req.setAttribute("error", "Geen geldige datum! Gebruik format dd-mm-jjjj");
+				else{
+					req.setAttribute("error", "Deze klus is nog niet voltooid!");
+				}
+				if(!gemaakt){	//als de factuur niet aan is gemaakt, geef de klus terug voor een tweede poging
+					ConnectDBKlus klusconn = new ConnectDBKlus(con);
+					Klus deKlus = klusconn.zoekKlus(klusid);
+					req.setAttribute("deKlus",deKlus);
 				}
 			}
 			else{
-				req.setAttribute("error", "Deze klus is nog niet voltooid!");
-			}
-			if(!gemaakt){	//als de factuur niet aan is gemaakt, geef de klus terug voor een tweede poging
-				ConnectDBKlus klusconn = new ConnectDBKlus(con);
-				Klus deKlus = klusconn.zoekKlus(klusid);
-				req.setAttribute("deKlus",deKlus);
+				req.setAttribute("error", "Er zijn geen klussen beschikbaar!");
 			}
 		}
 		//stel het kortingspercentage in
