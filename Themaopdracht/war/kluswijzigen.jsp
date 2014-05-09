@@ -128,8 +128,11 @@
 				else{
 					Klus deKlus = (Klus)gekozen;
 					out.println("<h2>Wijzig de klus</h2>");
-					out.println("<h3>Voeg eventuele nieuwe artikelen eerst toe</h3>");
+					out.println("<h3>Voeg eerst artikelen toe indien van toepassing</h3>");
+					out.println("<input type=submit name=knop value=nieuwArtikel />");
+					out.println("<h3>En voer dan eventuele andere wijzigingen in</h3>");
 					out.println("<p>Datum</p>");
+					out.println("<p>Huidige datum: " + deKlus.getDatum() + "</p>");
 					out.println("<input type=text name=datum placeholder=dd-mm-jjjj />");
 					out.println("<tr>Status</tr>");
 					out.println("<tr><td><input type=radio name=status checked=checked value=voltooid /></td<td>Voltooid</td></tr>");
@@ -137,11 +140,11 @@
 					out.println("<tr><td><input type=radio name=status value=wachten op onderdelen /></td<td>Wachten op onderdelen</td></tr>");
 					out.println("</table>");
 					out.println("<p>Manuren toevoegen</p>");
+					out.println("<p>Huidige manuren: " + deKlus.getManuren() + "</p>");
 					out.println("<input type=text name=manuren />");
 					out.println("<p>Beschrijving</p>");
-					out.println("<textarea name=beschrijving placeholder=Omschrijving van de klus></textarea>");
+					out.println("<textarea name=beschrijving value=" + deKlus.getBeschrijving() + " ></textarea>");
 					out.println("<td><input type=hidden name=gekozenklus value=" + deKlus.getID() + " /></td>");
-					out.println("<input type=submit name=knop value=nieuwArtikel />");
 					out.println("<input type=submit name=knop value=bevestig />");
 				}
 			%>

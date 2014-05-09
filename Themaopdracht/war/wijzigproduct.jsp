@@ -60,7 +60,7 @@
 				else{
 					out.println("<h3>Deze pagina is pas bruikbaar als een product uit de voorraad is geselecteerd!</h3>");
 				}
-				out.println("<a href=voorraad.jsp>Terug naar hoofdmenu voorraad</a>");
+				out.println("<a href=voorraad.jsp>Terug naar hoofdmenu Product</a>");
 			%>
 		</div>
 	</form>

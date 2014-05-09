@@ -27,49 +27,46 @@ public class NieuweFactuurServlet extends HttpServlet{
 		
 		ConnectDB database = new ConnectDB();
 		Connection con = database.maakVerbinding();
-		
 		String knop = req.getParameter("knop");
+		
 		if(knop.equals("Done")){
-			resp.sendRedirect("homepage.jsp");
+			resp.sendRedirect("index.html");
 		}
+		//haal klanten uit de database
 		else if(knop.equals("klanten")){
-			//haal klanten uit de database
 			ConnectDBKlant klantconn = new ConnectDBKlant(con);
 			ArrayList<Klant> klanten = klantconn.getKlanten();
 			req.setAttribute("klanten", klanten);
 		}
+		// haal auto's uit de database
 		else if(knop.equals("autos")){
-			// haal auto's uit de database
 			ConnectDBAuto autoconn = new ConnectDBAuto(con);
 			String knr = req.getParameter("gekozenklant");
 			int klantnummer = Integer.parseInt(knr);
 			ArrayList<Auto> autos = autoconn.getAutosVan(klantnummer);
 			req.setAttribute("autos", autos);
 		}
+		//haal klussen uit de database
 		else if(knop.equals("klus")){
-			//haal klussen uit de database
 			ConnectDBKlus klusconn = new ConnectDBKlus(con);
 			int autoid = Integer.parseInt(req.getParameter("gekozenauto"));
 			ArrayList<Klus> klussen = klusconn.getKlussenVoorAuto(autoid);
 			req.setAttribute("klussen", klussen);
 		}
+		//gebruiker heeft een klus geselecteerd en wil een factuur maken
 		else if(knop.equals("nieuw")){
-			//kies een klus uit waarvan de status voltooid is en maak de factuur aan
-			ConnectDBFactuur factuurconn = new ConnectDBFactuur(con);
 			String status = req.getParameter("status");
 			int klusid = Integer.parseInt(req.getParameter("gekozenklus"));
-			
 			boolean gemaakt = false;
-			if(status.equals("Voltooid") || status.equals("voltooid")){
+			if(status.equals("voltooid")){	//is de status van de klus wel "voltooid?"
 				//check voor geldige datum
 				try{
 					ConnectDBFactuur fconn = new ConnectDBFactuur(con);
-					Factuur check = fconn.getFactuurVanKlus(klusid);
-					if(check == null){	//check of deze klus al een factuur heeft
+					if(fconn.getFactuurVanKlus(klusid) == null){	//check of deze klus al een factuur heeft
 						ConnectDBKlus klusconn = new ConnectDBKlus(con);
 						Klus deKlus = klusconn.zoekKlus(klusid);
-						Factuur nieuw = factuurconn.nieuweFactuur(deKlus);
-						if(nieuw != null){
+						Factuur nieuw = fconn.nieuweFactuur(deKlus);
+						if(nieuw != null){		//kijk of de factuur met succes in de database is gezet
 							req.setAttribute("msg", "Factuur aangemaakt");
 							req.setAttribute("deFactuur", nieuw);
 							gemaakt = true;
@@ -90,22 +87,23 @@ public class NieuweFactuurServlet extends HttpServlet{
 			else{
 				req.setAttribute("error", "Deze klus is nog niet voltooid!");
 			}
-			if(!gemaakt){
+			if(!gemaakt){	//als de factuur niet aan is gemaakt, geef de klus terug voor een tweede poging
 				ConnectDBKlus klusconn = new ConnectDBKlus(con);
 				Klus deKlus = klusconn.zoekKlus(klusid);
 				req.setAttribute("deKlus",deKlus);
 			}
 		}
+		//stel het kortingspercentage in
 		else if(knop.equals("bevestig")){
 			String factuurid = req.getParameter("factuurvoorkorting");
 			String korting = req.getParameter("korting");
-			try{
+			try{	//check of het een geldig nummer is
 				int dekorting = Integer.parseInt(korting);
 				ConnectDBFactuur factuurcon = new ConnectDBFactuur(con);
 				Factuur deFactuur = factuurcon.zoekFactuur(Integer.parseInt(factuurid));
 				deFactuur.setKortingsPercentage(dekorting);
 				factuurcon.updateFactuur(deFactuur);
-				req.setAttribute("msg", "Database is geupdate");
+				req.setAttribute("msg", "De korting is ingesteld");
 			}
 			catch(Exception e){
 				req.setAttribute("error", "Geen geldige waarde");

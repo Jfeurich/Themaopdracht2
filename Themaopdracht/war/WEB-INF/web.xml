@@ -6,12 +6,12 @@
 	version="2.4">
 	
 	<servlet>
-		<servlet-name>Voorraad</servlet-name>
-		<servlet-class>servlets.VoorraadOverzichtServlet</servlet-class>
+		<servlet-name>Product</servlet-name>
+		<servlet-class>servlets.ProductServlet</servlet-class>
 	</servlet>
 	<servlet-mapping>
-		<servlet-name>Voorraad</servlet-name>
-		<url-pattern>/VoorraadOverzichtServlet.do</url-pattern>
+		<servlet-name>Product</servlet-name>
+		<url-pattern>/ProductServlet.do</url-pattern>
 	</servlet-mapping>
 	<servlet>
 		<servlet-name>WijzigProduct</servlet-name>

@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import database.ConnectDB;
 import database.ConnectDBAuto;
 import database.ConnectDBKlant;
+import domeinklassen.Auto;
 import domeinklassen.Klant;
 
 public class AutoToevoegenServlet extends HttpServlet{
@@ -22,39 +23,46 @@ public class AutoToevoegenServlet extends HttpServlet{
 		
 		ConnectDB database = new ConnectDB();
 		Connection con = database.maakVerbinding();
-		
 		String knop = req.getParameter("knop");
 	
 		ConnectDBKlant klantcon = new ConnectDBKlant(con);
+		//haal alle klanten uit de database
 		if(knop.equals("ZoekKlanten")){
 			ArrayList<Klant> klanten = klantcon.getKlanten();
 			req.setAttribute("klanten", klanten);	
 		}
+		//haal alle autos van de gekozen klant uit de database
 		else if(knop.equals("KiesKlant")){	
 			String klantnr = req.getParameter("autovanklant");
 			req.setAttribute("deKlant", klantnr);
 		}
+		//als de gebruiker een auto wil toevoegen...
 		else if(knop.equals("VoegAutoToe")){
 			String ken = req.getParameter("kenteken");
 			String mk = req.getParameter("merk");
 			String tp = req.getParameter("type");
-			
-			boolean allesIngevuld = (ken!="") && (mk!="") && (tp!="");
+			boolean allesIngevuld = (ken!="") && (mk!="") && (tp!="");	//kijk of alles in is gevuld
 			if(!allesIngevuld){ 
 				req.setAttribute("error", "Vul alle velden in!");
 			}
 			else{
 				String klantnr = req.getParameter("klantnummer");
-				try{
-					int klantid = Integer.parseInt(klantnr);
-					Klant deKlant = klantcon.zoekKlant(klantid);
+				int klantid = Integer.parseInt(klantnr);
+				Klant deKlant = klantcon.zoekKlant(klantid);
+				boolean magToevoegen = true;
+				for(Auto a : deKlant.getAutos()){	//check of deze klant al een auto met dit kenteken heeft
+					if(ken.equals(a.getKenteken())){
+						magToevoegen = false;
+						break;
+					}
+				}
+				if(magToevoegen){
 					ConnectDBAuto autocon = new ConnectDBAuto(con);	
 					autocon.nieuweAuto(ken, mk, tp, deKlant);
 					req.setAttribute("msg", "Auto met succes toegevoegd!");
 				}
-				catch(Exception ex){
-					String terug = "Kan auto niet toevoegen!" + ex;
-					req.setAttribute("error", terug);	
+				else{
+					req.setAttribute("error", "Deze klant heeft al een auto met dit kenteken!");
 				}
 			}		
 		}

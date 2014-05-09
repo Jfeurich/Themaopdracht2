@@ -53,6 +53,7 @@ public class NieuweKlusServlet extends HttpServlet {
 			Auto deAuto = autoconn.zoekAuto(Integer.parseInt(autoid));
 			req.setAttribute("deAuto", deAuto);
 		}
+		//klant wil een klus toevoegen
 		else if(knop.equals("nieuw")){
 			ConnectDBKlus klusconn = new ConnectDBKlus(con);
 			String type = req.getParameter("type");
@@ -60,13 +61,10 @@ public class NieuweKlusServlet extends HttpServlet {
 			String beschrijving = req.getParameter("beschrijving");
 			String auto = req.getParameter("autovanklus");
 			int autoid = Integer.parseInt(auto);
-			
-			boolean allesIngevuld = (type!=null) && (dat!=null) && (beschrijving!=null);
+			boolean allesIngevuld = (!type.equals("")) && (!dat.equals("")) && (!beschrijving.equals(""));
 			boolean gemaakt = false;
-			
-			if(allesIngevuld){
-				//check voor geldige datum
-				try{
+			if(allesIngevuld){	//check of alle velden in zijn gevuld
+				try{	//check voor geldige datum
 					SimpleDateFormat df = new SimpleDateFormat("dd-MM-yyyy");
 					Date datum = df.parse(dat);
 					Klus nieuw = klusconn.nieuweKlus(datum, beschrijving, type, autoid);

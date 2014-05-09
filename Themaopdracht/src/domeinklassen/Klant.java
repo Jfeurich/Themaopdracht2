@@ -13,7 +13,7 @@ public class Klant {
 	private int telefoonnummer;
 	private SimpleDateFormat df = new SimpleDateFormat("dd-MM-yyyy");
 	private ArrayList<Auto> deAutos = new ArrayList<Auto>();
-	private ArrayList<Herinneringsbrief> deBrieven;
+	private ArrayList<Herinneringsbrief> deBrieven = new ArrayList<Herinneringsbrief>();
 
 	public Klant(int kn, String nm, String adr, String wp, String rnr, int nr){
 		klantnummer = kn;
@@ -22,7 +22,6 @@ public class Klant {
 		plaats = wp;
 		rekeningnummer = rnr;
 		telefoonnummer = nr;
-		deBrieven = new ArrayList<Herinneringsbrief>();
 	}
 
 	public String toString(){
@@ -100,6 +99,10 @@ public class Klant {
 			}
 		}
 		return d;
+	}
+	
+	public void setAutos(ArrayList<Auto> lijst){
+		deAutos = lijst;
 	}
 
 	public boolean isRegelmatig(){

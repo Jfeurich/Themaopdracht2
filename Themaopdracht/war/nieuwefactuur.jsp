@@ -24,6 +24,13 @@
 				Object fact = request.getAttribute("deFactuur");
 				if (fact != null){
 					Factuur deFactuur = (Factuur)fact;
+					out.println("<h2>De factuur</h2>");
+					Klus k = deFactuur.getDeKlus();
+					Auto a = k.getAuto();
+					Klant kl = a.getEigenaar();
+					out.println("<p>Klant: " + kl.getNaam() + "</p>");
+					out.println("<p>Auto: " + a.getMerk() + "</p>");
+					out.println("<p>Klus: " + k.getBeschrijving() + "</p>");
 					out.println("<h2>Voer kortingspercentage in</h2>");
 					out.println("<input type=text name=korting />");
 					out.println("<input type=hidden name=factuurvoorkorting value=" + deFactuur.getID() +" />");

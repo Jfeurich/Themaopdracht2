@@ -22,24 +22,25 @@ public class OnbetaaldeFacturenOverzichtServlet extends HttpServlet {
 		String knop = req.getParameter("knop");
 		ConnectDB database = new ConnectDB();
 		Connection con = database.maakVerbinding();
-		RequestDispatcher rd = null;
+		RequestDispatcher rd = req.getRequestDispatcher("onbetaaldefacturenoverzicht.jsp");
+		
+		//overzicht van niet-betaalde facturen
 		if(knop.equals("overzicht")){
 			ConnectDBFactuur conn = new ConnectDBFactuur(con);	
 			ArrayList<Factuur> terug = conn.getFacturenNietBetaald();
-			rd = req.getRequestDispatcher("onbetaaldefacturenoverzicht.jsp");
 			req.setAttribute("OverzichtFacturenNietBetaald", terug);
 		}
+		//zoek naar een specifieke factuur
 		else if(knop.equals("zoek")){
 			req.setAttribute("factuurid", req.getParameter("factuurid"));
-			rd = req.getRequestDispatcher("onbetaaldefacturenoverzicht.jsp");
 		}
+		//betaal geselecteerde factuur
 		else if(knop.equals("betaal")){
 			ConnectDBFactuur factuurcon = new ConnectDBFactuur(con);
 			Factuur deFactuur = factuurcon.zoekFactuur(Integer.parseInt(req.getParameter("factuurid")));
 			Date datum = new Date();
 			deFactuur.betaal(req.getParameter("betaalmiddel"), datum);
 			factuurcon.updateFactuur(deFactuur);
-			rd = req.getRequestDispatcher("onbetaaldefacturenoverzicht.jsp");
 			req.setAttribute("stap1", "done");
 		}
 		rd.forward(req, resp);

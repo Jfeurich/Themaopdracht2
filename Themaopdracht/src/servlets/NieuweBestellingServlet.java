@@ -24,57 +24,66 @@ public class NieuweBestellingServlet extends HttpServlet{
 		
 		ConnectDB database = new ConnectDB();
 		Connection con = database.maakVerbinding();
-		
 		String knop = req.getParameter("knop");
+		
 		if(knop.equals("Done")){
 			resp.sendRedirect("index.html");
 		}
 		else{
+			//haal alle producten op
 			if(knop.equals("MaakBestelling")){
 				ConnectDBProduct productcon = new ConnectDBProduct(con);	
 				ArrayList<Product> producten = productcon.getProducten();
 				req.setAttribute("producten", producten);
 				req.setAttribute("stap1", "done");
 			}
+			//kies producten met checkbox en haal op
 			else if(knop.equals("KiesProducten")){
-				ConnectDBProduct productcon = new ConnectDBProduct(con);
 				String[] gekozenProducten = req.getParameterValues("gekozenProduct");
-				ArrayList<Product> teBestellenProducten = new ArrayList<Product>();
-				for(int i = 0; i < gekozenProducten.length; i++){
-					teBestellenProducten.add(productcon.zoekProduct(Integer.parseInt(gekozenProducten[i])));
+				//kijk of er uberhaupt iets besteld moet worden
+				if(gekozenProducten.length > 0){
+					ArrayList<Product> teBestellenProducten = new ArrayList<Product>();
+					ConnectDBProduct productcon = new ConnectDBProduct(con);
+					for(int i = 0; i < gekozenProducten.length; i++){
+						teBestellenProducten.add(productcon.zoekProduct(Integer.parseInt(gekozenProducten[i])));
+					}
+					req.setAttribute("teBestellenProducten", teBestellenProducten);
 				}
-				req.setAttribute("teBestellenProducten", teBestellenProducten);
 				req.setAttribute("stap2", "done");
 			}
+			//de beruiker wil bestellen
 			else if(knop.equals("Bestel")){
 				ArrayList<BesteldProduct> deBesteldeProducten = new ArrayList<BesteldProduct>();
 				ArrayList<Product> teBestellenProducten = new ArrayList<Product>();
-				Bestelling deBestelling = new Bestelling();
-				ConnectDBProduct productcon = new ConnectDBProduct(con);
+				Bestelling deBestelling = new Bestelling();	//maak een lege bestelling aan
 				boolean goed = true;
 				String[] gewijzigdeproducten = req.getParameterValues("wijzig");
 				String[] wijzigaantal =  req.getParameterValues("wijzigaantal");
-				if(gewijzigdeproducten.length != 0){
-					for(int i = 0; i < gewijzigdeproducten.length; i++){
-						try{
-							int productid = Integer.parseInt(gewijzigdeproducten[i]);
-							int aantal = Integer.parseInt(wijzigaantal[i]);
-							deBesteldeProducten.add(new BesteldProduct(productcon.zoekProduct(productid), aantal));
-						}
-						catch(Exception e){
-							goed = false;
-							req.setAttribute("msg", "Ongeldige waarde ingevoerd!");
-							break;
-						}	
+				for(int i = 0; i < gewijzigdeproducten.length; i++){
+					//zet het product hoe dan ook in de lijst met teBestellenProducten(deze moet mee terug naar de jsp
+					//als er iets fout gaat bij het maken van de bestelde producten
+					int productid = Integer.parseInt(gewijzigdeproducten[i]);
+					ConnectDBProduct productcon = new ConnectDBProduct(con);
+					Product hetProduct = productcon.zoekProduct(productid);
+					teBestellenProducten.add(hetProduct);
+					try{	//kijk of een geldig aantal in is gevoerd en zo ja, maak een nieuw besteldproduct en zet
+							//deze in de lijst met deBesteldeProducten
+						int aantal = Integer.parseInt(wijzigaantal[i]);
+						deBesteldeProducten.add(new BesteldProduct(hetProduct, aantal));
 					}
+					catch(Exception e){
+						goed = false;
+						req.setAttribute("msg", "Ongeldige waarde ingevoerd!");
+					}	
 				}
+				//als je mag bestellen, voeg de bestelling met de bestelde producten toe aan de database
 				if(goed == true){
 					deBestelling.setBesteldeProducten(deBesteldeProducten);
 					ConnectDBBestelling bestellingcon = new ConnectDBBestelling(con);
 					req.setAttribute("deBestelling", bestellingcon.nieuwBestelling(deBestelling));
 					req.setAttribute("stap3", "done");
 				}
-				//als er een ongeldige waarde is ingevuld
+				//als er een ongeldige waarde is ingevuld, stuur teBestellenProducten terug en rest naar stap 2
 				else{
 					req.setAttribute("teBestellenProducten", teBestellenProducten);
 					req.setAttribute("stap2", "done");

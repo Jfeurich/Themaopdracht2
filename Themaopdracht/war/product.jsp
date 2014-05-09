@@ -2,21 +2,21 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 	<meta http-equiv="content-type" content="text/html; charset=iso-8859-1" />
-	<title>Voorraad Menu</title>
+	<title>Hoofdmenu Product</title>
 </head>
 <body>
-	<form action="VoorraadOverzichtServlet.do" method="post">
+	<form action="ProductServlet.do" method="post">
 		<%@ page import="domeinklassen.Product,java.util.ArrayList" %>
 		<div>
-			<h2>Overzicht totale voorraad</h2>
+			<h2>Overzicht alle producten</h2>
 			<input type="submit" name="knop" value="overzicht" />
 		</div>
 		<div>
 			<h2>Nieuw product aanmaken</h2>
 			<%
-				Object nieuwmsg = request.getAttribute("nieuwmsg");
-				if(nieuwmsg != null){
-					out.println(nieuwmsg);
+				Object msg = request.getAttribute("msg");
+				if(msg != null){
+					out.println(msg);
 				}
 			%>
 			<table>
