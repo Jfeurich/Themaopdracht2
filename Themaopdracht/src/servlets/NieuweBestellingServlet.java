@@ -40,16 +40,23 @@ public class NieuweBestellingServlet extends HttpServlet{
 			//kies producten met checkbox en haal op
 			else if(knop.equals("KiesProducten")){
 				String[] gekozenProducten = req.getParameterValues("gekozenProduct");
-				//kijk of er uberhaupt iets besteld moet worden
-				if(gekozenProducten.length > 0){
+				//kijk of er een product is geselecteerd
+				if(gekozenProducten != null){
 					ArrayList<Product> teBestellenProducten = new ArrayList<Product>();
 					ConnectDBProduct productcon = new ConnectDBProduct(con);
 					for(int i = 0; i < gekozenProducten.length; i++){
 						teBestellenProducten.add(productcon.zoekProduct(Integer.parseInt(gekozenProducten[i])));
 					}
 					req.setAttribute("teBestellenProducten", teBestellenProducten);
+					req.setAttribute("stap2", "done");
 				}
-				req.setAttribute("stap2", "done");
+				else{
+					req.setAttribute("error", "Selecteer minimaal 1 product!");
+					ConnectDBProduct productcon = new ConnectDBProduct(con);	
+					ArrayList<Product> producten = productcon.getProducten();
+					req.setAttribute("producten", producten);
+					req.setAttribute("stap1", "done");
+				}
 			}
 			//de beruiker wil bestellen
 			else if(knop.equals("Bestel")){
@@ -59,22 +66,24 @@ public class NieuweBestellingServlet extends HttpServlet{
 				boolean goed = true;
 				String[] gewijzigdeproducten = req.getParameterValues("wijzig");
 				String[] wijzigaantal =  req.getParameterValues("wijzigaantal");
-				for(int i = 0; i < gewijzigdeproducten.length; i++){
-					//zet het product hoe dan ook in de lijst met teBestellenProducten(deze moet mee terug naar de jsp
-					//als er iets fout gaat bij het maken van de bestelde producten
-					int productid = Integer.parseInt(gewijzigdeproducten[i]);
-					ConnectDBProduct productcon = new ConnectDBProduct(con);
-					Product hetProduct = productcon.zoekProduct(productid);
-					teBestellenProducten.add(hetProduct);
-					try{	//kijk of een geldig aantal in is gevoerd en zo ja, maak een nieuw besteldproduct en zet
-							//deze in de lijst met deBesteldeProducten
-						int aantal = Integer.parseInt(wijzigaantal[i]);
-						deBesteldeProducten.add(new BesteldProduct(hetProduct, aantal));
+				if(gewijzigdeproducten != null){
+					for(int i = 0; i < gewijzigdeproducten.length; i++){
+						//zet het product hoe dan ook in de lijst met teBestellenProducten(deze moet mee terug naar de jsp
+						//als er iets fout gaat bij het maken van de bestelde producten
+						int productid = Integer.parseInt(gewijzigdeproducten[i]);
+						ConnectDBProduct productcon = new ConnectDBProduct(con);
+						Product hetProduct = productcon.zoekProduct(productid);
+						teBestellenProducten.add(hetProduct);
+						try{	//kijk of een geldig aantal in is gevoerd en zo ja, maak een nieuw besteldproduct en zet
+								//deze in de lijst met deBesteldeProducten
+							int aantal = Integer.parseInt(wijzigaantal[i]);
+							deBesteldeProducten.add(new BesteldProduct(hetProduct, aantal));
+						}
+						catch(Exception e){
+							goed = false;
+							req.setAttribute("error", "Ongeldige waarde ingevoerd!");
+						}	
 					}
-					catch(Exception e){
-						goed = false;
-						req.setAttribute("msg", "Ongeldige waarde ingevoerd!");
-					}	
 				}
 				//als je mag bestellen, voeg de bestelling met de bestelde producten toe aan de database
 				if(goed == true){

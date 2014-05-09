@@ -61,7 +61,7 @@ public class NieuweKlusServlet extends HttpServlet {
 			String beschrijving = req.getParameter("beschrijving");
 			String auto = req.getParameter("autovanklus");
 			int autoid = Integer.parseInt(auto);
-			boolean allesIngevuld = (!type.equals("")) && (!dat.equals("")) && (!beschrijving.equals(""));
+			boolean allesIngevuld = (type != null) && (!dat.equals("")) && (!beschrijving.equals(""));
 			boolean gemaakt = false;
 			if(allesIngevuld){	//check of alle velden in zijn gevuld
 				try{	//check voor geldige datum

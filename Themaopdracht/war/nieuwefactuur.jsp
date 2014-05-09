@@ -5,6 +5,7 @@
 	<title>Nieuwe Factuur</title>
 </head>
 <body>
+	<p><a href="index.html">Hoofdmenu</a></p>
 	<form action="NieuweFactuurServlet.do" method="post">
 		<%@ page import="java.util.ArrayList,domeinklassen.Klant,domeinklassen.Auto,domeinklassen.Klus,domeinklassen.Factuur" %>
 		<div>
@@ -124,5 +125,6 @@
 			%>
 		</div>
 	</form>
+	<p><a href="factuur.jsp">Terug naar hoofdmenu factuur</a></p>
 </body>
 </html>

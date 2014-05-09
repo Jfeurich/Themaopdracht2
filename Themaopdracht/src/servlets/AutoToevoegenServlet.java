@@ -38,7 +38,7 @@ public class AutoToevoegenServlet extends HttpServlet{
 		}
 		//als de gebruiker een auto wil toevoegen...
 		else if(knop.equals("VoegAutoToe")){
-			String ken = req.getParameter("kenteken");
+			String ken = req.getParameter("kenteken").toUpperCase();
 			String mk = req.getParameter("merk");
 			String tp = req.getParameter("type");
 			boolean allesIngevuld = (ken!="") && (mk!="") && (tp!="");	//kijk of alles in is gevuld

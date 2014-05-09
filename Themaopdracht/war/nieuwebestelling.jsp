@@ -5,6 +5,7 @@
 	<title>11: Nieuwe bestelling</title>
 </head>
 <body>
+	<p><a href="index.html">Hoofdmenu</a></p>
 	<form action="NieuweBestellingServlet.do" method="post">
 		<%@ page import="java.util.ArrayList,domeinklassen.Bestelling,domeinklassen.Product,domeinklassen.BesteldProduct" %>
 		<div>
@@ -14,12 +15,6 @@
 				if(error != null){
 					out.println("<h2>Error!</h2>");
 					out.println(error);
-				}
-				else{
-					Object msg = request.getAttribute("msg");
-					if(msg != null){
-						out.println(msg);
-					}
 				}
 				if(request.getAttribute("stap1") != null) {
 					ArrayList<Product> producten = (ArrayList<Product>)request.getAttribute("producten");	
@@ -119,5 +114,6 @@
 			}
 		</script>
 	</form>
+	<p><a href="nieuwebestelling.jsp">Terug</a></p>
 </body>
 </html>

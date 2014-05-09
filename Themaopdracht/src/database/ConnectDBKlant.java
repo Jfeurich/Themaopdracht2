@@ -32,7 +32,7 @@ public class ConnectDBKlant{
 				int nr = rs.getInt("telefoonnummer");
 				Klant k = new Klant(kn, nm, adr, wp, rnr, nr);
 				ConnectDBAuto autocon = new ConnectDBAuto(con);
-				k.setAutos(autocon.getAutosVan(kn));
+				autocon.getAutosVan(k);
 				terug.add(k);
 			}
 			stmt.close();
@@ -51,15 +51,14 @@ public class ConnectDBKlant{
 			Statement stmt = con.createStatement();
 			ResultSet rs = stmt.executeQuery(sql);
 			while (rs.next()) {   // rs.next() geeft false als er niets meer is 
-				int kn = rs.getInt("klantid");
 				String nm = rs.getString("naam");
 				String adr = rs.getString("adres");
 				String wp = rs.getString("plaats");
 				String rnr = rs.getString("rekeningnummer");
 				int nr = rs.getInt("telefoonnummer");
-				terug = new Klant(kn, nm, adr, wp, rnr, nr);
+				terug = new Klant(klantnummer, nm, adr, wp, rnr, nr);
 				ConnectDBAuto autocon = new ConnectDBAuto(con);
-				terug.setAutos(autocon.getAutosVan(kn));
+				autocon.getAutosVan(terug);
 			}
 			stmt.close();
 		}
@@ -90,7 +89,7 @@ public class ConnectDBKlant{
 			//zoek klant op basis van gevonden klantnummer
 			terug = zoekKlant(klantid);	
 			ConnectDBAuto autocon = new ConnectDBAuto(con);
-			terug.setAutos(autocon.getAutosVan(klantid));
+			autocon.getAutosVan(terug);
 		}
 		catch(Exception ex){
 			System.out.println("Probleem bij nieuwe klant " + ex);
@@ -119,8 +118,9 @@ public class ConnectDBKlant{
 	public boolean verwijderKlant(int klantid){
 		try{
 			//verwijder eerst alle autos van deze klant
+			Klant deKlant = zoekKlant(klantid);
 			ConnectDBAuto aconn = new ConnectDBAuto(con);
-			for(Auto a : aconn.getAutosVan(klantid)){
+			for(Auto a : aconn.getAutosVan(deKlant)){
 				aconn.verwijderAuto(a.getID());
 			}
 			//en vervolgens de klant zelf

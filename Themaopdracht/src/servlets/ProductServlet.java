@@ -121,8 +121,8 @@ public class ProductServlet extends HttpServlet{
 			}
 			deVoorraad = conn.getProducten();
 			req.setAttribute("voorraadlijst", deVoorraad);
-		}
-		rd.forward(req, resp);		
+		}	
 		database.sluitVerbinding(con);
+		rd.forward(req, resp);	
 	}
 }

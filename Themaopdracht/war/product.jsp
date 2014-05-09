@@ -5,6 +5,7 @@
 	<title>Hoofdmenu Product</title>
 </head>
 <body>
+	<p><a href="index.html">Hoofdmenu</a></p>
 	<form action="ProductServlet.do" method="post">
 		<%@ page import="domeinklassen.Product,java.util.ArrayList" %>
 		<div>
@@ -14,6 +15,10 @@
 		<div>
 			<h2>Nieuw product aanmaken</h2>
 			<%
+				Object error = request.getAttribute("error");
+				if(error != null){
+					out.println(error);
+				}
 				Object msg = request.getAttribute("msg");
 				if(msg != null){
 					out.println(msg);
@@ -50,20 +55,17 @@
 				Object arraygevonden = request.getAttribute("arraygevonden");
 				if(gevonden != null){
 					Product hetProduct = (Product)gevonden;
-					out.println("<p>Gevonden product:</p>");
 					out.println("<p>" + hetProduct.toString() + "</p>");
 					out.println("<input type=hidden name=product value=" + hetProduct.getArtikelNr() + " />");
 					out.println("<p><input type=submit name=knop value=wijzig /></p>");
 				}
 				else if(arraygevonden != null){
 					ArrayList<Product> lijst = (ArrayList<Product>)arraygevonden;
-					out.println("<p>Gevonden product(en):</p>");
-					out.println("<p>Selecteer een product om te wijzigen:</p>");
 					boolean eerste = true;
 					for(Product p: lijst){
-						out.println("<input type=radio name=product ");
+						out.println("<p><input type=radio name=product ");
 						if(eerste){out.println("checked=checked ");eerste=false;}
-						out.println("value=" + p.getArtikelNr() + " /><p>" + p.toString() + "</p>");			
+						out.println("value=" + p.getArtikelNr() + " />" + p.toString() + "</p>");			
 					}
 					out.println("<p><input type=submit name=knop value=wijzig /></p>");	
 				}

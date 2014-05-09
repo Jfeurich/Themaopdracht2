@@ -5,6 +5,7 @@
 	<title>Wijzig product</title>
 </head>
 <body>
+	<p><a href="index.html">Hoofdmenu</a></p>
 	<form action="WijzigProductServlet.do" method="post">
 		<%@ page import="domeinklassen.Product" %>
 		<div>
@@ -60,9 +61,9 @@
 				else{
 					out.println("<h3>Deze pagina is pas bruikbaar als een product uit de voorraad is geselecteerd!</h3>");
 				}
-				out.println("<a href=voorraad.jsp>Terug naar hoofdmenu Product</a>");
 			%>
 		</div>
 	</form>
+	<p><a href="product.jsp">Terug naar hoofdmenu product</a></p>
 </body>
 </html>

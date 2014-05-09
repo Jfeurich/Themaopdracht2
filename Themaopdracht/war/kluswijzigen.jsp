@@ -5,6 +5,7 @@
 	<title>Status Klus wijzigen</title>
 </head>
 <body>
+	<p><a href="index.html">Hoofdmenu</a></p>
 	<form action="KlusWijzigenServlet.do" method="post">
 		<%@ page import="java.util.ArrayList,domeinklassen.Klant,domeinklassen.Auto,domeinklassen.Klus,domeinklassen.Onderhoudsbeurt,domeinklassen.Reparatie,domeinklassen.GebruiktProduct,domeinklassen.Product" %>
 		<div>
@@ -143,12 +144,13 @@
 					out.println("<p>Huidige manuren: " + deKlus.getManuren() + "</p>");
 					out.println("<input type=text name=manuren />");
 					out.println("<p>Beschrijving</p>");
-					out.println("<textarea name=beschrijving value=" + deKlus.getBeschrijving() + " ></textarea>");
+					out.println("<textarea name=beschrijving>" + deKlus.getBeschrijving() + "</textarea>");
 					out.println("<td><input type=hidden name=gekozenklus value=" + deKlus.getID() + " /></td>");
 					out.println("<input type=submit name=knop value=bevestig />");
 				}
 			%>
 		</div>
 	</form>
+	<p><a href="kluswijzigen.jsp">Terug</a></p>
 </body>
 </html>

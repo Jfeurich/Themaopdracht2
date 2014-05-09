@@ -154,7 +154,10 @@ public class KlusWijzigenServlet extends HttpServlet {
 			index te zoeken van dat product in het totale array. De totaal-index wordt dan gebruikt om de bijpassende
 			vooraad en aantal te pakken.
 			 */
-			if(producten.length != 0){	//is er uberhaupt een product geselecteerd?
+			if(producten == null){
+				allesToegevoegd = false;
+			}
+			else{	//is er uberhaupt een product geselecteerd?
 				for(int i = 0; i < alleProducten.length; i++){		//dit is de index in de totaallijst
 					int optieID = Integer.parseInt(alleProducten[i]);
 					for(int j = 0; j < producten.length; j++){		//en de index in de gewijzigde productenIDs
@@ -196,6 +199,7 @@ public class KlusWijzigenServlet extends HttpServlet {
 			//als ie niet toe kan voegen, stuur weer terug naar artikeltoevoegenaanklus en geef producten op voorraad
 			//opnieuw mee
 			else{
+				req.setAttribute("msg", "Geen producten toegevoegd!");
 				rd = req.getRequestDispatcher("artikeltoevoegenaanklus.jsp");
 				ConnectDBProduct conn = new ConnectDBProduct(con);	
 				ArrayList<Product> deVoorraad = conn.getProductenOpVoorraad();

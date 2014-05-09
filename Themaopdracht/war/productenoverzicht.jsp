@@ -2,9 +2,10 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 	<meta http-equiv="content-type" content="text/html; charset=iso-8859-1" />
-	<title>Voorraad Menu</title>
+	<title>Overzicht alle producten</title>
 </head>
 <body>
+	<p><a href="index.html">Hoofdmenu</a></p>
 	<form action="ProductServlet.do" method="post">
 		<%@ page import="java.util.ArrayList,domeinklassen.Product" %>
 		<%
@@ -51,8 +52,8 @@
 				out.println("<input type=submit name=knop value=wijzig />");
 				out.println("<input type=submit name=knop value=verwijder />");
 			}
-			out.println("<a href=voorraad.jsp>Terug naar hoofdmenu Product</a>");
 		%>
 	</form>
+	<p><a href="product.jsp">Terug naar hoofdmenu product</a></p>
 </body>
 </html>

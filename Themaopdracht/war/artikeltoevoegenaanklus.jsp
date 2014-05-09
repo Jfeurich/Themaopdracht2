@@ -6,10 +6,11 @@
 	<title>Artikel toevoegen aan klus</title>
 </head>
 <body>
+	<p><a href="index.html">Hoofdmenu</a></p>
 	<form action="KlusWijzigenServlet.do" method="post">
 		<%@ page import="java.util.ArrayList,domeinklassen.Klus,domeinklassen.Onderhoudsbeurt,domeinklassen.Reparatie,domeinklassen.Product" %>
 		<div>
-			<h2>5: Kies het gewenste artikel en klik op "VoegToe"</h2>
+			<h2>5: Kies de gewenste artikel(en) en klik op "VoegToe"</h2>
 			<%
 				Object error =  request.getAttribute("error");
 				if(error != null){
@@ -62,6 +63,5 @@
 			%>
 		</div>
 	</form>
-	
 </body>
 </html>

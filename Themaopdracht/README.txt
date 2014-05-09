@@ -43,6 +43,3 @@ Nieuwe klus
 Klus wijzigen
 
 08-05 Angie: Database is weer veranderd, vergeet niet m te updaten ^^ 
-	NOTE!! ------------ WE MOETEN NOG ZORGEN DAT ALLE SERVLETS MET RADIO BUTTONS--------------------!!
-				----------CHECKEN OF ER UBERHAUPT EEN BUTTON IS GESELECTEERD-------------
-						momenteel geven ze namelijk allemaal een nullpointer =)
