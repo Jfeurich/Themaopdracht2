@@ -69,6 +69,30 @@ public class ConnectDBAuto{
 		}
 		return terug;
 	}
+
+	//zoek naar alle autos van een bepaalde klant (per klant-object)
+	public ArrayList<Auto> getAutosVan(Klant k){
+		ArrayList<Auto> terug = new ArrayList<Auto>();
+		try{
+			String sql = "SELECT * FROM Auto WHERE klantid=" + k.getKlantnummer();
+			Statement stmt = con.createStatement();
+			ResultSet rs = stmt.executeQuery(sql);
+			while (rs.next()) {   // rs.next() geeft false als er niets meer is 
+				int id = rs.getInt("autoid");
+				String ken = rs.getString("kenteken");
+				String mk = rs.getString("merk");
+				String tp = rs.getString("type");
+				Auto a = new Auto(ken, mk, tp, k);
+				a.setID(id);
+				terug.add(a);
+			}
+			stmt.close();
+		}
+		catch(Exception ex){
+			System.out.println("Probleem bij ophalen autos van klant" + ex);
+		}
+		return terug;
+	}
 	
 	//zoek auto op id
 	public Auto zoekAuto(int autoid){

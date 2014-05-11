@@ -114,7 +114,7 @@ public class ConnectDBBestelling{
 			Calendar now = Calendar.getInstance();
 			java.util.Date datum = now.getTime();
 			java.sql.Date dat = new java.sql.Date(datum.getTime());
-			String sql1 = "INSERT INTO Bestelling (datum) VALUES ('" + dat + "');";
+			String sql1 = "INSERT INTO Bestelling (datum, isGeleverd) VALUES ('" + dat + "', 'f');";
 			Statement stmt = con.createStatement();
 			stmt.executeUpdate(sql1);
 			stmt.close();

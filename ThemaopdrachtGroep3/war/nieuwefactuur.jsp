@@ -5,6 +5,7 @@
 	<title>Nieuwe Factuur</title>
 </head>
 <body>
+	<p><a href="index.html">Hoofdmenu</a></p>
 	<form action="NieuweFactuurServlet.do" method="post">
 		<%@ page import="java.util.ArrayList,domeinklassen.Klant,domeinklassen.Auto,domeinklassen.Klus,domeinklassen.Factuur" %>
 		<div>
@@ -24,6 +25,13 @@
 				Object fact = request.getAttribute("deFactuur");
 				if (fact != null){
 					Factuur deFactuur = (Factuur)fact;
+					out.println("<h2>De factuur</h2>");
+					Klus k = deFactuur.getDeKlus();
+					Auto a = k.getAuto();
+					Klant kl = a.getEigenaar();
+					out.println("<p>Klant: " + kl.getNaam() + "</p>");
+					out.println("<p>Auto: " + a.getMerk() + "</p>");
+					out.println("<p>Klus: " + k.getBeschrijving() + "</p>");
 					out.println("<h2>Voer kortingspercentage in</h2>");
 					out.println("<input type=text name=korting />");
 					out.println("<input type=hidden name=factuurvoorkorting value=" + deFactuur.getID() +" />");
@@ -117,5 +125,6 @@
 			%>
 		</div>
 	</form>
+	<p><a href="factuur.jsp">Terug naar hoofdmenu factuur</a></p>
 </body>
 </html>

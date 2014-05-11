@@ -5,6 +5,7 @@
 	<title>Auto toevoegen</title>
 </head>
 <body>
+	<p><a href="index.html">Hoofdmenu</a></p>
 	<form action="AutoToevoegenServlet.do" method="post">
 		<%@ page import="java.util.ArrayList,domeinklassen.Klant,domeinklassen.Auto" %>
 		<div>
@@ -54,6 +55,7 @@
 							out.println("<td><input type=radio name=autovanklant ");
 							if(eerste){out.println("checked=checked ");eerste=false;}
 							out.println("value=" + k.getKlantnummer() + " /></td>");
+							out.println("<td>" + k.getKlantnummer() + "</td>");
 							out.println("<td>" + k.getNaam() + "</td>");
 						out.println("</tr>");
 					}
@@ -66,5 +68,6 @@
 			%>
 		</div>
 	</form>
+	<p><a href="autotoevoegen.jsp">Terug</a></p>
 </body>
 </html>

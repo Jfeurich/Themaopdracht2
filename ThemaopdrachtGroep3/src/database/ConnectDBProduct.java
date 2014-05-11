@@ -49,11 +49,11 @@ public class ConnectDBProduct{
 		return deVoorraad;
 	}
 	
-	//alle producten waarvan de voorraad lager is dan de minimumvoorraad
-	public ArrayList<Product> getProductenOnderMinimum(){
+	//alle producten waarvan de voorraad groter is dan 0
+	public ArrayList<Product> getProductenOpVoorraad(){
 		ArrayList<Product> deVoorraad = new ArrayList<Product>();
 		try{
-			String sql = "SELECT * FROM PRODUCT";
+			String sql = "SELECT * FROM PRODUCT WHERE aantal>0";
 			Statement stmt = con.createStatement();
 			ResultSet rs = stmt.executeQuery(sql);
 			while (rs.next()) {   // rs.next() geeft false als er niets meer is 
@@ -62,18 +62,36 @@ public class ConnectDBProduct{
 				int mA = rs.getInt("minimumAanwezig");
 				String ee = rs.getString("eenheid");
 				double pPS = rs.getDouble("prijsPerStuk");
+				int aantal = rs.getInt("aantal");
 				Product p = new Product(nm, aNr, mA, ee, pPS);
-				try{
-					int aantal = rs.getInt("aantal");
-					p.setAantal(aantal);
-					//toevoegen als er voorraad is, en deze te laag is
-					if(aantal < mA){
-						deVoorraad.add(p);
-					}
-				}
-				catch(Exception ex){
-					System.out.println(ex);
-				}
+				p.setAantal(aantal);
+				deVoorraad.add(p);
+			}
+			stmt.close();
+		}
+		catch(Exception ex){
+			System.out.println("Probleem bij producten onder minimumvoorraad ophalen " + ex);
+		}
+		return deVoorraad;
+	}
+	
+	//alle producten waarvan de voorraad lager is dan de minimumvoorraad
+	public ArrayList<Product> getProductenOnderMinimum(){
+		ArrayList<Product> deVoorraad = new ArrayList<Product>();
+		try{
+			String sql = "SELECT * FROM PRODUCT WHERE aantal<minimumAanwezig";
+			Statement stmt = con.createStatement();
+			ResultSet rs = stmt.executeQuery(sql);
+			while (rs.next()) {   // rs.next() geeft false als er niets meer is 
+				String nm = rs.getString("naam");
+				int aNr = rs.getInt("productid");
+				int mA = rs.getInt("minimumAanwezig");
+				String ee = rs.getString("eenheid");
+				double pPS = rs.getDouble("prijsPerStuk");
+				int aantal = rs.getInt("aantal");
+				Product p = new Product(nm, aNr, mA, ee, pPS);
+				p.setAantal(aantal);
+				deVoorraad.add(p);
 			}
 			stmt.close();
 		}

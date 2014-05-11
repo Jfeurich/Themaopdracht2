@@ -21,8 +21,9 @@ public class WijzigProductServlet extends HttpServlet {
 		
 		ConnectDB database = new ConnectDB();
 		Connection con = database.maakVerbinding();
-		
 		String knop = req.getParameter("knop");
+		RequestDispatcher rd = null;
+		
 		ConnectDBProduct conn = new ConnectDBProduct(con);
 		
 		if(knop.equals("wijzig")){
@@ -40,39 +41,44 @@ public class WijzigProductServlet extends HttpServlet {
 			boolean nieuwMinimum = !ma.equals("");
 			boolean nieuwePrijs = !pps.equals("");
 			
+			//is er een nieuwe waarde ingevoerd?
 			boolean wijzigen = nieuweNaam || nieuwAantal || nieuweEenheid || nieuwMinimum || nieuwePrijs;
 					
+			//probeera alle velden waar iets in iets gevoerd te wijzigen
 			if(nieuweNaam){
 				hetProduct.setNaam(naam);
 			}
 			else if(nieuwAantal){
-				if(!at.matches("((-|\\+)?[0-9]+(\\.[0-9]+)?)+")){
-					req.setAttribute("error", "Vul een geldig aantal in!");
-				}	
-				else{
+				try{
 					int aantal = Integer.parseInt(at);
 					hetProduct.setAantal(aantal);
+				}
+				catch(Exception ex){
+					System.out.println(ex);
+					req.setAttribute("error", "Vul een geldig aantal in!");
 				}
 			}
 			else if(nieuweEenheid){
 				hetProduct.setEenheid(eenheid);
 			}
 			else if(nieuwMinimum){
-				if(!ma.matches("((-|\\+)?[0-9]+(\\.[0-9]+)?)+")){
-					req.setAttribute("error", "Vul een geldig minimumaantal in!");
-				}	
-				else{
+				try{
 					int min = Integer.parseInt(ma);
 					hetProduct.setMinimumAanwezig(min);
 				}
+				catch(Exception ex){
+					System.out.println(ex);
+					req.setAttribute("error", "Vul een geldig minimumaantal in!");
+				}
 			}
 			else if(nieuwePrijs){
-				if(!pps.matches("((-|\\+)?[0-9]+(\\.[0-9]+)?)+")){
-					req.setAttribute("error", "Vul een geldige prijs in!");
-				}
-				else{
+				try{
 					double prijsPerStuk = Double.parseDouble(pps);
 					hetProduct.setPrijsPerStuk(prijsPerStuk);
+				}
+				catch(Exception ex){
+					System.out.println(ex);
+					req.setAttribute("error", "Vul een geldige prijs in!");
 				}
 			}
 			if(wijzigen){
@@ -87,9 +93,9 @@ public class WijzigProductServlet extends HttpServlet {
 				req.setAttribute("msg", "Geen wijzigingen aangebracht.");
 			}
 			req.setAttribute("product", hetProduct);
-			RequestDispatcher rd = req.getRequestDispatcher("wijzigproduct.jsp");
-			rd.forward(req, resp);
+			rd = req.getRequestDispatcher("wijzigproduct.jsp");
 		}
+		//stuur bij succesvollle wijziging terug naar overzicht producten
 		else if(knop.equals("verwijder")){
 			String p = req.getParameter("product");
 			if(conn.verwijderProduct(Integer.parseInt(p))){
@@ -97,9 +103,9 @@ public class WijzigProductServlet extends HttpServlet {
 			}
 			ArrayList deVoorraad = conn.getProducten();
 			req.setAttribute("voorraadlijst", deVoorraad);
-			RequestDispatcher rd = req.getRequestDispatcher("voorraadoverzicht.jsp");
-			rd.forward(req, resp);	
+			rd = req.getRequestDispatcher("productenoverzicht.jsp");	
 		}
 		database.sluitVerbinding(con);
+		rd.forward(req, resp);
 	}
 }

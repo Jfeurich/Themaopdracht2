@@ -5,6 +5,7 @@
 	<title>Nieuwe klus</title>
 </head>
 <body>
+	<p><a href="index.html">Hoofdmenu</a></p>
 	<form action="NieuweKlusServlet.do" method="post">
 		<%@ page import="java.util.ArrayList,domeinklassen.Klant,domeinklassen.Auto" %>
 		<div>
@@ -82,7 +83,7 @@
 				}
 				else{
 					Auto deAuto = (Auto)gekozen;
-					out.println("<h2>Vul het formulier in en klik op 'voeg toe' om de nieuwe klus aan te maken</h2>");
+					out.println("<h2>Vul het formulier in en klik op 'nieuw' om de nieuwe klus aan te maken</h2>");
 					out.println("<table>");
 						out.println("<tr>");
 							out.println("<td>Onderhoudsbeurt</td>");
@@ -90,7 +91,7 @@
 						out.println("</tr>");
 						out.println("<tr>");
 							out.println("<td><input type=radio name=type value=onderhoudsbeurt /></td>");
-							out.println("<td><input type=radio name=type value=reparatie /></td>");
+							out.println("<td><input type=radio name=type checked=checked value=reparatie /></td>");
 						out.println("</tr>");
 						out.println("<tr>");
 							out.println("<td>Datum: </td>");
@@ -104,5 +105,6 @@
 			%>
 		</div>
 	</form>
+	<p><a href="nieuweklus.jsp">Terug</a></p>
 </body>
 </html>
