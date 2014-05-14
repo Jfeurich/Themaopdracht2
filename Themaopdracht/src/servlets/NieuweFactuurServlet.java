@@ -25,6 +25,7 @@ public class NieuweFactuurServlet extends HttpServlet{
 
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		
+		int aantalPerkeerplaatsen = 0;
 		ConnectDB database = new ConnectDB();
 		Connection con = database.maakVerbinding();
 		String knop = req.getParameter("knop");

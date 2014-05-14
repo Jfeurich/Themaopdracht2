@@ -46,7 +46,7 @@ public class ConnectDBReservering{
 	}
 
 	//zoek naar alle reserveringen tussen begindatum en einddatum
-	public ArrayList<Reservering> getReserveringTussen(java.util.Date begin, java.util.Date eind){
+	public ArrayList<Reservering> getReserveringenTussen(java.util.Date begin, java.util.Date eind){
 		ArrayList<Reservering> terug = new ArrayList<Reservering>();
 		try{
 			java.sql.Date beginDat = new java.sql.Date(begin.getTime());
@@ -92,6 +92,32 @@ public class ConnectDBReservering{
 				ConnectDBAuto autoconn = new ConnectDBAuto(con);
 				Auto a = autoconn.zoekAuto(autoid);
 				terug = new Reservering(a, id, bD, eD, dP);
+			}
+			stmt.close();
+		}
+		catch(Exception ex){
+			System.out.println("Probleem bij reservering zoeken " + ex);
+		}
+		return terug;		
+	}
+	
+	//zoek reserveringen per auto
+	public ArrayList<Reservering> zoekReserveringenVanAuto(int autoid){
+		ArrayList<Reservering> terug = new ArrayList<Reservering>();
+		try{
+			String sql = "SELECT * FROM Reservering WHERE autoid=" + autoid;
+			Statement stmt = con.createStatement();
+			ResultSet rs = stmt.executeQuery(sql);
+			while (rs.next()) {   // rs.next() geeft false als er niets meer is 
+				int id = rs.getInt("reserveringid");
+				int dP = rs.getInt("deParkeerplek");
+				java.sql.Date bdat = rs.getDate("beginDat");
+				java.util.Date bD = new Date(bdat.getTime());
+				java.sql.Date edat = rs.getDate("eindDat");
+				java.util.Date eD = new Date(edat.getTime());
+				ConnectDBAuto autoconn = new ConnectDBAuto(con);
+				Auto a = autoconn.zoekAuto(autoid);
+				terug.add(new Reservering(a, id, bD, eD, dP));
 			}
 			stmt.close();
 		}

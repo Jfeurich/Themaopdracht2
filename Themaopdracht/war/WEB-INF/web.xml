@@ -77,4 +77,12 @@
 		<servlet-name>NieuweFactuur</servlet-name>
 		<url-pattern>/NieuweFactuurServlet.do</url-pattern>
 	</servlet-mapping>
+	<servlet>
+		<servlet-name>NieuweReservering</servlet-name>
+		<servlet-class>servlets.NieuweReserveringServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>NieuweReservering</servlet-name>
+		<url-pattern>/NieuweReserveringServlet.do</url-pattern>
+	</servlet-mapping>
 </web-app>
