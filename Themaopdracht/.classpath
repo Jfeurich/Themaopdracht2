@@ -7,6 +7,9 @@
 			<attribute name="javadoc_location" value="http://docs.oracle.com/javaee/6/api/"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="C:/Users/Stijn/Desktop/mysql-connector-java-5.1.30/mysql-connector-java-5.1.30-bin.jar"/>
+	<classpathentry kind="lib" path="jars/mysql-connector-java-5.1.30-bin.jar"/>
+	<classpathentry kind="lib" path="jars/selenium-server-standalone-2.33.0.jar"/>
+	<classpathentry kind="lib" path="jars/servlet-api.jar"/>
+	<classpathentry kind="lib" path="jars/selenium-java-2.41.0.jar"/>
 	<classpathentry kind="output" path="war/WEB-INF/classes"/>
 </classpath>
