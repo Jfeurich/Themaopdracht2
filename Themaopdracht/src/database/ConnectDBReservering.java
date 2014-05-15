@@ -34,8 +34,7 @@ public class ConnectDBReservering{
 				int autoid = rs.getInt("autoid");
 				ConnectDBAuto autoconn = new ConnectDBAuto(con);
 				Auto a = autoconn.zoekAuto(autoid);
-				Reservering r = new Reservering(a, id, bD, eD, dP);
-				terug.add(r);
+				terug.add(new Reservering(a, id, bD, eD, dP));
 			}
 			stmt.close();
 		}
@@ -51,7 +50,8 @@ public class ConnectDBReservering{
 		try{
 			java.sql.Date beginDat = new java.sql.Date(begin.getTime());
 			java.sql.Date eindDat = new java.sql.Date(eind.getTime());
-			String sql = "SELECT * FROM Reservering WHERE '" + eindDat + "'>beginDat OR '" + beginDat + "'<eindDat";
+			String sql = "SELECT * FROM Reservering WHERE ('" + eindDat + "'>beginDat AND eindDat>'"
+					+ eindDat + "') OR ('" + beginDat + "'>beginDat AND '" + beginDat + "'<eindDat)";
 			Statement stmt = con.createStatement();
 			ResultSet rs = stmt.executeQuery(sql);
 			while (rs.next()) {   // rs.next() geeft false als er niets meer is 
@@ -64,8 +64,7 @@ public class ConnectDBReservering{
 				int autoid = rs.getInt("autoid");
 				ConnectDBAuto autoconn = new ConnectDBAuto(con);
 				Auto a = autoconn.zoekAuto(autoid);
-				Reservering r = new Reservering(a, id, bD, eD, dP);
-				terug.add(r);
+				terug.add(new Reservering(a, id, bD, eD, dP));
 			}
 			stmt.close();
 		}

@@ -50,7 +50,6 @@ public class NieuweReserveringServlet extends HttpServlet{
 			String auto = req.getParameter("deAuto");
 			String begindat = req.getParameter("begindatum");
 			String einddat = req.getParameter("einddatum");
-			String gewenstePlaats = req.getParameter("plaats");
 			int autoid = Integer.parseInt(auto);
 			ConnectDBAuto autoconn = new ConnectDBAuto(con);
 			Auto deAuto = autoconn.zoekAuto(autoid);
@@ -58,10 +57,10 @@ public class NieuweReserveringServlet extends HttpServlet{
 			if(!begindat.equals("") && !einddat.equals("")){
 				//check voor geldige datum
 				try{
-					int dP = Integer.parseInt(gewenstePlaats);
 					SimpleDateFormat df = new SimpleDateFormat("dd-MM-yyyy");
 					Date bD = df.parse(begindat);
 					Date eD = df.parse(einddat);
+					int dP = 1;
 					if(eD.before(bD)){	//check of de einddatum wel na de begindatum is
 						req.setAttribute("error", "De eindddatum komt NA de begindatum!");
 					}
@@ -71,43 +70,59 @@ public class NieuweReserveringServlet extends HttpServlet{
 						if(reserveringen.size() > 40){	//kijk of er nog plek is op de gewenste data
 							req.setAttribute("error", "Helaas! Er is in deze periode geen plek meer in de parkeergarage!");
 						}
-						else{
-							for(Reservering r : rconn.zoekReserveringenVanAuto(autoid)){	//kijk of de reservering nog niet bestaat
-								if(r.getBegDat().before(eD) || r.getEindDat().before(bD)){		
-									req.setAttribute("error", "Er bestaat al een reservering voor deze auto in deze periode!");
-									magMaken = false;
+						else if(reserveringen.size() == 0){
+							magMaken = true;
+						}
+						else{ //als er plek is, kies de eerste beschikbaar
+							boolean heeftPlek = false;
+							while(dP <= 40){	//checkt voor alle 40 plekken of ze beschikbaar zijn
+								for(Reservering r : reserveringen){
+									System.out.println(r);
+									//kijk of de auto een andere reservering heeft die begint of eindigt tussen de gekozen data
+									if(r.getAuto().getID() == autoid){	
+										req.setAttribute("error", "Er bestaat al een reservering voor deze auto in deze periode!");
+										magMaken = false;
+										break;
+									}	//kijk of de parkeerplek bezet is
+									else if(r.getDeParkeerplek() == dP){		
+										heeftPlek = false;
+										dP++;
+										break;
+									}
+									else{
+										heeftPlek = true;
+										magMaken = true;
+									}
+								}
+								if(!magMaken || heeftPlek){
 									break;
 								}
-								else if(r.getDeParkeerplek() == dP){	//kijk of de gewenste parkeerplek bezet is	
-									req.setAttribute("error", "Deze parkeerplaats is al gereserveerd in deze periode!");
-									magMaken = false;
-									break;
-								}
-								else{
-									magMaken = true;
-								}
 							}
-							if(magMaken){	//maak de reservering en geef een succesbericht terug
-								rconn.nieuweReservering(deAuto, dP, bD, eD);
-								req.setAttribute("msg", "Reservering met succes aangemaakt");
-							}
+						}
+						if(magMaken){	//maak de reservering en geef een succesbericht terug
+							rconn.nieuweReservering(deAuto, dP, bD, eD);
+							String terug = "Reservering met succes aangemaakt voor parkeerplaats: " + dP;
+							req.setAttribute("msg", terug);
+						}
+						else if(dP == 41){
+							req.setAttribute("error", "Er zijn geen parkeerplaatsen beschikbaar in deze periode!");
 						}
 					}
 				}
 				catch(Exception ex){
 					System.out.println(ex);
-					req.setAttribute("error", "Vul geldige data en een geldige parkeerplek in!");
-				}
-				if(!magMaken){	//als de reservering niet aan is gemaakt, geef de auto terug voor een tweede poging
-					req.setAttribute("deAuto", deAuto);
+					req.setAttribute("error", "Kon de reservering niet toevoegen!");
 				}
 			}
 			else{
 				req.setAttribute("error", "Vul een begin- en einddatum in!");
 			}
+			if(!magMaken){	//als de reservering niet aan is gemaakt, geef de auto terug voor een tweede poging
+				req.setAttribute("deAuto", deAuto);
+			}
 		}
+		database.sluitVerbinding(con);
 		RequestDispatcher rd = req.getRequestDispatcher("nieuwereservering.jsp");
 		rd.forward(req, resp);
-		database.sluitVerbinding(con);
 	}
 }
