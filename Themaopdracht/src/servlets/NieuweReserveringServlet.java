@@ -77,7 +77,6 @@ public class NieuweReserveringServlet extends HttpServlet{
 							boolean heeftPlek = false;
 							while(dP <= 40){	//checkt voor alle 40 plekken of ze beschikbaar zijn
 								for(Reservering r : reserveringen){
-									System.out.println(r);
 									//kijk of de auto een andere reservering heeft die begint of eindigt tussen de gekozen data
 									if(r.getAuto().getID() == autoid){	
 										req.setAttribute("error", "Er bestaat al een reservering voor deze auto in deze periode!");
