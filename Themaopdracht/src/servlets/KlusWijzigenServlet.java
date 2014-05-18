@@ -1,5 +1,5 @@
 package servlets;
-//Resultaten uit het verleden bieden geen garanties voor de toekomst blijkt maar weer
+
 import java.io.IOException;
 import java.sql.Connection;
 import java.text.SimpleDateFormat;

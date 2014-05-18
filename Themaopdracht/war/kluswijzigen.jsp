@@ -9,7 +9,7 @@
 	<form action="KlusWijzigenServlet.do" method="post">
 		<%@ page import="java.util.ArrayList,domeinklassen.Klant,domeinklassen.Auto,domeinklassen.Klus,domeinklassen.Onderhoudsbeurt,domeinklassen.Reparatie,domeinklassen.GebruiktProduct,domeinklassen.Product" %>
 		<div>
-			<h2>16: Status Klus wijzigen</h2>
+			<h2>16: Klus wijzigen</h2>
 			<%
 				Object error =  request.getAttribute("error");
 				if(error != null){

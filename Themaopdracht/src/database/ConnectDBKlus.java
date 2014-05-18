@@ -23,7 +23,7 @@ public class ConnectDBKlus{
 	public ArrayList<Klus> getKlussen(){
 		ArrayList<Klus> terug = new ArrayList<Klus>();
 		try{
-			String sql = "SELECT * FROM Klus";
+			String sql = "SELECT * FROM Klus ORDER BY autoid";
 			Statement stmt = con.createStatement();
 			ResultSet rs = stmt.executeQuery(sql);
 			while (rs.next()) {   // rs.next() geeft false als er niets meer is 

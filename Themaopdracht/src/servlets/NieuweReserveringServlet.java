@@ -62,7 +62,7 @@ public class NieuweReserveringServlet extends HttpServlet{
 					Date eD = df.parse(einddat);
 					int dP = 1;
 					if(eD.before(bD)){	//check of de einddatum wel na de begindatum is
-						req.setAttribute("error", "De eindddatum komt NA de begindatum!");
+						req.setAttribute("error", "De einddatum komt NA de begindatum!");
 					}
 					else{
 						ConnectDBReservering rconn = new ConnectDBReservering(con);

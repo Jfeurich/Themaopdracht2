@@ -14,12 +14,12 @@
 				Object error =  request.getAttribute("error");
 				if(error != null){
 					out.println("<h3>Error!</h3>");
-					out.println(error);
+					out.println("<p name=error >" + error + "</p>");
 				}
 				else{
 					Object msg = request.getAttribute("msg");
 					if(msg != null){
-						out.println("<h3>" + msg + "</h3>");
+						out.println("<h3 name=msg>" + msg + "</h3>");
 					}
 				}
 				Object auto = request.getAttribute("deAuto");

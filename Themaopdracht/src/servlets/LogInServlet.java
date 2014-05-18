@@ -13,7 +13,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import domeinklassen.User;
 
-
 public class LogInServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private ArrayList<User> deGebruikers;
