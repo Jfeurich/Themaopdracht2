@@ -101,4 +101,12 @@
 		<servlet-name>BTWServlet</servlet-name>
 		<url-pattern>/BTWServlet.do</url-pattern>
 	</servlet-mapping>
+	<servlet>
+		<servlet-name>BriefServlet</servlet-name>
+		<servlet-class>servlets.BriefServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>BriefServlet</servlet-name>
+		<url-pattern>/BriefServlet.do</url-pattern>
+	</servlet-mapping>
 </web-app>
