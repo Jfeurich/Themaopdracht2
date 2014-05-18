@@ -50,8 +50,8 @@ public class ConnectDBReservering{
 		try{
 			java.sql.Date beginDat = new java.sql.Date(begin.getTime());
 			java.sql.Date eindDat = new java.sql.Date(eind.getTime());
-			String sql = "SELECT * FROM Reservering WHERE ('" + eindDat + "'>beginDat AND eindDat>'"
-					+ eindDat + "') OR ('" + beginDat + "'>beginDat AND '" + beginDat + "'<eindDat)";
+			String sql = "SELECT * FROM Reservering WHERE (beginDat BETWEEN'" + beginDat + "' AND '"
+					+ eindDat + "') OR (eindDat BETWEEN '" + beginDat + "' AND '" + beginDat + "')";
 			Statement stmt = con.createStatement();
 			ResultSet rs = stmt.executeQuery(sql);
 			while (rs.next()) {   // rs.next() geeft false als er niets meer is 

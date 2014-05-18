@@ -9,9 +9,16 @@
 	<form action="OnbetaaldeFacturenOverzichtServlet.do" method="post">
 	<%@ page import="java.util.ArrayList,domeinklassen.Factuur,domeinklassen.Klus" %>
 	<%
-		Object msg = request.getAttribute("msg");
-		if(msg != null){
-			out.println(msg);
+		Object error =  request.getAttribute("error");
+		if(error != null){
+			out.println("<h3>Error!</h3>");
+			out.println("<p name=error >" + error + "</p>");
+		}
+		else{
+			Object msg = request.getAttribute("msg");
+			if(msg != null){
+				out.println("<h3 name=msg>" + msg + "</h3>");
+			}
 		}
 		ArrayList<Factuur> OverzichtFacturenNietBetaald =(ArrayList<Factuur>)request.getAttribute("OverzichtFacturenNietBetaald");
 		Object factuurid = request.getAttribute("factuurid");

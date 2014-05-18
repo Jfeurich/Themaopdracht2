@@ -10,16 +10,16 @@
 		<%@ page import="java.util.ArrayList,domeinklassen.Klant,domeinklassen.Auto" %>
 		<div>
 			<h2>28: Nieuwe klus aanmaken</h2>
-			<% 				
+			<% 	
 				Object error =  request.getAttribute("error");
 				if(error != null){
-					out.println("<h2>Error!</h2>");
-					out.println(error);
+					out.println("<h3>Error!</h3>");
+					out.println("<p name=error >" + error + "</p>");
 				}
 				else{
 					Object msg = request.getAttribute("msg");
 					if(msg != null){
-						out.println(msg);
+						out.println("<h3 name=msg>" + msg + "</h3>");
 					}
 				}
 				Object gekozen = request.getAttribute("deAuto");

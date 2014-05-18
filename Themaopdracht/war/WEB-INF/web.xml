@@ -93,4 +93,12 @@
 		<servlet-name>KlusServlet</servlet-name>
 		<url-pattern>/KlusServlet.do</url-pattern>
 	</servlet-mapping>
+	<servlet>
+		<servlet-name>BTWServlet</servlet-name>
+		<servlet-class>servlets.BTWServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>BTWServlet</servlet-name>
+		<url-pattern>/BTWServlet.do</url-pattern>
+	</servlet-mapping>
 </web-app>

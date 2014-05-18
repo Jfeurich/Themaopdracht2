@@ -45,6 +45,65 @@ public class ConnectDBFactuur{
 		return terug;
 	}
 	
+	//alle facturen die nog niet zijn betaald
+	public ArrayList<Factuur> getFacturenNietBetaald(){
+		ArrayList<Factuur> terug = new ArrayList<Factuur>();
+		try{
+			String sql = "SELECT * FROM Factuur WHERE isBetaald='f'";
+			Statement stmt = con.createStatement();
+			ResultSet rs = stmt.executeQuery(sql);
+			while (rs.next()) {   // rs.next() geeft false als er niets meer is 
+				int factuurid = rs.getInt("factuurid");
+				int klusid = rs.getInt("klusid");
+				java.sql.Date dat = rs.getDate("aanmaakDatum");
+				java.util.Date datum = new java.util.Date(dat.getTime());
+				Klus deKlus = null;
+				ConnectDBKlus klusconn = new ConnectDBKlus(con);
+				deKlus = klusconn.zoekKlus(klusid);
+				Factuur f = new Factuur(datum, deKlus);
+				f.setID(factuurid);
+				terug.add(f);
+			}
+			stmt.close();
+		}
+		catch(Exception ex){
+			System.out.println("Probleem bij niet-betaalde facturen ophalen " + ex);
+		}
+		return terug;
+	}
+
+	public ArrayList<Factuur> getBetaaldeFacturen(){
+		ArrayList<Factuur> terug = new ArrayList<Factuur>();
+		try{
+			String sql = "SELECT * FROM Factuur WHERE isBetaald='t'";
+			Statement stmt = con.createStatement();
+			ResultSet rs = stmt.executeQuery(sql);
+			while (rs.next()) {   // rs.next() geeft false als er niets meer is 
+				int factuurid = rs.getInt("factuurid");
+				int klusid = rs.getInt("klusid");
+				int kP = rs.getInt("kortingspercentage");
+				String bw = rs.getString("betalingswijze");
+				java.sql.Date dat = rs.getDate("aanmaakDatum");
+				java.util.Date datum = new java.util.Date(dat.getTime());
+				java.sql.Date dat2 = rs.getDate("betaalDatum");
+				java.util.Date datum2 = new java.util.Date(dat2.getTime());
+				Klus deKlus = null;
+				ConnectDBKlus klusconn = new ConnectDBKlus(con);
+				deKlus = klusconn.zoekKlus(klusid);
+				Factuur f = new Factuur(datum, deKlus);
+				f.setID(factuurid);
+				f.setKortingsPercentage(kP);
+				f.betaal(bw, datum2);
+				terug.add(f);
+			}
+			stmt.close();
+		}
+		catch(Exception ex){
+			System.out.println("Probleem bij betaalde facturen ophalen " + ex);
+		}
+		return terug;
+	}
+	
 	//alle facturen aangemaakt tussen begindatum en einddatum
 	public ArrayList<Factuur> getFacturenTussen(java.util.Date begindat, java.util.Date einddat){
 		ArrayList<Factuur> terug = new ArrayList<Factuur>();
@@ -74,24 +133,31 @@ public class ConnectDBFactuur{
 		}
 		return terug;
 	}
-	
-	//alle facturen die nog niet zijn betaald
-	public ArrayList<Factuur> getFacturenNietBetaald(){
+
+	public ArrayList<Factuur> getBetaaldeFacturenTussen(java.util.Date d1, java.util.Date d2){
 		ArrayList<Factuur> terug = new ArrayList<Factuur>();
 		try{
-			String sql = "SELECT * FROM Factuur WHERE isBetaald='f'";
+			java.sql.Date start = new java.sql.Date(d1.getTime());
+			java.sql.Date eind = new java.sql.Date(d2.getTime());
+			String sql = "SELECT * FROM Factuur WHERE isBetaald='t' AND (betaalDatum BETWEEN '" + start + "' AND '" + eind + "')";
 			Statement stmt = con.createStatement();
 			ResultSet rs = stmt.executeQuery(sql);
 			while (rs.next()) {   // rs.next() geeft false als er niets meer is 
 				int factuurid = rs.getInt("factuurid");
 				int klusid = rs.getInt("klusid");
+				int kP = rs.getInt("kortingspercentage");
+				String bw = rs.getString("betalingswijze");
 				java.sql.Date dat = rs.getDate("aanmaakDatum");
 				java.util.Date datum = new java.util.Date(dat.getTime());
+				java.sql.Date dat2 = rs.getDate("betaalDatum");
+				java.util.Date datum2 = new java.util.Date(dat2.getTime());
 				Klus deKlus = null;
 				ConnectDBKlus klusconn = new ConnectDBKlus(con);
 				deKlus = klusconn.zoekKlus(klusid);
 				Factuur f = new Factuur(datum, deKlus);
 				f.setID(factuurid);
+				f.setKortingsPercentage(kP);
+				f.betaal(bw, datum2);
 				terug.add(f);
 			}
 			stmt.close();
