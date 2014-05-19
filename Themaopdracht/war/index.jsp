@@ -6,6 +6,12 @@
 	</head>
 	<body>
 		<div>
+			<%
+				//moet nog aangepast worden zodat de naam van de gebruiker uit de sessie wordt gehaald
+				out.println("Welkom gebruiker");
+			%>
+		</div>
+		<div>
 			Achter elke link staat vermeld welke User-storys het is aan de hand van het ID.
 		</div>
 		<ul>

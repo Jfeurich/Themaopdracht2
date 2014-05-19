@@ -15,14 +15,13 @@
 						out.println(msgs); 
 						Logger.getLogger("me.logger").warning((String) msgs); 
 					} 
-					String username = null;
+					String username = "";
 					for(Cookie c: request.getCookies()){
 						if(c.getName().equals("username")){
 							username = c.getValue();
 							break;
 						}
 					}
-					
 				%> 
 			</div> 
 			<div> 
