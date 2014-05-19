@@ -52,7 +52,7 @@ public class LoginServlet extends HttpServlet {
 		}
 		RequestDispatcher rd = null; 
 		if (loginSuccess) {
-			rd = req.getRequestDispatcher("homepage.jsp");
+			rd = req.getRequestDispatcher("index.jsp");
 			resp.addCookie(new Cookie("username", deGebruiker.getGebruikersnaam()));
 			req.getSession().setMaxInactiveInterval(10);
 			req.getSession().setAttribute("gebruiker", deGebruiker);

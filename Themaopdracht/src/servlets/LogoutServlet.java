@@ -15,7 +15,7 @@ public class LogoutServlet extends HttpServlet {
 		req.getSession().setAttribute("gebruiker", null);
 		req.setAttribute("msgs", "U bent succesvol uitgelogd!");
 		RequestDispatcher rd = null; 
-		rd = req.getRequestDispatcher("index.jsp"); 
+		rd = req.getRequestDispatcher("loginpage.jsp"); 
 		rd.forward(req, resp); 
 	}
 }

@@ -6,9 +6,11 @@
 	</head>
 	<body>
 		<div>
+			<%@ page import="domeinklassen.User" %>
 			<%
 				//moet nog aangepast worden zodat de naam van de gebruiker uit de sessie wordt gehaald
-				out.println("Welkom gebruiker");
+				User deGebruiker = (User) request.getSession().getAttribute("gebruiker");
+				out.println("Welkom " + deGebruiker.getGebruikersnaam());
 			%>
 		</div>
 		<div>
