@@ -34,6 +34,8 @@ public class ConnectDBAuto{
 				Klant eigenaar = klantconn.zoekKlant(klantid);
 				Auto a = new Auto(ken, mk, tp, eigenaar);
 				a.setID(id);
+				ConnectDBKlus klusconn = new ConnectDBKlus(con);
+				klusconn.getKlussenVoorAuto(a);
 				terug.add(a);
 			}
 			stmt.close();
@@ -60,6 +62,8 @@ public class ConnectDBAuto{
 				Klant eigenaar = klantconn.zoekKlant(zoekid);
 				Auto a = new Auto(ken, mk, tp, eigenaar);
 				a.setID(id);
+				ConnectDBKlus klusconn = new ConnectDBKlus(con);
+				klusconn.getKlussenVoorAuto(a);
 				terug.add(a);
 			}
 			stmt.close();
@@ -84,6 +88,8 @@ public class ConnectDBAuto{
 				String tp = rs.getString("type");
 				Auto a = new Auto(ken, mk, tp, k);
 				a.setID(id);
+				ConnectDBKlus klusconn = new ConnectDBKlus(con);
+				klusconn.getKlussenVoorAuto(a);
 				terug.add(a);
 			}
 			stmt.close();
@@ -110,6 +116,8 @@ public class ConnectDBAuto{
 				Klant eigenaar = klantconn.zoekKlant(klantid);
 				Auto a = new Auto(ken, mk, tp, eigenaar);
 				a.setID(autoid);
+				ConnectDBKlus klusconn = new ConnectDBKlus(con);
+				klusconn.getKlussenVoorAuto(a);
 				terug = a;
 			}
 			stmt.close();

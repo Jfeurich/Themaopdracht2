@@ -2,14 +2,13 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 	<meta http-equiv="content-type" content="text/html; charset=iso-8859-1" />
-	<title>Auto toevoegen</title>
+	<title>Nieuwe herinneringsbrief</title>
 </head>
 <body>
 	<p><a href="index.html">Hoofdmenu</a></p>
-	<form action="AutoToevoegenServlet.do" method="post">
-		<%@ page import="java.util.ArrayList,domeinklassen.Klant" %>
+	<form action="BriefServlet.do" method="post">
+		<%@ page import="java.util.ArrayList,domeinklassen.Klant,domeinklassen.Herinneringsbrief" %>
 		<div>
-			<h2>8: Auto toevoegen</h2>
 			<% 		
 				Object error =  request.getAttribute("error");
 				if(error != null){
@@ -25,20 +24,10 @@
 				Object klant = request.getAttribute("deKlant");
 				Object lijst = request.getAttribute("klanten");
 				if(klant != null){
-					out.println("<table>");
-						out.println("<tr>");
-							out.println("<td>Kenteken</td>");
-							out.println("<td>Merk</td>");
-							out.println("<td>Type</td>");
-						out.println("</tr>");	
-						out.println("<tr>");
-							out.println("<td><input type=text name=kenteken /></td>");
-							out.println("<td><input type=text name=merk /></td>");
-							out.println("<td><input type=text name=type /></td>");
-						out.println("</tr>");
-					out.println("</table>");
+					out.println("<h2>23: Maak een nieuwe herinneringsbrief</h2>");
+					out.println("<textarea name=reden placeholder=RedenVoorBrief ></textarea>");
 					out.println("<input type=hidden name=klantnummer value=" + klant + " />");
-					out.println("<input type=submit name=knop value=VoegAutoToe />");
+					out.println("<input type=submit name=knop value=NieuweBrief />");
 				}
 				else if(lijst != null){
 					ArrayList<Klant> klanten = (ArrayList<Klant>)lijst;	
@@ -48,15 +37,19 @@
 						out.println("<td>X</td>");
 						out.println("<td>Klantnummer</td>");
 						out.println("<td>Naam</td>");
+						out.println("<td>Laatste bezoek</td>");
+						out.println("<td>Laatste brief</td>");
 					out.println("</tr>");
 					boolean eerste=true;
 					for(Klant k : klanten){
 						out.println("<tr>");
-							out.println("<td><input type=radio name=autovanklant ");
+							out.println("<td><input type=radio name=gekozenklant ");
 							if(eerste){out.println("checked=checked ");eerste=false;}
 							out.println("value=" + k.getKlantnummer() + " /></td>");
 							out.println("<td>" + k.getKlantnummer() + "</td>");
 							out.println("<td>" + k.getNaam() + "</td>");
+							out.println("<td>" + k.getLaatsteBezoek() + "</td>");
+							out.println("<td>" + k.getLaatsteBrief() + "</td>");
 						out.println("</tr>");
 					}
 					out.println("</table>");
@@ -68,6 +61,5 @@
 			%>
 		</div>
 	</form>
-	<p><a href="autotoevoegen.jsp">Terug</a></p>
 </body>
 </html>

@@ -100,6 +100,38 @@ public class Klant {
 		}
 		return d;
 	}
+
+	public String getLaatsteBezoek() throws Exception{
+		boolean gewijzigd = false;
+		Date d = df.parse("00-00-0000");
+		for(Auto a : deAutos){
+			Date l = a.laatsteKlus();
+			if(l.after(d)){
+				d = l;
+				gewijzigd = true;
+			}
+		}
+		if(gewijzigd){
+			return df.format(d);
+		}
+		return "Geen bezoeken";
+	}
+	
+	public String getLaatsteBrief() throws Exception{
+		boolean gewijzigd = false;
+		Date d = df.parse("00-00-0000");
+		for(Herinneringsbrief h : deBrieven){
+			Date l = h.getDatum();
+			if(l.after(d)){
+				gewijzigd = true;
+				d = l;
+			}
+		}
+		if(gewijzigd){
+			return df.format(d);
+		}
+		return "Geen brieven";
+	}
 	
 	public void setAutos(ArrayList<Auto> lijst){
 		deAutos = lijst;

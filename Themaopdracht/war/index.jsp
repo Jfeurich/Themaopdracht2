@@ -23,6 +23,9 @@
 			<li><a href=nieuweklus.jsp>Nieuwe klus(28)</a></li>
 			<li><a href=product.jsp>Hoofdmenu producten(14, 27)</a></li>
 			<li><a href=nieuwereservering.jsp>Nieuwe reservering(3)</a></li>
+			<li><a href=klus.jsp>Hoofdmenu klussen(9)</a></li>
+			<li><a href=btwoverzicht.jsp>Overzicht BTW(22)</a></li>
+			<li><a href=nieuwebrief.jsp>Nieuwe herinneringsbrief(23)</a></li>
 		</ul>
 	</body>
 </html>

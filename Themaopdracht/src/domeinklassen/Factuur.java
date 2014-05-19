@@ -87,6 +87,12 @@ public class Factuur {
 	public double getBTW(double btw){
 		return getTotaal() * (btw * 0.01);
 	}
+
+	
+	public String getBetaalDatumNetjes(){
+		return df.format(betaaldDatum);
+	}
+	
 	public boolean getIsBetaald(){
 		return isBetaald;
 	}

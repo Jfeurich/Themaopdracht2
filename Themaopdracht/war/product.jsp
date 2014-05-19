@@ -15,13 +15,16 @@
 		<div>
 			<h2>Nieuw product aanmaken</h2>
 			<%
-				Object error = request.getAttribute("error");
+				Object error =  request.getAttribute("error");
 				if(error != null){
-					out.println(error);
+					out.println("<h3>Error!</h3>");
+					out.println("<p name=error >" + error + "</p>");
 				}
-				Object msg = request.getAttribute("msg");
-				if(msg != null){
-					out.println(msg);
+				else{
+					Object msg = request.getAttribute("msg");
+					if(msg != null){
+						out.println("<h3 name=msg>" + msg + "</h3>");
+					}
 				}
 			%>
 			<table>

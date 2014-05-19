@@ -6,6 +6,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 
 import domeinklassen.Auto;
+import domeinklassen.Herinneringsbrief;
 import domeinklassen.Klant;
 
 public class ConnectDBKlant{
@@ -33,6 +34,8 @@ public class ConnectDBKlant{
 				Klant k = new Klant(kn, nm, adr, wp, rnr, nr);
 				ConnectDBAuto autocon = new ConnectDBAuto(con);
 				autocon.getAutosVan(k);
+				ConnectDBHerinneringsbrief hcon = new ConnectDBHerinneringsbrief(con);
+				hcon.getBrievenVan(k);
 				terug.add(k);
 			}
 			stmt.close();
@@ -59,6 +62,8 @@ public class ConnectDBKlant{
 				terug = new Klant(klantnummer, nm, adr, wp, rnr, nr);
 				ConnectDBAuto autocon = new ConnectDBAuto(con);
 				autocon.getAutosVan(terug);
+				ConnectDBHerinneringsbrief hcon = new ConnectDBHerinneringsbrief(con);
+				hcon.getBrievenVan(terug);
 			}
 			stmt.close();
 		}
@@ -122,6 +127,11 @@ public class ConnectDBKlant{
 			ConnectDBAuto aconn = new ConnectDBAuto(con);
 			for(Auto a : aconn.getAutosVan(deKlant)){
 				aconn.verwijderAuto(a.getID());
+			}
+			//en brieven voor deze klant
+			ConnectDBHerinneringsbrief hcon = new ConnectDBHerinneringsbrief(con);
+			for(Herinneringsbrief h : hcon.getBrievenVan(deKlant)){
+				hcon.verwijderBrief(h.getID());
 			}
 			//en vervolgens de klant zelf
 			String sql = "DELETE FROM Klant WHERE klantid=" + klantid;

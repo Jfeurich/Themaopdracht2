@@ -9,17 +9,17 @@
 	<form action="KlusWijzigenServlet.do" method="post">
 		<%@ page import="java.util.ArrayList,domeinklassen.Klant,domeinklassen.Auto,domeinklassen.Klus,domeinklassen.Onderhoudsbeurt,domeinklassen.Reparatie,domeinklassen.GebruiktProduct,domeinklassen.Product" %>
 		<div>
-			<h2>16: Status Klus wijzigen</h2>
+			<h2>16: Klus wijzigen</h2>
 			<%
 				Object error =  request.getAttribute("error");
 				if(error != null){
-					out.println("<h2>Foutmelding</h2>");
-					out.println(error);
+					out.println("<h3>Error!</h3>");
+					out.println("<p name=error >" + error + "</p>");
 				}
 				else{
 					Object msg = request.getAttribute("msg");
 					if(msg != null){
-						out.println(msg);
+						out.println("<h3 name=msg>" + msg + "</h3>");
 					}
 				}
 				Object gekozen = request.getAttribute("deKlus");

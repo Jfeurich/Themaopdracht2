@@ -85,4 +85,28 @@
 		<servlet-name>NieuweReservering</servlet-name>
 		<url-pattern>/NieuweReserveringServlet.do</url-pattern>
 	</servlet-mapping>
+	<servlet>
+		<servlet-name>KlusServlet</servlet-name>
+		<servlet-class>servlets.KlusServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>KlusServlet</servlet-name>
+		<url-pattern>/KlusServlet.do</url-pattern>
+	</servlet-mapping>
+	<servlet>
+		<servlet-name>BTWServlet</servlet-name>
+		<servlet-class>servlets.BTWServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>BTWServlet</servlet-name>
+		<url-pattern>/BTWServlet.do</url-pattern>
+	</servlet-mapping>
+	<servlet>
+		<servlet-name>BriefServlet</servlet-name>
+		<servlet-class>servlets.BriefServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>BriefServlet</servlet-name>
+		<url-pattern>/BriefServlet.do</url-pattern>
+	</servlet-mapping>
 </web-app>
