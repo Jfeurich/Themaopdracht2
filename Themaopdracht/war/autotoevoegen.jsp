@@ -9,22 +9,23 @@
 	<form action="AutoToevoegenServlet.do" method="post">
 		<%@ page import="java.util.ArrayList,domeinklassen.Klant" %>
 		<div>
-			<h2>8: Auto toevoegen</h2>
+			<h1><span>8: Auto toevoegen</span></h1>
 			<% 		
 				Object error =  request.getAttribute("error");
 				if(error != null){
-					out.println("<h3>Error!</h3>");
-					out.println("<p name=error >" + error + "</p>");
+					out.println("<h3><span>Error!</span></h3>");
+					out.println("<p name=error class=error >" + error + "</p>");
 				}
 				else{
 					Object msg = request.getAttribute("msg");
 					if(msg != null){
-						out.println("<h3 name=msg>" + msg + "</h3>");
+						out.println("<h3 name=msg class=msg ><span>" + msg + "<span></h3>");
 					}
 				}
 				Object klant = request.getAttribute("deKlant");
 				Object lijst = request.getAttribute("klanten");
 				if(klant != null){
+					out.println("<h2><span>Voer de gegevens van de auto in</span></h2>");
 					out.println("<table>");
 						out.println("<tr>");
 							out.println("<th>Kenteken</th>");
@@ -42,7 +43,7 @@
 				}
 				else if(lijst != null){
 					ArrayList<Klant> klanten = (ArrayList<Klant>)lijst;	
-					out.println("<h2>Kies klant</h2>");
+					out.println("<h2><span>Kies klant</span></h2>");
 					out.println("<table>");
 					out.println("<tr>");
 						out.println("<th>X</th>");
@@ -63,6 +64,7 @@
 					out.println("<input type=submit name=knop value=KiesKlant />");	
 				}
 				else{
+					out.println("<h2><span>Haal eerst de gegevens van de klanten op</span></h2>");
 					out.println("<input type=submit name=knop value=ZoekKlanten />");				
 				}
 			%>

@@ -14,9 +14,7 @@
 				out.println("Welkom " + deGebruiker.getGebruikersnaam());
 			%>
 		</div>
-		<div>
-			Achter elke link staat vermeld welke User-storys het is aan de hand van het ID.
-		</div>
+		<h2><span>Achter elke link staat vermeld welke User-storys het is aan de hand van het ID.</span></h2>
 		<div>
 			<ul>
 				<li><a href=autotoevoegen.jsp>Auto toevoegen(8)</a></li>
@@ -31,10 +29,12 @@
 				<li><a href=btwoverzicht.jsp>Overzicht BTW(22)</a></li>
 				<li><a href=nieuwebrief.jsp>Nieuwe herinneringsbrief(23)</a></li>
 				<li><a href=parkeerplaatsoverzicht.jsp>Overzicht parkeerplaats(12)</a></li>
-				<li><a href=loginpage.jsp>In- en uitloggen(1, 24)</a></li>
+				<li><a href=loginpage.jsp>Inloggen(1)</a></li>
+				<li><a href=onbetaaldefacturenoverzicht.jsp>Onbetaalde facturen(21)</a></li>
 			</ul>
 		</div>
 		<div>
+			<h2><span>24: Uitloggen</span></h2>
 			<form action="LogoutServlet.do" method="post">
 				<input type=submit name=knop value=Loguit />
 			</form>

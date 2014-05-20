@@ -9,23 +9,23 @@
 	<form action="NieuweReserveringServlet.do" method="post">
 		<%@ page import="java.util.ArrayList,domeinklassen.Klant,domeinklassen.Auto" %>
 		<div>
-			<h2>3: Nieuwe Reservering aanmaken</h2>
+			<h1><span>3: Nieuwe Reservering aanmaken</span></h1>
 			<%
 				Object error =  request.getAttribute("error");
 				if(error != null){
-					out.println("<h3>Error!</h3>");
-					out.println("<p name=error >" + error + "</p>");
+					out.println("<h3><span>Error!</span></h3>");
+					out.println("<p name=error class=error >" + error + "</p>");
 				}
 				else{
 					Object msg = request.getAttribute("msg");
 					if(msg != null){
-						out.println("<h3 name=msg>" + msg + "</h3>");
+						out.println("<h3 name=msg class=msg ><span>" + msg + "</span></h3>");
 					}
 				}
 				Object auto = request.getAttribute("deAuto");
 				if (auto != null){
 					Auto deAuto = (Auto)auto;
-					out.println("<h3>Reservering voor:</h3>");
+					out.println("<h2><span>Reservering voor:</span></h2>");
 					out.println("<p>" + deAuto.toString() + "</p>");
 					out.println("<table>");
 						out.println("<tr>");
@@ -43,7 +43,7 @@
 				else{
 					ArrayList<Auto> autos = (ArrayList<Auto>)request.getAttribute("autos");
 					if(autos != null){
-						out.println("<h3>Selecteer de auto waar de reservering voor wordt gemaakt</h3>");
+						out.println("<h2><span>Selecteer de auto waar de reservering voor wordt gemaakt</span></h2>");
 						out.println("<table>");
 						out.println("<tr>");
 							out.println("<td>Kies</td>");
@@ -70,7 +70,7 @@
 					else{
 						ArrayList<Klant> klanten = (ArrayList<Klant>)request.getAttribute("klanten");
 						if(klanten != null){				
-							out.println("<h3>Haal de autos op van de geselecteerde klant</h3>");	
+							out.println("<h2><span>Haal de autos op van de geselecteerde klant</span></h2>");	
 							out.println("<table>");
 							out.println("<tr>");
 								out.println("<td>Kies</td>");
@@ -93,7 +93,7 @@
 							out.println("<input type=submit name=knop value=autos />");
 						}
 						else{
-							out.println("<h3>Haal eerst gegevens van de klanten op</h3>");
+							out.println("<h2><span>Haal eerst gegevens van de klanten op</span></h2>");
 							out.println("<input type=submit name=knop value=klanten");
 						}
 					}

@@ -2,24 +2,24 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 	<meta http-equiv="content-type" content="text/html; charset=iso-8859-1" />
-	<title>Status Klus wijzigen</title>
+	<title>Klus wijzigen</title>
 </head>
 <body>
 	<p><a href="index.html">Hoofdmenu</a></p>
 	<form action="KlusWijzigenServlet.do" method="post">
 		<%@ page import="java.util.ArrayList,domeinklassen.Klant,domeinklassen.Auto,domeinklassen.Klus,domeinklassen.Onderhoudsbeurt,domeinklassen.Reparatie,domeinklassen.GebruiktProduct,domeinklassen.Product" %>
 		<div>
-			<h2>16: Klus wijzigen</h2>
+			<h1><span>16: Klus wijzigen</span></h1>
 			<%
 				Object error =  request.getAttribute("error");
 				if(error != null){
-					out.println("<h3>Error!</h3>");
-					out.println("<p name=error >" + error + "</p>");
+					out.println("<h3><span>Error!</span></h3>");
+					out.println("<p name=error class=error >" + error + "</p>");
 				}
 				else{
 					Object msg = request.getAttribute("msg");
 					if(msg != null){
-						out.println("<h3 name=msg>" + msg + "</h3>");
+						out.println("<h3 name=msg class=msg ><span>" + msg + "</span></h3>");
 					}
 				}
 				Object gekozen = request.getAttribute("deKlus");
@@ -30,11 +30,11 @@
 						if(autos == null){
 							ArrayList<Klant> klanten = (ArrayList<Klant>)request.getAttribute("klanten");
 							if(klanten == null){
-								out.println("<h2>Haal eerst gegevens van de klanten op</h2>");
+								out.println("<h2><span>Haal eerst gegevens van de klanten op</span></h2>");
 								out.println("<input type=submit name=knop value=klanten");
 							}
 							else{				
-								out.println("<h2>Haal de autos op van de geselecteerde klant</h2>");	
+								out.println("<h2><span>Haal de autos op van de geselecteerde klant</span></h2>");	
 								out.println("<table>");
 								out.println("<tr>");
 									out.println("<th>Kies</th>");
@@ -58,7 +58,7 @@
 							}
 						}
 						else{
-							out.println("<h2>Selecteer de auto waar aan is gewerkt</h2>");
+							out.println("<h2><span>Selecteer de auto waar aan is gewerkt</span></h2>");
 							out.println("<table>");
 							out.println("<tr>");
 								out.println("<th>Kies</th>");
@@ -84,7 +84,7 @@
 						}
 					}
 					else{
-						out.println("<h2>Kies de klus die moet worden aangepast</h2>");
+						out.println("<h2><span>Kies de klus die moet worden aangepast</span></h2>");
 						out.println("<table>");
 						out.println("<tr>");
 							out.println("<th>Kies</th>");
@@ -128,11 +128,11 @@
 				}
 				else{
 					Klus deKlus = (Klus)gekozen;
-					out.println("<h2>Wijzig de klus</h2>");
-					out.println("<h3>Voeg eerst artikelen toe indien van toepassing</h3>");
+					out.println("<h2><span>Wijzig de klus</span></h2>");
+					out.println("<h3><span>Voeg eerst artikelen toe indien van toepassing</span></h3>");
 					out.println("<input type=submit name=knop value=nieuwArtikel />");
-					out.println("<h3>En voer dan eventuele andere wijzigingen in</h3>");
-					out.println("<p>Datum</p>");
+					out.println("<h3><span>En voer dan eventuele andere wijzigingen in</span></h3>");
+					out.println("<p class=kop >Datum</p>");
 					out.println("<p>Huidige datum: " + deKlus.getDatum() + "</p>");
 					out.println("<input type=text name=datum placeholder=dd-mm-jjjj />");
 					out.println("<table>");
@@ -141,10 +141,10 @@
 					out.println("<tr><td><input type=radio name=status value=onvoltooid /></td><td>Onvoltooid</td></tr>");
 					out.println("<tr><td><input type=radio name=status value=wachten op onderdelen /></td><td>Wachten op onderdelen</td></tr>");
 					out.println("</table>");
-					out.println("<p>Manuren toevoegen</p>");
+					out.println("<p class=kop >Manuren toevoegen</p>");
 					out.println("<p>Huidige manuren: " + deKlus.getManuren() + "</p>");
 					out.println("<input type=text name=manuren />");
-					out.println("<p>Beschrijving</p>");
+					out.println("<p class=kop >Beschrijving</p>");
 					out.println("<textarea name=beschrijving>" + deKlus.getBeschrijving() + "</textarea>");
 					out.println("<input type=hidden name=gekozenklus value=" + deKlus.getID() + " />");
 					out.println("<input type=submit name=knop value=bevestig />");
