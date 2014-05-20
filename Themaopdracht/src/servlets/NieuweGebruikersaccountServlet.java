@@ -17,7 +17,7 @@ import database.ConnectDBUser;
 import database.ConnectDBKlant;
 import domeinklassen.Klant;
 
-public class NieuweGebruikersaccount extends HttpServlet {
+public class NieuweGebruikersaccountServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
