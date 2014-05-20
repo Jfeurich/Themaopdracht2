@@ -15,6 +15,7 @@ import javax.servlet.http.HttpServletResponse;
 import database.ConnectDB;
 import database.ConnectDBUser;
 import database.ConnectDBKlant;
+import domeinklassen.Klant;
 
 public class NieuweGebruikersaccount extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -24,7 +25,11 @@ public class NieuweGebruikersaccount extends HttpServlet {
 		ConnectDB database = new ConnectDB();
 		Connection con = database.maakVerbinding();
 		
-		String knop = req.getParameter("maak");
+		String knop = req.getParameter("knop");
+		
+		if(knop.equals("maak")){
+			
+		}
 	
 		RequestDispatcher rd = req.getRequestDispatcher("nieuweklus.jsp");
 		rd.forward(req, resp);	
