@@ -1,5 +1,72 @@
 package servlets;
 
-public class ParkeerplaatsOverzichtServlet {
+import java.io.IOException;
+import java.sql.Connection;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
 
+import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import database.ConnectDB;
+import database.ConnectDBReservering;
+import domeinklassen.Reservering;
+
+public class ParkeerplaatsOverzichtServlet extends HttpServlet {
+	private static final long serialVersionUID = 1L;
+
+	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		
+		ConnectDB database = new ConnectDB();
+		Connection con = database.maakVerbinding();
+		
+		String knop = req.getParameter("knop");
+		RequestDispatcher rd = req.getRequestDispatcher("parkeerplaatsoverzicht.jsp");
+		
+		if(knop.equals("Checkdatum")){
+			String bD = req.getParameter("beginddat");
+			String eD = req.getParameter("einddat");
+			//check of beide datums zijn ingevuld
+			if(bD != null && eD != null){
+				//check of beide datums geldige datums zijn
+				try{
+					DateFormat df = new SimpleDateFormat("dd-MM-yyyy");
+					Date beginDat =  df.parse(bD);  
+					Date eindDat = df.parse(eD);
+					//alle reserveringen tussen deze twee data zoeken
+					ConnectDBReservering conres = new ConnectDBReservering(con);
+					ArrayList<Reservering> deReserveringen = conres.getReserveringenTussen(beginDat, eindDat);
+					//alle gevonden reserveringen als attribute setten
+					req.getSession().setAttribute("gevondenReserveringen", deReserveringen);
+				}
+				catch(Exception e){
+					req.setAttribute("error", "Geen geldige datum!");
+				}
+			}
+			else{
+				req.setAttribute("error", "Vul alle velden in!");
+			}
+		}
+		else{
+			int parkeerplekken = ( (int) getServletContext().getAttribute("parkeerplaatsRij")) * ( (int) getServletContext().getAttribute("parkeerplaatsKolom"));
+			for(int i = 1; i <= parkeerplekken; i++){
+				if(knop.equals(i)){
+					//De twee data meegeven aan de sessie
+					//Zodat voor deze twee datums een nieuwe reservering gemaakt kan worden
+					//De parkeerplek id meegeven aan de sessie
+					
+					//De gevonden parkeerplekken uit de sessie halen
+					
+					rd = req.getRequestDispatcher("nieuwereservering.jsp");
+				}
+			}
+		}
+		rd.forward(req, resp);	
+		database.sluitVerbinding(con);
+	}
 }
