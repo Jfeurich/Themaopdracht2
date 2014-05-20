@@ -12,7 +12,7 @@
 			else{
 				Object msg = request.getAttribute("msg");
 				if(msg != null){
-					out.println("<h3 name=msg class=msg >" + msg + "</h3>");
+					out.println("<h3 name=msg class=msg ><span>" + msg + "</span></h3>");
 				}
 			}
 			ArrayList<Product> voorraadlijst =(ArrayList<Product>)request.getAttribute("voorraadlijst");

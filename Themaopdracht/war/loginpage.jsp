@@ -11,14 +11,20 @@
 				<% 
 					Object msg = request.getAttribute("msg"); 
 					if (msg != null) { 
-						out.println("<h3 class=msg ><span>" + msgs + "</span></h3>"); 
+						out.println("<h3 class=msg ><span>" + msg + "</span></h3>"); 
 					} 
 				%> 
 			</div> 
 			<div> 
 				<table>
-				<tr><th>Username</th><td><input type="text" name="username"/></td></tr>
-				<tr><th>Password</th><td><input type="password" name="password" /></td></tr>
+					<tr>
+						<th>Username</th>
+						<td><input type="text" name="username"/></td>
+					</tr>
+					<tr>
+						<th>Password</th>
+						<td><input type="password" name="password" /></td>
+					</tr>
 				</table>
 				<input type="submit" value="Login!" /> 
 			</div> 

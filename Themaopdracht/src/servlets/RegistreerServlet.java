@@ -48,7 +48,9 @@ public class RegistreerServlet extends HttpServlet{
 							ConnectDBUser usercon = new ConnectDBUser(con);
 							ConnectDBKlant klantcon = new ConnectDBKlant(con);
 							usercon.nieuweUserIsKlant(klantcon.nieuweKlant(naam, adres, woonplaats, rekeningnr, Integer.parseInt(telefoonnr)), gebruikersnaam, wachtwoord1, email1);
-							req.setAttribute("msgs", "Succesvol geregistreerd!");
+							req.setAttribute("msg", "Succesvol geregistreerd!");
+							rd = req.getRequestDispatcher("loginpage.jsp"); 
+							rd.forward(req, resp); 
 						}
 						catch(Exception ex){
 							req.setAttribute("error", "Er is geen gebruiker geregistreerd!"); 
@@ -99,8 +101,8 @@ public class RegistreerServlet extends HttpServlet{
 				req.setAttribute("error", s); 
 			}
 		}
+		database.sluitVerbinding(con);
 		rd = req.getRequestDispatcher("registreer.jsp"); 
 		rd.forward(req, resp); 
-		database.sluitVerbinding(con);
 	}
 }

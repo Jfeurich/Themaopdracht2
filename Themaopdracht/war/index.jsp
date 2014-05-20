@@ -30,7 +30,7 @@
 				<li><a href=nieuwebrief.jsp>Nieuwe herinneringsbrief(23)</a></li>
 				<li><a href=parkeerplaatsoverzicht.jsp>Overzicht parkeerplaats(12)</a></li>
 				<li><a href=loginpage.jsp>Inloggen(1)</a></li>
-				<li><a href=onbetaaldefacturenoverzicht.jsp>Onbetaalde facturen(21)</a></li>
+				<li><a href=registreer.jsp>Registreer nieuwe klant(7)</a></li>
 			</ul>
 		</div>
 	</body>
