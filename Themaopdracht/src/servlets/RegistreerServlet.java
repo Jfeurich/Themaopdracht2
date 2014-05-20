@@ -3,6 +3,7 @@ package servlets;
 import java.io.IOException;
 import java.sql.Connection;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -28,6 +29,7 @@ public class RegistreerServlet extends HttpServlet{
 		String telefoonnr = req.getParameter("telnr");
 		String knopje = req.getParameter("knop");
 		
+		RequestDispatcher rd = null;
 		
 		ConnectDB database = new ConnectDB();
 		Connection con = database.maakVerbinding();
@@ -37,16 +39,23 @@ public class RegistreerServlet extends HttpServlet{
 			if(!gebruikersnaam.equals("") && !wachtwoord1.equals("") && !wachtwoord2.equals("") && !email1.equals("") && !email2.equals("")){
 				//check of wachtwoorden etc. aan elkaar gelijk is
 				if(wachtwoord1.equals(wachtwoord2) && email1.equals(email2)){
-					try{
-						//user aanmaken en in database stoppen
-						//user die al klant zijn
-						//Klant object aanmaken, dan met dat klant object een user object aanmaken
-						ConnectDBUser usercon = new ConnectDBUser(con);
-						ConnectDBKlant klantcon = new ConnectDBKlant(con);
-						usercon.nieuweUserIsKlant(klantcon.nieuweKlant(naam, adres, woonplaats, rekeningnr, Integer.parseInt(telefoonnr)), gebruikersnaam, wachtwoord1, email1);
+					//check of telnr wel een int getal is
+					if(telefoonnr.matches("((-|\\+)?[0-9]+(\\.[0-9]+)?)+")){
+						try{
+							//user aanmaken en in database stoppen
+							//user die al klant zijn
+							//Klant object aanmaken, dan met dat klant object een user object aanmaken
+							ConnectDBUser usercon = new ConnectDBUser(con);
+							ConnectDBKlant klantcon = new ConnectDBKlant(con);
+							usercon.nieuweUserIsKlant(klantcon.nieuweKlant(naam, adres, woonplaats, rekeningnr, Integer.parseInt(telefoonnr)), gebruikersnaam, wachtwoord1, email1);
+							req.setAttribute("msgs", "Succesvol geregistreerd!");
+						}
+						catch(Exception ex){
+							req.setAttribute("error", "Er is geen gebruiker geregistreerd!"); 
+						}
 					}
-					catch(Exception ex){
-						req.setAttribute("error", "Er is geen gebruiker geregistreerd!"); 
+					else{
+						req.setAttribute("error", "Telefoonnummer is geen getal!");
 					}
 				}
 				//Error bericht als iets niet aan elkaar gelijk is
@@ -57,8 +66,6 @@ public class RegistreerServlet extends HttpServlet{
 			//Error bericht voor niet ingevulde velden
 			else{
 				String s = "De volgende velden zijn niet ingevuld:";
-				req.setAttribute("error", s); 
-				
 				if(gebruikersnaam.equals("")){
 					s+= "\nGebruikersnaam";
 				}
@@ -74,8 +81,26 @@ public class RegistreerServlet extends HttpServlet{
 				if(email2.equals("")){
 					s+= "\nEmail controle";
 				}
+				if(naam.equals("")){
+					s+= "\nEmail controle";
+				}
+				if(adres.equals("")){
+					s+= "\nEmail controle";
+				}
+				if(woonplaats.equals("")){
+					s+= "\nEmail controle";
+				}
+				if(rekeningnr.equals("")){
+					s+= "\nEmail controle";
+				}
+				if(telefoonnr.equals("")){
+					s+= "\nEmail controle";
+				}
+				req.setAttribute("error", s); 
 			}
 		}
-		
+		rd = req.getRequestDispatcher("registreer.jsp"); 
+		rd.forward(req, resp); 
+		database.sluitVerbinding(con);
 	}
 }
