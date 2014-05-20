@@ -1,12 +1,6 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-//Resultaten uit het verleden bieden geen garanties voor de toekomst
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head>
-	<meta http-equiv="content-type" content="text/html; charset=iso-8859-1" />
-	<title>Artikel toevoegen aan klus</title>
-</head>
-<body>
-	<p><a href="index.html">Hoofdmenu</a></p>
+<jsp:include page="header.jsp" > 
+ <jsp:param name="titel" value="Aritkel toevoegen aan klus" /> 
+</jsp:include> 
 	<form action="KlusWijzigenServlet.do" method="post">
 		<%@ page import="java.util.ArrayList,domeinklassen.Klus,domeinklassen.Onderhoudsbeurt,domeinklassen.Reparatie,domeinklassen.Product" %>
 		<div>
