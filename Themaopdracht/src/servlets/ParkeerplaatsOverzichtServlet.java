@@ -38,6 +38,9 @@ public class ParkeerplaatsOverzichtServlet extends HttpServlet {
 					DateFormat df = new SimpleDateFormat("dd-MM-yyyy");
 					Date beginDat =  df.parse(bD);  
 					Date eindDat = df.parse(eD);
+					//de begin- en einddatum opslaan in de sessie
+					req.getSession().setAttribute("beginDat",beginDat);
+					req.getSession().setAttribute("eindDat", eindDat);
 					//alle reserveringen tussen deze twee data zoeken
 					ConnectDBReservering conres = new ConnectDBReservering(con);
 					ArrayList<Reservering> deReserveringen = conres.getReserveringenTussen(beginDat, eindDat);
@@ -56,12 +59,10 @@ public class ParkeerplaatsOverzichtServlet extends HttpServlet {
 			int parkeerplekken = ( (int) getServletContext().getAttribute("parkeerplaatsRij")) * ( (int) getServletContext().getAttribute("parkeerplaatsKolom"));
 			for(int i = 1; i <= parkeerplekken; i++){
 				if(knop.equals(i)){
-					//De twee data meegeven aan de sessie
-					//Zodat voor deze twee datums een nieuwe reservering gemaakt kan worden
 					//De parkeerplek id meegeven aan de sessie
-					
+					req.getSession().setAttribute("parkeerplek", i);
 					//De gevonden parkeerplekken uit de sessie halen
-					
+					req.getSession().setAttribute("gevondenReserveringen", null);
 					rd = req.getRequestDispatcher("nieuwereservering.jsp");
 				}
 			}
