@@ -9,9 +9,10 @@ public class IngelogdFilter implements Filter{
 	}
 	public void doFilter(ServletRequest req, ServletResponse resp,
 		FilterChain chain) throws IOException, ServletException {
-		HttpServletRequest r2 = (HttpServletRequest)req;
-		if (r2.getSession().getAttribute("user") == null) {
-			r2.getRequestDispatcher("/login.jsp").forward(req, resp);
+		HttpServletRequest r = (HttpServletRequest)req;
+		if (r.getSession().getAttribute("gebruiker") == null) {
+			r.setAttribute("msg", "Welkom! Log in met uw gebruikersnaam en wachtwoord");
+			r.getRequestDispatcher("/loginpage.jsp").forward(req, resp);
 		} 
 		else {
 			chain.doFilter(req, resp);

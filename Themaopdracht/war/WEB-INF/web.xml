@@ -139,7 +139,7 @@
 	</filter>
 	<filter-mapping>
 		<filter-name>IngelogdFilter</filter-name>
-		<url-pattern>/localhots/Themaopdracht/*</url-pattern>
+		<url-pattern>http://localhost:8080/Themaopdracht/*</url-pattern>
 		<dispatcher>REQUEST</dispatcher> <!– default -->
 		<dispatcher>FORWARD</dispatcher>
 	</filter-mapping>
@@ -149,7 +149,18 @@
 	</filter>
 	<filter-mapping>
 		<filter-name>GeenKlantFilter</filter-name>
-		<class-name></class-name>
+		<servlet-name>AutoToevoegenServlet</servlet-name>
+		<servlet-name>BriefServlet</servlet-name>
+		<servlet-name>BTWServlet</servlet-name>
+		<servlet-name>KlusServlet</servlet-name>
+		<servlet-name>KlusWijzigenServlet</servlet-name>
+		<servlet-name>NieuweBestellingServlet</servlet-name>
+		<servlet-name>NieuweFactuurServlet</servlet-name>
+		<servlet-name>NieuweKlusServlet</servlet-name>
+		<servlet-name>OnbetaaldeFacturenOverzichtServlet</servlet-name>
+		<servlet-name>ParkeerplaatsOverzichtServlet</servlet-name>
+		<servlet-name>ProductServlet</servlet-name>
+		<servlet-name>WijzigProductServlet</servlet-name>
 	</filter-mapping>
 	<filter>
 		<filter-name>GeenMonteurFilter</filter-name>
@@ -157,7 +168,12 @@
 	</filter>
 	<filter-mapping>
 		<filter-name>GeenMonteurFilter</filter-name>
-		<class-name></class-name>
+		<servlet-name>BriefServlet</servlet-name>
+		<servlet-name>BTWServlet</servlet-name>
+		<servlet-name>NieuweBestellingServlet</servlet-name>
+		<servlet-name>NieuweFactuurServlet</servlet-name>
+		<servlet-name>OnbetaaldeFacturenOverzichtServlet</servlet-name>
+		<servlet-name>ParkeerplaatsOverzichtServlet</servlet-name>
 	</filter-mapping>
 	<filter>
 		<filter-name>GeenGaragebeheerderFilter</filter-name>
@@ -165,6 +181,16 @@
 	</filter>
 	<filter-mapping>
 		<filter-name>GeenGaragebeheerderFilter</filter-name>
-		<class-name></class-name>
+		<servlet-name>AutoToevoegenServlet</servlet-name>
+		<servlet-name>BriefServlet</servlet-name>
+		<servlet-name>BTWServlet</servlet-name>
+		<servlet-name>KlusServlet</servlet-name>
+		<servlet-name>KlusWijzigenServlet</servlet-name>
+		<servlet-name>NieuweBestellingServlet</servlet-name>
+		<servlet-name>NieuweFactuurServlet</servlet-name>
+		<servlet-name>NieuweKlusServlet</servlet-name>
+		<servlet-name>OnbetaaldeFacturenOverzichtServlet</servlet-name>
+		<servlet-name>ProductServlet</servlet-name>
+		<servlet-name>WijzigProductServlet</servlet-name>
 	</filter-mapping>
 </web-app>
