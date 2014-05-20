@@ -125,4 +125,20 @@
 		<servlet-name>LogoutServlet</servlet-name>
 		<url-pattern>/LogoutServlet.do</url-pattern>
 	</servlet-mapping>
+	<servlet>
+		<servlet-name>ParkeerplaatsOverzichtServlet</servlet-name>
+		<servlet-class>servlets.ParkeerplaatsOverzichtServlet</servlet-class>
+		<init-param>
+			<param-name>parkeerplaatsRij</param-name>
+			<param-value>5</param-value>
+			<init-param>
+			<param-name>parkeerplaatsKolom</param-name>
+			<param-value>8</param-value>
+		</init-param>
+		</init-param>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>ParkeerplaatsOverzichtServlet</servlet-name>
+		<url-pattern>/ParkeerplaatsOverzichtServlet.do</url-pattern>
+	</servlet-mapping>
 </web-app>
