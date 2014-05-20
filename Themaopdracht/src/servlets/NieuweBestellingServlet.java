@@ -77,9 +77,15 @@ public class NieuweBestellingServlet extends HttpServlet{
 						try{	//kijk of een geldig aantal in is gevoerd en zo ja, maak een nieuw besteldproduct en zet
 								//deze in de lijst met deBesteldeProducten
 							int aantal = Integer.parseInt(wijzigaantal[i]);
-							deBesteldeProducten.add(new BesteldProduct(hetProduct, aantal));
+							//check voor een negatief nummer en throw een NFE als dit het geval is
+							if(aantal > 0){
+								deBesteldeProducten.add(new BesteldProduct(hetProduct, aantal));
+							}
+							else{
+								throw new NumberFormatException();
+							}
 						}
-						catch(Exception e){
+						catch(NumberFormatException e){
 							goed = false;
 							req.setAttribute("error", "Ongeldige waarde ingevoerd!");
 						}	
