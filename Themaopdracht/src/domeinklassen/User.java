@@ -1,16 +1,17 @@
 package domeinklassen;
 
 public class User {
-	private String gebruikersnaam, wachtwoord;
+	private String gebruikersnaam, wachtwoord, email;
 	private Klant deKlant;
 	private int id, type;
 	
 	//types: 0) administratie, 1) monteur, 2) jopie, en 3) klanten
 	
-	public User(int id, int tp, String unm, String pw){
+	public User(int id, int tp, String unm, String pw, String email){
 		type = tp;
 		gebruikersnaam = unm;
 		wachtwoord = pw;
+		this.email = email;
 	}
 	
 	public int getID(){
@@ -20,6 +21,15 @@ public class User {
 	public int getType() {
 		return type;
 	}
+	
+	public String getEmail(){
+		return email;
+	}
+	
+	public void setEmail(String mail){
+		email = mail;
+	}
+	
 
 	public String getGebruikersnaam() {
 		return gebruikersnaam;

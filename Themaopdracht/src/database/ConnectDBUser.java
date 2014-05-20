@@ -27,9 +27,10 @@ public class ConnectDBUser{
 				int id = rs.getInt("userid");
 				String unm = rs.getString("gebruikersnaam");
 				String ww = rs.getString("wachtwoord");
+				String email = rs.getString("email");
 				int type = rs.getInt("type");
 				int klantid = rs.getInt("klantid");
-				User u = new User(id, type, unm, ww);
+				User u = new User(id, type, unm, ww, email);
 				if(type == 3){ //als het de account van een klant is, stel de klant dan in
 					ConnectDBKlant klantconn = new ConnectDBKlant(con);
 					Klant deKlant = klantconn.zoekKlant(klantid);
@@ -56,8 +57,9 @@ public class ConnectDBUser{
 				int id = rs.getInt("userid");
 				String unm = rs.getString("gebruikersnaam");
 				String ww = rs.getString("wachtwoord");
+				String email = rs.getString("email");
 				int klantid = rs.getInt("klantid");
-				User u = new User(id, nummer, unm, ww);
+				User u = new User(id, nummer, unm, ww, email);
 				if(nummer == 3){ //als het de account van een klant is, stel de klant dan in
 					ConnectDBKlant klantconn = new ConnectDBKlant(con);
 					Klant deKlant = klantconn.zoekKlant(klantid);
@@ -83,9 +85,10 @@ public class ConnectDBUser{
 			while (rs.next()) {   // rs.next() geeft false als er niets meer is 
 				String unm = rs.getString("gebruikersnaam");
 				String ww = rs.getString("wachtwoord");
+				String email = rs.getString("email");
 				int type = rs.getInt("type");
 				int klantid = rs.getInt("klantid");
-				User u = new User(id, type, unm, ww);
+				User u = new User(id, type, unm, ww, email);
 				if(type == 3){ //als het de account van een klant is, stel de klant dan in
 					ConnectDBKlant klantconn = new ConnectDBKlant(con);
 					Klant deKlant = klantconn.zoekKlant(klantid);
