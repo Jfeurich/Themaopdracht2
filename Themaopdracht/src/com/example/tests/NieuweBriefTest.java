@@ -1,13 +1,21 @@
 package com.example.tests;
 
-import java.util.regex.Pattern;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.concurrent.TimeUnit;
-import org.junit.*;
-import static org.junit.Assert.*;
-import static org.hamcrest.CoreMatchers.*;
-import org.openqa.selenium.*;
+
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
+import org.openqa.selenium.Alert;
+import org.openqa.selenium.By;
+import org.openqa.selenium.NoAlertPresentException;
+import org.openqa.selenium.NoSuchElementException;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
-import org.openqa.selenium.support.ui.Select;
 
 public class NieuweBriefTest {
   private WebDriver driver;
@@ -24,19 +32,20 @@ public class NieuweBriefTest {
 
   @Test
   public void testNieuweBrief() throws Exception {
-    driver.get(baseUrl + "/Themaopdracht/index.html");
+    Date d = new Date();
+    SimpleDateFormat df = new SimpleDateFormat("dd-MM-yyyy");
+    String vandaag = df.format(d);
+    driver.get(baseUrl + "/Themaopdracht/index.jsp");
     driver.findElement(By.linkText("Nieuwe herinneringsbrief(23)")).click();
     driver.findElement(By.name("knop")).click();
+    assertEquals("Kies klant", driver.findElement(By.cssSelector("h2 > span")).getText());
     driver.findElement(By.xpath("(//input[@name='gekozenklant'])[3]")).click();
     driver.findElement(By.name("knop")).click();
-    driver.findElement(By.name("knop")).click();
-    assertEquals("Geef een reden aan!", driver.findElement(By.cssSelector("p[name=\"error\"]")).getText());
     driver.findElement(By.name("reden")).clear();
-    driver.findElement(By.name("reden")).sendKeys("Voor de selenium test =)");
+    driver.findElement(By.name("reden")).sendKeys("Check voor selenium");
     driver.findElement(By.name("knop")).click();
-    assertEquals("Brief met succes aangemaakt!", driver.findElement(By.cssSelector("h3[name=\"msg\"]")).getText());
     driver.findElement(By.name("knop")).click();
-    assertEquals("datum van vandaag", driver.findElement(By.xpath("//tr[4]/td[5]")).getText());
+    assertEquals(vandaag, driver.findElement(By.xpath("//tr[4]/td[5]")).getText());
   }
 
   @After

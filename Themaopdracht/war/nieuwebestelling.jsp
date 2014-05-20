@@ -114,7 +114,9 @@
 					var prijs=pps[i].innerHTML;
 					var plus=parseFloat(text);
 					if(!isNaN(plus)){
-						totaal += plus * parseFloat(prijs);
+						if(plus > 0){
+							totaal += plus * parseFloat(prijs);
+						}
 					}
 				}
 				document.getElementById("totaalprijs").innerHTML="Totaalprijs: " + totaal + " euro";

@@ -10,8 +10,8 @@
 			<%@ page import="domeinklassen.User" %>
 			<%
 				//moet nog aangepast worden zodat de naam van de gebruiker uit de sessie wordt gehaald
-				User deGebruiker = (User) request.getSession().getAttribute("gebruiker");
-				out.println("Welkom " + deGebruiker.getGebruikersnaam());
+				// deGebruiker = (User) request.getSession().getAttribute("gebruiker");
+				//out.println("Welkom " + deGebruiker.getGebruikersnaam());
 			%>
 		</div>
 		<h2><span>Achter elke link staat vermeld welke User-storys het is aan de hand van het ID.</span></h2>
