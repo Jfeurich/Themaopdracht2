@@ -1,18 +1,13 @@
 package com.example.tests;
 
-import static org.junit.Assert.fail;
-
+import java.util.regex.Pattern;
 import java.util.concurrent.TimeUnit;
-
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
-import org.openqa.selenium.Alert;
-import org.openqa.selenium.By;
-import org.openqa.selenium.NoAlertPresentException;
-import org.openqa.selenium.NoSuchElementException;
-import org.openqa.selenium.WebDriver;
+import org.junit.*;
+import static org.junit.Assert.*;
+import static org.hamcrest.CoreMatchers.*;
+import org.openqa.selenium.*;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.support.ui.Select;
 
 public class LoginTest {
   private WebDriver driver;
@@ -33,9 +28,17 @@ public class LoginTest {
     driver.findElement(By.name("username")).clear();
     driver.findElement(By.name("username")).sendKeys("test");
     driver.findElement(By.name("password")).clear();
+    driver.findElement(By.name("password")).sendKeys("test");
+    driver.findElement(By.cssSelector("input[type=\"submit\"]")).click();
+    assertEquals("Onjuist wachtwoord!", driver.findElement(By.cssSelector("h3.msg > span")).getText());
+    driver.findElement(By.name("username")).clear();
+    driver.findElement(By.name("username")).sendKeys("test");
+    driver.findElement(By.name("password")).clear();
     driver.findElement(By.name("password")).sendKeys("testtest");
     driver.findElement(By.cssSelector("input[type=\"submit\"]")).click();
+    assertEquals("Welkom test", driver.findElement(By.xpath("//div[2]")).getText());
     driver.findElement(By.name("knop")).click();
+    assertEquals("U bent succesvol uitgelogd!", driver.findElement(By.cssSelector("h3.msg > span")).getText());
   }
 
   @After
