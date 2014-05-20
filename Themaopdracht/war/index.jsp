@@ -33,11 +33,5 @@
 				<li><a href=onbetaaldefacturenoverzicht.jsp>Onbetaalde facturen(21)</a></li>
 			</ul>
 		</div>
-		<div>
-			<h2><span>24: Uitloggen</span></h2>
-			<form action="LogoutServlet.do" method="post">
-				<input type=submit name=knop value=Loguit />
-			</form>
-		</div>
 	</body>
 </html>
