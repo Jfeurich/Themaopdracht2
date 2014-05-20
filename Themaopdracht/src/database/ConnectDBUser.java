@@ -105,10 +105,10 @@ public class ConnectDBUser{
 	}
 	
 	//maak nieuwe User van types 0-2. id wordt automatisch toegewezen. geeft User-object terug zodat je het id weet.
-	public User nieuweUserNietKlant(int tp, String unm, String pw){
+	public User nieuweUserNietKlant(int tp, String unm, String pw, String email){
 		User terug = null;
 		try{
-			String sql = "INSERT INTO User (gebruikersnaam, wachtwoord, type) VALUES ('" + unm + "', '" + pw + "', " + tp + ");";
+			String sql = "INSERT INTO User (gebruikersnaam, wachtwoord, type, email) VALUES ('" + unm + "', '" + pw + "', " + tp + ", '" + email + ");";
 			Statement stmt = con.createStatement();
 			stmt.executeUpdate(sql);
 			stmt.close();
@@ -129,10 +129,10 @@ public class ConnectDBUser{
 	}
 	
 	//maak nieuwe User van type 3. id wordt automatisch toegewezen. geeft User-object terug zodat je het id weet.
-	public User nieuweUserIsKlant(Klant deKlant, String unm, String pw){
+	public User nieuweUserIsKlant(Klant deKlant, String unm, String pw, String email){
 		User terug = null;
 		try{
-			String sql = "INSERT INTO User (gebruikersnaam, wachtwoord, type, klantid) VALUES ('" + unm + "', '" + pw + "', 3, " + deKlant.getKlantnummer() + ");";
+			String sql = "INSERT INTO User (gebruikersnaam, wachtwoord, email, type, klantid) VALUES ('" + unm + "', '" + pw + "', '" + email + "', 3, " + deKlant.getKlantnummer() + ");";
 			Statement stmt = con.createStatement();
 			stmt.executeUpdate(sql);
 			stmt.close();
@@ -155,7 +155,7 @@ public class ConnectDBUser{
 	//stel nieuw wachtwoord in. 
 	public boolean updateUser(User u){
 		try{
-			String sql = "UPDATE User SET wachtwoord='" + u.getWachtwoord() + "' WHERE userid= " + u.getID();
+			String sql = "UPDATE User SET wachtwoord='" + u.getWachtwoord() + "', email='" + u.getEmail() + "' WHERE userid= " + u.getID();
 			Statement stmt = con.createStatement();
 			stmt.executeUpdate(sql);	
 			stmt.close();
