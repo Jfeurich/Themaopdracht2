@@ -50,11 +50,11 @@
 				out.println("<h2>Alle betaalde facturen</h2>");
 				out.println("<table>");
 				out.println("<tr>");
-					out.println("<td>Betaaldatum</td>");
-					out.println("<td>Klant</td>");
-					out.println("<td>Bedrag</td>");
-					out.println("<td>%BTW</td>");
-					out.println("<td>BTW</td>");
+					out.println("<th>Betaaldatum</th>");
+					out.println("<th>Klant</th>");
+					out.println("<th>Bedrag</th>");
+					out.println("<th>%BTW</th>");
+					out.println("<th>BTW</th>");
 				out.println("</tr>");	
 				for(Factuur f : facturen){
 					String naam = f.getDeKlus().getAuto().getEigenaar().getNaam();

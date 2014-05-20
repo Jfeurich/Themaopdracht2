@@ -11,31 +11,31 @@
 		<%
 			Object error =  request.getAttribute("error");
 			if(error != null){
-				out.println("<h3>Error!</h3>");
-				out.println("<p name=error >" + error + "</p>");
+				out.println("<h3><span>Error!</span></h3>");
+				out.println("<p name=error class=error >" + error + "</p>");
 			}
 			else{
 				Object msg = request.getAttribute("msg");
 				if(msg != null){
-					out.println("<h3 name=msg>" + msg + "</h3>");
+					out.println("<h3 name=msg class=msg >" + msg + "</h3>");
 				}
 			}
 			ArrayList<Product> voorraadlijst =(ArrayList<Product>)request.getAttribute("voorraadlijst");
 			if(voorraadlijst == null){
-				out.println("<h2>Error!</h2>");
+				out.println("<h1><span>Error!<span></h1>");
 				out.println("<p>Er is geen voorraad ingevoerd!</p>");
 			}
 			else{
-				out.println("<h2>27: Alle producten</h2>");
+				out.println("<h1><span>27: Alle producten</span></h1>");
 				out.println("<table>");
 				out.println("<tr>");
-					out.println("<td>Kies</td>");
-					out.println("<td>Artikelnummer</td>");
-					out.println("<td>Artikelnaam</td>");
-					out.println("<td>Aantal anwezig</td>");
-					out.println("<td>Eenheid</td>");
-					out.println("<td>Minimum aantal</td>");
-					out.println("<td>Prijs per stuk</td>");
+					out.println("<th>Kies</th>");
+					out.println("<th>Artikelnummer</th>");
+					out.println("<th>Artikelnaam</th>");
+					out.println("<th>Aantal anwezig</th>");
+					out.println("<th>Eenheid</th>");
+					out.println("<th>Minimum aantal</th>");
+					out.println("<th>Prijs per stuk</th>");
 				out.println("</tr>");	
 				boolean eerste = true;
 				for(Product p : voorraadlijst){

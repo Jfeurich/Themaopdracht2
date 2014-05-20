@@ -27,10 +27,10 @@
 					out.println("<h2>Kies de te bestellen producten</h2>");
 					out.println("<table>");
 					out.println("<tr>");
-						out.println("<td>X</td>");
-						out.println("<td>Naam</td>");
-						out.println("<td>Minimum aanwezig</td>");
-						out.println("<td>Aantal aanwezig</td>");
+						out.println("<th>X</th>");
+						out.println("<th>Naam</th>");
+						out.println("<th>Minimum aanwezig</th>");
+						out.println("<th>Aantal aanwezig</th>");
 					out.println("</tr>");
 					for(Product p : producten){
 						out.println("<tr>");
@@ -48,13 +48,13 @@
 					out.println("<h2>Kies de aantallen van de producten</h2>");
 					out.println("<table>");
 						out.println("<tr>");
-							out.println("<td>Artikelnummer</td>");
-							out.println("<td>Naam</td>");
-							out.println("<td>Eenheid</td>");
-							out.println("<td>Aantal aanwezig</td>");
-							out.println("<td>Minimum aanwezig</td>");
-							out.println("<td>Prijs per stuk</td>");
-							out.println("<td>Aantal te bestellen</td>");				
+							out.println("<th>Artikelnummer</th>");
+							out.println("<th>Naam</th>");
+							out.println("<th>Eenheid</th>");
+							out.println("<th>Aantal aanwezig</th>");
+							out.println("<th>Minimum aanwezig</th>");
+							out.println("<th>Prijs per stuk</th>");
+							out.println("<th>Aantal te bestellen</th>");				
 						out.println("</tr>");
 						for(Product p : teBestellenProducten){
 							out.println("<tr>");
@@ -77,11 +77,11 @@
 					out.println(deBestelling.toString() + "<br />");
 					out.println("<table>");
 						out.println("<tr>");
-							out.println("<td>Artikelnummer</td>");
-							out.println("<td>Naam</td>");
-							out.println("<td>Eenheid</td>");
-							out.println("<td>Aantal</td>");
-							out.println("<td>Prijs per stuk</td>");				
+							out.println("<th>Artikelnummer</th>");
+							out.println("<th>Naam</th>");
+							out.println("<th>Eenheid</th>");
+							out.println("<th>Aantal</th>");
+							out.println("<th>Prijs per stuk</th>");				
 						out.println("</tr>");
 						for(BesteldProduct bp: deBestelling.getBesteldeProducten()){
 							out.println("<tr>");

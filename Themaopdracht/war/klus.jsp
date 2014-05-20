@@ -20,11 +20,11 @@
 					ArrayList<Klus> klussen = (ArrayList<Klus>)ar;
 					out.println("<table>");
 					out.println("<tr>");
-						out.println("<td>Kies</td>");
-						out.println("<td>Type</td>");
-						out.println("<td>Datum</td>");
-						out.println("<td>Beschrijving</td>");
-						out.println("<td>Status</td>");
+						out.println("<th>Kies</th>");
+						out.println("<th>Type</th>");
+						out.println("<th>Datum</th>");
+						out.println("<th>Beschrijving</th>");
+						out.println("<th>Status</th>");
 					out.println("</tr>");
 					boolean eerste=true;
 					for(Klus k : klussen ){
@@ -45,11 +45,11 @@
 						ArrayList<GebruiktProduct> producten = k.getGebruikteProducten();
 						if(producten.size() > 0){
 							out.println("<tr>");
-								out.println("<td></td>");
-								out.println("<td>Artikelnummer</td>");
-								out.println("<td>Naam</td>");
-								out.println("<td>Aantal</td>");
-								out.println("<td>Prijs per stuk</td>");
+								out.println("<th>Product:</th>");
+								out.println("<th>Artikelnummer</th>");
+								out.println("<th>Naam</th>");
+								out.println("<th>Aantal</th>");
+								out.println("<th>Prijs per stuk</th>");
 							out.println("</tr>");
 							for(GebruiktProduct gp : producten){
 								Product hetProduct = gp.getHetProduct();

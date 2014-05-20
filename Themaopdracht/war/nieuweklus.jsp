@@ -35,10 +35,10 @@
 							out.println("<h2>Haal de autos op van de geselecteerde klant</h2>");	
 							out.println("<table>");
 							out.println("<tr>");
-								out.println("<td>Kies</td>");
-								out.println("<td>Naam</td>");
-								out.println("<td>Adres</td>");
-								out.println("<td>Woonplaats</td>");
+								out.println("<th>Kies</th>");
+								out.println("<th>Naam</th>");
+								out.println("<th>Adres</th>");
+								out.println("<th>Woonplaats</th>");
 							out.println("</tr>");
 							boolean eerste=true;
 							for(Klant k : klanten){

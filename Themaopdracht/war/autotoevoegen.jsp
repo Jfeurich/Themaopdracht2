@@ -27,9 +27,9 @@
 				if(klant != null){
 					out.println("<table>");
 						out.println("<tr>");
-							out.println("<td>Kenteken</td>");
-							out.println("<td>Merk</td>");
-							out.println("<td>Type</td>");
+							out.println("<th>Kenteken</th>");
+							out.println("<th>Merk</th>");
+							out.println("<th>Type</th>");
 						out.println("</tr>");	
 						out.println("<tr>");
 							out.println("<td><input type=text name=kenteken /></td>");
@@ -45,9 +45,9 @@
 					out.println("<h2>Kies klant</h2>");
 					out.println("<table>");
 					out.println("<tr>");
-						out.println("<td>X</td>");
-						out.println("<td>Klantnummer</td>");
-						out.println("<td>Naam</td>");
+						out.println("<th>X</th>");
+						out.println("<th>Klantnummer</th>");
+						out.println("<th>Naam</th>");
 					out.println("</tr>");
 					boolean eerste=true;
 					for(Klant k : klanten){

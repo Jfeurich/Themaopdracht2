@@ -29,11 +29,11 @@
 					out.println("<p>" + deAuto.toString() + "</p>");
 					out.println("<table>");
 						out.println("<tr>");
-							out.println("<td>Begindatum</td>");
+							out.println("<th>Begindatum</th>");
 							out.println("<td><input type=text name=begindatum placeholder=dd-mm-jjjj /></td>");
 						out.println("/<tr>");
 						out.println("<tr>");
-							out.println("<td>Einddatum</td>");
+							out.println("<th>Einddatum</th>");
 							out.println("<td><input type=text name=einddatum placeholder=dd-mm-jjjj /></td>");
 						out.println("/<tr>");
 					out.println("</table>");

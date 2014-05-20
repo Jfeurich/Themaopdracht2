@@ -5,6 +5,7 @@
 		<title>Overzicht gemaakte pagina's</title>
 	</head>
 	<body>
+		<h1><span>Index van alle pagina's</span></h1>
 		<div>
 			<%@ page import="domeinklassen.User" %>
 			<%
@@ -29,6 +30,8 @@
 				<li><a href=klus.jsp>Hoofdmenu klussen(9)</a></li>
 				<li><a href=btwoverzicht.jsp>Overzicht BTW(22)</a></li>
 				<li><a href=nieuwebrief.jsp>Nieuwe herinneringsbrief(23)</a></li>
+				<li><a href=parkeerplaatsoverzicht.jsp>Overzicht parkeerplaats(12)</a></li>
+				<li><a href=loginpage.jsp>In- en uitloggen(1, 24)</a></li>
 			</ul>
 		</div>
 		<div>

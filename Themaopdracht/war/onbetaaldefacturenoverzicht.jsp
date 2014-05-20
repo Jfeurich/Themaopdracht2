@@ -35,12 +35,12 @@
 		out.println("<h2>21: De onbetaalde facturen zijn:</h2>");
 		out.println("<table>");
 			out.println("<tr>");
-				out.println("<td>Kies</td>");
-				out.println("<td>FactuurID</td>");
-				out.println("<td>AanmaakDatum</td>");
-				out.println("<td>Korting</td>");
-				out.println("<td>De Klus</td>");
-				out.println("<td>Totaal</td>");
+				out.println("<th>Kies</th>");
+				out.println("<th>FactuurID</th>");
+				out.println("<th>AanmaakDatum</th>");
+				out.println("<th>Korting</th>");
+				out.println("<th>De Klus</th>");
+				out.println("<th>Totaal</th>");
 			out.println("</tr>");	
 			boolean eerste=true;
 			for(Factuur f : OverzichtFacturenNietBetaald){

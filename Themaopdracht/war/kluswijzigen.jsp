@@ -37,10 +37,10 @@
 								out.println("<h2>Haal de autos op van de geselecteerde klant</h2>");	
 								out.println("<table>");
 								out.println("<tr>");
-									out.println("<td>Kies</td>");
-									out.println("<td>Naam</td>");
-									out.println("<td>Adres</td>");
-									out.println("<td>Woonplaats</td>");
+									out.println("<th>Kies</th>");
+									out.println("<th>Naam</th>");
+									out.println("<th>Adres</th>");
+									out.println("<th>Woonplaats</th>");
 								out.println("</tr>");
 								boolean eerste=true;
 								for(Klant k : klanten){
@@ -61,11 +61,11 @@
 							out.println("<h2>Selecteer de auto waar aan is gewerkt</h2>");
 							out.println("<table>");
 							out.println("<tr>");
-								out.println("<td>Kies</td>");
-								out.println("<td>Kenteken</td>");
-								out.println("<td>Merk</td>");
-								out.println("<td>Type</td>");
-								out.println("<td>Eigenaar</td>");
+								out.println("<th>Kies</th>");
+								out.println("<th>Kenteken</th>");
+								out.println("<th>Merk</th>");
+								out.println("<th>Type</th>");
+								out.println("<th>Eigenaar</th>");
 							out.println("</tr>");
 							boolean eerste=true;
 							for(Auto a : autos){
@@ -84,13 +84,13 @@
 						}
 					}
 					else{
-						out.println("<h2>Kies de klus waarvan de status moet worden aangepast</h2>");
+						out.println("<h2>Kies de klus die moet worden aangepast</h2>");
 						out.println("<table>");
 						out.println("<tr>");
-							out.println("<td>Kies</td>");
-							out.println("<td>Datum</td>");
-							out.println("<td>Beschrijving</td>");
-							out.println("<td>Status</td>");
+							out.println("<th>Kies</th>");
+							out.println("<th>Datum</th>");
+							out.println("<th>Beschrijving</th>");
+							out.println("<th>Status</th>");
 						out.println("</tr>");
 						boolean eerste=true;
 						for(Klus k : klussen ){
@@ -105,10 +105,10 @@
 							ArrayList<GebruiktProduct> producten = k.getGebruikteProducten();
 							if(producten.size() > 0){
 								out.println("<tr>");
-									out.println("<td>Artikelnummer</td>");
-									out.println("<td>Naam</td>");
-									out.println("<td>Aantal</td>");
-									out.println("<td>Prijs per stuk</td>");
+									out.println("<th>Artikelnummer</th>");
+									out.println("<th>Naam</th>");
+									out.println("<th>Aantal</th>");
+									out.println("<th>Prijs per stuk</th>");
 								out.println("</tr>");
 								for(GebruiktProduct gp : producten){
 									Product hetProduct = gp.getHetProduct();
@@ -135,17 +135,18 @@
 					out.println("<p>Datum</p>");
 					out.println("<p>Huidige datum: " + deKlus.getDatum() + "</p>");
 					out.println("<input type=text name=datum placeholder=dd-mm-jjjj />");
-					out.println("<tr>Status</tr>");
-					out.println("<tr><td><input type=radio name=status checked=checked value=voltooid /></td<td>Voltooid</td></tr>");
-					out.println("<tr><td><input type=radio name=status value=onvoltooid /></td<td>Onvoltooid</td></tr>");
-					out.println("<tr><td><input type=radio name=status value=wachten op onderdelen /></td<td>Wachten op onderdelen</td></tr>");
+					out.println("<table>");
+					out.println("<tr><th>Status</th></tr>");
+					out.println("<tr><td><input type=radio name=status checked=checked value=voltooid /></td><td>Voltooid</td></tr>");
+					out.println("<tr><td><input type=radio name=status value=onvoltooid /></td><td>Onvoltooid</td></tr>");
+					out.println("<tr><td><input type=radio name=status value=wachten op onderdelen /></td><td>Wachten op onderdelen</td></tr>");
 					out.println("</table>");
 					out.println("<p>Manuren toevoegen</p>");
 					out.println("<p>Huidige manuren: " + deKlus.getManuren() + "</p>");
 					out.println("<input type=text name=manuren />");
 					out.println("<p>Beschrijving</p>");
 					out.println("<textarea name=beschrijving>" + deKlus.getBeschrijving() + "</textarea>");
-					out.println("<td><input type=hidden name=gekozenklus value=" + deKlus.getID() + " /></td>");
+					out.println("<input type=hidden name=gekozenklus value=" + deKlus.getID() + " />");
 					out.println("<input type=submit name=knop value=bevestig />");
 				}
 			%>

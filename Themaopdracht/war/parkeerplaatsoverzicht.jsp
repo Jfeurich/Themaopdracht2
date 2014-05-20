@@ -9,17 +9,17 @@
 	<form action="ParkeerplaatsOverzichtServlet.do" method="post">
 		
 		<div>
-			<h2>: Overzicht parkeerplaats</h2>
+			<h1><span>12: Overzicht parkeerplaats</span></h1>
 			<% 	
 				Object error =  request.getAttribute("error");
 				if(error != null){
-					out.println("<h3>Error!</h3>");
-					out.println("<p name=error >" + error + "</p>");
+					out.println("<h3><span>Error!</span></h3>");
+					out.println("<p name=error class=error >" + error + "</p>");
 				}
 				else{
 					Object msg = request.getAttribute("msg");
 					if(msg != null){
-						out.println("<h3 name=msg>" + msg + "</h3>");
+						out.println("<h3 name=msg class=msg ><span>" + msg + "</span></h3>");
 					}
 				}
 				int rij = (int) getServletContext().getAttribute("parkeerplaatsRij");

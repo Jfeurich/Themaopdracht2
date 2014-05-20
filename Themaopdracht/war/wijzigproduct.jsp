@@ -9,17 +9,17 @@
 	<form action="WijzigProductServlet.do" method="post">
 		<%@ page import="domeinklassen.Product" %>
 		<div>
-			<h2>14: Product wijzigen</h2>
+			<h1><span>14: Product wijzigen</span></h1>
 			<%
 				Object error =  request.getAttribute("error");
 				if(error != null){
-					out.println("<h3>Error!</h3>");
-					out.println("<p name=error >" + error + "</p>");
+					out.println("<h3><span>Error!</span></h3>");
+					out.println("<p name=error class=error >" + error + "</p>");
 				}
 				else{
 					Object msg = request.getAttribute("msg");
 					if(msg != null){
-						out.println("<h3 name=msg>" + msg + "</h3>");
+						out.println("<h3 name=msg class=msg >" + msg + "</h3>");
 					}
 				}
 				Product p = null;
@@ -28,15 +28,15 @@
 					p = (Product)hetProduct;
 				}
 				if(p != null){
-					out.println("<h3>Voer nieuwe waarden in voor de gewenste velden</h3>");
+					out.println("<h2><span>Voer nieuwe waarden in voor de gewenste velden</span></h2>");
 					out.println("<table>");
 						out.println("<tr>");
-							out.println("<td>Artikelnummer</td>");
-							out.println("<td>Artikelnaam</td>");
-							out.println("<td>Aantal anwezig</td>");
-							out.println("<td>Eenheid</td>");
-							out.println("<td>Minimum aantal</td>");
-							out.println("<td>Prijs per stuk</td>");
+							out.println("<th>Artikelnummer</th>");
+							out.println("<th>Artikelnaam</th>");
+							out.println("<th>Aantal anwezig</th>");
+							out.println("<th>Eenheid</th>");
+							out.println("<th>Minimum aantal</th>");
+							out.println("<th>Prijs per stuk</th>");
 						out.println("</tr>");	
 						out.println("<tr>");
 							out.println("<td>" + p.getArtikelNr() + "</td>");
@@ -60,7 +60,7 @@
 					out.println("<input type=submit name=knop value=verwijder />");
 				}
 				else{
-					out.println("<h3>Deze pagina is pas bruikbaar als een product uit de voorraad is geselecteerd!</h3>");
+					out.println("<h1><span>Deze pagina is pas bruikbaar als een product uit de voorraad is geselecteerd!</span></h1>");
 				}
 			%>
 		</div>

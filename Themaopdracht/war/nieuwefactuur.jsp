@@ -51,10 +51,10 @@
 								out.println("<h2>Haal de autos op van de geselecteerde klant</h2>");	
 								out.println("<table>");
 								out.println("<tr>");
-									out.println("<td>Kies</td>");
-									out.println("<td>Naam</td>");
-									out.println("<td>Adres</td>");
-									out.println("<td>Woonplaats</td>");
+									out.println("<th>Kies</th>");
+									out.println("<th>Naam</th>");
+									out.println("<th>Adres</th>");
+									out.println("<th>Woonplaats</th>");
 								out.println("</tr>");
 								boolean eerste=true;
 								for(Klant k : klanten){
@@ -75,11 +75,11 @@
 							out.println("<h2>Selecteer de auto waar aan is gewerkt</h2>");
 							out.println("<table>");
 							out.println("<tr>");
-								out.println("<td>Kies</td>");
-								out.println("<td>Kenteken</td>");
-								out.println("<td>Merk</td>");
-								out.println("<td>Type</td>");
-								out.println("<td>Eigenaar</td>");
+								out.println("<th>Kies</th>");
+								out.println("<th>Kenteken</th>");
+								out.println("<th>Merk</th>");
+								out.println("<th>Type</th>");
+								out.println("<th>Eigenaar</th>");
 							out.println("</tr>");
 							boolean eerste=true;
 							for(Auto a : autos){
@@ -101,10 +101,10 @@
 						out.println("<h2>Kies de klus waarvan een factuur moet worden aangemaakt</h2>");
 						out.println("<table>");
 						out.println("<tr>");
-							out.println("<td>Kies</td>");
-							out.println("<td>Datum</td>");
-							out.println("<td>Beschrijving</td>");
-							out.println("<td>Status</td>");
+							out.println("<th>Kies</th>");
+							out.println("<th>Datum</th>");
+							out.println("<th>Beschrijving</th>");
+							out.println("<th>Status</th>");
 						out.println("</tr>");
 						boolean eerste=true;
 						for(Klus k : klussen ){

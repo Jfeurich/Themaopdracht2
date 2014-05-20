@@ -36,12 +36,12 @@
 						out.println("<h3>Artikelen die momenteel op voorraad zijn</h3>");
 						out.println("<table>");
 						out.println("<tr>");
-							out.println("<td>X</td>");
-							out.println("<td>Artikelnummer</td>");
-							out.println("<td>Artikelnaam</td>");
-							out.println("<td>Aantal aanwezig</td>");
-							out.println("<td>Eenheid</td>");
-							out.println("<td>Aantal</td>");
+							out.println("<th>X</th>");
+							out.println("<th>Artikelnummer</th>");
+							out.println("<th>Artikelnaam</th>");
+							out.println("<th>Aantal aanwezig</th>");
+							out.println("<th>Eenheid</th>");
+							out.println("<th>Aantal</th>");
 						out.println("</tr>");	
 						for(Product p : voorraadlijst){
 							out.println("<tr>");
