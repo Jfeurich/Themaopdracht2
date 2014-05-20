@@ -8,24 +8,16 @@
 		<h1><span>LoginPage</span></h1>
 		<form action="LoginServlet.do" method="post"> 
 			<div> 
-				<%@ page import="java.util.logging.Logger" %>
 				<% 
-					Object msgs = request.getAttribute("msgs"); 
-					if (msgs != null) { 
+					Object msg = request.getAttribute("msg"); 
+					if (msg != null) { 
 						out.println("<h3 class=msg ><span>" + msgs + "</span></h3>"); 
 					} 
-					String username = "";
-					/*for(Cookie c: request.getCookies()){
-						if(c.getName().equals("username")){
-							username = c.getValue();
-							break;
-						}
-					}*/
 				%> 
 			</div> 
 			<div> 
 				<table>
-				<tr><th>Username</th><td><input type="text" name="username" value="<%= username %>"/></td></tr>
+				<tr><th>Username</th><td><input type="text" name="username"/></td></tr>
 				<tr><th>Password</th><td><input type="password" name="password" /></td></tr>
 				</table>
 				<input type="submit" value="Login!" /> 
