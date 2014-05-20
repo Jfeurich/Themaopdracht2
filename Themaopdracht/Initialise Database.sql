@@ -41,9 +41,9 @@ FOREIGN KEY (klantid) REFERENCES Klant(klantid)
 );
 
 INSERT INTO User (gebruikersnaam, wachtwoord, type, klantid, email) VALUES
-('sandri', 'sww', 3, 1, sari@gmail.com),
-('tris', 'tww', 3, 2, tris@gmail.com),
-('daj', 'dww', 3, 3, daja@gmail.com)
+('sandri', 'sww', 3, 1, 'sari@gmail.com'),
+('tris', 'tww', 3, 2, 'tris@gmail.com'),
+('daj', 'dww', 3, 3, 'daja@gmail.com')
 ;
 INSERT INTO User (gebruikersnaam, wachtwoord, type, email, naam) VALUES
 ('Henk', 'hww', 0, 'henk@atb.nl', 'Henk Paladijn'),

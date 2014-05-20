@@ -24,14 +24,12 @@ public class KlusOverzichtTest {
 
   @Test
   public void testKlusOverzicht() throws Exception {
-    driver.get(baseUrl + "/Themaopdracht/index.html");
+    driver.get(baseUrl + "/Themaopdracht/index.jsp");
     driver.findElement(By.linkText("Hoofdmenu klussen(9)")).click();
-    driver.findElement(By.name("knop")).click();
-    assertEquals("28: Nieuwe klus aanmaken", driver.findElement(By.cssSelector("h2")).getText());
     driver.findElement(By.xpath("(//input[@name='knop'])[2]")).click();
-    assertEquals("16: Klus wijzigen", driver.findElement(By.xpath("//h2[2]")).getText());
-    driver.findElement(By.xpath("(//input[@name='knop'])[2]")).click();
-    assertEquals("Wijzig de klus", driver.findElement(By.xpath("//h2[2]")).getText());
+    driver.findElement(By.linkText("Hoofdmenu")).click();
+    assertEquals("Kies", driver.findElement(By.cssSelector("th")).getText());
+    assertEquals("Klus wijzigen", driver.findElement(By.xpath("//h2[2] > span")).getText());
   }
 
   @After

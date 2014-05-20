@@ -60,7 +60,7 @@
 						}
 					}
 					out.println("</table>");
-					out.println("<h2>16: Klus wijzigen</h2>");
+					out.println("<h2><span>16: Klus wijzigen</span></h2>");
 					out.println("<input type=submit name=knop value=wijzig />");
 				}
 				else{
