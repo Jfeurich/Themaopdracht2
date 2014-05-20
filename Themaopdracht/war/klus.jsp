@@ -6,14 +6,15 @@
 </head>
 <body>
 	<p><a href="index.html">Hoofdmenu</a></p>
+	<h1><span>Hoofdmenu Klus</span></h1>
 	<form action="KlusServlet.do" method="post">
 		<%@ page import="domeinklassen.Klus,domeinklassen.Onderhoudsbeurt,domeinklassen.Reparatie,domeinklassen.Product,domeinklassen.GebruiktProduct,java.util.ArrayList" %>
 		<div>
-			<h2>28: Nieuwe klus aanmaken</h2>
+			<h2><span>28: Nieuwe klus aanmaken</span></h2>
 			<input type="submit" name="knop" value="nieuw" />
 		</div>
 		<div>
-			<h2>9: Overzicht alle klussen</h2>
+			<h2><span>9: Overzicht alle klussen</span></h2>
 			<%
 				Object ar = request.getAttribute("klussen");
 				if(ar != null){

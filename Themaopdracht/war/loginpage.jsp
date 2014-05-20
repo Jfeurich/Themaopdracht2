@@ -5,14 +5,14 @@
 		<title>Login</title> 
 	</head> 
 	<body> 
-		<h2>LoginPage</h2>
+		<h1><span>LoginPage</span></h1>
 		<form action="LoginServlet.do" method="post"> 
 			<div> 
 				<%@ page import="java.util.logging.Logger" %>
 				<% 
 					Object msgs = request.getAttribute("msgs"); 
 					if (msgs != null) { 
-						out.println(msgs); 
+						out.println("<h3 class=msg ><span>" + msgs + "</span></h3>"); 
 					} 
 					String username = "";
 					/*for(Cookie c: request.getCookies()){
@@ -24,8 +24,10 @@
 				%> 
 			</div> 
 			<div> 
-				Username<input type="text" name="username" value="<%= username %>"/> <br />
-				Password<input type="password" name="password" /> <br />
+				<table>
+				<tr><th>Username</th><td><input type="text" name="username" value="<%= username %>"/></td></tr>
+				<tr><th>Password</th><td><input type="password" name="password" /></td></tr>
+				</table>
 				<input type="submit" value="Login!" /> 
 			</div> 
 		</form>
