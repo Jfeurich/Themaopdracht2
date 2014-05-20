@@ -147,8 +147,8 @@
 	</filter>
 	<filter-mapping>
 		<filter-name>IngelogdFilter</filter-name>
-		<url-pattern>http://localhost:8080/Themaopdracht/*</url-pattern>
-		<dispatcher>REQUEST</dispatcher> <!– default -->
+		<url-pattern>/localhost:8080/Themaopdracht/*</url-pattern>
+		<dispatcher>REQUEST</dispatcher>
 		<dispatcher>FORWARD</dispatcher>
 	</filter-mapping>
 	<filter>
