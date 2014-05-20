@@ -6,3 +6,9 @@
 </head>
 <body>
 	<p><a href="index.jsp">Hoofdmenu</a></p>
+	<div>
+		<h2><span>24: Uitloggen</span></h2>
+		<form action="LogoutServlet.do" method="post">
+			<input type=submit name=knop value=Loguit />
+		</form>
+	</div>
