@@ -43,8 +43,12 @@
 			<%	
 				ArrayList<Reservering> deReserveringen = (ArrayList<Reservering>) request.getSession().getAttribute("gevondenReserveringen");
 				if(deReserveringen != null){
+					System.out.println("stap1");
+					//werkt niet!
 					int rij = (int) getServletContext().getAttribute("parkeerplaatsRij");
+					System.out.println("rij: " + rij);
 					int kolom = (int) getServletContext().getAttribute("parkeerplaatsKolom");
+					System.out.println("kolom: " + kolom);
 					int teller = 0;
 					out.println("<table>");
 					for(int i = 1; i <= rij; i++){
@@ -65,6 +69,7 @@
 								out.println("<input type=submit name=knop value=" + teller + " />");
 							}
 							out.println("</td>");
+							System.out.println("teller: " + teller);
 							teller++;
 						}
 						out.println("</td>");

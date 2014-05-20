@@ -29,10 +29,13 @@ public class ParkeerplaatsOverzichtServlet extends HttpServlet {
 		RequestDispatcher rd = req.getRequestDispatcher("parkeerplaatsoverzicht.jsp");
 		
 		if(knop.equals("Checkdatum")){
-			String bD = req.getParameter("beginddat");
+			req.getSession().setAttribute("gevondenReserveringen", null);
+			req.getSession().setAttribute("beginDat", null);
+			req.getSession().setAttribute("eindDat", null);
+			String bD = req.getParameter("begindat");
 			String eD = req.getParameter("einddat");
 			//check of beide datums zijn ingevuld
-			if(bD != null && eD != null){
+			if(!bD.equals("") && !eD.equals("")){
 				//check of beide datums geldige datums zijn
 				try{
 					DateFormat df = new SimpleDateFormat("dd-MM-yyyy");

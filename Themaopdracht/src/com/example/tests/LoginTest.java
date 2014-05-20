@@ -1,4 +1,4 @@
-package tests;
+package com.example.tests;
 
 import static org.junit.Assert.fail;
 

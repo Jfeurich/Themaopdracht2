@@ -131,10 +131,8 @@
 		<init-param>
 			<param-name>parkeerplaatsRij</param-name>
 			<param-value>5</param-value>
-			<init-param>
 			<param-name>parkeerplaatsKolom</param-name>
 			<param-value>8</param-value>
-		</init-param>
 		</init-param>
 	</servlet>
 	<servlet-mapping>
