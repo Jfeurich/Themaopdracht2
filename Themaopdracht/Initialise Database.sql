@@ -33,20 +33,22 @@ CREATE TABLE User (
 userid 			INTEGER 	NOT NULL PRIMARY KEY AUTO_INCREMENT,
 gebruikersnaam	VARCHAR(30)	NOT NULL,
 wachtwoord		VARCHAR(30)	NOT NULL,
+email			VARCHAR(50) NOT NULL,
 type			INTEGER		NOT NULL,
+naam			VARCHAR(50)	,
 klantid			INTEGER		,
 FOREIGN KEY (klantid) REFERENCES Klant(klantid)
 );
 
-INSERT INTO User (gebruikersnaam, wachtwoord, type, klantid) VALUES
-('sandri', 'sww', 3, 1),
-('tris', 'tww', 3, 2),
-('daj', 'dww', 3, 3)
+INSERT INTO User (gebruikersnaam, wachtwoord, type, klantid, email) VALUES
+('sandri', 'sww', 3, 1, sari@gmail.com),
+('tris', 'tww', 3, 2, tris@gmail.com),
+('daj', 'dww', 3, 3, daja@gmail.com)
 ;
-INSERT INTO User (gebruikersnaam, wachtwoord, type) VALUES
-('Henk', 'hww', 0),
-('Mike', 'mww', 1),
-('Jopie', 'jww', 2)
+INSERT INTO User (gebruikersnaam, wachtwoord, type, email, naam) VALUES
+('Henk', 'hww', 0, 'henk@atb.nl', 'Henk Paladijn'),
+('Mike', 'mww', 1, 'mike@atb.nl', 'Mike Monteur'),
+('Jopie', 'jww', 2, 'jopie@atb.nl', 'Jopie Garagebeheerder')
 ;
 
 /* Product */
