@@ -11,8 +11,6 @@ import javax.servlet.http.HttpServletResponse;
 import database.ConnectDB;
 import database.ConnectDBKlant;
 import database.ConnectDBUser;
-import domeinklassen.Klant;
-import domeinklassen.User;
 
 public class RegistreerServlet extends HttpServlet{
 	private static final long serialVersionUID = 1L;
@@ -27,6 +25,7 @@ public class RegistreerServlet extends HttpServlet{
 		String adres = req.getParameter("adr");
 		String woonplaats = req.getParameter("wp");
 		String rekeningnr = req.getParameter("rnr");
+		String telefoonnr = req.getParameter("telnr");
 		String knopje = req.getParameter("knop");
 		
 		
@@ -44,9 +43,7 @@ public class RegistreerServlet extends HttpServlet{
 						//Klant object aanmaken, dan met dat klant object een user object aanmaken
 						ConnectDBUser usercon = new ConnectDBUser(con);
 						ConnectDBKlant klantcon = new ConnectDBKlant(con);
-						Klant k = new Klant(naam, adres, woonplaats, rekeningnr, nr);
-						klantcon.nieuweKlant(naam, adres, woonplaats, rekeningnr, nr);
-						usercon.nieuweUserIsKlant(k, gebruikersnaam, wachtwoord1, email1);
+						usercon.nieuweUserIsKlant(klantcon.nieuweKlant(naam, adres, woonplaats, rekeningnr, Integer.parseInt(telefoonnr)), gebruikersnaam, wachtwoord1, email1);
 					}
 					catch(Exception ex){
 						req.setAttribute("error", "Er is geen gebruiker geregistreerd!"); 

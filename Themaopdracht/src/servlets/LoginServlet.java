@@ -54,7 +54,7 @@ public class LoginServlet extends HttpServlet {
 		if (loginSuccess) {
 			rd = req.getRequestDispatcher("index.jsp");
 			resp.addCookie(new Cookie("username", deGebruiker.getGebruikersnaam()));
-			req.getSession().setMaxInactiveInterval(10);
+			req.getSession().setMaxInactiveInterval(120);
 			req.getSession().setAttribute("gebruiker", deGebruiker);
 		}
 		else{
