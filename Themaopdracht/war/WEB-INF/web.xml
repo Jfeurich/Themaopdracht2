@@ -133,4 +133,38 @@
 		<servlet-name>ParkeerplaatsOverzichtServlet</servlet-name>
 		<url-pattern>/ParkeerplaatsOverzichtServlet.do</url-pattern>
 	</servlet-mapping>
+	<filter>
+		<filter-name>IngelogdFilter</filter-name>
+		<filter-class>filters.IngelogdFilter</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>IngelogdFilter</filter-name>
+		<url-pattern>/localhots/Themaopdracht/*</url-pattern>
+		<dispatcher>REQUEST</dispatcher> <!– default -->
+		<dispatcher>FORWARD</dispatcher>
+	</filter-mapping>
+	<filter>
+		<filter-name>GeenKlantFilter</filter-name>
+		<filter-class>filters.GeenKlantFilter</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>GeenKlantFilter</filter-name>
+		<class-name></class-name>
+	</filter-mapping>
+	<filter>
+		<filter-name>GeenMonteurFilter</filter-name>
+		<filter-class>filters.GeenMonteurFilter</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>GeenMonteurFilter</filter-name>
+		<class-name></class-name>
+	</filter-mapping>
+	<filter>
+		<filter-name>GeenGaragebeheerderFilter</filter-name>
+		<filter-class>filters.GeenGaragebeheerderFilter</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>GeenGaragebeheerderFilter</filter-name>
+		<class-name></class-name>
+	</filter-mapping>
 </web-app>
