@@ -128,12 +128,6 @@
 	<servlet>
 		<servlet-name>ParkeerplaatsOverzichtServlet</servlet-name>
 		<servlet-class>servlets.ParkeerplaatsOverzichtServlet</servlet-class>
-		<init-param>
-			<param-name>parkeerplaatsRij</param-name>
-			<param-value>5</param-value>
-			<param-name>parkeerplaatsKolom</param-name>
-			<param-value>8</param-value>
-		</init-param>
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>ParkeerplaatsOverzichtServlet</servlet-name>

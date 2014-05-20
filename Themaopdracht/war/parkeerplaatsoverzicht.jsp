@@ -37,17 +37,14 @@
 			<%	
 				ArrayList<Reservering> deReserveringen = (ArrayList<Reservering>) request.getSession().getAttribute("gevondenReserveringen");
 				if(deReserveringen != null){
-					System.out.println("stap1");
 					//werkt niet!
-					int rij = (int) getServletContext().getAttribute("parkeerplaatsRij");
-					System.out.println("rij: " + rij);
-					int kolom = (int) getServletContext().getAttribute("parkeerplaatsKolom");
-					System.out.println("kolom: " + kolom);
-					int teller = 0;
+					int teller = 1;
 					out.println("<table>");
-					for(int i = 1; i <= rij; i++){
+					//8 rijen
+					for(int i = 1; i <= 8; i++){
 						out.println("<tr>");
-						for(int j = 1; j <= kolom; j++){
+						//5 kolommen
+						for(int j = 1; j <= 5; j++){
 							boolean b = false;
 							for(Reservering r : deReserveringen){
 								//check of deze plek bij de reserveringen zit
@@ -63,7 +60,6 @@
 								out.println("<input type=submit name=knop value=" + teller + " />");
 							}
 							out.println("</td>");
-							System.out.println("teller: " + teller);
 							teller++;
 						}
 						out.println("</td>");

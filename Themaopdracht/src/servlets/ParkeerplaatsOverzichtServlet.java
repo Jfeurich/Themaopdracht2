@@ -59,9 +59,9 @@ public class ParkeerplaatsOverzichtServlet extends HttpServlet {
 			}
 		}
 		else{
-			int parkeerplekken = ( (int) getServletContext().getAttribute("parkeerplaatsRij")) * ( (int) getServletContext().getAttribute("parkeerplaatsKolom"));
-			for(int i = 1; i <= parkeerplekken; i++){
-				if(knop.equals(i)){
+			//40 parkeerplekken dus 40x de loop
+			for(int i = 1; i <= 40; i++){
+				if(knop.equals(i + "")){
 					//De parkeerplek id meegeven aan de sessie
 					req.getSession().setAttribute("parkeerplek", i);
 					//De gevonden parkeerplekken uit de sessie halen
