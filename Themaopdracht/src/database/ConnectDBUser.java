@@ -105,10 +105,10 @@ public class ConnectDBUser{
 	}
 	
 	//maak nieuwe User van types 0-2. id wordt automatisch toegewezen. geeft User-object terug zodat je het id weet.
-	public User nieuweUserNietKlant(int tp, String unm, String pw, String email){
+	public User nieuweUserNietKlant(int tp, String unm, String pw, String email, String naam){
 		User terug = null;
 		try{
-			String sql = "INSERT INTO User (gebruikersnaam, wachtwoord, type, email) VALUES ('" + unm + "', '" + pw + "', " + tp + ", '" + email + ");";
+			String sql = "INSERT INTO User (gebruikersnaam, wachtwoord, type, email, naam) VALUES ('" + unm + "', '" + pw + "', " + tp + ", '" + email + "', '" + naam + "');";
 			Statement stmt = con.createStatement();
 			stmt.executeUpdate(sql);
 			stmt.close();
