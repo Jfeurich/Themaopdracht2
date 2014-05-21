@@ -31,6 +31,7 @@
 				<li><a href=parkeerplaatsoverzicht.jsp>Overzicht parkeerplaats(12)</a></li>
 				<li><a href=loginpage.jsp>Inloggen(1)</a></li>
 				<li><a href=registreer.jsp>Registreer nieuwe klant(7)</a></li>
+				<li><a href=nieuwegebruikersaccount.jsp>Registreer nieuwe gebruikersaccount(UGH WAT)</a></li>
 			</ul>
 		</div>
 	</body>

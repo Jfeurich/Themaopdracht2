@@ -138,6 +138,14 @@
 		<servlet-class>servlets.RegistreerServlet</servlet-class>
 	</servlet>
 	<servlet-mapping>
+		<servlet-name>NieuweGebruikersaccountServlet</servlet-name>
+		<url-pattern>/NieuweGebruikersaccountServlet.do</url-pattern>
+	</servlet-mapping>
+	<servlet>
+		<servlet-name>NieuweGebruikersaccountServlet</servlet-name>
+		<servlet-class>servlets.NieuweGebruikersaccountServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
 		<servlet-name>RegistreerServlet</servlet-name>
 		<url-pattern>/RegistreerServlet.do</url-pattern>
 	</servlet-mapping>
