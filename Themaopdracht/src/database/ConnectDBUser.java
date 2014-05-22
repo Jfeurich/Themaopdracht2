@@ -76,6 +76,32 @@ public class ConnectDBUser{
 	}
 	
 	//zoek user op id
+	public User zoekUserVanKlant(Klant k){
+		User terug = null;
+		try{
+			String sql = "SELECT * FROM User WHERE klantid=" + k.getKlantnummer();
+			Statement stmt = con.createStatement();
+			ResultSet rs = stmt.executeQuery(sql);
+			while (rs.next()) {   // rs.next() geeft false als er niets meer is 
+				String unm = rs.getString("gebruikersnaam");
+				String ww = rs.getString("wachtwoord");
+				String email = rs.getString("email");
+				int type = rs.getInt("type");
+				int id = rs.getInt("id");
+				User u = new User(id, type, unm, ww, email);
+				u.setDeKlant(k);
+				terug = u;
+			}
+			stmt.close();
+		}
+		catch(Exception ex){
+			System.out.println("Probleem bij user zoeken " + ex);
+		}
+		return terug;
+	}
+		
+	
+	//zoek user op id
 	public User zoekUser(int id){
 		User terug = null;
 		try{
@@ -171,6 +197,21 @@ public class ConnectDBUser{
 	public boolean verwijderUser(int id){
 		try{
 			String sql = "DELETE FROM User WHERE userid=" + id;
+			Statement stmt = con.createStatement();
+			stmt.executeUpdate(sql);
+			stmt.close();
+			return true;
+		}
+		catch(Exception ex){
+			System.out.println("Probleem bij user verwijderen " + ex);
+		}
+		return false;
+	}
+	
+	//verwijderd account van klantid
+	public boolean verwijderAccountVan(int klantid){
+		try{
+			String sql = "DELETE FROM User WHERE klantid=" + klantid;
 			Statement stmt = con.createStatement();
 			stmt.executeUpdate(sql);
 			stmt.close();

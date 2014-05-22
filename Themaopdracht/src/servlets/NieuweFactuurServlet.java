@@ -3,7 +3,15 @@ package servlets;
 import java.io.IOException;
 import java.sql.Connection;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Properties;
 
+import javax.mail.Message;
+import javax.mail.Session;
+import javax.mail.Transport;
+import javax.mail.internet.AddressException;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -111,6 +119,27 @@ public class NieuweFactuurServlet extends HttpServlet{
 				deFactuur.setKortingsPercentage(dekorting);
 				factuurcon.updateFactuur(deFactuur);
 				req.setAttribute("msg", "De korting is ingesteld");
+				//mail factuur naar klant
+				Properties props = new Properties();
+				props.put("mail.smtp.host", "smtp.gmail.com");
+				props.put("mail.smtp.port", 465);
+				props.put("mail.smtp.ssl.enable", true);
+				Session mailSession = Session.getInstance(props);
+				try {
+					MimeMessage msg = new MimeMessage(mailSession);
+					msg.setFrom(new InternetAddress("testvoorwebapps@gmail.com", "test"));
+					msg.setRecipients(Message.RecipientType.TO, deFactuur.getDeKlus().getAuto().getEigenaar().getAccount().getEmail());
+					msg.setSubject("Uw factuur");
+					msg.setSentDate(Calendar.getInstance().getTime());
+					msg.setText("Beste " + deFactuur.getDeKlus().getAuto().getEigenaar().getNaam() + 
+							", \n\nU ontvangt deze factuur met betrekking tot:\n" +  deFactuur.getDeKlus().toString() + 
+							"\nKosten: " + deFactuur.getTotaal() + "\nGelieve dit bedrag binnen 30 dagen over te maken." + 
+							"\nMet vriendelijke groet,\n\nAutoTotaalBeheer");
+					Transport.send(msg, "testvoorwebapps@gmail.com", "Wachtwoord0");
+				} 
+				catch (Exception e) {
+					e.printStackTrace();
+				}
 			}
 			catch(Exception e){
 				req.setAttribute("error", "Geen geldige waarde");

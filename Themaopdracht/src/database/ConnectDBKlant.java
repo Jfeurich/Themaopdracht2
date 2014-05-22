@@ -36,6 +36,8 @@ public class ConnectDBKlant{
 				autocon.getAutosVan(k);
 				ConnectDBHerinneringsbrief hcon = new ConnectDBHerinneringsbrief(con);
 				hcon.getBrievenVan(k);
+				ConnectDBUser usercon = new ConnectDBUser(con);
+				usercon.zoekUserVanKlant(k);
 				terug.add(k);
 			}
 			stmt.close();
@@ -64,6 +66,8 @@ public class ConnectDBKlant{
 				autocon.getAutosVan(terug);
 				ConnectDBHerinneringsbrief hcon = new ConnectDBHerinneringsbrief(con);
 				hcon.getBrievenVan(terug);
+				ConnectDBUser usercon = new ConnectDBUser(con);
+				usercon.zoekUserVanKlant(terug);
 			}
 			stmt.close();
 		}
@@ -78,7 +82,7 @@ public class ConnectDBKlant{
 		Klant terug = null;
 		try{			
 			//maak nieuw product met gegeven waarden
-			String sql = "INSERT INTO Klant (naam, adres, plaats, telefoonnummer, rekeningnummer) VALUES ('" + nm + "', '" + adr + "', '" + wp + "', '" + rnr + "', " + nr + ");";
+			String sql = "INSERT INTO Klant (naam, adres, plaats, telefoonnummer, rekeningnummer) VALUES ('" + nm + "', '" + adr + "', '" + wp + "', '" + rnr + "', '" + nr +  "');";
 			Statement stmt = con.createStatement();
 			stmt.executeUpdate(sql);
 			stmt.close();
@@ -106,7 +110,7 @@ public class ConnectDBKlant{
 	public boolean updateKlant(Klant k){
 		try{
 			String sql = "UPDATE Klant SET naam='" + k.getNaam() + "',  adres='" + k.getAdres() + 
-					"', plaats='" + k.getPlaats() + "', telefoonnummer=" + k.getTelefoonnummer() + ", ' rekeningnummer='" + 
+					"', plaats='" + k.getPlaats() + "', telefoonnummer=" + k.getTelefoonnummer() + ", rekeningnummer='" + 
 					k.getRekeningnummer() + "' WHERE klantid = " + k.getKlantnummer();
 			Statement stmt = con.createStatement();
 			stmt.executeUpdate(sql);	
@@ -133,6 +137,9 @@ public class ConnectDBKlant{
 			for(Herinneringsbrief h : hcon.getBrievenVan(deKlant)){
 				hcon.verwijderBrief(h.getID());
 			}
+			//en de useraccount
+			ConnectDBUser usercon = new ConnectDBUser(con);
+			usercon.verwijderAccountVan(klantid);
 			//en vervolgens de klant zelf
 			String sql = "DELETE FROM Klant WHERE klantid=" + klantid;
 			Statement stmt = con.createStatement();

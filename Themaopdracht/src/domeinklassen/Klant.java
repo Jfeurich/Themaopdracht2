@@ -14,6 +14,7 @@ public class Klant {
 	private SimpleDateFormat df = new SimpleDateFormat("dd-MM-yyyy");
 	private ArrayList<Auto> deAutos = new ArrayList<Auto>();
 	private ArrayList<Herinneringsbrief> deBrieven = new ArrayList<Herinneringsbrief>();
+	private User account;
 
 	public Klant(int kn, String nm, String adr, String wp, String rnr, int nr){
 		klantnummer = kn;
@@ -22,6 +23,14 @@ public class Klant {
 		plaats = wp;
 		rekeningnummer = rnr;
 		telefoonnummer = nr;
+	}
+	
+	public void setUser(User u){
+		account = u;
+	}
+	
+	public User getAccount(){
+		return account;
 	}
 
 	public String toString(){

@@ -53,6 +53,7 @@ public class User {
 
 	public void setDeKlant(Klant deKlant) {
 		this.deKlant = deKlant;
+		deKlant.setUser(this);
 	}
 
 	@Override
