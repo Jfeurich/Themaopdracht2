@@ -9,6 +9,6 @@
 	<div>
 		<h2><span>24: Uitloggen</span></h2>
 		<form action="LogoutServlet.do" method="post">
-			<input type=submit name=knop value=Loguit />
+			<p><input type="submit" name="knop" value="Loguit" /></p>
 		</form>
 	</div>

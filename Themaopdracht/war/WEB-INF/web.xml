@@ -1,212 +1,214 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xmlns="http://java.sun.com/xml/ns/javaee"
-	xmlns:web="http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd"
-	xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd"
-	version="2.4">
-	
-	<servlet>
-		<servlet-name>ProductServlet</servlet-name>
-		<servlet-class>servlets.ProductServlet</servlet-class>
-	</servlet>
-	<servlet-mapping>
-		<servlet-name>ProductServlet</servlet-name>
-		<url-pattern>/ProductServlet.do</url-pattern>
-	</servlet-mapping>
-	<servlet>
-		<servlet-name>WijzigProductServlet</servlet-name>
-		<servlet-class>servlets.WijzigProductServlet</servlet-class>
-	</servlet>
-	<servlet-mapping>
-		<servlet-name>WijzigProductServlet</servlet-name>
-		<url-pattern>/WijzigProductServlet.do</url-pattern>
-	</servlet-mapping>
-	<servlet>
+xmlns="http://java.sun.com/xml/ns/javaee"
+xmlns:web="http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd"
+xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd"
+version="2.4">
+<servlet>
+	<servlet-name>ProductServlet</servlet-name>
+	<servlet-class>servlets.ProductServlet</servlet-class>
+</servlet>
+<servlet-mapping>
+	<servlet-name>ProductServlet</servlet-name>
+	<url-pattern>/ProductServlet.do</url-pattern>
+</servlet-mapping>
+<servlet>
+	<servlet-name>WijzigProductServlet</servlet-name>
+	<servlet-class>servlets.WijzigProductServlet</servlet-class>
+</servlet>
+<servlet-mapping>
+	<servlet-name>WijzigProductServlet</servlet-name>
+	<url-pattern>/WijzigProductServlet.do</url-pattern>
+</servlet-mapping>
+<servlet>
+<servlet-name>NieuweKlusServlet</servlet-name>
+<servlet-class>servlets.NieuweKlusServlet</servlet-class>
+</servlet>
+<servlet-mapping>
 	<servlet-name>NieuweKlusServlet</servlet-name>
-	<servlet-class>servlets.NieuweKlusServlet</servlet-class>
-	</servlet>
-	<servlet-mapping>
-		<servlet-name>NieuweKlusServlet</servlet-name>
-		<url-pattern>/NieuweKlusServlet.do</url-pattern>
-	</servlet-mapping>
-	<servlet>
+	<url-pattern>/NieuweKlusServlet.do</url-pattern>
+</servlet-mapping>
+<servlet>
+<servlet-name>NieuweBestellingServlet</servlet-name>
+<servlet-class>servlets.NieuweBestellingServlet</servlet-class>
+</servlet>
+<servlet-mapping>
 	<servlet-name>NieuweBestellingServlet</servlet-name>
-	<servlet-class>servlets.NieuweBestellingServlet</servlet-class>
-	</servlet>
-	<servlet-mapping>
-		<servlet-name>NieuweBestellingServlet</servlet-name>
-		<url-pattern>/NieuweBestellingServlet.do</url-pattern>
-	</servlet-mapping>
-	<servlet>
-		<servlet-name>StatusWijzigenFactuurServlet</servlet-name>
-		<servlet-class>servlets.StatusWijzigenFactuurServlet</servlet-class>
-	</servlet>
-	<servlet-mapping>
-		<servlet-name>StatusWijzigenFactuurServlet</servlet-name>
-		<url-pattern>/StatusWijzigenFactuurServlet.do</url-pattern>
-	</servlet-mapping>
-	<servlet>
-		<servlet-name>OnbetaaldeFacturenOverzichtServlet</servlet-name>
-		<servlet-class>servlets.OnbetaaldeFacturenOverzichtServlet</servlet-class>
-	</servlet>
-	<servlet-mapping>
-		<servlet-name>OnbetaaldeFacturenOverzichtServlet</servlet-name>
-		<url-pattern>/OnbetaaldeFacturenOverzichtServlet.do</url-pattern>
-	</servlet-mapping>
-	<servlet>
-		<servlet-name>KlusWijzigenServlet</servlet-name>
-		<servlet-class>servlets.KlusWijzigenServlet</servlet-class>
-	</servlet>
-	<servlet-mapping>
-		<servlet-name>KlusWijzigenServlet</servlet-name>
-		<url-pattern>/KlusWijzigenServlet.do</url-pattern>
-	</servlet-mapping>
-	<servlet>
-		<servlet-name>AutoToevoegenServlet</servlet-name>
-		<servlet-class>servlets.AutoToevoegenServlet</servlet-class>
-	</servlet>
-	<servlet-mapping>
-		<servlet-name>AutoToevoegenServlet</servlet-name>
-		<url-pattern>/AutoToevoegenServlet.do</url-pattern>
-	</servlet-mapping>
-	<servlet>
-		<servlet-name>NieuweFactuurServlet</servlet-name>
-		<servlet-class>servlets.NieuweFactuurServlet</servlet-class>
-	</servlet>
-	<servlet-mapping>
-		<servlet-name>NieuweFactuurServlet</servlet-name>
-		<url-pattern>/NieuweFactuurServlet.do</url-pattern>
-	</servlet-mapping>
-	<servlet>
-		<servlet-name>NieuweReserveringServlet</servlet-name>
-		<servlet-class>servlets.NieuweReserveringServlet</servlet-class>
-	</servlet>
-	<servlet-mapping>
-		<servlet-name>NieuweReserveringServlet</servlet-name>
-		<url-pattern>/NieuweReserveringServlet.do</url-pattern>
-	</servlet-mapping>
-	<servlet>
-		<servlet-name>KlusServlet</servlet-name>
-		<servlet-class>servlets.KlusServlet</servlet-class>
-	</servlet>
-	<servlet-mapping>
-		<servlet-name>KlusServlet</servlet-name>
-		<url-pattern>/KlusServlet.do</url-pattern>
-	</servlet-mapping>
-	<servlet>
-		<servlet-name>BTWServlet</servlet-name>
-		<servlet-class>servlets.BTWServlet</servlet-class>
-	</servlet>
-	<servlet-mapping>
-		<servlet-name>BTWServlet</servlet-name>
-		<url-pattern>/BTWServlet.do</url-pattern>
-	</servlet-mapping>
-	<servlet>
-		<servlet-name>BriefServlet</servlet-name>
-		<servlet-class>servlets.BriefServlet</servlet-class>
-	</servlet>
-	<servlet-mapping>
-		<servlet-name>BriefServlet</servlet-name>
-		<url-pattern>/BriefServlet.do</url-pattern>
-	</servlet-mapping>
-	<servlet>
-		<servlet-name>LoginServlet</servlet-name>
-		<servlet-class>servlets.LoginServlet</servlet-class>
-	</servlet>
-	<servlet-mapping>
-		<servlet-name>LoginServlet</servlet-name>
-		<url-pattern>/LoginServlet.do</url-pattern>
-	</servlet-mapping>
-	<servlet>
-		<servlet-name>LogoutServlet</servlet-name>
-		<servlet-class>servlets.LogoutServlet</servlet-class>
-	</servlet>
-	<servlet-mapping>
-		<servlet-name>LogoutServlet</servlet-name>
-		<url-pattern>/LogoutServlet.do</url-pattern>
-	</servlet-mapping>
-	<servlet>
-		<servlet-name>ParkeerplaatsOverzichtServlet</servlet-name>
-		<servlet-class>servlets.ParkeerplaatsOverzichtServlet</servlet-class>
-	</servlet>
-	<servlet-mapping>
-		<servlet-name>ParkeerplaatsOverzichtServlet</servlet-name>
-		<url-pattern>/ParkeerplaatsOverzichtServlet.do</url-pattern>
-	</servlet-mapping>
-	<servlet>
-		<servlet-name>RegistreerServlet</servlet-name>
-		<servlet-class>servlets.RegistreerServlet</servlet-class>
-	</servlet>
-	<servlet-mapping>
-		<servlet-name>NieuweGebruikersaccountServlet</servlet-name>
-		<url-pattern>/NieuweGebruikersaccountServlet.do</url-pattern>
-	</servlet-mapping>
-	<servlet>
-		<servlet-name>NieuweGebruikersaccountServlet</servlet-name>
-		<servlet-class>servlets.NieuweGebruikersaccountServlet</servlet-class>
-	</servlet>
-	<servlet-mapping>
-		<servlet-name>RegistreerServlet</servlet-name>
-		<url-pattern>/RegistreerServlet.do</url-pattern>
-	</servlet-mapping>
-	<filter>
-		<filter-name>IngelogdFilter</filter-name>
-		<filter-class>filters.IngelogdFilter</filter-class>
-	</filter>
-	<filter-mapping>
-		<filter-name>IngelogdFilter</filter-name>
-		<url-pattern>*.do</url-pattern>
-	</filter-mapping>
-	<filter>
-		<filter-name>GeenKlantFilter</filter-name>
-		<filter-class>filters.GeenKlantFilter</filter-class>
-	</filter>
-	<filter-mapping>
-		<filter-name>GeenKlantFilter</filter-name>
-		<servlet-name>BriefServlet</servlet-name>
-		<servlet-name>BTWServlet</servlet-name>
-		<servlet-name>KlusServlet</servlet-name>
-		<servlet-name>KlusWijzigenServlet</servlet-name>
-		<servlet-name>NieuweBestellingServlet</servlet-name>
-		<servlet-name>NieuweFactuurServlet</servlet-name>
-		<servlet-name>NieuweKlusServlet</servlet-name>
-		<servlet-name>OnbetaaldeFacturenOverzichtServlet</servlet-name>
-		<servlet-name>ParkeerplaatsOverzichtServlet</servlet-name>
-		<servlet-name>ProductServlet</servlet-name>
-		<servlet-name>WijzigProductServlet</servlet-name>
-		<servlet-name>RegistreerServlet</servlet-name>
-	</filter-mapping>
-	<filter>
-		<filter-name>GeenMonteurFilter</filter-name>
-		<filter-class>filters.GeenMonteurFilter</filter-class>
-	</filter>
-	<filter-mapping>
-		<filter-name>GeenMonteurFilter</filter-name>
-		<servlet-name>BriefServlet</servlet-name>
-		<servlet-name>BTWServlet</servlet-name>
-		<servlet-name>NieuweBestellingServlet</servlet-name>
-		<servlet-name>NieuweFactuurServlet</servlet-name>
-		<servlet-name>OnbetaaldeFacturenOverzichtServlet</servlet-name>
-		<servlet-name>ParkeerplaatsOverzichtServlet</servlet-name>
-		<servlet-name>RegistreerServlet</servlet-name>
-	</filter-mapping>
-	<filter>
-		<filter-name>GeenGaragebeheerderFilter</filter-name>
-		<filter-class>filters.GeenGaragebeheerderFilter</filter-class>
-	</filter>
-	<filter-mapping>
-		<filter-name>GeenGaragebeheerderFilter</filter-name>
-		<servlet-name>AutoToevoegenServlet</servlet-name>
-		<servlet-name>BriefServlet</servlet-name>
-		<servlet-name>BTWServlet</servlet-name>
-		<servlet-name>KlusServlet</servlet-name>
-		<servlet-name>KlusWijzigenServlet</servlet-name>
-		<servlet-name>NieuweBestellingServlet</servlet-name>
-		<servlet-name>NieuweFactuurServlet</servlet-name>
-		<servlet-name>NieuweKlusServlet</servlet-name>
-		<servlet-name>OnbetaaldeFacturenOverzichtServlet</servlet-name>
-		<servlet-name>ProductServlet</servlet-name>
-		<servlet-name>WijzigProductServlet</servlet-name>
-		<servlet-name>RegistreerServlet</servlet-name>
-	</filter-mapping>
+	<url-pattern>/NieuweBestellingServlet.do</url-pattern>
+</servlet-mapping>
+<servlet>
+	<servlet-name>StatusWijzigenFactuurServlet</servlet-name>
+	<servlet-class>servlets.StatusWijzigenFactuurServlet</servlet-class>
+</servlet>
+<servlet-mapping>
+	<servlet-name>StatusWijzigenFactuurServlet</servlet-name>
+	<url-pattern>/StatusWijzigenFactuurServlet.do</url-pattern>
+</servlet-mapping>
+<servlet>
+	<servlet-name>OnbetaaldeFacturenOverzichtServlet</servlet-name>
+	<servlet-class>servlets.OnbetaaldeFacturenOverzichtServlet</servlet-class>
+</servlet>
+<servlet-mapping>
+	<servlet-name>OnbetaaldeFacturenOverzichtServlet</servlet-name>
+	<url-pattern>/OnbetaaldeFacturenOverzichtServlet.do</url-pattern>
+</servlet-mapping>
+<servlet>
+	<servlet-name>KlusWijzigenServlet</servlet-name>
+	<servlet-class>servlets.KlusWijzigenServlet</servlet-class>
+</servlet>
+<servlet-mapping>
+	<servlet-name>KlusWijzigenServlet</servlet-name>
+	<url-pattern>/KlusWijzigenServlet.do</url-pattern>
+</servlet-mapping>
+<servlet>
+	<servlet-name>AutoToevoegenServlet</servlet-name>
+	<servlet-class>servlets.AutoToevoegenServlet</servlet-class>
+</servlet>
+<servlet-mapping>
+	<servlet-name>AutoToevoegenServlet</servlet-name>
+	<url-pattern>/AutoToevoegenServlet.do</url-pattern>
+</servlet-mapping>
+<servlet>
+	<servlet-name>NieuweFactuurServlet</servlet-name>
+	<servlet-class>servlets.NieuweFactuurServlet</servlet-class>
+</servlet>
+<servlet-mapping>
+	<servlet-name>NieuweFactuurServlet</servlet-name>
+	<url-pattern>/NieuweFactuurServlet.do</url-pattern>
+</servlet-mapping>
+<servlet>
+	<servlet-name>NieuweReserveringServlet</servlet-name>
+	<servlet-class>servlets.NieuweReserveringServlet</servlet-class>
+</servlet>
+<servlet-mapping>
+	<servlet-name>NieuweReserveringServlet</servlet-name>
+	<url-pattern>/NieuweReserveringServlet.do</url-pattern>
+</servlet-mapping>
+<servlet>
+	<servlet-name>KlusServlet</servlet-name>
+	<servlet-class>servlets.KlusServlet</servlet-class>
+</servlet>
+<servlet-mapping>
+	<servlet-name>KlusServlet</servlet-name>
+	<url-pattern>/KlusServlet.do</url-pattern>
+</servlet-mapping>
+<servlet>
+	<servlet-name>BTWServlet</servlet-name>
+	<servlet-class>servlets.BTWServlet</servlet-class>
+</servlet>
+<servlet-mapping>
+	<servlet-name>BTWServlet</servlet-name>
+	<url-pattern>/BTWServlet.do</url-pattern>
+</servlet-mapping>
+<servlet>
+	<servlet-name>BriefServlet</servlet-name>
+	<servlet-class>servlets.BriefServlet</servlet-class>
+</servlet>
+<servlet-mapping>
+	<servlet-name>BriefServlet</servlet-name>
+	<url-pattern>/BriefServlet.do</url-pattern>
+</servlet-mapping>
+<servlet>
+	<servlet-name>LoginServlet</servlet-name>
+	<servlet-class>servlets.LoginServlet</servlet-class>
+</servlet>
+<servlet-mapping>
+	<servlet-name>LoginServlet</servlet-name>
+	<url-pattern>/LoginServlet.do</url-pattern>
+</servlet-mapping>
+<servlet>
+	<servlet-name>LogoutServlet</servlet-name>
+	<servlet-class>servlets.LogoutServlet</servlet-class>
+</servlet>
+<servlet-mapping>
+	<servlet-name>LogoutServlet</servlet-name>
+	<url-pattern>/LogoutServlet.do</url-pattern>
+</servlet-mapping>
+<servlet>
+	<servlet-name>ParkeerplaatsOverzichtServlet</servlet-name>
+	<servlet-class>servlets.ParkeerplaatsOverzichtServlet</servlet-class>
+</servlet>
+<servlet-mapping>
+	<servlet-name>ParkeerplaatsOverzichtServlet</servlet-name>
+	<url-pattern>/ParkeerplaatsOverzichtServlet.do</url-pattern>
+</servlet-mapping>
+<servlet>
+	<servlet-name>RegistreerServlet</servlet-name>
+	<servlet-class>servlets.RegistreerServlet</servlet-class>
+</servlet>
+<servlet-mapping>
+	<servlet-name>RegistreerServlet</servlet-name>
+	<url-pattern>/RegistreerServlet.do</url-pattern>
+</servlet-mapping>
+<servlet>
+	<servlet-name>NieuweGebruikersaccountServlet</servlet-name>
+	<servlet-class>servlets.NieuweGebruikersaccountServlet</servlet-class>
+</servlet>
+<servlet-mapping>
+	<servlet-name>NieuweGebruikersaccountServlet</servlet-name>
+	<url-pattern>/NieuweGebruikersaccountServlet.do</url-pattern>
+</servlet-mapping>
+<filter>
+	<filter-name>IngelogdFilter</filter-name>
+	<filter-class>filters.IngelogdFilter</filter-class>
+</filter>
+<filter-mapping>
+	<filter-name>IngelogdFilter</filter-name>
+	<url-pattern>*.do</url-pattern>
+</filter-mapping>
+<filter>
+	<filter-name>GeenKlantFilter</filter-name>
+	<filter-class>filters.GeenKlantFilter</filter-class>
+</filter>
+<filter-mapping>
+	<filter-name>GeenKlantFilter</filter-name>
+	<servlet-name>BriefServlet</servlet-name>
+	<servlet-name>BTWServlet</servlet-name>
+	<servlet-name>KlusServlet</servlet-name>
+	<servlet-name>KlusWijzigenServlet</servlet-name>
+	<servlet-name>NieuweBestellingServlet</servlet-name>
+	<servlet-name>NieuweFactuurServlet</servlet-name>
+	<servlet-name>NieuweKlusServlet</servlet-name>
+	<servlet-name>OnbetaaldeFacturenOverzichtServlet</servlet-name>
+	<servlet-name>ParkeerplaatsOverzichtServlet</servlet-name>
+	<servlet-name>ProductServlet</servlet-name>
+	<servlet-name>WijzigProductServlet</servlet-name>
+	<servlet-name>RegistreerServlet</servlet-name>	
+	<servlet-name>NieuweGebruikersaccountServlet</servlet-name>
+</filter-mapping>
+<filter>
+	<filter-name>GeenMonteurFilter</filter-name>
+	<filter-class>filters.GeenMonteurFilter</filter-class>
+</filter>
+<filter-mapping>
+	<filter-name>GeenMonteurFilter</filter-name>
+	<servlet-name>BriefServlet</servlet-name>
+	<servlet-name>BTWServlet</servlet-name>
+	<servlet-name>NieuweBestellingServlet</servlet-name>
+	<servlet-name>NieuweFactuurServlet</servlet-name>
+	<servlet-name>OnbetaaldeFacturenOverzichtServlet</servlet-name>
+	<servlet-name>ParkeerplaatsOverzichtServlet</servlet-name>
+	<servlet-name>RegistreerServlet</servlet-name>
+	<servlet-name>NieuweGebruikersaccountServlet</servlet-name>
+</filter-mapping>
+<filter>
+	<filter-name>GeenGaragebeheerderFilter</filter-name>
+	<filter-class>filters.GeenGaragebeheerderFilter</filter-class>
+</filter>
+<filter-mapping>
+	<filter-name>GeenGaragebeheerderFilter</filter-name>
+	<servlet-name>AutoToevoegenServlet</servlet-name>
+	<servlet-name>BriefServlet</servlet-name>
+	<servlet-name>BTWServlet</servlet-name>
+	<servlet-name>KlusServlet</servlet-name>
+	<servlet-name>KlusWijzigenServlet</servlet-name>
+	<servlet-name>NieuweBestellingServlet</servlet-name>
+	<servlet-name>NieuweFactuurServlet</servlet-name>
+	<servlet-name>NieuweKlusServlet</servlet-name>
+	<servlet-name>OnbetaaldeFacturenOverzichtServlet</servlet-name>
+	<servlet-name>ProductServlet</servlet-name>
+	<servlet-name>WijzigProductServlet</servlet-name>
+	<servlet-name>RegistreerServlet</servlet-name>
+	<servlet-name>NieuweGebruikersaccountServlet</servlet-name>
+</filter-mapping>
 </web-app>
