@@ -87,7 +87,7 @@ public class ConnectDBUser{
 				String ww = rs.getString("wachtwoord");
 				String email = rs.getString("email");
 				int type = rs.getInt("type");
-				int id = rs.getInt("id");
+				int id = rs.getInt("userid");
 				User u = new User(id, type, unm, ww, email);
 				u.setDeKlant(k);
 				terug = u;

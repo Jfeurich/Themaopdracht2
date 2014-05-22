@@ -2,7 +2,7 @@
  <jsp:param name="titel" value="Nieuwe reservering" /> 
 </jsp:include> 
 	<form action="NieuweReserveringServlet.do" method="post">
-		<%@ page import="java.util.ArrayList,domeinklassen.Klant,domeinklassen.Auto" %>
+		<%@ page import="java.util.ArrayList,domeinklassen.Klant,domeinklassen.Auto,domeinklassen.User" %>
 		<div>
 			<h1><span>3: Nieuwe Reservering aanmaken</span></h1>
 			<%
@@ -36,7 +36,17 @@
 					out.println("<input type=submit name=knop value=maakReservering />");
 				}
 				else{
-					ArrayList<Auto> autos = (ArrayList<Auto>)request.getAttribute("autos");
+					ArrayList<Auto> autos = null;
+					Object g = request.getSession().getAttribute("gebruiker");
+					if(g != null){
+						User deGebruiker = (User)g;
+						if(deGebruiker.getType() == 3){
+							autos = deGebruiker.getDeKlant().getAutos();
+						}
+					}
+					else{
+						autos = (ArrayList<Auto>)request.getAttribute("autos");
+					}
 					if(autos != null){
 						out.println("<h2><span>Selecteer de auto waar de reservering voor wordt gemaakt</span></h2>");
 						out.println("<table>");

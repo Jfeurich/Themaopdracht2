@@ -19,6 +19,7 @@ import database.ConnectDBReservering;
 import domeinklassen.Auto;
 import domeinklassen.Klant;
 import domeinklassen.Reservering;
+import domeinklassen.User;
 
 public class NieuweReserveringServlet extends HttpServlet{
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -28,17 +29,35 @@ public class NieuweReserveringServlet extends HttpServlet{
 		String knop = req.getParameter("knop");
 		
 		if(knop.equals("klanten")){
-			ConnectDBKlant klantconn = new ConnectDBKlant(con);
-			ArrayList<Klant> klanten = klantconn.getKlanten();
-			req.setAttribute("klanten", klanten);
+			Object g = req.getSession().getAttribute("gebruiker");
+			if(g != null){
+				User deGebruiker = (User)g;
+				if(deGebruiker.getType() == 3){
+					req.setAttribute("msg", "Leuk geprobeerd. U kunt alleen reserveren voor uw eigen auto's.");
+				}
+			}
+			else{			
+				ConnectDBKlant klantconn = new ConnectDBKlant(con);
+				ArrayList<Klant> klanten = klantconn.getKlanten();
+				req.setAttribute("klanten", klanten);
+			}
 		}
 		// haal auto's uit de database
 		else if(knop.equals("autos")){
-			ConnectDBAuto autoconn = new ConnectDBAuto(con);
-			String knr = req.getParameter("gekozenklant");
-			int klantnummer = Integer.parseInt(knr);
-			ArrayList<Auto> autos = autoconn.getAutosVan(klantnummer);
-			req.setAttribute("autos", autos);
+			Object g = req.getSession().getAttribute("gebruiker");
+			if(g != null){
+				User deGebruiker = (User)g;
+				if(deGebruiker.getType() == 3){
+					req.setAttribute("msg", "Leuk geprobeerd. U kunt alleen reserveren voor uw eigen auto's.");
+				}
+			}
+			else{	
+				ConnectDBAuto autoconn = new ConnectDBAuto(con);
+				String knr = req.getParameter("gekozenklant");
+				int klantnummer = Integer.parseInt(knr);
+				ArrayList<Auto> autos = autoconn.getAutosVan(klantnummer);
+				req.setAttribute("autos", autos);
+			}
 		}
 		else if(knop.equals("kiesAuto")){
 			ConnectDBAuto autoconn = new ConnectDBAuto(con);
