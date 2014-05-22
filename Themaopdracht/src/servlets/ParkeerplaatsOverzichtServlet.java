@@ -41,14 +41,20 @@ public class ParkeerplaatsOverzichtServlet extends HttpServlet {
 					DateFormat df = new SimpleDateFormat("dd-MM-yyyy");
 					Date beginDat =  df.parse(bD);  
 					Date eindDat = df.parse(eD);
-					//de begin- en einddatum opslaan in de sessie
-					req.getSession().setAttribute("beginDat",beginDat);
-					req.getSession().setAttribute("eindDat", eindDat);
-					//alle reserveringen tussen deze twee data zoeken
-					ConnectDBReservering conres = new ConnectDBReservering(con);
-					ArrayList<Reservering> deReserveringen = conres.getReserveringenTussen(beginDat, eindDat);
-					//alle gevonden reserveringen als attribute setten
-					req.getSession().setAttribute("gevondenReserveringen", deReserveringen);
+					//test of de einddatum niet voor de begindatum is
+					if(eindDat.before(beginDat)){
+						req.setAttribute("error", "De einddatum komt NA de begindatum!");
+					}
+					else{
+						//de begin- en einddatum opslaan in de sessie
+						req.getSession().setAttribute("beginDat",beginDat);
+						req.getSession().setAttribute("eindDat", eindDat);
+						//alle reserveringen tussen deze twee data zoeken
+						ConnectDBReservering conres = new ConnectDBReservering(con);
+						ArrayList<Reservering> deReserveringen = conres.getReserveringenTussen(beginDat, eindDat);
+						//alle gevonden reserveringen als attribute setten
+						req.getSession().setAttribute("gevondenReserveringen", deReserveringen);
+					}
 				}
 				catch(Exception e){
 					req.setAttribute("error", "Geen geldige datum!");
