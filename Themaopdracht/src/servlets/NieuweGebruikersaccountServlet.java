@@ -36,7 +36,7 @@ public class NieuweGebruikersaccountServlet extends HttpServlet {
 		ConnectDB database = new ConnectDB();
 		Connection con = database.maakVerbinding();
 		
-		String knop = req.getParameter("button");
+		String knop = req.getParameter("knop");
 		
 		if(knop.equals("Haal klant")){
 			//Haal de klantgegevens uit de database, of maak klant k als de klant nog niet bestaat.
@@ -51,9 +51,13 @@ public class NieuweGebruikersaccountServlet extends HttpServlet {
 				req.setAttribute("telefoonnummer",k.getTelefoonnummer());
 			}
 			catch(Exception e){
-				ConnectDBKlant klantcon = new ConnectDBKlant(con);
-				k = klantcon.nieuweKlant(naam, adres, woonplaats, rekeningnr, Integer.parseInt(telefoonnr));
-				req.setAttribute("msg", "Nieuwe Klant "+k.getNaam()+" aangemaakt!");
+				
+				req.setAttribute("msg", "Nieuwe Klant moet eerst aangemaakt worden");
+				//zorg ervoor dat een dialoogvenster geopend wordt waar gevraagd word om een nieuwe klant aan te maken
+				/*
+				 ConnectDBKlant klantcon = new ConnectDBKlant(con);
+				 k = klantcon.nieuweKlant(naam, adres, woonplaats, rekeningnr, Integer.parseInt(telefoonnr));
+				 */
 			}
 		}
 		else if(knop.equals("Maak user")){

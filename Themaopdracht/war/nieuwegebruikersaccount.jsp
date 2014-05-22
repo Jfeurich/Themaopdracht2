@@ -35,8 +35,8 @@
 				<tr><th>Rekeningnummer</th><td><input type="text" name="rekeningnummer" /></td></tr>
 				<tr><th>Telefoonnummer</th><td><input type="text" name="telefoonnummer" /></td></tr>
 				</table>
-				<input type="submit" value="Maak user" name="button"/>
-				<input type="submit" value="Haal Klant" name="button"/> 
+				<input type="submit" value="Maak user" name="knop"/>
+				<input type="submit" value="Haal Klant" name="knop"/> 
 			</div> 
 		</form>
 	</body> 
