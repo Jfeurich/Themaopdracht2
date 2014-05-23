@@ -64,6 +64,51 @@ public class ConnectDBKlus{
 		}
 		return terug;
 	}
+	//toegevoegd voor overzicht werkplaatsplanning
+	public ArrayList<Klus> getKlussenbydatum(){
+		ArrayList<Klus> terug = new ArrayList<Klus>();
+		try{
+			String sql = "SELECT * FROM Klus ORDER BY datum";
+			Statement stmt = con.createStatement();
+			ResultSet rs = stmt.executeQuery(sql);
+			while (rs.next()) {   // rs.next() geeft false als er niets meer is 
+			    java.sql.Date datum = rs.getDate("datum");
+			    java.util.Date dat = new java.util.Date(datum.getTime());
+				String bes = rs.getString("beschrijving");
+				String type = rs.getString("soort");
+				int id = rs.getInt("klusid");
+				int manuren = rs.getInt("manuren");
+				String status = rs.getString("status");
+				ConnectDBAuto autoconn = new ConnectDBAuto(con);
+				Auto deAuto = autoconn.zoekAuto(rs.getInt("autoid"));
+				ConnectDBGebruiktProduct gp = new ConnectDBGebruiktProduct(con);
+				ArrayList<GebruiktProduct> deProducten = gp.getProductenVanKlus(id);
+				Onderhoudsbeurt o = null;
+				Reparatie r = null;
+				if(type.equals("onderhoudsbeurt")){
+					o = new Onderhoudsbeurt(dat, bes, deAuto);
+					o.setID(id);
+					o.setGebruikteProducten(deProducten);
+					o.addManuren(manuren);
+					o.setStatus(status);
+					terug.add(o);
+				}
+				else if(type.equals("reparatie")){
+					r = new Reparatie(dat, bes, deAuto);
+					r.setID(id);
+					r.setGebruikteProducten(deProducten);
+					r.addManuren(manuren);
+					r.setStatus(status);
+					terug.add(r);
+				}
+			}
+			stmt.close();
+		}
+		catch(Exception ex){
+			System.out.println("Probleem bij klussen ophalen " + ex);
+		}
+		return terug;
+	}
 	
 	//alle onderhoudsbeurten in het systeem
 	public ArrayList<Onderhoudsbeurt> getOnderhoudsbeurten(){
