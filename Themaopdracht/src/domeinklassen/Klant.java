@@ -112,7 +112,7 @@ public class Klant {
 
 	public String getLaatsteBezoek() throws Exception{
 		boolean gewijzigd = false;
-		Date d = df.parse("00-00-0000");
+		Date d = df.parse("01-01-1950");
 		for(Auto a : deAutos){
 			Date l = a.laatsteKlus();
 			if(l.after(d)){
@@ -128,7 +128,7 @@ public class Klant {
 	
 	public String getLaatsteBrief() throws Exception{
 		boolean gewijzigd = false;
-		Date d = df.parse("00-00-0000");
+		Date d = df.parse("01-01-1950");
 		for(Herinneringsbrief h : deBrieven){
 			Date l = h.getDatum();
 			if(l.after(d)){

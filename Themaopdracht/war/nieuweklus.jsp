@@ -90,7 +90,7 @@
 						out.println("</tr>");
 						out.println("<tr>");
 							out.println("<th>Datum: </th>");
-							out.println("<td><input type=text name=datum placeholder=dd-mm-jjjj /></td>");
+							out.println("<td><input type=text name=datum class=datepicker /></td>");
 						out.println("</tr>");
 						out.println("</table>");
 					out.println("<textarea name=beschrijving placeholder=Omschrijving van de klus></textarea>");

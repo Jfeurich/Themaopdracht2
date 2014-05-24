@@ -53,7 +53,7 @@
 			for(Factuur f : facturen){
 				String naam = f.getDeKlus().getAuto().getEigenaar().getNaam();
 				out.println("<tr>");
-					out.println("<td>" + f.getBetaalDatum() + "</td>");
+					out.println("<td>" + f.getBetaalDatumNetjes() + "</td>");
 					out.println("<td>" + naam + "</td>");
 					out.println("<td>" + f.getTotaal() + "</td>");
 					out.println("<td>21%</td>");

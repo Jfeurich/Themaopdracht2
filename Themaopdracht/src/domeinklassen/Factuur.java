@@ -92,6 +92,11 @@ public class Factuur {
 	public String getBetaalDatumNetjes(){
 		return df.format(betaaldDatum);
 	}
+
+	
+	public String getAanmaakDatumNetjes(){
+		return df.format(aanmaakDatum);
+	}
 	
 	public boolean getIsBetaald(){
 		return isBetaald;

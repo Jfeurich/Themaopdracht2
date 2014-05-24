@@ -128,8 +128,8 @@
 					out.println("<input type=submit name=knop value=nieuwArtikel />");
 					out.println("<h3><span>En voer dan eventuele andere wijzigingen in</span></h3>");
 					out.println("<p class=kop >Datum</p>");
-					out.println("<p>Huidige datum: " + deKlus.getDatum() + "</p>");
-					out.println("<input type=text name=datum placeholder=dd-mm-jjjj />");
+					out.println("<p>Huidige datum: " + deKlus.getFormattedDatum() + "</p>");
+					out.println("<input type=text name=datum class=datepicker />");
 					out.println("<table>");
 					out.println("<tr><th>Status</th></tr>");
 					out.println("<tr><td><input type=radio name=status checked=checked value=voltooid /></td><td>Voltooid</td></tr>");

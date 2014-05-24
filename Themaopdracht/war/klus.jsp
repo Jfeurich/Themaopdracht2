@@ -34,7 +34,7 @@
 							else{
 								out.println("<td>Onderhoud</td>");
 							}
-							out.println("<td>" + k.getDatum() + "</td>");
+							out.println("<td>" + k.getFormattedDatum() + "</td>");
 							out.println("<td>" + k.getBeschrijving() + "</td>");
 							out.println("<td>" + k.getStatus() + "</td>");
 						out.println("</tr>");
