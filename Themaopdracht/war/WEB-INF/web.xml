@@ -141,6 +141,14 @@ version="2.4">
 	<url-pattern>/RegistreerServlet.do</url-pattern>
 </servlet-mapping>
 <servlet>
+	<servlet-name>KlusAnnulerenServlet</servlet-name>
+	<servlet-class>servlets.KlusAnnulerenServlet</servlet-class>
+</servlet>
+<servlet-mapping>
+	<servlet-name>KlusAnnulerenServlet</servlet-name>
+	<url-pattern>/KlusAnnulerenServlet.do</url-pattern>
+</servlet-mapping>
+<servlet>
 	<servlet-name>NieuweGebruikersaccountServlet</servlet-name>
 	<servlet-class>servlets.NieuweGebruikersaccountServlet</servlet-class>
 </servlet>
