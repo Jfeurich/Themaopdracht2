@@ -44,7 +44,7 @@
 					if(eerste){out.println("checked=checked ");eerste=false;}
 					out.println("value=" + f.getID() + " /></td>");
 					out.println("<td>" + f.getID() + "</td>");
-					out.println("<td>" + f.getAanmaakDatum() + "</td>");
+					out.println("<td>" + f.getAanmaakDatumNetjes() + "</td>");
 					out.println("<td>" + f.getKorting() + "</td>");
 					out.println("<td>" + f.getTotaal() + "</td>");
 				out.println("</tr>");

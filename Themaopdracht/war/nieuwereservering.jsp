@@ -25,11 +25,11 @@
 					out.println("<table>");
 						out.println("<tr>");
 							out.println("<th>Begindatum</th>");
-							out.println("<td><input type=text name=begindatum placeholder=dd-mm-jjjj /></td>");
+							out.println("<td><input type=text class=datepicker name=begindatum /></td>");
 						out.println("/<tr>");
 						out.println("<tr>");
 							out.println("<th>Einddatum</th>");
-							out.println("<td><input type=text name=einddatum placeholder=dd-mm-jjjj /></td>");
+							out.println("<td><input type=text class=datepicker name=einddatum /></td>");
 						out.println("/<tr>");
 					out.println("</table>");
 					out.println("<input type=hidden name=deAuto value=" + deAuto.getID() +" />");

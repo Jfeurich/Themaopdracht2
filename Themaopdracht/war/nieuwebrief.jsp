@@ -8,7 +8,7 @@
 			<% 		
 				Object error =  request.getAttribute("error");
 				if(error != null){
-					out.println("<h3<span>>Error!</span></h3>");
+					out.println("<h3><span>Error!</span></h3>");
 					out.println("<p name=error class=error >" + error + "</p>");
 				}
 				else{

@@ -156,6 +156,14 @@ version="2.4">
 	<servlet-name>NieuweGebruikersaccountServlet</servlet-name>
 	<url-pattern>/NieuweGebruikersaccountServlet.do</url-pattern>
 </servlet-mapping>
+<servlet>
+	<servlet-name>OverzichtWerkplaatsPlanningServlet</servlet-name>
+	<servlet-class>servlets.OverzichtWerkplaatsPlanningServlet</servlet-class>
+</servlet>
+<servlet-mapping>
+	<servlet-name>OverzichtWerkplaatsPlanningServlet</servlet-name>
+	<url-pattern>/OverzichtWerkplaatsPlanningServlet.do</url-pattern>
+</servlet-mapping>
 <filter>
 	<filter-name>IngelogdFilter</filter-name>
 	<filter-class>filters.IngelogdFilter</filter-class>
@@ -183,6 +191,7 @@ version="2.4">
 	<servlet-name>WijzigProductServlet</servlet-name>
 	<servlet-name>RegistreerServlet</servlet-name>	
 	<servlet-name>NieuweGebruikersaccountServlet</servlet-name>
+	<servlet-name>OverzichtWerkplaatsPlanningServlet</servlet-name>
 </filter-mapping>
 <filter>
 	<filter-name>GeenMonteurFilter</filter-name>
@@ -198,6 +207,7 @@ version="2.4">
 	<servlet-name>ParkeerplaatsOverzichtServlet</servlet-name>
 	<servlet-name>RegistreerServlet</servlet-name>
 	<servlet-name>NieuweGebruikersaccountServlet</servlet-name>
+	<servlet-name>OverzichtWerkplaatsPlanningServlet</servlet-name>
 </filter-mapping>
 <filter>
 	<filter-name>GeenGaragebeheerderFilter</filter-name>
@@ -218,5 +228,6 @@ version="2.4">
 	<servlet-name>WijzigProductServlet</servlet-name>
 	<servlet-name>RegistreerServlet</servlet-name>
 	<servlet-name>NieuweGebruikersaccountServlet</servlet-name>
+	<servlet-name>OverzichtWerkplaatsPlanningServlet</servlet-name>
 </filter-mapping>
 </web-app>

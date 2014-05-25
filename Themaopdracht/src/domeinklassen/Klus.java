@@ -103,6 +103,10 @@ public abstract class Klus {
 	public void setDeFactuur(Factuur f){
 		deFactuur = f;
 	}
+	
+	public String getFormattedDatum(){
+		return df.format(datum);
+	}
 
 	public Factuur getFactuur(){
 		return deFactuur;

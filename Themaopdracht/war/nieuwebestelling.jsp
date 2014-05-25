@@ -1,6 +1,27 @@
 <jsp:include page="header.jsp" > 
  <jsp:param name="titel" value="Nieuwe bestelling" /> 
 </jsp:include> 
+	<script type="text/javascript">
+		function updatePrijs(){
+			var totaal=parseFloat("0");
+			var array=document.getElementsByName("wijzigaantal");
+		    var aantal=[].slice.call(array);
+			var array2=document.getElementsByName("prijsperstuk");
+		    var pps=[].slice.call(array2);
+			
+			for(var i=parseFloat("0"); i<aantal.length; i++){
+				var text=aantal[i].value;
+				var prijs=pps[i].innerHTML;
+				var plus=parseFloat(text);
+				if(!isNaN(plus)){
+					if(plus > 0){
+						totaal += plus * parseFloat(prijs);
+					}
+				}
+			}
+			document.getElementById("totaalprijs").innerHTML="Totaalprijs: " + totaal + " euro";
+		}
+	</script>
 	<form action="NieuweBestellingServlet.do" method="post">
 		<%@ page import="java.util.ArrayList,domeinklassen.Bestelling,domeinklassen.Product,domeinklassen.BesteldProduct" %>
 		<div>
@@ -96,27 +117,6 @@
 				}
 			%>
 		</div>
-		<script type="text/javascript">
-			function updatePrijs(){
-				var totaal=parseFloat("0");
-				var array=document.getElementsByName("wijzigaantal");
-			    var aantal=[].slice.call(array);
-				var array2=document.getElementsByName("prijsperstuk");
-			    var pps=[].slice.call(array2);
-				
-				for(var i=parseFloat("0"); i<aantal.length; i++){
-					var text=aantal[i].value;
-					var prijs=pps[i].innerHTML;
-					var plus=parseFloat(text);
-					if(!isNaN(plus)){
-						if(plus > 0){
-							totaal += plus * parseFloat(prijs);
-						}
-					}
-				}
-				document.getElementById("totaalprijs").innerHTML="Totaalprijs: " + totaal + " euro";
-			}
-		</script>
 	</form>
 	<p><a href="nieuwebestelling.jsp">Terug</a></p>
 </body>

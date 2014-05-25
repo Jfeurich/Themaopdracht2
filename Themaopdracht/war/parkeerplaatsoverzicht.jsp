@@ -23,10 +23,10 @@
 			<table>
 				<tr>
 					<td>Begin datum:</td>
-					<td><input type=text name=begindat /></td>
-					<td>Begin datum:</td>
-					<td><input type=text name=einddat /></td>
-					<td><input type=submit name=knop value="Checkdatum" /></td>
+					<td><input type="text" name="begindat" class="datepicker" /></td>
+					<td>Eind datum:</td>
+					<td><input type="text" name="einddat" class="datepicker" /></td>
+					<td><input type="submit" name="knop" value="Checkdatum" /></td>
 				</tr>
 			</table><br />
 			<%
