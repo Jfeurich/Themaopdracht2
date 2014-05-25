@@ -33,6 +33,7 @@
 				<li><a href=registreer.jsp>Registreer nieuwe klant(7)</a></li>
 				<li><a href=nieuwegebruikersaccount.jsp>Registreer nieuwe gebruikersaccount(UGH WAT)</a></li>
 				<li><a href=klusannuleren.jsp>Een klus annuleren(iets)</a></li>
+				<li><a href=reserveringannuleren.jsp>Een parkeer reservering annuleren(iets)</a></li>
 			</ul>
 		</div>
 	</body>
