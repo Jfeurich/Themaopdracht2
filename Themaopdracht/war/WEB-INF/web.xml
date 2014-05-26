@@ -194,7 +194,6 @@ version="2.4">
 	<servlet-name>NieuweFactuurServlet</servlet-name>
 	<servlet-name>NieuweKlusServlet</servlet-name>
 	<servlet-name>OnbetaaldeFacturenOverzichtServlet</servlet-name>
-	<servlet-name>ParkeerplaatsOverzichtServlet</servlet-name>
 	<servlet-name>ProductServlet</servlet-name>
 	<servlet-name>WijzigProductServlet</servlet-name>
 	<servlet-name>RegistreerServlet</servlet-name>	
@@ -213,6 +212,7 @@ version="2.4">
 	<servlet-name>NieuweFactuurServlet</servlet-name>
 	<servlet-name>OnbetaaldeFacturenOverzichtServlet</servlet-name>
 	<servlet-name>ParkeerplaatsOverzichtServlet</servlet-name>
+	<servlet-name>NieuweReserveringServlet</servlet-name>
 	<servlet-name>RegistreerServlet</servlet-name>
 	<servlet-name>NieuweGebruikersaccountServlet</servlet-name>
 	<servlet-name>OverzichtWerkplaatsPlanningServlet</servlet-name>

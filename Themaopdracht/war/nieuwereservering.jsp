@@ -5,6 +5,7 @@
 		<%@ page import="java.util.ArrayList,domeinklassen.Klant,domeinklassen.Auto,domeinklassen.User" %>
 		<div>
 			<h1><span>3: Nieuwe Reservering aanmaken</span></h1>
+			<%@ page import="java.text.SimpleDateFormat" %>
 			<%
 				Object error =  request.getAttribute("error");
 				if(error != null){
@@ -19,19 +20,13 @@
 				}
 				Object auto = request.getAttribute("deAuto");
 				if (auto != null){
+					SimpleDateFormat df = new SimpleDateFormat("dd-MM-yyyy");
 					Auto deAuto = (Auto)auto;
 					out.println("<h2><span>Reservering voor:</span></h2>");
-					out.println("<p>" + deAuto.toString() + "</p>");
-					out.println("<table>");
-						out.println("<tr>");
-							out.println("<th>Begindatum</th>");
-							out.println("<td><input type=text class=datepicker name=begindatum /></td>");
-						out.println("/<tr>");
-						out.println("<tr>");
-							out.println("<th>Einddatum</th>");
-							out.println("<td><input type=text class=datepicker name=einddatum /></td>");
-						out.println("/<tr>");
-					out.println("</table>");
+					out.println("<p>" + deAuto.toString() + "<br />");
+					out.println("Parkeerplek: " + request.getSession().getAttribute("parkeerplek") + "<br />");
+					out.println("Van: " + df.format(request.getSession().getAttribute("beginDat")) + "<br />");
+					out.println("Tot: " + df.format(request.getSession().getAttribute("eindDat")) + "</p>");
 					out.println("<input type=hidden name=deAuto value=" + deAuto.getID() +" />");
 					out.println("<input type=submit name=knop value=maakReservering />");
 				}
@@ -43,9 +38,9 @@
 						if(deGebruiker.getType() == 3){
 							autos = deGebruiker.getDeKlant().getAutos();
 						}
-					}
-					else{
-						autos = (ArrayList<Auto>)request.getAttribute("autos");
+						else{
+							autos = (ArrayList<Auto>) request.getAttribute("autos");
+						}
 					}
 					if(autos != null){
 						out.println("<h2><span>Selecteer de auto waar de reservering voor wordt gemaakt</span></h2>");
