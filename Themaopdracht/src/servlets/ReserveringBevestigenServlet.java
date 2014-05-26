@@ -55,7 +55,9 @@ public class ReserveringBevestigenServlet extends HttpServlet{
 			if(reservering != null){
 				int reserveringid = Integer.parseInt(reservering);
 				ConnectDBReservering reserveringconn = new ConnectDBReservering(con);
-				reserveringconn.bevestigReservering(reserveringid);
+				Reservering r = reserveringconn.zoekReservering(reserveringid);
+				r.setGeweest(true);
+				reserveringconn.updateReservering(r);
 				req.setAttribute("msg", "De reservering is succesvol bevestigd");
 			}
 			else{
@@ -65,7 +67,7 @@ public class ReserveringBevestigenServlet extends HttpServlet{
 		
 		//Sluit de verbinding met de database
 		database.sluitVerbinding(con);
-		rd = req.getRequestDispatcher("reserveringannuleren.jsp");
+		rd = req.getRequestDispatcher("reserveringbevestigen.jsp");
 		rd.forward(req, resp);
 	}
 }

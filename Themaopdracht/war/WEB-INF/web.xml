@@ -157,6 +157,14 @@ version="2.4">
 	<url-pattern>/ReserveringAnnulerenServlet.do</url-pattern>
 </servlet-mapping>
 <servlet>
+	<servlet-name>ReserveringBevestigenServlet</servlet-name>
+	<servlet-class>servlets.ReserveringBevestigenServlet</servlet-class>
+</servlet>
+<servlet-mapping>
+	<servlet-name>ReserveringBevestigenServlet</servlet-name>
+	<url-pattern>/ReserveringBevestigenServlet.do</url-pattern>
+</servlet-mapping>
+<servlet>
 	<servlet-name>NieuweGebruikersaccountServlet</servlet-name>
 	<servlet-class>servlets.NieuweGebruikersaccountServlet</servlet-class>
 </servlet>
