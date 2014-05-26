@@ -2,7 +2,6 @@ package servlets;
 
 import java.io.IOException;
 import java.sql.Connection;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -18,10 +17,10 @@ import database.ConnectDBKlant;
 import database.ConnectDBReservering;
 import domeinklassen.Auto;
 import domeinklassen.Klant;
-import domeinklassen.Reservering;
 import domeinklassen.User;
 
 public class NieuweReserveringServlet extends HttpServlet{
+	private static final long serialVersionUID = 1L;
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		RequestDispatcher rd = req.getRequestDispatcher("nieuwereservering.jsp");
 		ConnectDB database = new ConnectDB();
@@ -35,12 +34,13 @@ public class NieuweReserveringServlet extends HttpServlet{
 				if(deGebruiker.getType() == 3){
 					req.setAttribute("msg", "Leuk geprobeerd. U kunt alleen reserveren voor uw eigen auto's.");
 				}
+				else{			
+					ConnectDBKlant klantconn = new ConnectDBKlant(con);
+					ArrayList<Klant> klanten = klantconn.getKlanten();
+					req.setAttribute("klanten", klanten);
+				}
 			}
-			else{			
-				ConnectDBKlant klantconn = new ConnectDBKlant(con);
-				ArrayList<Klant> klanten = klantconn.getKlanten();
-				req.setAttribute("klanten", klanten);
-			}
+			
 		}
 		// haal auto's uit de database
 		else if(knop.equals("autos")){
@@ -50,13 +50,13 @@ public class NieuweReserveringServlet extends HttpServlet{
 				if(deGebruiker.getType() == 3){
 					req.setAttribute("msg", "Leuk geprobeerd. U kunt alleen reserveren voor uw eigen auto's.");
 				}
-			}
-			else{	
-				ConnectDBAuto autoconn = new ConnectDBAuto(con);
-				String knr = req.getParameter("gekozenklant");
-				int klantnummer = Integer.parseInt(knr);
-				ArrayList<Auto> autos = autoconn.getAutosVan(klantnummer);
-				req.setAttribute("autos", autos);
+				else{	
+					ConnectDBAuto autoconn = new ConnectDBAuto(con);
+					String knr = req.getParameter("gekozenklant");
+					int klantnummer = Integer.parseInt(knr);
+					ArrayList<Auto> autos = autoconn.getAutosVan(klantnummer);
+					req.setAttribute("autos", autos);
+				}
 			}
 		}
 		else if(knop.equals("kiesAuto")){
@@ -67,66 +67,20 @@ public class NieuweReserveringServlet extends HttpServlet{
 		}
 		else if(knop.equals("maakReservering")){
 			String auto = req.getParameter("deAuto");
-			String begindat = (String) req.getSession().getAttribute("beginDat");
-			String einddat = (String) req.getSession().getAttribute("eindDat");
+			Date bD = (Date) req.getSession().getAttribute("beginDat");
+			Date eD = (Date) req.getSession().getAttribute("eindDat");
 			int autoid = Integer.parseInt(auto);
 			ConnectDBAuto autoconn = new ConnectDBAuto(con);
 			Auto deAuto = autoconn.zoekAuto(autoid);
 			boolean magMaken = false;
 			//check voor geldige datum
 			try{
-				SimpleDateFormat df = new SimpleDateFormat("dd-MM-yyyy");
-				Date bD = df.parse(begindat);
-				Date eD = df.parse(einddat);
 				int parkeerplek = (int) req.getSession().getAttribute("parkeerplek");
-				int dP = 1;
-				if(eD.before(bD)){	//check of de einddatum wel na de begindatum is
-					req.setAttribute("error", "De einddatum komt NA de begindatum!");
-				}
-				else{
-					ConnectDBReservering rconn = new ConnectDBReservering(con);
-					ArrayList<Reservering> reserveringen = rconn.getReserveringenTussen(bD, eD);
-					if(reserveringen.size() > 40){	//kijk of er nog plek is op de gewenste data
-						req.setAttribute("error", "Helaas! Er is in deze periode geen plek meer in de parkeergarage!");
-					}
-					else if(reserveringen.size() == 0){
-						magMaken = true;
-					}
-					else{ //als er plek is, kies de eerste beschikbaar
-						boolean heeftPlek = false;
-						while(dP <= 40){	//checkt voor alle 40 plekken of ze beschikbaar zijn
-							for(Reservering r : reserveringen){
-								//kijk of de auto een andere reservering heeft die begint of eindigt tussen de gekozen data
-								if(r.getAuto().getID() == autoid){	
-									req.setAttribute("error", "Er bestaat al een reservering voor deze auto in deze periode!");
-									magMaken = false;
-									break;
-								}	//kijk of de parkeerplek bezet is
-								else if(r.getDeParkeerplek() == dP){		
-									heeftPlek = false;
-									dP++;
-									break;
-								}
-								else{
-									heeftPlek = true;
-									magMaken = true;
-								}
-							}
-							if(!magMaken || heeftPlek){
-								break;
-							}
-						}
-					}
-					if(magMaken){	//maak de reservering en geef een succesbericht terug
-						rconn.nieuweReservering(deAuto, parkeerplek, bD, eD);
-						String terug = "Reservering met succes aangemaakt voor parkeerplaats: " + parkeerplek;
-						req.setAttribute("msg", terug);
-						req.getRequestDispatcher("index.jsp");
-					}
-					else if(dP == 41){
-						req.setAttribute("error", "Er zijn geen parkeerplaatsen beschikbaar in deze periode!");
-					}
-				}
+				ConnectDBReservering rconn = new ConnectDBReservering(con);
+				rconn.nieuweReservering(deAuto, parkeerplek, bD, eD);
+				String terug = "Reservering met succes aangemaakt voor parkeerplaats: " + parkeerplek;
+				req.setAttribute("msg", terug);
+				rd = req.getRequestDispatcher("index.jsp");
 			}
 			catch(Exception ex){
 				System.out.println(ex);

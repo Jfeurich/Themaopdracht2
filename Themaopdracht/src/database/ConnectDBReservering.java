@@ -32,9 +32,14 @@ public class ConnectDBReservering{
 				java.sql.Date edat = rs.getDate("eindDat");
 				java.util.Date eD = new Date(edat.getTime());
 				int autoid = rs.getInt("autoid");
+				String isGeweest = rs.getString("isGeweest");
 				ConnectDBAuto autoconn = new ConnectDBAuto(con);
 				Auto a = autoconn.zoekAuto(autoid);
-				terug.add(new Reservering(a, id, bD, eD, dP));
+				Reservering nieuw = new Reservering(a, id, bD, eD, dP);
+				if(isGeweest.equals("t")){
+					nieuw.setGeweest(true);
+				}
+				terug.add(nieuw);
 			}
 			stmt.close();
 		}
@@ -62,9 +67,14 @@ public class ConnectDBReservering{
 				java.sql.Date edat = rs.getDate("eindDat");
 				java.util.Date eD = new Date(edat.getTime());
 				int autoid = rs.getInt("autoid");
+				String isGeweest = rs.getString("isGeweest");
 				ConnectDBAuto autoconn = new ConnectDBAuto(con);
 				Auto a = autoconn.zoekAuto(autoid);
-				terug.add(new Reservering(a, id, bD, eD, dP));
+				Reservering nieuw = new Reservering(a, id, bD, eD, dP);
+				if(isGeweest.equals("t")){
+					nieuw.setGeweest(true);
+				}
+				terug.add(nieuw);
 			}
 			stmt.close();
 		}
@@ -88,9 +98,13 @@ public class ConnectDBReservering{
 				java.sql.Date edat = rs.getDate("eindDat");
 				java.util.Date eD = new Date(edat.getTime());
 				int autoid = rs.getInt("autoid");
+				String isGeweest = rs.getString("isGeweest");
 				ConnectDBAuto autoconn = new ConnectDBAuto(con);
 				Auto a = autoconn.zoekAuto(autoid);
 				terug = new Reservering(a, id, bD, eD, dP);
+				if(isGeweest.equals("t")){
+					terug.setGeweest(true);
+				}
 			}
 			stmt.close();
 		}
@@ -114,9 +128,14 @@ public class ConnectDBReservering{
 				java.util.Date bD = new Date(bdat.getTime());
 				java.sql.Date edat = rs.getDate("eindDat");
 				java.util.Date eD = new Date(edat.getTime());
+				String isGeweest = rs.getString("isGeweest");
 				ConnectDBAuto autoconn = new ConnectDBAuto(con);
 				Auto a = autoconn.zoekAuto(autoid);
-				terug.add(new Reservering(a, id, bD, eD, dP));
+				Reservering nieuw = new Reservering(a, id, bD, eD, dP);
+				if(isGeweest.equals("t")){
+					nieuw.setGeweest(true);
+				}
+				terug.add(nieuw);
 			}
 			stmt.close();
 		}
@@ -132,8 +151,8 @@ public class ConnectDBReservering{
 		try{
 			java.sql.Date beginDat = new java.sql.Date(bD.getTime());
 			java.sql.Date eindDat = new java.sql.Date(eD.getTime());
-			String sql = "INSERT INTO Reservering (beginDat, eindDat, autoid, deParkeerplek) VALUES ('" + beginDat + "', '" + 
-			eindDat + "', " + a.getID() + ", " + dP + ");";
+			String sql = "INSERT INTO Reservering (beginDat, eindDat, autoid, deParkeerplek, isGeweest) VALUES ('" + beginDat + "', '" + 
+			eindDat + "', " + a.getID() + ", " + dP + ", 'f');";
 			Statement stmt = con.createStatement();
 			stmt.executeUpdate(sql);
 			stmt.close();
@@ -156,12 +175,16 @@ public class ConnectDBReservering{
 	//update begindatum, eindddatum, en parkeerplaats
 	public boolean updateReservering(Reservering r){
 		try{
+			String isGeweest = "f";
+			if(r.isGeweest()){
+				isGeweest = "t";
+			}
 			java.util.Date bdat = r.getBegDat();
 			java.util.Date edat = r.getEindDat();
 			java.sql.Date beginDat = new java.sql.Date(bdat.getTime());
 			java.sql.Date eindDat = new java.sql.Date(edat.getTime());
-			String sql = "UPDATE Reservering SET beginDat='" + beginDat + "',  eindDat='" + eindDat + 
-					"', deParkeerplek=" + r.getDeParkeerplek() + " WHERE reserveringid=" + r.getID();
+			String sql = "UPDATE Reservering SET beginDat='" + beginDat + "',  eindDat='" + eindDat + "', deParkeerplek=" 
+					+ r.getDeParkeerplek() + ", isGeweest='" + isGeweest + "' WHERE reserveringid=" + r.getID();
 			Statement stmt = con.createStatement();
 			stmt.executeUpdate(sql);	
 			stmt.close();

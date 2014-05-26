@@ -3,8 +3,6 @@ package servlets;
 
 import java.io.IOException;
 import java.sql.Connection;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -21,7 +19,6 @@ import domeinklassen.Klus;
 public class OverzichtWerkplaatsPlanningServlet extends HttpServlet{
 	private static final long serialVersionUID = 1L;
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		DateFormat df = new SimpleDateFormat("dd-MM-yyyy");
 		Date dat = new Date();
 		
 		ConnectDB database = new ConnectDB();

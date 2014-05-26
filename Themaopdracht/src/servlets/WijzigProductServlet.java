@@ -101,7 +101,7 @@ public class WijzigProductServlet extends HttpServlet {
 			if(conn.verwijderProduct(Integer.parseInt(p))){
 				req.setAttribute("msg", "Product met succes verwijderd.");
 			}
-			ArrayList deVoorraad = conn.getProducten();
+			ArrayList<Product> deVoorraad = conn.getProducten();
 			req.setAttribute("voorraadlijst", deVoorraad);
 			rd = req.getRequestDispatcher("productenoverzicht.jsp");	
 		}

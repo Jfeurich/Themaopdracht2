@@ -9,7 +9,6 @@ import java.util.Properties;
 import javax.mail.Message;
 import javax.mail.Session;
 import javax.mail.Transport;
-import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import javax.servlet.RequestDispatcher;
@@ -33,7 +32,6 @@ public class NieuweFactuurServlet extends HttpServlet{
 
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		
-		int aantalPerkeerplaatsen = 0;
 		ConnectDB database = new ConnectDB();
 		Connection con = database.maakVerbinding();
 		String knop = req.getParameter("knop");

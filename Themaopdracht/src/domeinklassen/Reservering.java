@@ -10,11 +10,13 @@ public class Reservering {
 	private SimpleDateFormat df = new SimpleDateFormat("dd-MM-yyyy");
 	private int deParkeerplek;
 	private Auto deAuto;
+	private boolean isGeweest;
 
 	public Reservering(Date bD, Date eD, int dP){
 		beginDat = bD;
 		eindDat = eD;
 		deParkeerplek = dP;
+		isGeweest = false;
 	}
 	
 	public Reservering(Auto a, int i, Date bD, Date eD, int dP){
@@ -23,6 +25,15 @@ public class Reservering {
 		beginDat = bD;
 		eindDat = eD;
 		deParkeerplek = dP;
+		isGeweest = false;
+	}
+
+	public boolean isGeweest() {
+		return isGeweest;
+	}
+
+	public void setGeweest(boolean isGeweest) {
+		this.isGeweest = isGeweest;
 	}
 
 	public boolean isTussenDatum(Date bD, Date eD){

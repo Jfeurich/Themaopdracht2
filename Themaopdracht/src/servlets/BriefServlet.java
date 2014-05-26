@@ -10,7 +10,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import database.ConnectDB;
-import database.ConnectDBAuto;
 import database.ConnectDBHerinneringsbrief;
 import database.ConnectDBKlant;
 import domeinklassen.Klant;
