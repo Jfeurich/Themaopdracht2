@@ -195,11 +195,12 @@ beginDat		DATE	NOT NULL,
 eindDat			DATE	NOT NULL,
 deParkeerplek	INTEGER	NOT NULL,
 autoid			INTEGER NOT NULL,
+isGeweest		CHAR(1) NOT NULL,
 FOREIGN KEY (autoid) REFERENCES Auto(autoid)
 );
 
-INSERT INTO Reservering (beginDat, eindDat, autoid, deParkeerplek) VALUES
-('2012-01-01', '2012-01-02', 1, 1),
-('2013-02-02', '2013-04-01', 2, 5),
-('2014-01-15', '2014-02-05', 3, 15)
+INSERT INTO Reservering (beginDat, eindDat, autoid, deParkeerplek, isGeweest) VALUES
+('2012-01-01', '2012-01-02', 1, 1, 'f'),
+('2013-02-02', '2013-04-01', 2, 5, 'f'),
+('2014-01-15', '2014-02-05', 3, 15, 'f')
 ;
