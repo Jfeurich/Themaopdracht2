@@ -21,6 +21,7 @@ public class LoginServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private User deGebruiker;
 	
+	@SuppressWarnings("unchecked")
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp)throws ServletException, IOException { 
 
 		RequestDispatcher rd = null; 
@@ -45,12 +46,12 @@ public class LoginServlet extends HttpServlet {
 			} 
 			else{
 				ServletContext sc = getServletContext();
-				Object o = getServletContext().getAttribute("loggedusers");
+				Object o = sc.getAttribute("loggedusers");
 				if(o == null){
 					ArrayList<String> ingelogdeGebruikers = new ArrayList<String>();
 					sc.setAttribute("loggedusers", ingelogdeGebruikers);
 				}
-				ArrayList<String> ingelogdeGebruikers = (ArrayList<String>)getServletContext().getAttribute("loggedusers");
+				ArrayList<String> ingelogdeGebruikers = (ArrayList<String>)sc.getAttribute("loggedusers");
 				ingelogdeGebruikers.add(deGebruiker.getGebruikersnaam());
 				sc.setAttribute("loggedusers", ingelogdeGebruikers);
 				req.setAttribute("msg", "U bent succesvol ingelogd!");

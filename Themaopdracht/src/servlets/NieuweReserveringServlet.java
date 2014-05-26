@@ -22,6 +22,7 @@ import domeinklassen.Reservering;
 import domeinklassen.User;
 
 public class NieuweReserveringServlet extends HttpServlet{
+	private static final long serialVersionUID = 1L;
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		RequestDispatcher rd = req.getRequestDispatcher("nieuwereservering.jsp");
 		ConnectDB database = new ConnectDB();
