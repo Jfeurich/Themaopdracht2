@@ -40,4 +40,4 @@
 				<li><a href=reserveringannuleren.jsp>Een parkeer reservering annuleren(iets)</a></li>
 			</ul>
 		</div>
-<%@ include page="footer.html"%>
+<%@ include file="footer.html" %>

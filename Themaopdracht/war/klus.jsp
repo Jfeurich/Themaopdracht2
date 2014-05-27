@@ -2,7 +2,7 @@
 	<jsp:param name="titel" value="Hoofdmenu klus" /> 
 </jsp:include> 
 	<h1><span>Hoofdmenu Klus</span></h1>
-	<%@ include page="messages.jsp" %>
+	<%@ include file="messages.jsp" %>
 	<form action="KlusServlet.do" method="post">
 		<%@ page import="domeinklassen.Klus,domeinklassen.Onderhoudsbeurt,domeinklassen.Reparatie,domeinklassen.Product,domeinklassen.GebruiktProduct,java.util.ArrayList" %>
 		<div>
@@ -82,4 +82,4 @@
 			%>
 		</div>
 	</form>
-<%@ include page="footer.html" %>
+<%@ include file="footer.html" %>

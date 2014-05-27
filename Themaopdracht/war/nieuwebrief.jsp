@@ -4,7 +4,7 @@
 	<form action="BriefServlet.do" method="post">
 		<%@ page import="java.util.ArrayList,domeinklassen.Klant,domeinklassen.Herinneringsbrief" %>
 		<h1><span>23: Nieuwe herinneringsbrief</span></h1>
-		<%@ include page="messages.jsp" %>
+		<%@ include file="messages.jsp" %>
 		<div>
 			<%
 			Object klant = request.getAttribute("deKlant");
@@ -55,4 +55,4 @@
 			%>
 		</div>
 	</form>
-<%@ include page="footer.html" %>
+<%@ include file="footer.html" %>

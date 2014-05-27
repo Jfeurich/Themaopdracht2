@@ -26,7 +26,7 @@
 		<%@ page import="java.util.ArrayList,domeinklassen.Bestelling,domeinklassen.Product,domeinklassen.BesteldProduct" %>
 		<div>
 			<h1><span>11: Nieuwe bestelling aanmaken</span></h1>
-			<%@ include page="messages.jsp" %>
+			<%@ include file="messages.jsp" %>
 			<%
 			if(request.getAttribute("stap1") != null) {
 				ArrayList<Product> producten = (ArrayList<Product>)request.getAttribute("producten");	
@@ -123,4 +123,4 @@
 		</div>
 	</form>
 	<p><a href="nieuwebestelling.jsp">Terug</a></p>
-<%@ include page="footer.html" %>
+<%@ include file="footer.html" %>

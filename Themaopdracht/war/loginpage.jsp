@@ -3,7 +3,7 @@
 </jsp:include> 
 	<form action="LoginServlet.do" method="post">
 		<h1><span>LoginPage</span></h1> 
-		<%@ include page="messages.jsp" %> 
+		<%@ include file="messages.jsp" %> 
 		<div> 
 			<table>
 				<tr>
@@ -18,4 +18,4 @@
 			<input type="submit" value="Login!" /> 
 		</div> 
 	</form>
-<%@ include page="footer.html" %>
+<%@ include file="footer.html" %>

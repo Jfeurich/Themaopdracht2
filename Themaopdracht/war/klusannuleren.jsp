@@ -5,7 +5,7 @@
 	<%@ page import="java.util.ArrayList,domeinklassen.Klant,domeinklassen.Auto,domeinklassen.Klus,domeinklassen.Onderhoudsbeurt,domeinklassen.Reparatie,domeinklassen.GebruiktProduct,domeinklassen.Product" %>
 		<div>
 			<h1>Een klus Annuleren</h1>
-			<%@ include page="messages.jsp"%>
+			<%@ include file="messages.jsp"%>
 			<%		
 		   	Object gekozen = request.getAttribute("deKlus");
 			if(gekozen == null){
@@ -54,4 +54,4 @@
 			%>
 		</div>
 	</form>
-<%@ include page="footer.html" %>
+<%@ include file="footer.html" %>

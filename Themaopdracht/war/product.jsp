@@ -1,5 +1,5 @@
 <jsp:include page="header.jsp" > 
- <jsp:param name="titel" value="Hoofdmenu product" /> 
+	<jsp:param name="titel" value="Hoofdmenu product" /> 
 </jsp:include> 
 	<h1><span>Hoofdmenu Product</span></h1>
 	<form action="ProductServlet.do" method="post">
@@ -10,19 +10,7 @@
 		</div>
 		<div>
 			<h2><span>Nieuw product aanmaken</span></h2>
-			<%
-				Object error =  request.getAttribute("error");
-				if(error != null){
-					out.println("<h3><span>Error!</span></h3>");
-					out.println("<p name=error class=error >" + error + "</p>");
-				}
-				else{
-					Object msg = request.getAttribute("msg");
-					if(msg != null){
-						out.println("<h3 name=msg class=msg >" + msg + "</h3>");
-					}
-				}
-			%>
+			<%@ include file="messages.jsp" %>
 			<table>
 				<tr>
 					<th>Naam:</th>
@@ -48,25 +36,29 @@
 			<%
 				Object zoekmsg = request.getAttribute("zoekmsg");
 				if(zoekmsg != null){
-					out.println("<h3 class=msg ><span>" + zoekmsg + "</span></h3>");
+					%><h3 class=msg ><span><%=zoekmsg%></span></h3><%
 				}
 				Object gevonden = request.getAttribute("productgevonden");
 				Object arraygevonden = request.getAttribute("arraygevonden");
 				if(gevonden != null){
 					Product hetProduct = (Product)gevonden;
-					out.println("<p>" + hetProduct.toString() + "</p>");
-					out.println("<input type=hidden name=product value=" + hetProduct.getArtikelNr() + " />");
-					out.println("<p><input type=submit name=knop value=wijzig /></p>");
+					%>
+					<p><%=hetProduct.toString()%></p>
+					<input type="hidden" name="product" value="<%=hetProduct.getArtikelNr()%>" />
+					<p><input type="submit" name="knop" value="wijzig" /></p>
+					<%
 				}
 				else if(arraygevonden != null){
 					ArrayList<Product> lijst = (ArrayList<Product>)arraygevonden;
 					boolean eerste = true;
 					for(Product p: lijst){
-						out.println("<p><input type=radio name=product ");
-						if(eerste){out.println("checked=checked ");eerste=false;}
-						out.println("value=" + p.getArtikelNr() + " />" + p.toString() + "</p>");			
+						%>
+						<p><input type="radio" name="product" 
+						<%if(eerste){out.println(" checked=checked ");eerste=false;}%>
+						value="<%=p.getArtikelNr()%>" /><%=p.toString()%></p>
+						<%			
 					}
-					out.println("<p><input type=submit name=knop value=wijzig /></p>");	
+					%><p><input type="submit" name="knop" value="wijzig" /></p><%
 				}
 			%>
 			<table>

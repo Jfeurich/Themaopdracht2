@@ -6,7 +6,7 @@
 		<%@ page import="java.util.ArrayList,domeinklassen.Klant,domeinklassen.Auto,domeinklassen.Klus,domeinklassen.Onderhoudsbeurt,domeinklassen.Reparatie,domeinklassen.GebruiktProduct,domeinklassen.Product" %>
 		<div>
 			<h1><span>16: Klus wijzigen</span></h1>
-			<%@ include page="messages.jsp"%>
+			<%@ include file="messages.jsp"%>
 			<%
 			Object gekozen = request.getAttribute("deKlus");
 			if(gekozen == null){
@@ -161,4 +161,4 @@
 		</div>
 	</form>
 	<p><a href="kluswijzigen.jsp">Terug</a></p>
-<%@ include page="footer.html" %>
+<%@ include file="footer.html" %>

@@ -5,7 +5,7 @@
 		<%@ page import="java.util.ArrayList,domeinklassen.Klant,domeinklassen.Auto,domeinklassen.Klus,domeinklassen.Factuur" %>
 		<div>
 			<h2><span>6: Nieuwe Factuur aanmaken</span></h2>
-			<%@ include page="messages.jsp" %>
+			<%@ include file="messages.jsp" %>
 			<%
 			Object fact = request.getAttribute("deFactuur");
 			if (fact != null){
@@ -127,4 +127,4 @@
 		</div>
 	</form>
 	<p><a href="factuur.jsp">Terug naar hoofdmenu factuur</a></p>
-<%@ include page="footer.html" %>
+<%@ include file="footer.html" %>
