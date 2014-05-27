@@ -149,20 +149,20 @@ version="2.4">
 	<url-pattern>/KlusAnnulerenServlet.do</url-pattern>
 </servlet-mapping>
 <servlet>
-	<servlet-name>ReserveringAnnulerenServlet</servlet-name>
-	<servlet-class>servlets.ReserveringAnnulerenServlet</servlet-class>
-</servlet>
-<servlet-mapping>
-	<servlet-name>ReserveringAnnulerenServlet</servlet-name>
-	<url-pattern>/ReserveringAnnulerenServlet.do</url-pattern>
-</servlet-mapping>
-<servlet>
 	<servlet-name>ReserveringBevestigenServlet</servlet-name>
 	<servlet-class>servlets.ReserveringBevestigenServlet</servlet-class>
 </servlet>
 <servlet-mapping>
 	<servlet-name>ReserveringBevestigenServlet</servlet-name>
 	<url-pattern>/ReserveringBevestigenServlet.do</url-pattern>
+</servlet-mapping>
+<servlet>
+	<servlet-name>ReserveringAnnulerenServlet</servlet-name>
+	<servlet-class>servlets.ReserveringAnnulerenServlet</servlet-class>
+</servlet>
+<servlet-mapping>
+	<servlet-name>ReserveringAnnulerenServlet</servlet-name>
+	<url-pattern>/ReserveringAnnulerenServlet.do</url-pattern>
 </servlet-mapping>
 <servlet>
 	<servlet-name>NieuweGebruikersaccountServlet</servlet-name>
@@ -207,6 +207,9 @@ version="2.4">
 	<servlet-name>RegistreerServlet</servlet-name>	
 	<servlet-name>NieuweGebruikersaccountServlet</servlet-name>
 	<servlet-name>OverzichtWerkplaatsPlanningServlet</servlet-name>
+	<servlet-name>KlusAnnulerenServlet</servlet-name>
+	<servlet-name>ReserveringAnnulerenServlet</servlet-name>
+	<servlet-name>ReserveringBevestigenServlet</servlet-name>
 </filter-mapping>
 <filter>
 	<filter-name>GeenMonteurFilter</filter-name>
@@ -224,6 +227,8 @@ version="2.4">
 	<servlet-name>RegistreerServlet</servlet-name>
 	<servlet-name>NieuweGebruikersaccountServlet</servlet-name>
 	<servlet-name>OverzichtWerkplaatsPlanningServlet</servlet-name>
+	<servlet-name>ReserveringAnnulerenServlet</servlet-name>
+	<servlet-name>ReserveringBevestigenServlet</servlet-name>
 </filter-mapping>
 <filter>
 	<filter-name>GeenGaragebeheerderFilter</filter-name>
@@ -245,5 +250,6 @@ version="2.4">
 	<servlet-name>RegistreerServlet</servlet-name>
 	<servlet-name>NieuweGebruikersaccountServlet</servlet-name>
 	<servlet-name>OverzichtWerkplaatsPlanningServlet</servlet-name>
+	<servlet-name>KlusAnnulerenServlet</servlet-name>
 </filter-mapping>
 </web-app>

@@ -4,7 +4,7 @@
 	<form action="KlusAnnulerenServlet.do" method="get"> 
 	<%@ page import="java.util.ArrayList,domeinklassen.Klant,domeinklassen.Auto,domeinklassen.Klus,domeinklassen.Onderhoudsbeurt,domeinklassen.Reparatie,domeinklassen.GebruiktProduct,domeinklassen.Product" %>
 		<div>
-			<h1>Een klus Annuleren</h1>
+			<h1>26: Een klus Annuleren</h1>
 			<%@ include file="messages.jsp"%>
 			<%		
 		   	Object gekozen = request.getAttribute("deKlus");

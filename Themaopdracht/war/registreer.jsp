@@ -1,29 +1,10 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" 
-"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"> 
-<html xmlns="http://www.w3.org/1999/xhtml"> 
-<head> 
-	<meta http-equiv="content-type" content="text/html; charset=iso-8859-1" /> 
-	<title>Register Page</title> 
-</head> 
-<body>
+<jsp:include page="header.jsp" > 
+	<jsp:param name="titel" value="Registreren" /> 
+</jsp:include> 
 	<form action="RegistreerServlet.do" method="get"> 
-		<div id="messagebox"> 
-		 <% 
-			Object error =  request.getAttribute("error");
-			if(error != null){
-				out.println("<h3><span>Error!</span></h3>");
-				out.println("<p name=error class=error >" + error + "</p>");
-			}
-			else{
-				Object msg = request.getAttribute("msg");
-				if(msg != null){
-					out.println("<h3 name=msg class=msg ><span>" + msg + "</span></h3>");
-				}
-			}
-		 %> 
-		</div> 
 		<div>
 			<h1>7: Registreer</h1>
+			<%@ include file="messages.jsp" %> 
 			<table>
 				<tr>
 					<th>Gebruikersnaam</th>
@@ -69,5 +50,4 @@
 			<input type="submit" value="Registreer" name="knop" />
 		</div>
 	</form>
-</body>
- </html>
+<%@ include file="footer.html" %>

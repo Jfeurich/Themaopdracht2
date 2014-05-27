@@ -17,17 +17,16 @@ import domeinklassen.Reservering;
 public class ReserveringAnnulerenServlet extends HttpServlet{
 	private static final long serialVersionUID = 1L;
 
-	protected void doGet(HttpServletRequest req, HttpServletResponse resp)
-			throws ServletException, IOException {
+	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		ConnectDB database = new ConnectDB();
 		Connection con = database.maakVerbinding();
 		
-		String knopje = req.getParameter("knop");
-		String viaID = req.getParameter("zoekviaID");
+		String knop = req.getParameter("knop");
 		RequestDispatcher rd = null;
 		
 		//Haalt de reserveringen op via ingevoerde ID
-		if (knopje.equals("zoek")){
+		if (knop.equals("zoek")){
+			String viaID = req.getParameter("zoekviaID");
 			if(!viaID.equals("")){
 				try{
 					ConnectDBReservering reserveringconn = new ConnectDBReservering(con);
@@ -41,7 +40,7 @@ public class ReserveringAnnulerenServlet extends HttpServlet{
 					}
 				}
 				catch(Exception ex){
-					req.setAttribute("error","Er zijn bestaan geen klussen van het ingevoerde ID");
+					req.setAttribute("error","Voer een geldig ID in!");
 				}
 			}
 			else{
@@ -50,7 +49,7 @@ public class ReserveringAnnulerenServlet extends HttpServlet{
 		}
 		
 		//haalt de gekozen reservering op uit de database en verwijderd hem vervolgens uit de database
-		else if(knopje.equals("annuleer")){
+		else if(knop.equals("annuleer")){
 			String reservering = req.getParameter("gekozenreservering");
 			if(reservering != null){
 				int reserveringid = Integer.parseInt(reservering);
@@ -65,7 +64,6 @@ public class ReserveringAnnulerenServlet extends HttpServlet{
 		
 		//Sluit de verbinding met de database
 		database.sluitVerbinding(con);
-		rd = req.getRequestDispatcher("reserveringannuleren.jsp");
-		rd.forward(req, resp);
+		req.getRequestDispatcher("reserveringannuleren.jsp").forward(req, resp);
 	}
 }

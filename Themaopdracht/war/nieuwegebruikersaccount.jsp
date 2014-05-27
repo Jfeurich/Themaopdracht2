@@ -1,7 +1,7 @@
 <jsp:include page="header.jsp" > 
 	<jsp:param name="titel" value="Nieuwe gebruikersaccount" /> 
 </jsp:include> 
-	<h1><span>Nieuwe Gebruikersaccount</span></h1>
+	<h1><span>17: Nieuwe Gebruikersaccount</span></h1>
 	<form action="NieuweGebruikersaccountServlet.do" method="post"> 
 		<div> 
 			<%@ page import="domeinklassen.User,domeinklassen.Klant" %>

@@ -15,19 +15,17 @@ import database.ConnectDBReservering;
 import domeinklassen.Reservering;
 
 public class ReserveringBevestigenServlet extends HttpServlet{
-	private static final long serialVersionUID = 1L;
-	protected void doGet(HttpServletRequest req, HttpServletResponse resp)
-			throws ServletException, IOException {
+	private static final long serialVersionUID = 1L; 
+	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 	
 		ConnectDB database = new ConnectDB();
 		Connection con = database.maakVerbinding();
 		
-		String knopje = req.getParameter("knop");
-		String viaID = req.getParameter("zoekviaID");
-		RequestDispatcher rd = null;
+		String knop = req.getParameter("knop");
 		
 		//Haalt de reserveringen op via ingevoerde ID
-		if (knopje.equals("zoek")){
+		if (knop.equals("zoek")){
+			String viaID = req.getParameter("zoekviaID");
 			if(!viaID.equals("")){
 				try{
 					ConnectDBReservering reserveringconn = new ConnectDBReservering(con);
@@ -41,7 +39,7 @@ public class ReserveringBevestigenServlet extends HttpServlet{
 					}
 				}
 				catch(Exception ex){
-					req.setAttribute("error","Er zijn bestaan geen klussen van het ingevoerde ID");
+					req.setAttribute("error","Voer een geldig ID in!");
 				}
 			}
 			else{
@@ -50,7 +48,7 @@ public class ReserveringBevestigenServlet extends HttpServlet{
 		}
 		
 		//haalt de gekozen reservering op uit de database en bevestig de reservering
-		else if(knopje.equals("bevestigen")){
+		else if(knop.equals("bevestigen")){
 			String reservering = req.getParameter("gekozenreservering");
 			if(reservering != null){
 				int reserveringid = Integer.parseInt(reservering);
@@ -67,7 +65,6 @@ public class ReserveringBevestigenServlet extends HttpServlet{
 		
 		//Sluit de verbinding met de database
 		database.sluitVerbinding(con);
-		rd = req.getRequestDispatcher("reserveringbevestigen.jsp");
-		rd.forward(req, resp);
+		req.getRequestDispatcher("reserveringbevestigen.jsp").forward(req, resp);
 	}
 }
