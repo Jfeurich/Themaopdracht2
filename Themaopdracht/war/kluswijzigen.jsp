@@ -1,6 +1,7 @@
 <jsp:include page="header.jsp" > 
  <jsp:param name="titel" value="Klus wijzigen" /> 
 </jsp:include> 
+<%@include file="datepicker.jsp" %>
 	<form action="KlusWijzigenServlet.do" method="post">
 		<%@ page import="java.util.ArrayList,domeinklassen.Klant,domeinklassen.Auto,domeinklassen.Klus,domeinklassen.Onderhoudsbeurt,domeinklassen.Reparatie,domeinklassen.GebruiktProduct,domeinklassen.Product" %>
 		<div>

@@ -6,25 +6,18 @@
 		<div>
 			<h1><span>5: Kies de gewenste artikel(en) en klik op "VoegToe"</span></h1>
 			<%
-				Object error =  request.getAttribute("error");
-				if(error != null){
-					out.println("<h3><span>Error!</span></h3>");
-					out.println("<p name=error class=error >" + error + "</p>");
-				}
-				else{
-					Object msg = request.getAttribute("msg");
-					if(msg != null){
-						out.println("<h3 name=msg class=msg >" + msg + "</h3>");
-					}
-				}
 				Object gekozen = request.getAttribute("deKlus");
 				if(gekozen != null){
 					Klus deKlus = (Klus)gekozen;
 					ArrayList<Product> voorraadlijst = (ArrayList<Product>)request.getAttribute("voorraadlijst");
-					out.println("<h2><span>Wijzig de klus</span></h2>");
+					%>
+						<h2><span>Wijzig de klus</span></h2>
+					<%
 					if(voorraadlijst == null){
-						out.println("<h3><span>Error!</span></h3>");
-						out.println("<p class=error >Er is geen voorraad ingevoerd!</p>");
+						%>
+							<h3><span>Error!</span></h3>
+							<p class="error" >Er is geen voorraad ingevoerd!</p>
+						<%
 					}
 					else{
 						out.println("<h2><span>Artikelen die momenteel op voorraad zijn</span></h2>");

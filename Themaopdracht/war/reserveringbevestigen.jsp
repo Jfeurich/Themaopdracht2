@@ -52,8 +52,8 @@
 						if(eerste){out.println("checked=checked ");eerste=false;}
 						out.println("value=" + r.getID() + " /></td>");
 						out.println("<td>" + r.getDeParkeerplek() + "</td>");
-						out.println("<td>" + r.getBegDat() + "</td>");
-						out.println("<td>" + r.getEindDat() + "</td>");
+						out.println("<td>" + r.getBegDatNetjes() + "</td>");
+						out.println("<td>" + r.getEindDatNetjes() + "</td>");
 					out.println("</tr>");
 				} 
 		 		out.println("</table>");

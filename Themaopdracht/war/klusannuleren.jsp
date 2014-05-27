@@ -51,7 +51,7 @@
 							out.println("<td><input type=radio name=gekozenklus ");
 							if(eerste){out.println("checked=checked ");eerste=false;}
 							out.println("value=" + k.getID() + " /></td>");
-							out.println("<td>" + k.getDatum() + "</td>");
+							out.println("<td>" + k.getFormattedDatum() + "</td>");
 							out.println("<td>" + k.getBeschrijving() + "</td>");
 							out.println("<td>" + k.getStatus() + "</td>");
 						out.println("</tr>");

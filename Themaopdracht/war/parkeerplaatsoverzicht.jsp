@@ -1,6 +1,7 @@
 <jsp:include page="header.jsp" > 
  <jsp:param name="titel" value="Overzicht parkeerplaats" /> 
 </jsp:include> 
+<%@include file="datepicker.jsp" %>
 	<%@ page import="java.util.ArrayList, domeinklassen.Reservering" %>
 	<form action="ParkeerplaatsOverzichtServlet.do" method="post">	
 		<div>

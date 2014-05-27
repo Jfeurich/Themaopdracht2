@@ -54,7 +54,13 @@ public class Reservering {
 		return beginDat;
 	}
 	public Date getEindDat(){
-		return beginDat;
+		return eindDat;
+	}
+	public String getBegDatNetjes(){
+		return df.format(beginDat);
+	}
+	public String getEindDatNetjes(){
+		return df.format(eindDat);
 	}
 	public Auto getAuto(){
 		return deAuto;

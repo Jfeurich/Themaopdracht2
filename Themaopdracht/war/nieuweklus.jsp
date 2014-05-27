@@ -1,6 +1,7 @@
 <jsp:include page="header.jsp" > 
  <jsp:param name="titel" value="Nieuwe klus" /> 
 </jsp:include> 
+<%@include file="datepicker.jsp" %>
 	<form action="NieuweKlusServlet.do" method="post">
 		<%@ page import="java.util.ArrayList,domeinklassen.Klant,domeinklassen.Auto" %>
 		<div>
