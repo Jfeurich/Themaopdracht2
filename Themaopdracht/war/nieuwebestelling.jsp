@@ -1,5 +1,5 @@
 <jsp:include page="header.jsp" > 
- <jsp:param name="titel" value="Nieuwe bestelling" /> 
+	<jsp:param name="titel" value="Nieuwe bestelling" /> 
 </jsp:include> 
 	<script type="text/javascript">
 		function updatePrijs(){
@@ -26,98 +26,101 @@
 		<%@ page import="java.util.ArrayList,domeinklassen.Bestelling,domeinklassen.Product,domeinklassen.BesteldProduct" %>
 		<div>
 			<h1><span>11: Nieuwe bestelling aanmaken</span></h1>
-			<% 	
-				Object error =  request.getAttribute("error");
-				if(error != null){
-					out.println("<h3><span>Error!</span></h3>");
-					out.println("<p name=error class=error >" + error + "</p>");
-				}
-				else{
-					Object msg = request.getAttribute("msg");
-					if(msg != null){
-						out.println("<h3 name=msg class=msg ><span>" + msg + "</span></h3>");
-					}
-				}
-				if(request.getAttribute("stap1") != null) {
-					ArrayList<Product> producten = (ArrayList<Product>)request.getAttribute("producten");	
-					out.println("<h2><span>Kies de te bestellen producten</span></h2>");
-					out.println("<table>");
-					out.println("<tr>");
-						out.println("<th>X</th>");
-						out.println("<th>Naam</th>");
-						out.println("<th>Minimum aanwezig</th>");
-						out.println("<th>Aantal aanwezig</th>");
-					out.println("</tr>");
-					for(Product p : producten){
-						out.println("<tr>");
-							out.println("<td><input type=checkbox name=gekozenProduct value=" + p.getArtikelNr() + " /></td>");
-							out.println("<td>" + p.getNaam() + "</td>");
-							out.println("<td>" + p.getMinimumAanwezig() + "</td>");
-							out.println("<td>" + p.getAantal() + "</td>");
-						out.println("</tr>");
-					}
-					out.println("</table>");
-					out.println("<input type=submit name=knop value=KiesProducten />");	
-				}
-				else if(request.getAttribute("stap2") != null){
-					ArrayList<Product> teBestellenProducten = (ArrayList<Product>) request.getAttribute("teBestellenProducten");
-					out.println("<h2><span>Kies de aantallen van de producten</span></h2>");
-					out.println("<table>");
-						out.println("<tr>");
-							out.println("<th>Artikelnummer</th>");
-							out.println("<th>Naam</th>");
-							out.println("<th>Eenheid</th>");
-							out.println("<th>Aantal aanwezig</th>");
-							out.println("<th>Minimum aanwezig</th>");
-							out.println("<th>Prijs per stuk</th>");
-							out.println("<th>Aantal te bestellen</th>");				
-						out.println("</tr>");
-						for(Product p : teBestellenProducten){
-							out.println("<tr>");
-								out.println("<td>" + p.getArtikelNr() + "</td>");
-								out.println("<td>" + p.getNaam() + "</td>");
-								out.println("<td>" + p.getEenheid() + "</td>");
-								out.println("<td>" + p.getMinimumAanwezig() + "</td>");
-								out.println("<td>" + p.getAantal() + "</td>");
-								out.println("<td name=prijsperstuk >" + p.getPrijsPerStuk() + "</td>");
-								out.println("<td><input type=text onkeyup=updatePrijs() name=wijzigaantal /></td>");
-							out.println("</tr>");
-							out.println("<input type=hidden name=wijzig value=" + p.getArtikelNr() + " />");
-						}
-					out.println("</table>");
-					out.println("<p id=totaalprijs >Totaalprijs: </p>");
-					out.println("<input type=submit name=knop value=Bestel />");		
-				}
-				else if(request.getAttribute("stap3") != null){
-					Bestelling deBestelling = (Bestelling) request.getAttribute("deBestelling");
-					out.println("<2><span>Kies de hoeveelheid van elk artikel</span></h2>");
-					out.println("<p>" + deBestelling.toString() + "</p>");
-					out.println("<table>");
-						out.println("<tr>");
-							out.println("<th>Artikelnummer</th>");
-							out.println("<th>Naam</th>");
-							out.println("<th>Eenheid</th>");
-							out.println("<th>Aantal</th>");
-							out.println("<th>Prijs per stuk</th>");				
-						out.println("</tr>");
-						for(BesteldProduct bp: deBestelling.getBesteldeProducten()){
-							out.println("<tr>");
-								out.println("<td>" + bp.getProduct().getArtikelNr() + "</td>");
-								out.println("<td>" + bp.getProduct().getNaam() + "</td>");
-								out.println("<td>" + bp.getProduct().getEenheid() + "</td>");
-								out.println("<td>" + bp.getHoeveelheid() + "</td>");
-								out.println("<td>" + bp.getProduct().getPrijsPerStuk() + "</td>");	
-							out.println("</tr>");
-						}
-					out.println("</table>");
-					out.println("<input type=submit name=knop value=Done />");
-				}
-				else{
-					out.println("<input type=submit name=knop value=MaakBestelling />");
-				}
+			<%@ include page="messages.jsp" %>
+			<%
+			if(request.getAttribute("stap1") != null) {
+				ArrayList<Product> producten = (ArrayList<Product>)request.getAttribute("producten");	
+				%>
+				<h2><span>Kies de te bestellen producten</span></h2>
+				<table>
+				<tr>
+					<th>X</th>
+					<th>Naam</th>
+					<th>Minimum aanwezig</th>
+					<th>Aantal aanwezig</th>
+				</tr>
+				<%
+				for(Product p : producten){
+				%>
+					<tr>
+						<td><input type="checkbox" name="gekozenProduct" value="<%=p.getArtikelNr()%>" /></td>
+						<td><%=p.getNaam()%></td>
+						<td><%=p.getMinimumAanwezig()%></td>
+						<td><%=p.getAantal()%></td>
+					</tr>
+				<%}%>
+				</table>
+				<input type="submit" name="knop" value="KiesProducten" />
+				<%
+			}
+			else if(request.getAttribute("stap2") != null){
+				ArrayList<Product> teBestellenProducten = (ArrayList<Product>) request.getAttribute("teBestellenProducten");
+				%>
+				<h2><span>Kies de aantallen van de producten</span></h2>
+				<table>
+					<tr>
+						<th>Artikelnummer</th>
+						<th>Naam</th>
+						<th>Eenheid</th>
+						<th>Aantal aanwezig</th>
+						<th>Minimum aanwezig</th>
+						<th>Prijs per stuk</th>
+						<th>Aantal te bestellen</th>		
+					</tr>
+					<%
+					for(Product p : teBestellenProducten){
+						%>
+						<tr>
+							<td><%=p.getArtikelNr()%></td>
+							<td><%=p.getNaam()%></td>
+							<td><%=p.getEenheid()%></td>
+							<td><%=p.getMinimumAanwezig()%></td>
+							<td><%=p.getAantal()%></td>
+							<td name="prijsperstuk" ><%=p.getPrijsPerStuk()%></td>
+							<td><input type="text" onkeyup="updatePrijs()" name="wijzigaantal" /></td>
+						</tr>
+						<input type="hidden" name="wijzig" value="<%=p.getArtikelNr()%>" />
+					<%}%>
+				</table>
+				<p id="totaalprijs" >Totaalprijs: </p>
+				<input type="submit" name="knop" value="Bestel" />
+				<%
+			}
+			else if(request.getAttribute("stap3") != null){
+				Bestelling deBestelling = (Bestelling) request.getAttribute("deBestelling");
+				%>
+				<h2><span>Kies de hoeveelheid van elk artikel</span></h2>
+				<p><%=deBestelling.toString()%></p>
+				<table>
+					<tr>
+						<th>Artikelnummer</th>
+						<th>Naam</th>
+						<th>Eenheid</th>
+						<th>Aantal</th>
+						<th>Prijs per stuk</th>		
+					</tr>
+					<%
+					for(BesteldProduct bp: deBestelling.getBesteldeProducten()){
+					%>
+						<tr>
+							<td><%=bp.getProduct().getArtikelNr()%></td>
+							<td><%=bp.getProduct().getNaam()%></td>
+							<td><%=bp.getProduct().getEenheid()%></td>
+							<td><%=bp.getHoeveelheid()%></td>
+							<td><%=bp.getProduct().getPrijsPerStuk()%></td>
+						</tr>
+					<%}%>
+				</table>
+				<input type="submit" name="knop" value="Done" />
+				<%
+			}
+			else{
+				%>
+				<input type="submit" name="knop" value="MaakBestellin"g />
+				<%
+			}
 			%>
 		</div>
 	</form>
 	<p><a href="nieuwebestelling.jsp">Terug</a></p>
-</body>
-</html>
+<%@ include page="footer.html" %>

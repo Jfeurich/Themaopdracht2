@@ -9,9 +9,13 @@
 		<div>
 			<%@ page import="domeinklassen.User" %>
 			<%
-				//moet nog aangepast worden zodat de naam van de gebruiker uit de sessie wordt gehaald
-				// deGebruiker = (User) request.getSession().getAttribute("gebruiker");
-				//out.println("Welkom " + deGebruiker.getGebruikersnaam());
+			Object u = request.getSession().getAttribute("gebruiker");
+			if(u != null){
+				User deGebruiker = (User)u;
+				%>
+				<p>Welkom, <%=deGebruiker.getGebruikersnaam()%>!</p>
+				<%
+			}
 			%>
 		</div>
 		<h2><span>Achter elke link staat vermeld welke User-storys het is aan de hand van het ID.</span></h2>
@@ -36,5 +40,4 @@
 				<li><a href=reserveringannuleren.jsp>Een parkeer reservering annuleren(iets)</a></li>
 			</ul>
 		</div>
-	</body>
-</html>
+<%@ include page="footer.html"%>

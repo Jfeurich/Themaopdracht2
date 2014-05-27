@@ -17,18 +17,17 @@ import domeinklassen.Klus;
 public class KlusAnnulerenServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	protected void doGet(HttpServletRequest req, HttpServletResponse resp)
-			throws ServletException, IOException {
+	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		ConnectDB database = new ConnectDB();
 		Connection con = database.maakVerbinding();
 		
-		String knopje = req.getParameter("knop");
+		String knop = req.getParameter("knop");
 		String viaID = req.getParameter("zoekviaID");
 //		String klus = req.getParameter("gekozenklus");
 		RequestDispatcher rd = null;
 		
 		//Haalt de klussen op via ingevoerde ID
-		if (knopje.equals("zoek")){
+		if (knop.equals("zoek")){
 			if(!viaID.equals("")){
 				try{
 					ConnectDBKlus klusconn = new ConnectDBKlus(con);
@@ -50,7 +49,7 @@ public class KlusAnnulerenServlet extends HttpServlet {
 			}
 		}
 		//haalt de gekozen klus op uit de database en verwijderd hem vervolgens uit de database
-		else if(knopje.equals("annuleer")){
+		else if(knop.equals("annuleer")){
 			String klus = req.getParameter("gekozenklus");
 			if(klus != null){
 				int klusid = Integer.parseInt(klus);

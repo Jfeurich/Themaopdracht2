@@ -1,6 +1,6 @@
 <jsp:include page="header.jsp" > 
- <jsp:param name="titel" value="Factuur menu" /> 
-</jsp:include> j
+	<jsp:param name="titel" value="Factuur menu" /> 
+</jsp:include>
 	<h1><span>Hoofdmenu factuur</span></h1>
 	<form action="OnbetaaldeFacturenOverzichtServlet.do" method="post">
 		<%@ page import="domeinklassen.Factuur,java.util.ArrayList" %>
@@ -10,5 +10,4 @@
 		</div>
 	</form>
 	<h2><span><a href="nieuwefactuur.jsp">Nieuwe factuur aanmaken</a></span></h2>
-</body>
-</html>
+<%@ include file="footer.html" %>

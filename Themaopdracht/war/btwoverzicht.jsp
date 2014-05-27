@@ -1,23 +1,11 @@
 <jsp:include page="header.jsp" > 
- <jsp:param name="titel" value="Overzicht BTW" /> 
+	<jsp:param name="titel" value="Overzicht BTW" /> 
 </jsp:include> 
-	<h1><span>22: Overzicht BTW</span></h1>
 	<form action="BTWServlet.do" method="post">
 		<%@ page import="java.util.ArrayList,domeinklassen.Factuur,domeinklassen.Klus,domeinklassen.Auto,domeinklassen.Klant" %>
-		<%
-			Object error =  request.getAttribute("error");
-			if(error != null){
-				out.println("<h3><span>Error!</span></h3>");
-				out.println("<p name=error class=error >" + error + "</p>");
-			}
-			else{
-				Object msg = request.getAttribute("msg");
-				if(msg != null){
-					out.println("<h3 name=msg class=msg ><span>" + msg + "<span></h3>");
-				}
-			}
-		%>
 		<div>
+		<h1><span>22: Overzicht BTW</span></h1>
+		<%@ include file="messages.jsp" %>
 		<h2><span>Geef aan voor welke kwartalen u een overzicht wilt</span></h2>
 		<p class="kop" >Jaar: <input type="text" name="beginjaar" /></p>
 		<p>
@@ -27,7 +15,7 @@
 			<span><input type="radio" name="beginkwartaal" value="4" /></span>
 		</p>
 		<p>t/m</p>
-		<p class="kop" >Jaar: <input type="text" name="eindjaar" /></p>
+		<p class="kop" >Jaar:<input type="text" name="eindjaar" /></p>
 		<p>
 			<span><input type="radio" name="eindkwartaal" checked="checked" value="1" /></span>
 			<span><input type="radio" name="eindkwartaal" value="2" /></span>
@@ -39,30 +27,34 @@
 	</form>
 	<div>
 	<%
-		ArrayList<Factuur> facturen =(ArrayList<Factuur>)request.getAttribute("facturen");
-		if(facturen != null){
-			out.println("<h2><span>Alle betaalde facturen</span></h2>");
-			out.println("<table>");
-			out.println("<tr>");
-				out.println("<th>Betaaldatum</th>");
-				out.println("<th>Klant</th>");
-				out.println("<th>Bedrag</th>");
-				out.println("<th>%BTW</th>");
-				out.println("<th>BTW</th>");
-			out.println("</tr>");	
-			for(Factuur f : facturen){
-				String naam = f.getDeKlus().getAuto().getEigenaar().getNaam();
-				out.println("<tr>");
-					out.println("<td>" + f.getBetaalDatumNetjes() + "</td>");
-					out.println("<td>" + naam + "</td>");
-					out.println("<td>" + f.getTotaal() + "</td>");
-					out.println("<td>21%</td>");
-					out.println("<td>" + f.getBTW(21) + "</td>");
-				out.println("</tr>");
-			}
-			out.println("</table>");
+	ArrayList<Factuur> facturen =(ArrayList<Factuur>)request.getAttribute("facturen");
+	if(facturen != null){
+		%>
+		<h2><span>Alle betaalde facturen</span></h2>
+		<table>
+		<tr>
+			<th>Betaaldatum</th>
+			<th>Klant</th>
+			<th>Bedrag</th>
+			<th>%BTW</th>
+			<th>BTW</th>
+		</tr>
+		<%
+		for(Factuur f : facturen){
+			%>
+			<tr>
+				<td><%=f.getBetaalDatumNetjes()%></td>
+				<td><%=f.getDeKlus().getAuto().getEigenaar().getNaam()%></td>
+				<td><%=f.getTotaal()%></td>
+				<td>21%</td>
+				<td><%=f.getBTW(21)%></td>
+			</tr>
+			<%
 		}
+		%>
+		</table>
+		<%
+	}
 	%>
 	</div>
-</body>
-</html>
+<%@ include file="footer.html" %>

@@ -1,7 +1,8 @@
 <jsp:include page="header.jsp" > 
- <jsp:param name="titel" value="Hoofdmenu klus" /> 
+	<jsp:param name="titel" value="Hoofdmenu klus" /> 
 </jsp:include> 
 	<h1><span>Hoofdmenu Klus</span></h1>
+	<%@ include page="messages.jsp" %>
 	<form action="KlusServlet.do" method="post">
 		<%@ page import="domeinklassen.Klus,domeinklassen.Onderhoudsbeurt,domeinklassen.Reparatie,domeinklassen.Product,domeinklassen.GebruiktProduct,java.util.ArrayList" %>
 		<div>
@@ -11,63 +12,74 @@
 		<div>
 			<h2><span>9: Overzicht alle klussen</span></h2>
 			<%
-				Object ar = request.getAttribute("klussen");
-				if(ar != null){
-					ArrayList<Klus> klussen = (ArrayList<Klus>)ar;
-					out.println("<table>");
-					out.println("<tr>");
-						out.println("<th>Kies</th>");
-						out.println("<th>Type</th>");
-						out.println("<th>Datum</th>");
-						out.println("<th>Beschrijving</th>");
-						out.println("<th>Status</th>");
-					out.println("</tr>");
-					boolean eerste=true;
-					for(Klus k : klussen ){
-						out.println("<tr>");
-							out.println("<td><input type=radio name=gekozenklus ");
-							if(eerste){out.println("checked=checked ");eerste=false;}
-							out.println("value=" + k.getID() + " /></td>");
-							if(k instanceof Reparatie){
-								out.println("<td>Reparatie</td>");
-							}
-							else{
-								out.println("<td>Onderhoud</td>");
-							}
-							out.println("<td>" + k.getFormattedDatum() + "</td>");
-							out.println("<td>" + k.getBeschrijving() + "</td>");
-							out.println("<td>" + k.getStatus() + "</td>");
-						out.println("</tr>");
-						ArrayList<GebruiktProduct> producten = k.getGebruikteProducten();
-						if(producten.size() > 0){
-							out.println("<tr>");
-								out.println("<th>Product:</th>");
-								out.println("<th>Artikelnummer</th>");
-								out.println("<th>Naam</th>");
-								out.println("<th>Aantal</th>");
-								out.println("<th>Prijs per stuk</th>");
-							out.println("</tr>");
-							for(GebruiktProduct gp : producten){
-								Product hetProduct = gp.getHetProduct();
-								out.println("<tr>");
-									out.println("<td></td>");
-									out.println("<td>" + hetProduct.getArtikelNr() + "</td>");
-									out.println("<td>" + hetProduct.getNaam() + "</td>");
-									out.println("<td>" + gp.getAantal() + "</td>");
-									out.println("<td>" + hetProduct.getPrijsPerStuk() + "</td>");
-								out.println("</tr>");
-							}
+			Object ar = request.getAttribute("klussen");
+			if(ar != null){
+				ArrayList<Klus> klussen = (ArrayList<Klus>)ar;
+				%>
+				<table>
+				<tr>
+					<th>Kies</th>
+					<th>Type</th>
+					<th>Datum</th>
+					<th>Beschrijving</th>
+					<th>Status</th>
+				</tr>
+				<%
+				boolean eerste=true;
+				for(Klus k : klussen ){
+					%>
+					<tr>
+						<td><input type=radio name=gekozenklus 
+						<%if(eerste){out.println("checked=checked ");eerste=false;}%>
+						value="<%=k.getID()%>" /></td>
+						<%if(k instanceof Reparatie){%>
+							<td>Reparatie</td>
+						<%}
+						else{%>
+							<td>Onderhoud</td>
+						<%}%>
+						<td><%=k.getFormattedDatum()%></td>
+						<td><%=k.getBeschrijving()%></td>
+						<td><%=k.getStatus()%></td>
+					</tr>
+					<%
+					ArrayList<GebruiktProduct> producten = k.getGebruikteProducten();
+					if(producten.size() > 0){
+						%>
+						<tr>
+							<th>Product:</th>
+							<th>Artikelnummer</th>
+							<th>Naam</th>
+							<th>Aantal</th>
+							<th>Prijs per stuk</th>
+						</tr>
+						<%
+						for(GebruiktProduct gp : producten){
+							Product hetProduct = gp.getHetProduct();
+							%>
+							<tr>
+								<td></td>
+								<td><%=hetProduct.getArtikelNr()%></td>
+								<td><%=hetProduct.getNaam()%></td>
+								<td><%=gp.getAantal()%></td>
+								<td><%=hetProduct.getPrijsPerStuk()%></td>
+							</tr>
+							<%
 						}
 					}
-					out.println("</table>");
-					out.println("<h2><span>16: Klus wijzigen</span></h2>");
-					out.println("<input type=submit name=knop value=wijzig />");
 				}
-				else{
-					out.println("<input type=submit name=knop value=overzicht />");
-				}
+				%>
+				</table>
+				<h2><span>16: Klus wijzigen</span></h2>
+				<input type="submit" name="knop" value="wijzig" />
+			<%
+			}
+			else{
+				%>
+				<input type="submit" name="knop" value="overzicht" />
+				<%
+			}
 			%>
 		</div>
 	</form>
-</body>
-</html>
+<%@ include page="footer.html" %>
