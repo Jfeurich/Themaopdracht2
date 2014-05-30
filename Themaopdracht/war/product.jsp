@@ -74,5 +74,4 @@
 			<input type="submit" name="knop" value="zoek" />
 		</div>
 	</form>
-</body>
-</html>
+<%@ include file="footer.html" %>
