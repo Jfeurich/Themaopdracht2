@@ -54,6 +54,7 @@ public class NieuweGebruikersaccountServlet extends HttpServlet {
 				
 				req.setAttribute("msg", "Nieuwe Klant moet eerst aangemaakt worden");
 				//zorg ervoor dat een dialoogvenster geopend wordt waar gevraagd word om een nieuwe klant aan te maken
+				//dit heeft de usecase nieuwe klant eerst nodig.
 				/*
 				 ConnectDBKlant klantcon = new ConnectDBKlant(con);
 				 k = klantcon.nieuweKlant(naam, adres, woonplaats, rekeningnr, Integer.parseInt(telefoonnr));
