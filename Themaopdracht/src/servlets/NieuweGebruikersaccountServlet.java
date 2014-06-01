@@ -2,6 +2,8 @@ package servlets;
 
 import java.io.IOException;
 import java.sql.Connection;
+import java.util.ArrayList;
+
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -72,27 +74,43 @@ public class NieuweGebruikersaccountServlet extends HttpServlet {
 					if(telefoonnr.matches("((-|\\+)?[0-9]+(\\.[0-9]+)?)+")){
 						//Hier is het stuk waar gecontroleerd wordt of een nieuwe user een klant is(type=3)
 						if(type.equals("3")){
-							try{
-								//user aanmaken en in database stoppen
-								//user die al klant zijn
-								//Klant object aanmaken, dan met dat klant object een user object aanmaken
-								ConnectDBUser usercon = new ConnectDBUser(con);
-								u = usercon.nieuweUserIsKlant(k, gebruikersnaam, wachtwoord1, email1);
-								req.setAttribute("msg", "Gebruiker "+ u.getGebruikersnaam()  +" met Klantnummer "+ u.getDeKlant().getKlantnummer() + " succesvol geregistreerd!");
-							}
-							catch(Exception ex){
-								req.setAttribute("error", "De gegevens van de gebruiker staan nog niet in ons klantsysteem."); 
+							ConnectDBUser usercon = new ConnectDBUser(con);
+							ArrayList<User> gebruikers = usercon.getUsers();
+							for (User gebruiker: gebruikers){
+								if(gebruiker.getGebruikersnaam().equalsIgnoreCase(gebruikersnaam)){
+									req.setAttribute("error", "Er kon geen gebruikersaccount aangemaakt worden");
+								}
+								else{
+									try{
+										u = usercon.nieuweUserIsKlant(k, gebruikersnaam, wachtwoord1, email1);
+										req.setAttribute("msg", "Gebruiker "+ u.getGebruikersnaam()  +" met Klantnummer "+ u.getDeKlant().getKlantnummer() + " succesvol geregistreerd!");
+									}
+									catch(Exception e){
+										req.setAttribute("error", "Er kon geen gebruikersaccount aangemaakt worden");
+									}
+									
+								}
 							}
 						}
 						//Als geen klant
 						else if(!type.equals("3")){
-							try{
-								ConnectDBUser usercon = new ConnectDBUser(con);
-								u = usercon.nieuweUserNietKlant(Integer.parseInt(type), gebruikersnaam, wachtwoord1, email1, naam);
-								req.setAttribute("msg", "Gebruiker "+ u.getGebruikersnaam()  +" Van type "+ u.getType() + " succesvol geregistreerd!");
-							}
-							catch(Exception e){
-								req.setAttribute("error", "Er kon geen gebruikersaccount aangemaakt worden");
+							//Haal alle gebruikers op en controleer of deze gebruikersaccount er niet al tussen zit.
+							ConnectDBUser usercon = new ConnectDBUser(con);
+							ArrayList<User> gebruikers = usercon.getUsers();
+							for (User gebruiker: gebruikers){
+								if(gebruiker.getGebruikersnaam().equalsIgnoreCase(gebruikersnaam)){
+									req.setAttribute("error", "Er kon geen gebruikersaccount aangemaakt worden");
+								}
+								else{
+									try{
+										u = usercon.nieuweUserNietKlant(Integer.parseInt(type), gebruikersnaam, wachtwoord1, email1, naam);
+										req.setAttribute("msg", "Gebruiker "+ u.getGebruikersnaam()  +" Van type "+ u.getType() + " succesvol geregistreerd!");
+									}
+									catch(Exception e){
+										req.setAttribute("error", "Er kon geen gebruikersaccount aangemaakt worden");
+									}
+									
+								}
 							}
 						}								
 					}

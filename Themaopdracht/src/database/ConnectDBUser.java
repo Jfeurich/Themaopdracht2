@@ -129,7 +129,8 @@ public class ConnectDBUser{
 		}
 		return terug;		
 	}
-	
+
+		
 	//maak nieuwe User van types 0-2. id wordt automatisch toegewezen. geeft User-object terug zodat je het id weet.
 	public User nieuweUserNietKlant(int tp, String unm, String pw, String email, String naam){
 		User terug = null;
