@@ -13,8 +13,8 @@
 				SimpleDateFormat df = new SimpleDateFormat("dd-MM-yyyy");
 				Auto deAuto = (Auto)auto;
 				%>
-				<h2><span>Reservering voor:</span></h2>");
-				<p><%=deAuto.toString()%></p>");
+				<h2><span>Reservering voor:</span></h2>
+				<p><%=deAuto.toString()%></p>
 				<p>Parkeerplek: <%=request.getSession().getAttribute("parkeerplek")%><p/>
 				<p>Van: <%=df.format(request.getSession().getAttribute("beginDat"))%></p>
 				<p>Tot: <%=df.format(request.getSession().getAttribute("eindDat"))%></p>
