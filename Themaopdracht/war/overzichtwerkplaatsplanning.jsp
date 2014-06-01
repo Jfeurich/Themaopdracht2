@@ -23,7 +23,6 @@
 		<div>
 			<%	
 			ArrayList<Klus> deKlussen = (ArrayList<Klus>) request.getSession().getAttribute("gevondenKlussen");
-			for(Klus k : deKlussen){
 				if(deKlussen == null){
 					out.println("<h1><span>Error!<span></h1>");
 					out.println("<p>Er staan geen klussen ingepland</p>");
@@ -37,13 +36,14 @@
 						out.println("<th>Auto</th>");
 					out.println("</tr>");
 					out.println("<tr>");
+					for(Klus k : deKlussen){
 						out.println("<td>" + k.getDatum() + "</td>");
 						out.println("<td>" + k.getBeschrijving() + "</td>");
 						out.println("<td>" + k.getAuto().getKenteken() + "</td>");
+					}
 					out.println("</tr>");
 					out.println("</table>");
 				}
-			}
 			%>
 		</div>
 	</form>

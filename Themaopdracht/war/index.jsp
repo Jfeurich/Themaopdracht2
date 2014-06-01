@@ -18,7 +18,7 @@
 			}
 			%>
 		</div>
-		<h2><span>Achter elke link staat vermeld welke User-storys het is aan de hand van het ID.</span></h2>
+		<h2><span>Achter elke link staat vermeld welke User-stories het is aan de hand van het ID.</span></h2>
 		<div>
 			<ul>
 				<li><a href=loginpage.jsp>Inloggen(1)</a></li>
@@ -38,6 +38,7 @@
 				<li><a href=reserveringannuleren.jsp>Een parkeer reservering annuleren(25)</a></li>
 				<li><a href=klusannuleren.jsp>Een klus annuleren(26)</a></li>
 				<li><a href=nieuweklus.jsp>Nieuwe klus(28)</a></li>
+				<li><a href=overzichtwerkplaatsplanning.jsp>Overzicht planning werkplaats(28)</a></li>
 			</ul>
 		</div>
 <%@ include file="footer.html" %>
