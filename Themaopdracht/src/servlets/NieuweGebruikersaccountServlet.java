@@ -44,11 +44,13 @@ public class NieuweGebruikersaccountServlet extends HttpServlet {
 			ConnectDBKlant klantconn = new ConnectDBKlant(con);
 			try{
 				k = klantconn.zoekKlant(Integer.parseInt(klantnummer));
+				req.setAttribute("klantnummer", k.getKlantnummer());
 				req.setAttribute("username",k.getNaam());
 				req.setAttribute("adres", k.getAdres());
 				req.setAttribute("plaats", k.getPlaats());
 				req.setAttribute("rekeningnummer", k.getRekeningnummer());
 				req.setAttribute("telefoonnummer",k.getTelefoonnummer());
+				req.setAttribute("msg", k.toString());
 			}
 			catch(Exception e){
 				
@@ -63,7 +65,7 @@ public class NieuweGebruikersaccountServlet extends HttpServlet {
 		}
 		else if(knop.equals("Maak user")){
 			//check of de velden zijn ingevuld
-			if(!gebruikersnaam.equals("") && !wachtwoord1.equals("") && !wachtwoord2.equals("") && !email1.equals("") && !email2.equals("")){
+			if(!telefoonnr.equals("") && !rekeningnr.equals("") && !woonplaats.equals("") && !adres.equals("") && !naam.equals("") && !gebruikersnaam.equals("") && !wachtwoord1.equals("") && !wachtwoord2.equals("") && !email1.equals("") && !email2.equals("")){
 				//check of wachtwoorden etc. aan elkaar gelijk is
 				if(wachtwoord1.equals(wachtwoord2) && email1.equals(email2)){
 					//check of telnr wel een int getal is
@@ -75,11 +77,11 @@ public class NieuweGebruikersaccountServlet extends HttpServlet {
 								//user die al klant zijn
 								//Klant object aanmaken, dan met dat klant object een user object aanmaken
 								ConnectDBUser usercon = new ConnectDBUser(con);
-								usercon.nieuweUserIsKlant(k, gebruikersnaam, wachtwoord1, email1);
-								req.setAttribute("msg", "Succesvol geregistreerd!");
+								u = usercon.nieuweUserIsKlant(k, gebruikersnaam, wachtwoord1, email1);
+								req.setAttribute("msg", "Gebruiker "+ u.getGebruikersnaam()  +" met Klantnummer "+ u.getDeKlant().getKlantnummer() + " succesvol geregistreerd!");
 							}
 							catch(Exception ex){
-								req.setAttribute("error", "Er kon geen gebruikersaccount aangemaakt worden"); 
+								req.setAttribute("error", "De gegevens van de gebruiker staan nog niet in ons klantsysteem."); 
 							}
 						}
 						//Als geen klant
@@ -87,7 +89,7 @@ public class NieuweGebruikersaccountServlet extends HttpServlet {
 							try{
 								ConnectDBUser usercon = new ConnectDBUser(con);
 								u = usercon.nieuweUserNietKlant(Integer.parseInt(type), gebruikersnaam, wachtwoord1, email1, naam);
-								req.setAttribute("msg", "Gebruiker "+ u.getID()  +" Van type "+ u.getType() + " succesvol geregistreerd!");
+								req.setAttribute("msg", "Gebruiker "+ u.getGebruikersnaam()  +" Van type "+ u.getType() + " succesvol geregistreerd!");
 							}
 							catch(Exception e){
 								req.setAttribute("error", "Er kon geen gebruikersaccount aangemaakt worden");
@@ -122,19 +124,19 @@ public class NieuweGebruikersaccountServlet extends HttpServlet {
 					s+= "\nEmail controle";
 				}
 				if(naam.equals("")){
-					s+= "\nEmail controle";
+					s+= "\nnaam";
 				}
 				if(adres.equals("")){
-					s+= "\nEmail controle";
+					s+= "\nadres";
 				}
 				if(woonplaats.equals("")){
-					s+= "\nEmail controle";
+					s+= "\nwoonplaats";
 				}
 				if(rekeningnr.equals("")){
-					s+= "\nEmail controle";
+					s+= "\nrekeningnummer";
 				}
 				if(telefoonnr.equals("")){
-					s+= "\nEmail controle";
+					s+= "\ntelefoonnummer";
 				}
 				req.setAttribute("error", s); 
 			}
