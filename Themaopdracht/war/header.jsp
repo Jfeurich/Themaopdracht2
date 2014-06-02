@@ -4,11 +4,12 @@
 	<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
 	<title>${param.titel}</title> 
 	<link rel="stylesheet" href="//code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css" />
+	<link rel="stylesheet" href="stylesheet.css" />
 </head>
 <body>
 	<p><a href="index.jsp">Hoofdmenu</a></p>
-	<div>
-		<h2><span>24: Uitloggen</span></h2>
+	<div id="head">
+		<span>24: Uitloggen</span>
 		<form action="LogoutServlet.do" method="post">
 			<p><input type="submit" name="knop" value="Loguit" /></p>
 		</form>
