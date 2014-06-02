@@ -9,8 +9,39 @@
 <body>
 	<p><a href="index.jsp">Hoofdmenu</a></p>
 	<div id="head">
-		<span>24: Uitloggen</span>
-		<form action="LogoutServlet.do" method="post">
-			<p><input type="submit" name="knop" value="Loguit" /></p>
-		</form>
+		Auto Totaal Dienst Utrecht
+		<div id="accountinfo">
+			<form action="LogoutServlet.do" method="post">
+				<p><input type="submit" name="knop" value="Loguit" /></p>
+			</form>
+		</div>
 	</div>
+	<div id="menu">
+	<ul>
+		<li> <a href="#">Klant</a>
+			<ul>
+				<li><a href="parkeerplaatsoverzicht.jsp">Nieuwe reservering</a></li>
+			</ul>
+			<ul>
+				<li><a href=""></a></li>
+			</ul>
+		</li>
+		<li> <a href="#">Parkeerplaats</a>
+			<ul>
+				<li><a href=""></a></li>
+			</ul>
+			<ul>
+				<li><a href="">Werkplaats</a></li>
+			</ul>
+		</li>
+		<li> <a href="#">Administratie</a>
+			<ul>
+				<li><a href="nieuwebestelling.jsp">Nieuwe bestelling</a></li>
+			</ul>
+			<ul>
+				<li><a href=""></a></li>
+			</ul>
+		</li>
+	</ul>
+	</div>
+	<div id="content">
