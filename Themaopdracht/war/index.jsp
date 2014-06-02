@@ -18,7 +18,7 @@
 			}
 			%>
 		</div>
-		<h2><span>Achter elke link staat vermeld welke User-stories het is aan de hand van het ID.</span></h2>
+		<h2><span>Achter elke link staat vermeld welke User-story het is aan de hand van het ID.</span></h2>
 		<div>
 			<ul>
 				<li><a href=loginpage.jsp>Inloggen(1)</a></li>
