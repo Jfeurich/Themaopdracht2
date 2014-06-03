@@ -125,7 +125,7 @@ public class ConnectDBUser{
 			stmt.close();
 		}
 		catch(Exception ex){
-			System.out.println("Probleem bij user zoeken " + ex);
+			System.out.println("Probleem bij user zoeken op id " + ex);
 		}
 		return terug;		
 	}
@@ -177,6 +177,34 @@ public class ConnectDBUser{
 			System.out.println("Probleem bij nieuwe user(WEL klant)" + ex);
 		}
 		return terug;
+	}
+	
+	public User getUser(String unm){
+		User terug = null;
+		try{
+			String sql = "SELECT * FROM User WHERE gebruikersnaam='" + unm + "'";
+			Statement stmt = con.createStatement();
+			ResultSet rs = stmt.executeQuery(sql);
+			while (rs.next()) {   // rs.next() geeft false als er niets meer is 
+				int id = rs.getInt("userid");
+				String ww = rs.getString("wachtwoord");
+				String email = rs.getString("email");
+				int type = rs.getInt("type");
+				int klantid = rs.getInt("klantid");
+				User u = new User(id, type, unm, ww, email);
+				if(type == 3){ //als het de account van een klant is, stel de klant dan in
+					ConnectDBKlant klantconn = new ConnectDBKlant(con);
+					Klant deKlant = klantconn.zoekKlant(klantid);
+					u.setDeKlant(deKlant);
+				}
+				terug = u;
+			}
+			stmt.close();
+		}
+		catch(Exception ex){
+			System.out.println("Probleem bij user zoeken op naam " + ex);
+		}
+		return terug;		
 	}
 	
 	//stel nieuw wachtwoord in. 

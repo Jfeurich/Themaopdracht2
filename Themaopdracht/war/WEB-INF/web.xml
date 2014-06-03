@@ -252,4 +252,10 @@ version="2.4">
 	<servlet-name>OverzichtWerkplaatsPlanningServlet</servlet-name>
 	<servlet-name>KlusAnnulerenServlet</servlet-name>
 </filter-mapping>
+<listener>
+	<listener-class>logger.MyServletContextListener</listener-class>
+</listener>
+<listener>
+  <listener-class>logger.MyHttpSessionListener</listener-class>
+</listener>
 </web-app>
