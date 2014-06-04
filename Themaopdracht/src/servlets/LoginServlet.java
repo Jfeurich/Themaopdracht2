@@ -32,7 +32,6 @@ public class LoginServlet extends HttpServlet {
 			if(deGebruiker != null && deGebruiker.getWachtwoord().equals(password)){
 				req.setAttribute("msg", "U bent succesvol ingelogd!");
 				resp.addCookie(new Cookie("username", username));
-				req.getSession().setMaxInactiveInterval(300);
 				req.getSession().setAttribute("gebruiker", deGebruiker);
 				//logger
 				Logger logger = Logger.getLogger("ATDlogger");
