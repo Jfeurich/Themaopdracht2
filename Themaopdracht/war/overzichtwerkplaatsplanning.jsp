@@ -2,50 +2,42 @@
  <jsp:param name="titel" value="Overzicht werkplaats" /> 
 </jsp:include> 
 	<%@ page import="java.util.ArrayList, domeinklassen.Klus" %>
-	<form action="OverzichtWerkplaatsPlanning.do" method="post">	
-		<div>
-			<h1><span>12: Overzicht werkplaats</span></h1>
-			<% 	
-				Object error =  request.getAttribute("error");
-				if(error != null){
-					out.println("<h3><span>Error!</span></h3>");
-					out.println("<p name=error class=error >" + error + "</p>");
-				}
-				else{
-					Object msg = request.getAttribute("msg");
-					if(msg != null){
-						out.println("<h3 name=msg class=msg ><span>" + msg + "</span></h3>");
-					}
-				}
+	<form action="OverzichtWerkplaatsPlanning.do" method="post">
+		<h1><span>12: Overzicht werkplaats</span></h1>
+		<%@ include file="messages.jsp" %>
+		<%	
+		Object o = request.getAttribute("gevondenKlussen");
+		if(o == null){
 			%>
-		</div>
-
-		<div>
-			<%	
-			ArrayList<Klus> deKlussen = (ArrayList<Klus>) request.getSession().getAttribute("gevondenKlussen");
-				if(deKlussen == null){
-					out.println("<h1><span>Error!<span></h1>");
-					out.println("<p>Er staan geen klussen ingepland</p>");
-				}
-				else{
-					out.println("<h1><span> Ingeplande klussen </span></h1>");
-					out.println("<table>");
-					out.println("<tr>");
-						out.println("<th>Datum</th>");
-						out.println("<th>Beschrijving</th>");
-						out.println("<th>Auto</th>");
-					out.println("</tr>");
-					out.println("<tr>");
-					for(Klus k : deKlussen){
-						out.println("<td>" + k.getDatum() + "</td>");
-						out.println("<td>" + k.getBeschrijving() + "</td>");
-						out.println("<td>" + k.getAuto().getKenteken() + "</td>");
-					}
-					out.println("</tr>");
-					out.println("</table>");
-				}
+			<h2><span>Zoek klussen gepland na vandaag<span></h2>
+			<p><input type="submit" name="knop" value="zoek" /></p>
+			<%
+		}
+		else{
+			ArrayList<Klus> deKlussen = (ArrayList<Klus>)o;
 			%>
-		</div>
+			<h2><span> Ingeplande klussen </span></h2>
+			<table>
+			<tr>
+				<th>Datum</th>
+				<th>Beschrijving</th>
+				<th>Auto</th>
+			</tr>
+			<tr>
+			<% 
+			for(Klus k : deKlussen){
+				%>
+				<td><%=k.getDatum()%></td>
+				<td><%=k.getBeschrijving()%></td>
+				<td><%=k.getAuto().getKenteken()%></td>
+				<%
+			}
+			%>
+			</tr>
+			</table>
+			<%
+		}
+		%>
 	</form>
 	<p><a href="nieuweklus.jsp">Plan een nieuwe klus in</a></p>
 </body>

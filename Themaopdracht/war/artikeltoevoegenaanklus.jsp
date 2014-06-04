@@ -3,60 +3,59 @@
 </jsp:include> 
 	<form action="KlusWijzigenServlet.do" method="post">
 		<%@ page import="java.util.ArrayList,domeinklassen.Klus,domeinklassen.Onderhoudsbeurt,domeinklassen.Reparatie,domeinklassen.Product" %>
-		<div>
-			<h1><span>5: Kies de gewenste artikel(en) en klik op "VoegToe"</span></h1>
-			<%@ include file="messages.jsp" %>
+		<h1><span>5: Kies de gewenste artikel(en) en klik op "VoegToe"</span></h1>
+		<%@ include file="messages.jsp" %>
+		<%
+		Object gekozen = request.getAttribute("deKlus");
+		if(gekozen != null){
+			Klus deKlus = (Klus)gekozen;
+			Object o = request.getAttribute("voorraadlijst");
+			%>
+			<h2><span>Wijzig de klus</span></h2>
 			<%
-			Object gekozen = request.getAttribute("deKlus");
-			if(gekozen != null){
-				Klus deKlus = (Klus)gekozen;
-				ArrayList<Product> voorraadlijst = (ArrayList<Product>)request.getAttribute("voorraadlijst");
+			if(o == null){
 				%>
-				<h2><span>Wijzig de klus</span></h2>
+				<h3><span>Error!</span></h3>
+				<p class="error" >Er is geen voorraad ingevoerd!</p>
 				<%
-				if(voorraadlijst == null){
+			}
+			else{
+				ArrayList<Product> voorraadlijst = (ArrayList<Product>)o;
+				%>
+				<h2><span>Artikelen die momenteel op voorraad zijn</span></h2>
+				<table>
+				<tr>
+					<th>X</th>
+					<th>Artikelnummer</th>
+					<th>Artikelnaam</th>
+					<th>Aantal aanwezig</th>
+					<th>Eenheid</th>
+					<th>Aantal</th>
+				</tr>
+				<%
+				for(Product p : voorraadlijst){
 					%>
-					<h3><span>Error!</span></h3>
-					<p class="error" >Er is geen voorraad ingevoerd!</p>
-					<%
-				}
-				else{
-					%>
-					<h2><span>Artikelen die momenteel op voorraad zijn</span></h2>
-					<table>
 					<tr>
-						<th>X</th>
-						<th>Artikelnummer</th>
-						<th>Artikelnaam</th>
-						<th>Aantal aanwezig</th>
-						<th>Eenheid</th>
-						<th>Aantal</th>
+						<td><input type=checkbox name=product value="<%=p.getArtikelNr()%>" /></td>
+						<td><%=p.getArtikelNr()%></td>
+						<td><%=p.getNaam()%></td>
+						<td><%=p.getAantal()%></td>
+						<td><%=p.getEenheid()%></td>
+						<td><input type="text" name="aantal"  /></td>
+						<input type="hidden" name="alleProducten" value="<%=p.getArtikelNr()%>" />
+						<input type="hidden" name="voorraad" value="<%=p.getAantal()%>" />
 					</tr>
 					<%
-					for(Product p : voorraadlijst){
-						%>
-						<tr>
-							<td><input type=checkbox name=product value="<%=p.getArtikelNr()%>" /></td>
-							<td><%=p.getArtikelNr()%></td>
-							<td><%=p.getNaam()%></td>
-							<td><%=p.getAantal()%></td>
-							<td><%=p.getEenheid()%></td>
-							<td><input type="text" name="aantal"  /></td>
-							<input type="hidden" name="alleProducten" value="<%=p.getArtikelNr()%>" />
-							<input type="hidden" name="voorraad" value="<%=p.getAantal()%>" />
-						</tr>
-						<%
-					}
-					%>
-					</table>
-					<%
 				}
 				%>
-				<input type="hidden" name="gekozenklus" value="<%=deKlus.getID()%>" />
-				<input type="submit" name="knop" value="VoegToe" />
+				</table>
 				<%
 			}
 			%>
-		</div>
+			<input type="hidden" name="gekozenklus" value="<%=deKlus.getID()%>" />
+			<input type="submit" name="knop" value="VoegToe" />
+			<%
+		}
+		%>
 	</form>
 <%@ include file="footer.html" %>

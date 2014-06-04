@@ -6,15 +6,16 @@
 		<h1>Een Parkeer Reservering Bevestigen</h1>
 		<%@ include file="messages.jsp" %>
 		<%			
-		ArrayList<Reservering> reserveringen = (ArrayList<Reservering>)request.getAttribute("reserveringen");
-		if(reserveringen == null){
+		Object o = request.getAttribute("reserveringen");
+		if(o == null){
 			%>
 			<h2>Zoek een reservering via auto ID</h2>
 			<p><input type=text name=zoekviaID /></p>
 			<p><input type=submit value=zoek name=knop></input></p>
 			<%
 		}
-		else if(reserveringen != null){
+		else{
+			ArrayList<Reservering> reserveringen = (ArrayList<Reservering>)o;
 			%>
 			<h2><span>Kies een reservering</span></h2>
 			<table>

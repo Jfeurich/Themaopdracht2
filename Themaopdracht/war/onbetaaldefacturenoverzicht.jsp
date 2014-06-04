@@ -5,19 +5,20 @@
 	<%@ page import="java.util.ArrayList,domeinklassen.Factuur,domeinklassen.Klus" %>
 	<%@ include file="messages.jsp" %>
 	<%
-	ArrayList<Factuur> OverzichtFacturenNietBetaald =(ArrayList<Factuur>)request.getAttribute("OverzichtFacturenNietBetaald");
+	Object o = request.getAttribute("OverzichtFacturenNietBetaald");
 	Object factuurid = request.getAttribute("factuurid");
 	if(factuurid != null){
 		%>
 		<h1><span>18: Factuur betalen:</span></h1>
-		<input type="hidden" name="factuurid" value="<%=Integer.parseInt((String) factuurid)%>" />
-		<input type="radio" name="betaalmiddel" value="giro" checked="checked" > Giro <br />
-		<input type="radio" name="betaalmiddel" value="pin"> Pin <br />
-		<input type="radio" name="betaalmiddel" value="contant"> Contant <br />
+		<input type="hidden" name="factuurid" value="<%=(String)factuurid%>" />
+		<input type="radio" name="betaalmiddel" value="giro" checked="checked" >Giro</>
+		<input type="radio" name="betaalmiddel" value="pin">Pin</>
+		<input type="radio" name="betaalmiddel" value="contant">Contant</>
 		<input type="submit" name="knop" value="betaal" />
 		<%
 	}
-	else if(OverzichtFacturenNietBetaald != null){
+	else if(o != null){
+		ArrayList<Factuur> facturen =(ArrayList<Factuur>)o;
 		%>
 		<h1><span>21: De onbetaalde facturen zijn:</span></h1>
 		<table>
@@ -31,7 +32,7 @@
 			</tr>
 			<%
 			boolean eerste=true;
-			for(Factuur f : OverzichtFacturenNietBetaald){
+			for(Factuur f : facturen){
 				%>
 				<tr>
 					<td><input type="radio" name="factuurid" 
@@ -49,7 +50,7 @@
 	}
 	else if(request.getAttribute("stap1") != null){
 		%>
-		<h3 class=msg >De factuur is betaald!</h3>
+		<h3 class="msg" >De factuur is betaald!</h3>
 		<input type="submit" name="knop" value="overzicht" />
 		<%
 	}

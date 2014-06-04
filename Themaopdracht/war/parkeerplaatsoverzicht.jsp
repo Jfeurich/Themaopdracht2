@@ -7,8 +7,6 @@
 		<div>
 			<h1><span>12: Overzicht parkeerplaats</span></h1>
 			<%@ include file="messages.jsp"%>
-		</div>
-		<div>
 			<table>
 				<tr>
 					<td>Begin datum:</td>
@@ -17,16 +15,13 @@
 					<td><input type="text" name="einddat" class="datepicker" /></td>
 					<td><input type="submit" name="knop" value="Checkdatum" /></td>
 				</tr>
-			</table><br />
-			<%
-				//De datum waarop gezocht is weergeven
-			%>
+			</table>
 		</div>
 		<div>
 			<%	
-			ArrayList<Reservering> deReserveringen = (ArrayList<Reservering>) request.getSession().getAttribute("gevondenReserveringen");
-			if(deReserveringen != null){
-				//werkt niet!
+			Object o = request.getSession().getAttribute("gevondenReserveringen");
+			if(o != null){
+				ArrayList<Reservering> deReserveringen = (ArrayList<Reservering>)o;
 				int teller = 1;
 				%><table><%
 				//8 rijen

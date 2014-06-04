@@ -6,12 +6,9 @@
 		<h1><span>14: Product wijzigen</span></h1>
 		<%@ include file="messages.jsp" %>
 		<%
-		Product p = null;
 		Object hetProduct = request.getAttribute("product");
 		if(hetProduct != null){
-			p = (Product)hetProduct;
-		}
-		if(p != null){
+			Product p = (Product)hetProduct;
 			%>
 			<h2><span>Voer nieuwe waarden in voor de gewenste velden</span></h2>
 			<table>

@@ -5,14 +5,15 @@
 		<%@ page import="java.util.ArrayList,domeinklassen.Product" %>
 		<%@ include file="messages.jsp" %>
 		<%
-		ArrayList<Product> voorraadlijst =(ArrayList<Product>)request.getAttribute("voorraadlijst");
-		if(voorraadlijst == null){
+		Object o = request.getAttribute("voorraadlijst");
+		if(o == null){
 			%>
 			<h1><span>Error!</span></h1>
 			<p class="error">Er is geen voorraad ingevoerd!</p>
 			<%
 		}
 		else{
+			ArrayList<Product> voorraadlijst =(ArrayList<Product>)o;
 			%>
 			<h1><span>27: Alle producten</span></h1>
 			<table>

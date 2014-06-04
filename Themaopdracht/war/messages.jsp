@@ -13,7 +13,7 @@ else{
 	if(msg != null){
 		%>
 			<div id = "bericht">
-				<h3 name="msg" class="msg" > <%=msg %> </h3>
+				<h3 name="msg" class="msg"><span><%=msg%></span></h3>
 			</div>
 		<%
 	}

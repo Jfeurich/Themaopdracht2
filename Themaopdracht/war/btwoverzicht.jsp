@@ -1,9 +1,8 @@
 <jsp:include page="header.jsp" > 
 	<jsp:param name="titel" value="Overzicht BTW" /> 
 </jsp:include> 
+	<%@ page import="java.util.ArrayList,domeinklassen.Factuur,domeinklassen.Klus,domeinklassen.Auto,domeinklassen.Klant" %>
 	<form action="BTWServlet.do" method="post">
-		<%@ page import="java.util.ArrayList,domeinklassen.Factuur,domeinklassen.Klus,domeinklassen.Auto,domeinklassen.Klant" %>
-		<div>
 		<h1><span>22: Overzicht BTW</span></h1>
 		<%@ include file="messages.jsp" %>
 		<h2><span>Geef aan voor welke kwartalen u een overzicht wilt</span></h2>
@@ -23,12 +22,12 @@
 			<span><input type="radio" name="eindkwartaal" value="4" /></span>
 		</p>
 		<input type="submit" name="knop" value="overzicht" />
-		</div>
 	</form>
 	<div>
 	<%
-	ArrayList<Factuur> facturen =(ArrayList<Factuur>)request.getAttribute("facturen");
-	if(facturen != null){
+	Object o = request.getAttribute("facturen");
+	if(o != null){
+		ArrayList<Factuur> facturen =(ArrayList<Factuur>)o;
 		%>
 		<h2><span>Alle betaalde facturen</span></h2>
 		<table>
@@ -53,6 +52,11 @@
 		}
 		%>
 		</table>
+		<%
+	}
+	else{
+		%>
+		<p>Kies voor welke periode u de betaalde facturen op wilt halen</p>
 		<%
 	}
 	%>
