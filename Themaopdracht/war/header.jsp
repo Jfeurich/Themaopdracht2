@@ -7,11 +7,10 @@
 	<link rel="stylesheet" href="stylesheet.css" />
 </head>
 <body>
-	<p><a href="index.jsp">Hoofdmenu</a></p>
 	<div id="head">
 		<div id="titel">
-			<h2>Auto Totaal Dienst Utrecht</h2>
-			<h3>Plezier met rijden!</h3>
+			<span id="hoofdtitel">Auto Totaal Dienst Utrecht</span><br />
+			<span id="ondertitel">Plezier met rijden!</span>
 		</div>
 		<div id="accountinfo">
 			<form action="LogoutServlet.do" method="post">
@@ -21,6 +20,14 @@
 	</div>
 	<div id="menu">
 	<ul>
+		<li> <a href="#">Homepage</a>
+			<ul>
+				<li><a href="index.jsp">Homepage</a></li>
+			</ul>
+			<ul>
+				<li><a href=""></a></li>
+			</ul>
+		</li>
 		<li> <a href="#">Klant</a>
 			<ul>
 				<li><a href="parkeerplaatsoverzicht.jsp">Nieuwe reservering</a></li>
@@ -48,3 +55,4 @@
 	</ul>
 	</div>
 	<div id="content">
+		

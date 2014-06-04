@@ -4,15 +4,7 @@
 		<h1><span>Index van alle pagina's</span></h1>
 		<div>
 			<%@ page import="domeinklassen.User" %>
-			<%
-			Object u = request.getSession().getAttribute("gebruiker");
-			if(u != null){
-				User deGebruiker = (User)u;
-				%>
-				<p>Welkom, <%=deGebruiker.getGebruikersnaam()%>!</p>
-				<%
-			}
-			%>
+			<%@ include file="messages.jsp" %>
 		</div>
 		<h2><span>Achter elke link staat vermeld welke User-story het is aan de hand van het ID.</span></h2>
 		<div>
