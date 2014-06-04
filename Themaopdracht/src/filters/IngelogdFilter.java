@@ -26,7 +26,7 @@ public class IngelogdFilter implements Filter{
 
         String requestPath = request.getRequestURI();
 
-        if((needsAuthentication(requestPath) && session.getAttribute("gebruiker") == null) || session == null) { 
+        if((session == null || needsAuthentication(requestPath) && session.getAttribute("gebruiker") == null)) { 
             response.sendRedirect(request.getContextPath() + "/loginpage.jsp"); 
         } 
         else if(!needsAuthentication(requestPath) && session.getAttribute("gebruiker") != null){

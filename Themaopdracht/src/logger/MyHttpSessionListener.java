@@ -6,6 +6,8 @@ import javax.servlet.ServletContext;
 import javax.servlet.http.HttpSessionEvent;
 import javax.servlet.http.HttpSessionListener;
 
+import domeinklassen.User;
+
 public class MyHttpSessionListener implements HttpSessionListener {
 
 	@Override
@@ -29,6 +31,12 @@ public class MyHttpSessionListener implements HttpSessionListener {
 	public void sessionDestroyed(HttpSessionEvent e) {
 		try{
 			Logger logger = Logger.getLogger("ATDlogger");
+			Object g = e.getSession().getAttribute("gebruiker");
+			if(g != null){
+				User u = (User)g;
+				logger.info("Gebruiker uitgelogd: " + u.getGebruikersnaam());
+			}
+			e.getSession().setAttribute("gebruiker", null);
 			Logger.getLogger("ATDlogger").info("Session destroyed: " + e.getSession().getId());
 			ServletContext sc = e.getSession().getServletContext();
 			Object o = sc.getAttribute("aantalGebruikers");
