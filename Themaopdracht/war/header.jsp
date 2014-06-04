@@ -9,7 +9,10 @@
 <body>
 	<p><a href="index.jsp">Hoofdmenu</a></p>
 	<div id="head">
-		Auto Totaal Dienst Utrecht
+		<div id="titel">
+			<h2>Auto Totaal Dienst Utrecht</h2>
+			<h3>Plezier met rijden!</h3>
+		</div>
 		<div id="accountinfo">
 			<form action="LogoutServlet.do" method="post">
 				<p><input type="submit" name="knop" value="Loguit" /></p>

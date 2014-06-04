@@ -1,7 +1,7 @@
 /*css fouten:
 	- Bij een lange pagina komt de content achter de footer
-	- De css van het menu moet alleen in de div #menu gelden
 	- De message box maken
+	- header fixen
 */
 /*Main components*/
 html {
@@ -15,24 +15,13 @@ body{
 	top: 10px;
 	left: 10px;
 	right: 10px;
-	heigth: 60px;
-	text-align: center;
+	heigth: 800px;/*werkt niet :( */
 	color: #CCCCE0;
 	background: #00001F;
-	font-size: 3em;
 	border: 10px outset #000066;
-	box-shadow:10px 10px 50px black;	
+	box-shadow:5px 5px 100px black;	
 }
 
-#accountinfo{
-	/*deze komt in de #head te staan*/
-	position: fixed;
-	top: 10px;
-	right: 10px;
-	text-align: right;
-	width: 100px;
-	border: 2px #000066;
-}
 #menu {
 	position: fixed;
 	left: 0px;
@@ -41,22 +30,22 @@ body{
 	background: #8080B2; 
 	height: 300px;
 	border: 4px outset #000066;
-	box-shadow:10px 10px 50px black;
-	margin-top: 30px;
+	box-shadow:5px 5px 100px black;
+	margin-top: 40px;
 }
 #content{
 	padding: 10px;
-	margin-left:125px;
-	color: #000052;
-	margin-top: 60px;
-	margin-bottom: 50px;
+	margin-left:150px;
+	color: #CCCCE0;
+	margin-top: 80px;
+	margin-bottom: 200px;/*werkt niet :( */
 }
 
 footer{
 	color: #CCCCE0;
 	background: #00001F;
 	border: 10px outset #000066;
-	box-shadow:10px 10px 50px black;	
+	box-shadow:5px 5px 100px black;	
 	position: fixed; 
 	bottom: 10px;
 	left: 10px;
@@ -65,20 +54,20 @@ footer{
 
 
 /*Small components*/
-h1 {
+#content h1 {
 	text-align: center;
 	background: #000033;
 	color: #CCCCE0;
 	border: 1px solid #CCCCE0;	
 }
-h2 {
+#content h2 {
 	text-align: center;
 	background: #000033;
 	color: #CCCCE0;
 	border: 1px solid #CCCCE0;	
 	font-size: 1.5em;
 }
-button {
+#content button {
 	font-size: 1em;
 	color: #CCCCE0;	
 	background: #000033;
@@ -87,18 +76,18 @@ button {
 
 
 /*Menu*/
-ul {
+#menu ul {
 	margin: 0px; 
 	padding: 0px; 
 	width: 120px;
 	list-style: none; 
 }
-a {
+#menu a {
 	color: #CCCCE0;
 	text-decoration:none;	
 }
 
-ul li {
+#menu ul li {
 	background: #9999C2; 
 	float: left; 
 	height: 35px;
@@ -106,20 +95,20 @@ ul li {
 	border: 2px outset #000066;	
 	margin-left: -2px;
 }
-ul li a {
+#menu ul li a {
 	display: block;
 	padding: 5px;
 	height: 20px;
 }
-ul ul { 
+#menu ul ul { 
 	display: none;
 } 
-ul li:hover ul { 
+#menu ul li:hover ul { 
 	margin-left: 125px; 
 	margin-top:-32px;
 	display: block;
 }
-ul li ul li {
+#menu ul li ul li {
 	background:#9999C2;
 	width: 200px;
 	border: 2px outset #000066;
@@ -141,4 +130,24 @@ td {
 	border: 1px solid #CCCCE0;
 }
 
-
+/*Header*/
+#titel {
+	text-align: left;
+	
+}
+#titel h2 {
+	font-size: 30px;
+	color: #CCCCE0;
+}
+#titel h3 {
+	font-size: 20px;
+	color: #8080B2;
+}
+#accountinfo{
+	position: fixed;
+	top: 10px;
+	right: 10px;
+	text-align: right;
+	width: 100px;
+	border: 2px #000066;
+}
