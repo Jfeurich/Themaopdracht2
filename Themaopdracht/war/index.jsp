@@ -10,7 +10,6 @@
 		<div>
 			<ul>
 				<li><a href=loginpage.jsp>Inloggen(1)</a></li>
-				<li><a href=nieuwereservering.jsp>Nieuwe reservering(3)</a></li>
 				<li><a href=kluswijzigen.jsp>Klus wijzigen(5, 16)</a></li>
 				<li><a href=nieuwefactuur.jsp>Nieuwe factuur(6)</a></li>
 				<li><a href=registreer.jsp>Registreer nieuwe klant(7)</a></li>
