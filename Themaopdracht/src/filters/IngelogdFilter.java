@@ -29,6 +29,9 @@ public class IngelogdFilter implements Filter{
         if((needsAuthentication(requestPath) && session.getAttribute("gebruiker") == null) || session == null) { 
             response.sendRedirect(request.getContextPath() + "/loginpage.jsp"); 
         } 
+        else if(!needsAuthentication(requestPath) && session.getAttribute("gebruiker") != null){
+        	response.sendRedirect(request.getContextPath() + "/index.jsp"); 
+        }
         else {
             chain.doFilter(req, resp); 
         }
