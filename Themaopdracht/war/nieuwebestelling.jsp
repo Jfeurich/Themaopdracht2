@@ -116,7 +116,7 @@
 			}
 			else{
 				%>
-				<input type="submit" name="knop" value="MaakBestellin"g />
+				<input type="submit" name="knop" value="MaakBestelling" />
 				<%
 			}
 			%>
