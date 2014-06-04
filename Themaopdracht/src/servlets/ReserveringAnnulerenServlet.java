@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.sql.Connection;
 import java.util.ArrayList;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -18,11 +17,11 @@ public class ReserveringAnnulerenServlet extends HttpServlet{
 	private static final long serialVersionUID = 1L;
 
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		
 		ConnectDB database = new ConnectDB();
 		Connection con = database.maakVerbinding();
 		
 		String knop = req.getParameter("knop");
-		RequestDispatcher rd = null;
 		
 		//Haalt de reserveringen op via ingevoerde ID
 		if (knop.equals("zoek")){
@@ -52,9 +51,8 @@ public class ReserveringAnnulerenServlet extends HttpServlet{
 		else if(knop.equals("annuleer")){
 			String reservering = req.getParameter("gekozenreservering");
 			if(reservering != null){
-				int reserveringid = Integer.parseInt(reservering);
 				ConnectDBReservering reserveringconn = new ConnectDBReservering(con);
-				reserveringconn.verwijderReservering(reserveringid);
+				reserveringconn.verwijderReservering(Integer.parseInt(reservering));
 				req.setAttribute("msg", "De reservering is succesvol geannuleerd");
 			}
 			else{

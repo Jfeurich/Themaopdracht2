@@ -7,8 +7,51 @@
 		$( ".datepicker" ).datepicker( {
 			dateFormat: "dd-mm-yy", 
 			minDate: "01-01-2000",
-			maxDate: "+5y",
-			constrainInput: true
+			maxDate: "+5y", 
+			changeMonth: true,
+			changeYear: true,
+			constrainInput: true, 
+			monthNamesShort: $.datepicker.regional['nl'].monthNames
 		} );
 	});
 </script>
+<style>
+	.ui-datepicker{
+		font-size: .7em;
+		text-align: center;
+	}
+	.ui-datepicker select.ui-datepicker-month, .ui-datepicker select.ui-datepicker-year{
+		background: #FFFFFF;
+		color: #000033;
+		font-size: .8em;
+		text-align: center;
+		font-weight: bold;
+	}
+	.ui-datepicker select.ui-datepicker-month{
+		width: 60%;
+	}
+	.ui-datepicker select.ui-datepicker-year{
+		width: 40%;
+	}
+	.ui-datepicker table{  
+        width: 100%;  
+    }  
+	.ui-datepicker th{
+		background: #8080B2;
+		color: #000000;
+		font-weight: bold;
+	}  
+	.ui-datepicker td span, .ui-datepicker td a{  
+	    display: inline-block; 
+	    width: 75%;
+	    height: 100%; 
+	    text-align: center;  
+	    background: #9999C2;   
+	    color: #FFFFFF;
+		font-weight: bold;
+	} 
+	.ui-datepicker-current-day .ui-state-active{
+		background: #000033;
+		color: #FFFFFF;
+	}
+</style>

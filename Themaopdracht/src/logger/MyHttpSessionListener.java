@@ -31,21 +31,21 @@ public class MyHttpSessionListener implements HttpSessionListener {
 	public void sessionDestroyed(HttpSessionEvent e) {
 		try{
 			Logger logger = Logger.getLogger("ATDlogger");
+			ServletContext sc = e.getSession().getServletContext();
+			Object o = sc.getAttribute("aantalGebruikers");
+			int aantalGebruikers = (int)o;
 			Object g = e.getSession().getAttribute("gebruiker");
 			if(g != null){
 				User u = (User)g;
 				logger.info("Gebruiker uitgelogd: " + u.getGebruikersnaam());
+				e.getSession().setAttribute("gebruiker", null);
 			}
-			e.getSession().setAttribute("gebruiker", null);
-			Logger.getLogger("ATDlogger").info("Session destroyed: " + e.getSession().getId());
-			ServletContext sc = e.getSession().getServletContext();
-			Object o = sc.getAttribute("aantalGebruikers");
-			int aantalGebruikers = (int)o;
-			if(aantalGebruikers > 0){
+			else if(aantalGebruikers > 0){
 				aantalGebruikers--;
 				sc.setAttribute("aantalGebruikers", (aantalGebruikers));
 				logger.info("Aantal gebruikers: " + aantalGebruikers);
 			}
+			logger.info("Session destroyed: " + e.getSession().getId());
 		}
 		catch(Exception ex){
 			ex.printStackTrace();

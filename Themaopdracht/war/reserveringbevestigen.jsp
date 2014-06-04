@@ -9,13 +9,9 @@
 		ArrayList<Reservering> reserveringen = (ArrayList<Reservering>)request.getAttribute("reserveringen");
 		if(reserveringen == null){
 			%>
-			<table>
-			<tr>
-				<th>Zoek een parkeer reservering via auto ID</th>
-				<td><input type="text" name="zoekviaID" /></td>
-			</tr>
-			</table>
-			<p><input type="submit" value="zoek" name="knop" /></p>
+			<h2>Zoek een reservering via auto ID</h2>
+			<p><input type=text name=zoekviaID /></p>
+			<p><input type=submit value=zoek name=knop></input></p>
 			<%
 		}
 		else if(reserveringen != null){
