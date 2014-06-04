@@ -12,7 +12,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import database.ConnectDB;
 import database.ConnectDBAuto;
 import database.ConnectDBGebruiktProduct;
 import database.ConnectDBKlant;
@@ -29,8 +28,7 @@ public class KlusWijzigenServlet extends HttpServlet {
 
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		
-		ConnectDB database = new ConnectDB();
-		Connection con = database.maakVerbinding();
+		Connection con = (Connection)req.getSession().getAttribute("verbinding");
 		String knop = req.getParameter("knop");
 		
 		//stuur antwoord bij default terug naar kluswijzigen.jsp
@@ -227,7 +225,6 @@ public class KlusWijzigenServlet extends HttpServlet {
 				req.setAttribute("voorraadlijst", deVoorraad);	
 			}
 		}
-		database.sluitVerbinding(con);
 		rd.forward(req, resp);
 	}
 }

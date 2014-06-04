@@ -10,7 +10,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import database.ConnectDB;
 import database.ConnectDBKlus;
 import domeinklassen.Klus;
 
@@ -22,8 +21,7 @@ public class OverzichtWerkplaatsPlanningServlet extends HttpServlet{
 		if(knop.equals("zoek")){
 			Date dat = new Date();
 			
-			ConnectDB database = new ConnectDB();
-			Connection con = database.maakVerbinding();
+			Connection con = (Connection)req.getSession().getAttribute("verbinding");
 		
 			ConnectDBKlus klus = new ConnectDBKlus(con);
 			ArrayList<Klus> deKlussen = klus.getKlussenbydatum();
@@ -36,7 +34,6 @@ public class OverzichtWerkplaatsPlanningServlet extends HttpServlet{
 			//alle gevonden klussen
 			req.setAttribute("gevondenKlussen", deKlussenvanafvandaag);
 			req.getRequestDispatcher("overzichtwerkplaatsplanning.jsp").forward(req, resp);	
-			database.sluitVerbinding(con);
 		}
 	}
 

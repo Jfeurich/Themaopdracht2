@@ -11,7 +11,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import database.ConnectDB;
 import database.ConnectDBUser;
 import domeinklassen.User;
 
@@ -22,8 +21,7 @@ public class LoginServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp)throws ServletException, IOException { 
 
 		RequestDispatcher rd = req.getRequestDispatcher("loginpage.jsp");
-		ConnectDB database = new ConnectDB();
-		Connection con = database.maakVerbinding();
+		Connection con = (Connection)req.getSession().getAttribute("verbinding");
 		
 		String username = req.getParameter("username"); 
 		String password = req.getParameter("password"); 
@@ -34,7 +32,7 @@ public class LoginServlet extends HttpServlet {
 			if(deGebruiker != null && deGebruiker.getWachtwoord().equals(password)){
 				req.setAttribute("msg", "U bent succesvol ingelogd!");
 				resp.addCookie(new Cookie("username", username));
-				req.getSession().setMaxInactiveInterval(120);
+				req.getSession().setMaxInactiveInterval(300);
 				req.getSession().setAttribute("gebruiker", deGebruiker);
 				//logger
 				Logger logger = Logger.getLogger("ATDlogger");
@@ -42,13 +40,12 @@ public class LoginServlet extends HttpServlet {
 				rd = req.getRequestDispatcher("index.jsp");
 			}
 			else{ 
-				req.setAttribute("error", "Onjuist wachtwoord!"); 
+				req.setAttribute("error", "Onjuiste gebruikersnaam of wachtwoord!"); 
 			} 
 		}
 		else{
 			req.setAttribute("error","Niet alle velden zijn ingevuld!");	
 		}
-		database.sluitVerbinding(con);
 		rd.forward(req, resp); 
 	}
 } 

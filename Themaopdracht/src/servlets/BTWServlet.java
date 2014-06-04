@@ -13,7 +13,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import database.ConnectDB;
 import database.ConnectDBFactuur;
 import domeinklassen.Factuur;
 
@@ -22,8 +21,7 @@ public class BTWServlet extends HttpServlet {
 
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		
-		ConnectDB database = new ConnectDB();
-		Connection con = database.maakVerbinding();
+		Connection con = (Connection)req.getSession().getAttribute("verbinding");
 		String knop = req.getParameter("knop");
 		//stuur antwoord bij default terug naar klus.jsp
 		RequestDispatcher rd = req.getRequestDispatcher("btwoverzicht.jsp");
@@ -82,7 +80,6 @@ public class BTWServlet extends HttpServlet {
 				}
 			}
 		}	
-		database.sluitVerbinding(con);
 		rd.forward(req, resp);
 	}
 }

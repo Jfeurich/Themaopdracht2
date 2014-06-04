@@ -5,13 +5,11 @@ import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.Date;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import database.ConnectDB;
 import database.ConnectDBFactuur;
 import domeinklassen.Factuur;
 
@@ -20,9 +18,7 @@ public class OnbetaaldeFacturenOverzichtServlet extends HttpServlet {
 
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		String knop = req.getParameter("knop");
-		ConnectDB database = new ConnectDB();
-		Connection con = database.maakVerbinding();
-		RequestDispatcher rd = req.getRequestDispatcher("onbetaaldefacturenoverzicht.jsp");
+		Connection con = (Connection)req.getSession().getAttribute("verbinding");
 		
 		//overzicht van niet-betaalde facturen
 		if(knop.equals("overzicht")){
@@ -43,7 +39,6 @@ public class OnbetaaldeFacturenOverzichtServlet extends HttpServlet {
 			factuurcon.updateFactuur(deFactuur);
 			req.setAttribute("stap1", "done");
 		}
-		rd.forward(req, resp);
-		database.sluitVerbinding(con);
+		req.getRequestDispatcher("onbetaaldefacturenoverzicht.jsp").forward(req, resp);
 	}
 }

@@ -4,13 +4,11 @@ import java.io.IOException;
 import java.sql.Connection;
 import java.util.ArrayList;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import database.ConnectDB;
 import database.ConnectDBKlus;
 import domeinklassen.Klus;
 
@@ -18,13 +16,10 @@ public class KlusAnnulerenServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		ConnectDB database = new ConnectDB();
-		Connection con = database.maakVerbinding();
 		
+		Connection con = (Connection)req.getSession().getAttribute("verbinding");		
 		String knop = req.getParameter("knop");
 		String viaID = req.getParameter("zoekviaID");
-//		String klus = req.getParameter("gekozenklus");
-		RequestDispatcher rd = null;
 		
 		//Haalt de klussen op via ingevoerde ID
 		if (knop.equals("zoek")){
@@ -62,9 +57,6 @@ public class KlusAnnulerenServlet extends HttpServlet {
 			}
 		}
 		
-		//Sluit de verbinding met de database
-		database.sluitVerbinding(con);
-		rd = req.getRequestDispatcher("klusannuleren.jsp");
-		rd.forward(req, resp);
+		req.getRequestDispatcher("klusannuleren.jsp").forward(req, resp);
 	}
 }

@@ -10,7 +10,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import database.ConnectDB;
 import database.ConnectDBKlant;
 import database.ConnectDBKlus;
 import domeinklassen.Klant;
@@ -21,8 +20,7 @@ public class KlusServlet extends HttpServlet {
 
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		
-		ConnectDB database = new ConnectDB();
-		Connection con = database.maakVerbinding();
+		Connection con = (Connection)req.getSession().getAttribute("verbinding");
 		String knop = req.getParameter("knop");
 		//stuur antwoord bij default terug naar klus.jsp
 		RequestDispatcher rd = req.getRequestDispatcher("klus.jsp");
@@ -56,7 +54,6 @@ public class KlusServlet extends HttpServlet {
 			ArrayList<Klus> klussen = kcon.getKlussen();
 			req.setAttribute("klussen", klussen);
 		}
-		database.sluitVerbinding(con);
 		rd.forward(req, resp);
 	}
 }

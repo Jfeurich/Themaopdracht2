@@ -10,7 +10,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import database.ConnectDB;
 import database.ConnectDBProduct;
 import domeinklassen.Product;
 
@@ -19,11 +18,9 @@ public class WijzigProductServlet extends HttpServlet {
 
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		
-		ConnectDB database = new ConnectDB();
-		Connection con = database.maakVerbinding();
+		Connection con = (Connection)req.getSession().getAttribute("verbinding");
 		String knop = req.getParameter("knop");
-		RequestDispatcher rd = null;
-		
+		RequestDispatcher rd = null;	
 		ConnectDBProduct conn = new ConnectDBProduct(con);
 		
 		if(knop.equals("wijzig")){
@@ -105,7 +102,6 @@ public class WijzigProductServlet extends HttpServlet {
 			req.setAttribute("voorraadlijst", deVoorraad);
 			rd = req.getRequestDispatcher("productenoverzicht.jsp");	
 		}
-		database.sluitVerbinding(con);
 		rd.forward(req, resp);
 	}
 }

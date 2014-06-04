@@ -10,7 +10,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import database.ConnectDB;
 import database.ConnectDBAuto;
 import database.ConnectDBKlant;
 import domeinklassen.Auto;
@@ -21,8 +20,7 @@ public class AutoToevoegenServlet extends HttpServlet{
 	
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		
-		ConnectDB database = new ConnectDB();
-		Connection con = database.maakVerbinding();
+		Connection con = (Connection)req.getSession().getAttribute("verbinding");
 		String knop = req.getParameter("knop");
 	
 		ConnectDBKlant klantcon = new ConnectDBKlant(con);
@@ -67,7 +65,6 @@ public class AutoToevoegenServlet extends HttpServlet{
 				}
 			}		
 		}
-		database.sluitVerbinding(con);
 		RequestDispatcher rd = req.getRequestDispatcher("autotoevoegen.jsp");
 		rd.forward(req, resp);
 	}

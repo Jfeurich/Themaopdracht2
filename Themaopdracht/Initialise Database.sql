@@ -123,7 +123,7 @@ klusid 			INTEGER 		NOT NULL PRIMARY KEY AUTO_INCREMENT,
 datum 			DATE	 		NOT NULL,
 beschrijving 	VARCHAR(100)	NOT NULL,
 manuren 		INTEGER			NOT NULL,
-status 			VARCHAR(20)		NOT NULL,
+status 			VARCHAR(25)		NOT NULL,
 soort 			VARCHAR(20)		NOT NULL,
 autoid			INTEGER 		NOT NULL,
 FOREIGN KEY (autoid) REFERENCES Auto(autoid) 

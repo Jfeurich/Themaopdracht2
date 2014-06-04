@@ -11,7 +11,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import database.ConnectDB;
 import database.ConnectDBAuto;
 import database.ConnectDBKlant;
 import database.ConnectDBReservering;
@@ -23,8 +22,7 @@ public class NieuweReserveringServlet extends HttpServlet{
 	private static final long serialVersionUID = 1L;
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		RequestDispatcher rd = req.getRequestDispatcher("nieuwereservering.jsp");
-		ConnectDB database = new ConnectDB();
-		Connection con = database.maakVerbinding();
+		Connection con = (Connection)req.getSession().getAttribute("verbinding");
 		String knop = req.getParameter("knop");
 		
 		if(knop.equals("klanten")){
@@ -90,7 +88,6 @@ public class NieuweReserveringServlet extends HttpServlet{
 				req.setAttribute("deAuto", deAuto);
 			}
 		}
-		database.sluitVerbinding(con);
 		rd.forward(req, resp);
 	}
 }

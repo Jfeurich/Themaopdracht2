@@ -9,7 +9,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import database.ConnectDB;
 import database.ConnectDBReservering;
 import domeinklassen.Reservering;
 
@@ -17,10 +16,8 @@ public class ReserveringBevestigenServlet extends HttpServlet{
 	private static final long serialVersionUID = 1L; 
 	
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-	
-		ConnectDB database = new ConnectDB();
-		Connection con = database.maakVerbinding();
 		
+		Connection con = (Connection)req.getSession().getAttribute("verbinding");	
 		String knop = req.getParameter("knop");
 		
 		//Haalt de reserveringen op via ingevoerde ID
@@ -45,8 +42,7 @@ public class ReserveringBevestigenServlet extends HttpServlet{
 			else{
 				req.setAttribute("error", "Voer een auto ID in!");
 			}
-		}
-		
+		}	
 		//haalt de gekozen reservering op uit de database en bevestig de reservering
 		else if(knop.equals("bevestigen")){
 			String reservering = req.getParameter("gekozenreservering");
@@ -62,9 +58,6 @@ public class ReserveringBevestigenServlet extends HttpServlet{
 				req.setAttribute("error", "Er is geen reservering geselecteerd!");
 			}
 		}
-		
-		//Sluit de verbinding met de database
-		database.sluitVerbinding(con);
 		req.getRequestDispatcher("reserveringbevestigen.jsp").forward(req, resp);
 	}
 }

@@ -11,13 +11,11 @@ import javax.mail.Session;
 import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import database.ConnectDB;
 import database.ConnectDBAuto;
 import database.ConnectDBFactuur;
 import database.ConnectDBKlant;
@@ -32,8 +30,7 @@ public class NieuweFactuurServlet extends HttpServlet{
 
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		
-		ConnectDB database = new ConnectDB();
-		Connection con = database.maakVerbinding();
+		Connection con = (Connection)req.getSession().getAttribute("verbinding");
 		String knop = req.getParameter("knop");
 		
 		if(knop.equals("Done")){
@@ -143,8 +140,6 @@ public class NieuweFactuurServlet extends HttpServlet{
 				req.setAttribute("error", "Geen geldige waarde");
 			}
 		}
-		RequestDispatcher rd = req.getRequestDispatcher("nieuwefactuur.jsp");
-		rd.forward(req, resp);
-		database.sluitVerbinding(con);
+		req.getRequestDispatcher("nieuwefactuur.jsp").forward(req, resp);
 	}
 }

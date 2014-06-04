@@ -9,7 +9,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import database.ConnectDB;
 import database.ConnectDBKlant;
 import database.ConnectDBUser;
 
@@ -29,10 +28,8 @@ public class RegistreerServlet extends HttpServlet{
 		String telefoonnr = req.getParameter("telnr");
 		String knopje = req.getParameter("knop");
 		
-		RequestDispatcher rd = null;
-		
-		ConnectDB database = new ConnectDB();
-		Connection con = database.maakVerbinding();
+		RequestDispatcher rd = req.getRequestDispatcher("registreer.jsp");
+		Connection con = (Connection)req.getSession().getAttribute("verbinding");
 		//public Klant nieuweKlant(String nm, String adr, String wp, String rnr, int nr)
 		if(knopje != null){
 			//check of de velden zijn ingevuld
@@ -50,7 +47,6 @@ public class RegistreerServlet extends HttpServlet{
 							usercon.nieuweUserIsKlant(klantcon.nieuweKlant(naam, adres, woonplaats, rekeningnr, Integer.parseInt(telefoonnr)), gebruikersnaam, wachtwoord1, email1);
 							req.setAttribute("msg", "Succesvol geregistreerd!");
 							rd = req.getRequestDispatcher("loginpage.jsp"); 
-							rd.forward(req, resp); 
 						}
 						catch(Exception ex){
 							req.setAttribute("error", "Er is geen gebruiker geregistreerd!"); 
@@ -101,8 +97,6 @@ public class RegistreerServlet extends HttpServlet{
 				req.setAttribute("error", s); 
 			}
 		}
-		database.sluitVerbinding(con);
-		rd = req.getRequestDispatcher("registreer.jsp"); 
 		rd.forward(req, resp); 
 	}
 }

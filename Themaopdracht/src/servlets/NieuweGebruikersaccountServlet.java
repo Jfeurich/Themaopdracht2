@@ -4,15 +4,13 @@ import java.io.IOException;
 import java.sql.Connection;
 import java.util.ArrayList;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import database.ConnectDB;
-import database.ConnectDBUser;
 import database.ConnectDBKlant;
+import database.ConnectDBUser;
 import domeinklassen.Klant;
 import domeinklassen.User;
 
@@ -35,9 +33,7 @@ public class NieuweGebruikersaccountServlet extends HttpServlet {
 		Klant k = null;
 		User u = null;
 		
-		ConnectDB database = new ConnectDB();
-		Connection con = database.maakVerbinding();
-		
+		Connection con = (Connection)req.getSession().getAttribute("verbinding");	
 		String knop = req.getParameter("knop");
 		
 		if(knop.equals("Haal klant")){
@@ -159,8 +155,6 @@ public class NieuweGebruikersaccountServlet extends HttpServlet {
 				req.setAttribute("error", s); 
 			}
 		}
-		RequestDispatcher rd = req.getRequestDispatcher("nieuwegebruikersaccount.jsp");
-		rd.forward(req, resp);	
-		database.sluitVerbinding(con);
+		req.getRequestDispatcher("nieuwegebruikersaccount.jsp").forward(req, resp);	
 	}
 }

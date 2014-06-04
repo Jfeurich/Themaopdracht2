@@ -10,7 +10,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import database.ConnectDB;
 import database.ConnectDBBestelling;
 import database.ConnectDBProduct;
 import domeinklassen.BesteldProduct;
@@ -22,8 +21,7 @@ public class NieuweBestellingServlet extends HttpServlet{
 	
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		
-		ConnectDB database = new ConnectDB();
-		Connection con = database.maakVerbinding();
+		Connection con = (Connection)req.getSession().getAttribute("verbinding");
 		String knop = req.getParameter("knop");
 		
 		if(knop.equals("Done")){
@@ -107,6 +105,5 @@ public class NieuweBestellingServlet extends HttpServlet{
 			RequestDispatcher rd = req.getRequestDispatcher("nieuwebestelling.jsp");
 			rd.forward(req, resp);	
 		}
-		database.sluitVerbinding(con);
 	}
 }

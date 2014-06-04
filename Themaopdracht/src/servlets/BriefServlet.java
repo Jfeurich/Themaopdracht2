@@ -9,7 +9,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import database.ConnectDB;
 import database.ConnectDBHerinneringsbrief;
 import database.ConnectDBKlant;
 import domeinklassen.Klant;
@@ -19,8 +18,7 @@ public class BriefServlet extends HttpServlet{
 	
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		
-		ConnectDB database = new ConnectDB();
-		Connection con = database.maakVerbinding();
+		Connection con = (Connection)req.getSession().getAttribute("verbinding");
 		String knop = req.getParameter("knop");
 	
 		//haal alle klanten uit de database
@@ -50,7 +48,6 @@ public class BriefServlet extends HttpServlet{
 				req.setAttribute("msg", "Brief met succes aangemaakt!");
 			}		
 		}
-		database.sluitVerbinding(con);
 		req.getRequestDispatcher("nieuwebrief.jsp").forward(req, resp);
 	}
 }

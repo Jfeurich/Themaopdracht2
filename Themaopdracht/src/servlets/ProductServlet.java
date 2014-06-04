@@ -10,7 +10,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import database.ConnectDB;
 import database.ConnectDBProduct;
 import domeinklassen.Product;
 
@@ -19,8 +18,7 @@ public class ProductServlet extends HttpServlet{
 
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		
-		ConnectDB database = new ConnectDB();
-		Connection con = database.maakVerbinding();
+		Connection con = (Connection)req.getSession().getAttribute("verbinding");
 		String knop = req.getParameter("knop");
 		
 		ConnectDBProduct conn = new ConnectDBProduct(con);	
@@ -30,8 +28,7 @@ public class ProductServlet extends HttpServlet{
 		//forward voorraadlijst naar de overzicht-pagina.
 		if(knop.equals("overzicht")){
 			req.setAttribute("voorraadlijst", deVoorraad);
-		}
-		
+		}		
 		//maak een nieuw product aan
 		else if(knop.equals("nieuw")){
 			String nm = req.getParameter("naam");
@@ -122,7 +119,6 @@ public class ProductServlet extends HttpServlet{
 			deVoorraad = conn.getProducten();
 			req.setAttribute("voorraadlijst", deVoorraad);
 		}	
-		database.sluitVerbinding(con);
 		rd.forward(req, resp);	
 	}
 }
