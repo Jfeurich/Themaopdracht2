@@ -7,11 +7,11 @@
 		<table>
 			<tr>
 				<th>Gebruikersnaam</th>
-				<td><input type="text" name="gebrnaam" /></td>
+				<td><input type="text" name="gebrnaam" value="${param.gebrnaam}" /></td>
 			</tr>
 			<tr>
 				<th>Naam</th>
-				<td><input type="text" name="nm" /></td>
+				<td><input type="text" name="nm" value="${param.nm}" /></td>
 			</tr>
 			<tr>
 				<th>Wachtwoord</th>
@@ -23,7 +23,7 @@
 			</tr>
 			<tr>
 				<th>Email</th>
-				<td><input type="text" name="mail1" /></td>
+				<td><input type="text" name="mail1" value="${param.mail1}" /></td>
 			</tr>
 			<tr>
 				<th>Bevestig email</th>
@@ -31,19 +31,19 @@
 			</tr>
 			<tr>
 				<th>Adres</th>
-				<td><input type="text" name="adr" /></td>
+				<td><input type="text" name="adr" value="${param.adr}" /></td>
 			</tr>
 			<tr>
 				<th>Woonplaats</th>
-				<td><input type="text" name="wp" /></td>
+				<td><input type="text" name="wp" value="${param.wp}" /></td>
 			</tr>
 			<tr>
 				<th>Telefoonnummer</th>
-				<td><input type="text" name="telnr" /></td>
+				<td><input type="text" name="telnr" value="${param.telnr}" /></td>
 			</tr>
 			<tr>
 				<th>Rekeningnummer</th>
-				<td><input type="text" name="rnr" /></td>
+				<td><input type="text" name="rnr" value="${param.rnr}" /></td>
 			</tr>
 		</table>
 		<input type="submit" value="Registreer" name="knop" />

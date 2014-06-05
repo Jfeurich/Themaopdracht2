@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import database.ConnectDB;
 import database.ConnectDBKlant;
 import database.ConnectDBUser;
 
@@ -16,7 +17,7 @@ public class RegistreerServlet extends HttpServlet{
 	private static final long serialVersionUID = 1L;
 
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp)throws ServletException, IOException {
-		String gebruikersnaam = req.getParameter("gebrnaam");
+		String gebruikersnaam = req.getParameter("gebrnaam").toLowerCase();
 		String wachtwoord1 = req.getParameter("ww1");
 		String wachtwoord2 = req.getParameter("ww2");
 		String email1 = req.getParameter("mail1");
@@ -29,7 +30,6 @@ public class RegistreerServlet extends HttpServlet{
 		String knopje = req.getParameter("knop");
 		
 		RequestDispatcher rd = req.getRequestDispatcher("registreer.jsp");
-		Connection con = (Connection)req.getSession().getAttribute("verbinding");
 		//public Klant nieuweKlant(String nm, String adr, String wp, String rnr, int nr)
 		if(knopje != null){
 			//check of de velden zijn ingevuld
@@ -39,14 +39,25 @@ public class RegistreerServlet extends HttpServlet{
 					//check of telnr wel een int getal is
 					if(telefoonnr.matches("((-|\\+)?[0-9]+(\\.[0-9]+)?)+")){
 						try{
-							//user aanmaken en in database stoppen
-							//user die al klant zijn
-							//Klant object aanmaken, dan met dat klant object een user object aanmaken
+							//maak tijdelijk verbinding met database
+							ConnectDB database = new ConnectDB();
+							Connection con = database.maakVerbinding();
 							ConnectDBUser usercon = new ConnectDBUser(con);
-							ConnectDBKlant klantcon = new ConnectDBKlant(con);
-							usercon.nieuweUserIsKlant(klantcon.nieuweKlant(naam, adres, woonplaats, rekeningnr, Integer.parseInt(telefoonnr)), gebruikersnaam, wachtwoord1, email1);
-							req.setAttribute("msg", "Succesvol geregistreerd!");
-							rd = req.getRequestDispatcher("loginpage.jsp"); 
+							//kijk of gebruikersnaam bezet is
+							if(usercon.getUser(gebruikersnaam) == null){
+								//user aanmaken en in database stoppen
+								//user die al klant zijn
+								//Klant object aanmaken, dan met dat klant object een user object aanmaken
+								ConnectDBKlant klantcon = new ConnectDBKlant(con);
+								usercon.nieuweUserIsKlant(klantcon.nieuweKlant(naam, adres, woonplaats, rekeningnr, Integer.parseInt(telefoonnr)), gebruikersnaam, wachtwoord1, email1);
+								req.setAttribute("msg", "Succesvol geregistreerd!");
+								rd = req.getRequestDispatcher("loginpage.jsp"); 
+								//sluit verbinding met database (wordt voor de sessie gemaakt als de klant in logt)
+								database.sluitVerbinding(con);
+							}
+							else{
+								req.setAttribute("error", "Deze gebruikersnaam is bezet!");
+							}
 						}
 						catch(Exception ex){
 							req.setAttribute("error", "Er is geen gebruiker geregistreerd!"); 

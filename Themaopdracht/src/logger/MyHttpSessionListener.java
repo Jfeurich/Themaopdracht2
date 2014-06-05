@@ -15,12 +15,8 @@ public class MyHttpSessionListener implements HttpSessionListener {
 	@Override
 	public void sessionCreated(HttpSessionEvent e) {
 		try{
-			//maak verbinding met database
-			ConnectDB database = new ConnectDB();
-			Connection con = database.maakVerbinding();
-			e.getSession().setAttribute("verbinding", con);
-			ServletContext sc = e.getSession().getServletContext();
 			//aantal gebruikers ++
+			ServletContext sc = e.getSession().getServletContext();
 			Object o = sc.getAttribute("aantalGebruikers");
 			int aantalGebruikers = (int)o;
 			aantalGebruikers++;
@@ -41,24 +37,23 @@ public class MyHttpSessionListener implements HttpSessionListener {
 			Logger logger = Logger.getLogger("ATDlogger");
 			ServletContext sc = e.getSession().getServletContext();
 			int aantalGebruikers = (int)sc.getAttribute("aantalGebruikers");
-			//verwijder gebruiker
+			//indien nodig, log gebruiker uit en verbreek verbinding met database
 			Object g = e.getSession().getAttribute("gebruiker");
 			if(g != null){
 				User u = (User)g;
 				logger.info("Gebruiker uitgelogd: " + u.getGebruikersnaam());
 				e.getSession().setAttribute("gebruiker", null);
+				ConnectDB database = new ConnectDB();
+				Connection con = (Connection)e.getSession().getAttribute("verbinding");
+				database.sluitVerbinding(con);
 			}
 			//stel aantal gebruikers in
-			else if(aantalGebruikers > 0){
+			if(aantalGebruikers > 0){
 				aantalGebruikers--;
 				sc.setAttribute("aantalGebruikers", (aantalGebruikers));
 				logger.info("Aantal gebruikers: " + aantalGebruikers);
 			}
 			logger.info("Session destroyed: " + e.getSession().getId());
-			//verbreek verbinding met database
-			ConnectDB database = new ConnectDB();
-			Connection con = (Connection)e.getSession().getAttribute("verbinding");
-			database.sluitVerbinding(con);
 			e.getSession().setAttribute("verbinding", null);
 		}
 		catch(Exception ex){

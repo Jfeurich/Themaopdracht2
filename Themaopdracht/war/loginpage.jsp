@@ -6,7 +6,7 @@
 		<%@ include file="messages.jsp" %> 
 		<table>
 			<tr>
-				<th>Username</th><td><input type="text" name="username"/></td>
+				<th>Username</th><td><input type="text" name="username" value="${cookie.username.value}" /></td>
 			</tr>
 			<tr>
 				<th>Password</th><td><input type="password" name="password" /></td>

@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import database.ConnectDB;
 import database.ConnectDBUser;
 import domeinklassen.User;
 
@@ -21,11 +22,14 @@ public class LoginServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp)throws ServletException, IOException { 
 
 		RequestDispatcher rd = req.getRequestDispatcher("loginpage.jsp");
-		Connection con = (Connection)req.getSession().getAttribute("verbinding");
 		
 		String username = req.getParameter("username"); 
 		String password = req.getParameter("password"); 
 		if(username != null && password != null){
+			//maak verbinding met database
+			ConnectDB database = new ConnectDB();
+			Connection con = database.maakVerbinding();
+			req.getSession().setAttribute("verbinding", con);
 			//login check
 			ConnectDBUser usercon = new ConnectDBUser(con);
 			User deGebruiker = usercon.getUser(username);
@@ -40,6 +44,8 @@ public class LoginServlet extends HttpServlet {
 			}
 			else{ 
 				req.setAttribute("error", "Onjuiste gebruikersnaam of wachtwoord!"); 
+				//sluit verbinding met database als de gebruiker niet in mag loggen
+				database.sluitVerbinding(con);
 			} 
 		}
 		else{
