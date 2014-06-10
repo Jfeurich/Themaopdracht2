@@ -45,12 +45,12 @@ version="2.4">
 	<url-pattern>/StatusWijzigenFactuurServlet.do</url-pattern>
 </servlet-mapping>
 <servlet>
-	<servlet-name>OnbetaaldeFacturenOverzichtServlet</servlet-name>
-	<servlet-class>servlets.OnbetaaldeFacturenOverzichtServlet</servlet-class>
+	<servlet-name>FactuurServlet</servlet-name>
+	<servlet-class>servlets.FactuurServlet</servlet-class>
 </servlet>
 <servlet-mapping>
-	<servlet-name>OnbetaaldeFacturenOverzichtServlet</servlet-name>
-	<url-pattern>/OnbetaaldeFacturenOverzichtServlet.do</url-pattern>
+	<servlet-name>FactuurServlet</servlet-name>
+	<url-pattern>/FactuurServlet.do</url-pattern>
 </servlet-mapping>
 <servlet>
 	<servlet-name>KlusWijzigenServlet</servlet-name>
@@ -201,7 +201,7 @@ version="2.4">
 	<servlet-name>NieuweBestellingServlet</servlet-name>
 	<servlet-name>NieuweFactuurServlet</servlet-name>
 	<servlet-name>NieuweKlusServlet</servlet-name>
-	<servlet-name>OnbetaaldeFacturenOverzichtServlet</servlet-name>
+	<servlet-name>FactuurServlet</servlet-name>
 	<servlet-name>ProductServlet</servlet-name>
 	<servlet-name>WijzigProductServlet</servlet-name>
 	<servlet-name>RegistreerServlet</servlet-name>	
@@ -221,7 +221,7 @@ version="2.4">
 	<servlet-name>BTWServlet</servlet-name>
 	<servlet-name>NieuweBestellingServlet</servlet-name>
 	<servlet-name>NieuweFactuurServlet</servlet-name>
-	<servlet-name>OnbetaaldeFacturenOverzichtServlet</servlet-name>
+	<servlet-name>FactuurServlet</servlet-name>
 	<servlet-name>ParkeerplaatsOverzichtServlet</servlet-name>
 	<servlet-name>NieuweReserveringServlet</servlet-name>
 	<servlet-name>RegistreerServlet</servlet-name>
@@ -244,7 +244,7 @@ version="2.4">
 	<servlet-name>NieuweBestellingServlet</servlet-name>
 	<servlet-name>NieuweFactuurServlet</servlet-name>
 	<servlet-name>NieuweKlusServlet</servlet-name>
-	<servlet-name>OnbetaaldeFacturenOverzichtServlet</servlet-name>
+	<servlet-name>FactuurServlet</servlet-name>
 	<servlet-name>ProductServlet</servlet-name>
 	<servlet-name>WijzigProductServlet</servlet-name>
 	<servlet-name>RegistreerServlet</servlet-name>

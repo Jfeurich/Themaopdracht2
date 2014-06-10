@@ -22,37 +22,40 @@ public class KlusServlet extends HttpServlet {
 		
 		Connection con = (Connection)req.getSession().getAttribute("verbinding");
 		String knop = req.getParameter("knop");
-		//stuur antwoord bij default terug naar klus.jsp
+		//stuur antwoord bij default naar nieuweklus.jsp
 		RequestDispatcher rd = req.getRequestDispatcher("klus.jsp");
 		
+		//geselecteerde klus annuleren
 		if(knop.equals("nieuw")){
 			ConnectDBKlant klantconn = new ConnectDBKlant(con);	
 			ArrayList<Klant> klanten = klantconn.getKlanten();
 			if(klanten.size() > 0){
 				req.setAttribute("klanten", klanten);
+				rd = req.getRequestDispatcher("nieuweklus.jsp");
 			}
 			else{
 				req.setAttribute("error", "Er staan nog geen klanten in het systeem!");
-			}
-			rd = req.getRequestDispatcher("nieuweklus.jsp");
+			} 
 		}
-		else if(knop.equals("wijzig")){
+		//klanten ophalen en doorsturen bij nieuwe klus of klus wijzigen
+		else{
 			String klus = req.getParameter("gekozenklus");
 			if(klus != null){
 				int klusid = Integer.parseInt(klus);
 				ConnectDBKlus klusconn = new ConnectDBKlus(con);
 				Klus deKlus = klusconn.zoekKlus(klusid);
-				req.setAttribute("deKlus", deKlus);
+				if(knop.equals("annuleren")){
+					deKlus.setStatus("geannuleerd");
+					klusconn.updateKlus(deKlus);
+					req.setAttribute("msg", "Klus is succesvol geannuleerd");
+				}
+				else if(knop.equals("wijzig")){
+					rd = req.getRequestDispatcher("kluswijzigen.jsp");
+				}
 			}
 			else{
 				req.setAttribute("error", "Er is geen klus geselecteerd!");
 			}
-			rd = req.getRequestDispatcher("kluswijzigen.jsp");
-		}
-		else if(knop.equals("overzicht")){
-			ConnectDBKlus kcon = new ConnectDBKlus(con);
-			ArrayList<Klus> klussen = kcon.getKlussen();
-			req.setAttribute("klussen", klussen);
 		}
 		rd.forward(req, resp);
 	}

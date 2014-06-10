@@ -24,36 +24,11 @@
 		}
 	</script>
 	<form action="NieuweBestellingServlet.do" method="post">
-		<%@ page import="java.util.ArrayList,domeinklassen.Bestelling,domeinklassen.Product,domeinklassen.BesteldProduct" %>
+		<%@ page import="java.util.ArrayList,java.sql.Connection,database.ConnectDBProduct,domeinklassen.Bestelling,domeinklassen.Product,domeinklassen.BesteldProduct" %>
 		<h1><span>11: Nieuwe bestelling aanmaken</span></h1>
 		<%@ include file="messages.jsp" %>
 		<%
-		if(request.getAttribute("stap1") != null) {
-			ArrayList<Product> producten = (ArrayList<Product>)request.getAttribute("producten");	
-			%>
-			<h2><span>Kies de te bestellen producten</span></h2>
-			<table>
-			<tr>
-				<th>X</th>
-				<th>Naam</th>
-				<th>Minimum aanwezig</th>
-				<th>Aantal aanwezig</th>
-			</tr>
-			<%
-			for(Product p : producten){
-			%>
-				<tr>
-					<td><input type="checkbox" name="gekozenProduct" value="<%=p.getArtikelNr()%>" /></td>
-					<td><%=p.getNaam()%></td>
-					<td><%=p.getMinimumAanwezig()%></td>
-					<td><%=p.getAantal()%></td>
-				</tr>
-			<%}%>
-			</table>
-			<input type="submit" name="knop" value="KiesProducten" />
-			<%
-		}
-		else if(request.getAttribute("stap2") != null){
+		if(request.getAttribute("stap1") != null){
 			ArrayList<Product> teBestellenProducten = (ArrayList<Product>) request.getAttribute("teBestellenProducten");
 			%>
 			<h2><span>Kies de aantallen van de producten</span></h2>
@@ -86,7 +61,7 @@
 			<input type="submit" name="knop" value="Bestel" />
 			<%
 		}
-		else if(request.getAttribute("stap3") != null){
+		else if(request.getAttribute("stap2") != null){
 			Bestelling deBestelling = (Bestelling) request.getAttribute("deBestelling");
 			%>
 			<h2><span>Kies de hoeveelheid van elk artikel</span></h2>
@@ -115,9 +90,31 @@
 			<%
 		}
 		else{
+			Connection con = (Connection)session.getAttribute("verbinding");
+			ConnectDBProduct productcon = new ConnectDBProduct(con);	
+			ArrayList<Product> producten = productcon.getProducten();	
 			%>
-			<input type="submit" name="knop" value="MaakBestelling" />
+			<h2><span>Kies de te bestellen producten</span></h2>
+			<table>
+			<tr>
+				<th>X</th>
+				<th>Naam</th>
+				<th>Minimum aanwezig</th>
+				<th>Aantal aanwezig</th>
+			</tr>
 			<%
+			for(Product p : producten){
+			%>
+				<tr>
+					<td><input type="checkbox" name="gekozenProduct" value="<%=p.getArtikelNr()%>" /></td>
+					<td><%=p.getNaam()%></td>
+					<td><%=p.getMinimumAanwezig()%></td>
+					<td><%=p.getAantal()%></td>
+				</tr>
+			<%}%>
+			</table>
+			<input type="submit" name="knop" value="KiesProducten" />
+			<%		
 		}
 		%>
 	</form>

@@ -1,12 +1,18 @@
 <%@ include file="redirect.jsp" %>
+<%
+Object o = request.getAttribute("OverzichtFacturenNietBetaald");
+if(o == null){
+	response.sendRedirect("http://localhost:8080/Themaopdracht/factuur.jsp");
+	return;
+}
+%>
 <jsp:include page="header.jsp" > 
 	<jsp:param name="titel" value="Onbetaalde facturen" /> 
 </jsp:include> 
-	<form action="OnbetaaldeFacturenOverzichtServlet.do" method="post">
+	<form action="FactuurServlet.do" method="post">
 	<%@ page import="java.util.ArrayList,domeinklassen.Factuur,domeinklassen.Klus" %>
 	<%@ include file="messages.jsp" %>
 	<%
-	Object o = request.getAttribute("OverzichtFacturenNietBetaald");
 	Object factuurid = request.getAttribute("factuurid");
 	if(factuurid != null){
 		%>
@@ -18,8 +24,8 @@
 		<input type="submit" name="knop" value="betaal" />
 		<%
 	}
-	else if(o != null){
-		ArrayList<Factuur> facturen =(ArrayList<Factuur>)o;
+	else{
+		ArrayList<Factuur> facturen = (ArrayList<Factuur>)o;
 		%>
 		<h1><span>21: De onbetaalde facturen zijn:</span></h1>
 		<table>
@@ -47,18 +53,6 @@
 		<%}%>
 		</table>
 		<input type="submit" name="knop" value="zoek" />
-		<%
-	}
-	else if(request.getAttribute("stap1") != null){
-		%>
-		<h3 class="msg" >De factuur is betaald!</h3>
-		<input type="submit" name="knop" value="overzicht" />
-		<%
-	}
-	else{
-		%>
-		<h3><span>Error!</span></h3>
-		<p class="error">Er zijn geen onbetaalde facturen</p>
 		<%
 	}
 	%>

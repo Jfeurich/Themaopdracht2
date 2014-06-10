@@ -1,4 +1,11 @@
 <%@ include file="redirect.jsp" %>
+<%
+Object o = request.getAttribute("klanten");
+if(o == null){
+	response.sendRedirect("http://localhost:8080/Themaopdracht/factuur.jsp");
+	return;
+}
+%>
 <jsp:include page="header.jsp" > 
 	<jsp:param name="titel" value="Nieuwe factuur" /> 
 </jsp:include> 
@@ -29,40 +36,32 @@
 			if(klussen == null){
 				ArrayList<Auto> autos = (ArrayList<Auto>)request.getAttribute("autos");
 				if(autos == null){
-					ArrayList<Klant> klanten = (ArrayList<Klant>)request.getAttribute("klanten");
-					if(klanten == null){
+					ArrayList<Klant> klanten = (ArrayList<Klant>)o;	
+					%>
+					<h2><span>Haal de autos op van de geselecteerde klant</span></h2>	
+					<table>
+					<tr>
+						<th>Kies</th>
+						<th>Naam</th>
+						<th>Adres</th>
+						<th>Woonplaats</th>
+					</tr>
+					<%
+					boolean eerste=true;
+					for(Klant k : klanten){
 						%>
-						<h2><span>Haal eerst gegevens van de klanten op</span></h2>
-						<input type="submit" name="knop" value="klanten" />
-						<%
-					}
-					else{				
-						%>
-						<h2><span>Haal de autos op van de geselecteerde klant</span></h2>	
-						<table>
 						<tr>
-							<th>Kies</th>
-							<th>Naam</th>
-							<th>Adres</th>
-							<th>Woonplaats</th>
+							<td><input type="radio" name="gekozenklant"
+							<%if(eerste){out.println("checked=checked ");eerste=false;}%>
+							value="<%=k.getKlantnummer()%>" /></td>
+							<td><%=k.getNaam()%></td>
+							<td><%=k.getAdres()%></td>
+							<td><%=k.getPlaats()%></td>
 						</tr>
-						<%
-						boolean eerste=true;
-						for(Klant k : klanten){
-							%>
-							<tr>
-								<td><input type="radio" name="gekozenklant"
-								<%if(eerste){out.println("checked=checked ");eerste=false;}%>
-								value="<%=k.getKlantnummer()%>" /></td>
-								<td><%=k.getNaam()%></td>
-								<td><%=k.getAdres()%></td>
-								<td><%=k.getPlaats()%></td>
-							</tr>
-						<%}%>
-						</table>
-						<p><input type="submit" name="knop" value="autos" /></p>
-						<%
-					}
+					<%}%>
+					</table>
+					<p><input type="submit" name="knop" value="autos" /></p>
+					<%
 				}
 				else{
 					%>

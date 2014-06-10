@@ -23,7 +23,7 @@
 		}
 		else{
 			ArrayList<Auto> autos = null;
-			Object g = request.getSession().getAttribute("gebruiker");
+			Object g = session.getAttribute("gebruiker");
 			if(g != null){
 				User deGebruiker = (User)g;
 				if(deGebruiker.getType() == 3){

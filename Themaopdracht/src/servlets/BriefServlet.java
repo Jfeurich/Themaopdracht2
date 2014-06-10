@@ -2,7 +2,6 @@ package servlets;
 
 import java.io.IOException;
 import java.sql.Connection;
-import java.util.ArrayList;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -10,8 +9,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import database.ConnectDBHerinneringsbrief;
-import database.ConnectDBKlant;
-import domeinklassen.Klant;
 
 public class BriefServlet extends HttpServlet{
 	private static final long serialVersionUID = 1L;
@@ -21,14 +18,8 @@ public class BriefServlet extends HttpServlet{
 		Connection con = (Connection)req.getSession().getAttribute("verbinding");
 		String knop = req.getParameter("knop");
 	
-		//haal alle klanten uit de database
-		if(knop.equals("ZoekKlanten")){
-			ConnectDBKlant klantcon = new ConnectDBKlant(con);
-			ArrayList<Klant> klanten = klantcon.getKlanten();
-			req.setAttribute("klanten", klanten);	
-		}
 		//haal alle autos van de gekozen klant uit de database
-		else if(knop.equals("KiesKlant")){	
+		if(knop.equals("KiesKlant")){	
 			String klantnr = req.getParameter("gekozenklant");
 			req.setAttribute("deKlant", klantnr);
 			req.setAttribute("msg", "Vul de reden voor de brief in en verstuur deze naar de gekozen klant");

@@ -3,12 +3,11 @@
 	<jsp:param name="titel" value="Nieuwe herinneringsbrief" /> 
 </jsp:include> 
 	<form action="BriefServlet.do" method="post">
-		<%@ page import="java.util.ArrayList,domeinklassen.Klant,domeinklassen.Herinneringsbrief" %>
+		<%@ page import="java.util.ArrayList,java.sql.Connection,database.ConnectDBKlant,domeinklassen.Klant,domeinklassen.Herinneringsbrief" %>
 		<h1><span>23: Nieuwe herinneringsbrief</span></h1>
 		<%@ include file="messages.jsp" %>
 		<%
 		Object klant = request.getAttribute("deKlant");
-		Object lijst = request.getAttribute("klanten");
 		if(klant != null){
 			%>
 			<h2><span>Maak de brief</span></h2>
@@ -17,8 +16,10 @@
 			<input type="submit" name="knop" value="NieuweBrief" />
 			<%
 		}
-		else if(lijst != null){
-			ArrayList<Klant> klanten = (ArrayList<Klant>)lijst;	
+		else{
+			Connection con = (Connection)session.getAttribute("verbinding");
+			ConnectDBKlant klantcon = new ConnectDBKlant(con);	
+			ArrayList<Klant> klanten = klantcon.getKlanten();
 			%>
 			<h2><span>Kies klant</span></h2>
 			<table>
@@ -45,11 +46,6 @@
 			<%}%>
 			</table>
 			<input type="submit" name="knop" value="KiesKlant" />
-			<%
-		}
-		else{
-			%>
-			<p><input type="submit" name="knop" value="ZoekKlanten" /></p>
 			<%
 		}
 		%>

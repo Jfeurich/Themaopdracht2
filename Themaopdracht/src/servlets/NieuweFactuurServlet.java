@@ -18,11 +18,9 @@ import javax.servlet.http.HttpServletResponse;
 
 import database.ConnectDBAuto;
 import database.ConnectDBFactuur;
-import database.ConnectDBKlant;
 import database.ConnectDBKlus;
 import domeinklassen.Auto;
 import domeinklassen.Factuur;
-import domeinklassen.Klant;
 import domeinklassen.Klus;
 
 public class NieuweFactuurServlet extends HttpServlet{
@@ -35,12 +33,6 @@ public class NieuweFactuurServlet extends HttpServlet{
 		
 		if(knop.equals("Done")){
 			resp.sendRedirect("index.html");
-		}
-		//haal klanten uit de database
-		else if(knop.equals("klanten")){
-			ConnectDBKlant klantconn = new ConnectDBKlant(con);
-			ArrayList<Klant> klanten = klantconn.getKlanten();
-			req.setAttribute("klanten", klanten);
 		}
 		// haal auto's uit de database
 		else if(knop.equals("autos")){

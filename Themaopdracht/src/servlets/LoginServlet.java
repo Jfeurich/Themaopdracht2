@@ -32,15 +32,26 @@ public class LoginServlet extends HttpServlet {
 			req.getSession().setAttribute("verbinding", con);
 			//login check
 			ConnectDBUser usercon = new ConnectDBUser(con);
-			User deGebruiker = usercon.getUser(username);
-			if(deGebruiker != null && deGebruiker.getWachtwoord().equals(password)){
+			User u = usercon.getUser(username);
+			if(u != null && u.getWachtwoord().equals(password)){
+				rd = req.getRequestDispatcher("http://localhost:8080/Themaopdracht/index.jsp");
 				req.setAttribute("msg", "U bent succesvol ingelogd!");
+				req.getSession().setAttribute("gebruiker", u);
+				//check of gebruiker hier is gekomen via redirect. 
+				//zo ja, probeer terug te sturen naar pagina waar redirect plaats vond
+				Cookie verwijder = null;
+				for(Cookie c : req.getCookies()){	
+					if(c.getName().equals("vorigepagina")){
+						verwijder = c;
+						break;
+					}
+				}
+				rd = req.getRequestDispatcher(verwijder.getValue());
+				verwijder.setMaxAge(-1);
 				resp.addCookie(new Cookie("username", username));
-				req.getSession().setAttribute("gebruiker", deGebruiker);
 				//logger
 				Logger logger = Logger.getLogger("ATDlogger");
 				logger.info("Gebruiker ingelogd: " + username);
-				rd = req.getRequestDispatcher("index.jsp");
 			}
 			else{ 
 				req.setAttribute("error", "Onjuiste gebruikersnaam of wachtwoord!"); 

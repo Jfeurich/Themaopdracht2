@@ -28,15 +28,8 @@ public class NieuweBestellingServlet extends HttpServlet{
 			resp.sendRedirect("index.jsp");
 		}
 		else{
-			//haal alle producten op
-			if(knop.equals("MaakBestelling")){
-				ConnectDBProduct productcon = new ConnectDBProduct(con);	
-				ArrayList<Product> producten = productcon.getProducten();
-				req.setAttribute("producten", producten);
-				req.setAttribute("stap1", "done");
-			}
 			//kies producten met checkbox en haal op
-			else if(knop.equals("KiesProducten")){
+			if(knop.equals("KiesProducten")){
 				String[] gekozenProducten = req.getParameterValues("gekozenProduct");
 				//kijk of er een product is geselecteerd
 				if(gekozenProducten != null){
@@ -46,14 +39,10 @@ public class NieuweBestellingServlet extends HttpServlet{
 						teBestellenProducten.add(productcon.zoekProduct(Integer.parseInt(gekozenProducten[i])));
 					}
 					req.setAttribute("teBestellenProducten", teBestellenProducten);
-					req.setAttribute("stap2", "done");
+					req.setAttribute("stap1", "done");
 				}
 				else{
 					req.setAttribute("error", "Selecteer minimaal 1 product!");
-					ConnectDBProduct productcon = new ConnectDBProduct(con);	
-					ArrayList<Product> producten = productcon.getProducten();
-					req.setAttribute("producten", producten);
-					req.setAttribute("stap1", "done");
 				}
 			}
 			//de beruiker wil bestellen
@@ -94,12 +83,12 @@ public class NieuweBestellingServlet extends HttpServlet{
 					deBestelling.setBesteldeProducten(deBesteldeProducten);
 					ConnectDBBestelling bestellingcon = new ConnectDBBestelling(con);
 					req.setAttribute("deBestelling", bestellingcon.nieuwBestelling(deBestelling));
-					req.setAttribute("stap3", "done");
+					req.setAttribute("stap2", "done");
 				}
 				//als er een ongeldige waarde is ingevuld, stuur teBestellenProducten terug en rest naar stap 2
 				else{
 					req.setAttribute("teBestellenProducten", teBestellenProducten);
-					req.setAttribute("stap2", "done");
+					req.setAttribute("stap1", "done");
 				}
 			}
 			RequestDispatcher rd = req.getRequestDispatcher("nieuwebestelling.jsp");

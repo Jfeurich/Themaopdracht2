@@ -3,12 +3,15 @@
 	<jsp:param name="titel" value="Factuur menu" /> 
 </jsp:include>
 	<h1><span>Hoofdmenu factuur</span></h1>
-	<form action="OnbetaaldeFacturenOverzichtServlet.do" method="post">
+	<form action="FactuurServlet.do" method="post">
 		<%@ page import="domeinklassen.Factuur,java.util.ArrayList" %>
 		<div>
 			<h2><span>Overzicht Onbetaalde Facturen</span></h2>
 			<input type="submit" name="knop" value="overzicht" />
 		</div>
+		<div>
+			<h2><span>Nieuwe factuur aanmaken</span></h2>
+			<input type="submit" name="knop" value="Kies" />
+		</div>
 	</form>
-	<h2><span><a href="nieuwefactuur.jsp">Nieuwe factuur aanmaken</a></span></h2>
 <%@ include file="footer.html" %>
