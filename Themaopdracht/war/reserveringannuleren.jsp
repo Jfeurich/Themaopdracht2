@@ -1,3 +1,4 @@
+<%@ include file="redirect.jsp" %>
 <jsp:include page="header.jsp" > 
 	<jsp:param name="titel" value="Reservering Annuleren" /> 
 </jsp:include> 

@@ -21,16 +21,14 @@ public class IngelogdFilter implements Filter{
 	public void doFilter(ServletRequest req, ServletResponse resp, FilterChain chain) throws IOException, ServletException {	
 
         HttpServletRequest request = (HttpServletRequest)req;
-        HttpServletResponse response = (HttpServletResponse)resp;
-        HttpSession session = request.getSession(false);
-
         String requestPath = request.getRequestURI();
-
-        if((session == null || needsAuthentication(requestPath) && session.getAttribute("gebruiker") == null)) { 
-            response.sendRedirect(request.getContextPath() + "/loginpage.jsp"); 
-        } 
-        else if(!needsAuthentication(requestPath) && session.getAttribute("gebruiker") != null){
-        	response.sendRedirect(request.getContextPath() + "/index.jsp"); 
+        
+        if(!requestPath.endsWith("LoginServlet.do") && !requestPath.endsWith("RegistreerServlet.do")){
+            HttpSession session = request.getSession(false);
+	        if((session == null || session.getAttribute("gebruiker") == null)) { 
+	            HttpServletResponse response = (HttpServletResponse)resp;
+	        	response.sendRedirect("http://localhost:8080/Themaopdracht/loginpage.jsp"); 
+	        }
         }
         else {
             chain.doFilter(req, resp); 
@@ -40,14 +38,4 @@ public class IngelogdFilter implements Filter{
 	public void destroy() {
 		/* Filter is being taken out of service, do nothing. */
 	}
-
-    private boolean needsAuthentication(String url) {
-        String[] validNonAuthenticationUrls = { "LoginServlet.do", "RegistreerServlet.do" };
-        for(String validUrl : validNonAuthenticationUrls) {
-            if (url.endsWith(validUrl)) {
-                return false;
-            }
-        }
-        return true;
-    }
 }

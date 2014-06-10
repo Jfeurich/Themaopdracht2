@@ -6,7 +6,7 @@
 	<link rel="stylesheet" href="//code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css" />
 	<link rel="stylesheet" href="stylesheet.css" />
 </head>
-<body>
+<body> 
 	<div id="head">
 		<div id="titel">
 			<span id="hoofdtitel">Auto Totaal Dienst Utrecht</span><br />

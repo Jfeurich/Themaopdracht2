@@ -1,3 +1,4 @@
+<%@ include file="redirect.jsp" %>
 <jsp:include page="header.jsp" > 
 	<jsp:param name="titel" value="Hoofdmenu klus" /> 
 </jsp:include> 
