@@ -1,8 +1,7 @@
-<%@ include file="redirect.jsp" %>
 <%
 Object gekozen = request.getAttribute("deKlus");
 if(gekozen == null){
-	response.sendRedirect("http://localhost:8080/Themaopdracht/klus.jsp");
+	response.sendRedirect("klus.jsp");
 	return;
 }
 %>
@@ -53,10 +52,10 @@ if(gekozen == null){
 			}
 			%>
 			</table>
+			<input type="hidden" name="gekozenklus" value="<%=deKlus.getID()%>" />
+			<input type="submit" name="knop" value="VoegToe" />
 			<%
 		}
 		%>
-		<input type="hidden" name="gekozenklus" value="<%=deKlus.getID()%>" />
-		<input type="submit" name="knop" value="VoegToe" />
 	</form>
 <%@ include file="footer.html" %>

@@ -13,8 +13,6 @@
 
 -autofill naam van klant in herinneringsbrief
 
--bij redirect naar inloggen, bewaar cookie met gewenste pagina en redirect daar heen na inloggen
-
 -progress bar bij acties die meerdere stappen vereisen
 
--jsp redirect on load
+-fix logbestand (nieuwe aanmaken bij iedere server startup)

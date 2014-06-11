@@ -1,8 +1,7 @@
-<%@ include file="redirect.jsp" %>
 <%
 Object o = request.getAttribute("deKlus");
 if(o == null){
-	response.sendRedirect("http://localhost:8080/Themaopdracht/klus.jsp");
+	response.sendRedirect("klus.jsp");
 	return;
 }
 %>

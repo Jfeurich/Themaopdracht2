@@ -1,8 +1,7 @@
-<%@ include file="redirect.jsp" %>
 <%
 Object hetProduct = request.getAttribute("product");
 if(hetProduct == null){
-	response.sendRedirect("http://localhost:8080/Themaopdracht/product.jsp");
+	response.sendRedirect("product.jsp");
 	return;
 }
 %>

@@ -34,7 +34,7 @@ public class LoginServlet extends HttpServlet {
 			ConnectDBUser usercon = new ConnectDBUser(con);
 			User u = usercon.getUser(username);
 			if(u != null && u.getWachtwoord().equals(password)){
-				rd = req.getRequestDispatcher("http://localhost:8080/Themaopdracht/index.jsp");
+				rd = req.getRequestDispatcher("index.jsp");
 				req.setAttribute("msg", "U bent succesvol ingelogd!");
 				req.getSession().setAttribute("gebruiker", u);
 				//check of gebruiker hier is gekomen via redirect. 

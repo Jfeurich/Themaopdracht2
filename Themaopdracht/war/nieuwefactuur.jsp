@@ -1,8 +1,7 @@
-<%@ include file="redirect.jsp" %>
 <%
 Object o = request.getAttribute("klanten");
 if(o == null){
-	response.sendRedirect("http://localhost:8080/Themaopdracht/factuur.jsp");
+	response.sendRedirect("factuur.jsp");
 	return;
 }
 %>

@@ -8,6 +8,7 @@ import javax.servlet.FilterConfig;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -22,16 +23,24 @@ public class IngelogdFilter implements Filter{
 
         HttpServletRequest request = (HttpServletRequest)req;
         String requestPath = request.getRequestURI();
-        
-        if(!requestPath.endsWith("LoginServlet.do") && !requestPath.endsWith("RegistreerServlet.do")){
-            HttpSession session = request.getSession(false);
-	        if((session == null || session.getAttribute("gebruiker") == null)) { 
-	            HttpServletResponse response = (HttpServletResponse)resp;
-	        	response.sendRedirect("http://localhost:8080/Themaopdracht/loginpage.jsp"); 
+        HttpSession session = request.getSession(false);
+        HttpServletResponse response = (HttpServletResponse)resp;
+
+        if((session == null || session.getAttribute("gebruiker") == null)) { 
+        	if(!requestPath.endsWith("registreer.jsp")&& !requestPath.endsWith("loginpage.jsp")){
+	            requestPath = requestPath.substring(14, requestPath.length());
+	        	response.addCookie(new Cookie("vorigepagina", requestPath));
+	        	response.sendRedirect("loginpage.jsp"); 
 	        }
+        	else{
+        		chain.doFilter(req, resp);
+        	}
         }
-        else {
-            chain.doFilter(req, resp); 
+        else if(requestPath.endsWith("registreer.jsp") && requestPath.endsWith("loginpage.jsp") && session.getAttribute("gebruiker") != null){
+        	response.sendRedirect("index.jsp");
+        }
+        else{
+        	chain.doFilter(req, resp);
         }
 	}
 	

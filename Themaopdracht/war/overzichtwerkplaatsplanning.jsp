@@ -1,6 +1,5 @@
-<%@ include file="redirect.jsp" %>
 <jsp:include page="header.jsp" > 
- <jsp:param name="titel" value="Overzicht werkplaats" /> 
+	<jsp:param name="titel" value="Overzicht werkplaats" /> 
 </jsp:include> 
 	<%@ page import="java.util.ArrayList, domeinklassen.Klus" %>
 	<form action="OverzichtWerkplaatsPlanning.do" method="post">

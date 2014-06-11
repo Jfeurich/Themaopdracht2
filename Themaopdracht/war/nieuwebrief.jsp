@@ -1,4 +1,3 @@
-<%@ include file="redirect.jsp" %>
 <jsp:include page="header.jsp" > 
 	<jsp:param name="titel" value="Nieuwe herinneringsbrief" /> 
 </jsp:include> 
