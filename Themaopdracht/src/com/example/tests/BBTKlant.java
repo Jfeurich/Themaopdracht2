@@ -49,6 +49,13 @@ public class BBTKlant {
 	  driver = new FirefoxDriver();
 	  baseUrl = "http://127.0.0.1:8080/";
 	  driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
+	    driver.get(baseUrl + "/Themaopdracht/loginpage.jsp");
+	    driver.findElement(By.name("username")).clear();
+	    driver.findElement(By.name("username")).sendKeys("Henk");
+	    driver.findElement(By.name("password")).clear();
+	    driver.findElement(By.name("password")).sendKeys("hww");
+	    driver.findElement(By.cssSelector("form > input[type=\"submit\"]")).click();
+	    driver.findElement(By.linkText("Registreer nieuwe klant(7)")).click();
   }
 
   @Test
