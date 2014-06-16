@@ -2,12 +2,15 @@
 	<jsp:param name="titel" value="Auto toevoegen" /> 
 </jsp:include> 
 	<form action="AutoToevoegenServlet.do" method="post">
-	<%@ page import="java.util.ArrayList,domeinklassen.Klant" %>
+	<%@ page import="java.util.ArrayList,domeinklassen.Klant,domeinklassen.User,java.sql.Connection,database.ConnectDBKlant" %>
 		<h1><span>8: Auto toevoegen</span></h1>
 		<%@ include file="messages.jsp" %>
 		<% 	
+		User u = (User)session.getAttribute("gebruiker");
 		Object klant = request.getAttribute("deKlant");
-		Object lijst = request.getAttribute("klanten");
+		if(u.getType() == 3){
+			klant = u.getDeKlant().getKlantnummer();
+		}
 		if(klant != null){
 			%>
 			<h2><span>Voer de gegevens van de auto in</span></h2>
@@ -27,8 +30,10 @@
 			<input type="submit" name="knop" value=VoegAutoToe />
 			<% 
 		}
-		else if(lijst != null){
-			ArrayList<Klant> klanten = (ArrayList<Klant>)lijst;	
+		else{
+			Connection con = (Connection)session.getAttribute("verbinding");
+			ConnectDBKlant kcon = new ConnectDBKlant(con);
+			ArrayList<Klant> klanten = kcon.getKlanten();	
 			%>
 			<h2><span>Kies klant</span></h2>
 			<table>
@@ -55,13 +60,6 @@
 			<input type=submit name=knop value=KiesKlant />
 			<%
 		}
-		else{
-			%>
-			<h2><span>Haal eerst de gegevens van de klanten op</span></h2>
-			<input type="submit" name="knop" value="ZoekKlanten" />
-			<%			
-		}
 		%>
 	</form>
-<p><a href="autotoevoegen.jsp">Terug</a></p>
 <%@ include file="footer.html" %>
