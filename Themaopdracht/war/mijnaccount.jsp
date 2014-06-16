@@ -12,7 +12,6 @@
 			<p><input type="password" name="bevestigwachtwoord" /></p>
 			<input type="submit" value="Bevestig" name="knop" />
 			<%
-			request.setAttribute("wijzigingen", request.getAttribute("wijzigingen"));
 		}
 		else{
 		%>
@@ -53,8 +52,9 @@
 						<th>Rekeningnummer: <%=k.getRekeningnummer()%></th>
 						<td><input type="text" name="rnr" /></td>
 					</tr>
-				<%}}%>
-		</table>
-		<input type="submit" value="Wijzigingen opslaan" name="knop" />
+				<%}%>
+			</table>
+			<input type="submit" value="Wijzigingen opslaan" name="knop" />
+		<%}%>
 	</form>
 <%@ include file="footer.html" %>

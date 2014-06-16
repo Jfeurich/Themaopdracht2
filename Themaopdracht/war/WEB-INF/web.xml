@@ -218,7 +218,6 @@ version="2.4">
 	<servlet-name>KlusAnnulerenServlet</servlet-name>
 	<servlet-name>ReserveringAnnulerenServlet</servlet-name>
 	<servlet-name>ReserveringBevestigenServlet</servlet-name>
-	<url-pattern>*/accountwijzigen.jsp</url-pattern>
 </filter-mapping>
 <filter>
 	<filter-name>GeenMonteurFilter</filter-name>
@@ -238,7 +237,6 @@ version="2.4">
 	<servlet-name>OverzichtWerkplaatsPlanningServlet</servlet-name>
 	<servlet-name>ReserveringAnnulerenServlet</servlet-name>
 	<servlet-name>ReserveringBevestigenServlet</servlet-name>
-	<url-pattern>*/accountwijzigen.jsp</url-pattern>
 </filter-mapping>
 <filter>
 	<filter-name>GeenGaragebeheerderFilter</filter-name>
@@ -261,7 +259,6 @@ version="2.4">
 	<servlet-name>NieuweGebruikersaccountServlet</servlet-name>
 	<servlet-name>OverzichtWerkplaatsPlanningServlet</servlet-name>
 	<servlet-name>KlusAnnulerenServlet</servlet-name>
-	<url-pattern>*/accountwijzigen.jsp</url-pattern>
 </filter-mapping>
 <listener>
 	<listener-class>logger.MyServletContextListener</listener-class>
