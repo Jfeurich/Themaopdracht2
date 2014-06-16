@@ -16,7 +16,7 @@ import database.ConnectDBUser;
 public class RegistreerServlet extends HttpServlet{
 	private static final long serialVersionUID = 1L;
 
-	protected void doGet(HttpServletRequest req, HttpServletResponse resp)throws ServletException, IOException {
+	protected void doPost(HttpServletRequest req, HttpServletResponse resp)throws ServletException, IOException {
 		String gebruikersnaam = req.getParameter("gebrnaam").toLowerCase();
 		String wachtwoord1 = req.getParameter("ww1");
 		String wachtwoord2 = req.getParameter("ww2");

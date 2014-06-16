@@ -1,7 +1,7 @@
 <jsp:include page="header.jsp" > 
 	<jsp:param name="titel" value="Registreren" /> 
 </jsp:include> 
-	<form action="RegistreerServlet.do" method="get"> 
+	<form action="RegistreerServlet.do" method="post"> 
 		<h1>7: Registreer</h1>
 		<%@ include file="messages.jsp" %> 
 		<table>

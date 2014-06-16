@@ -3,7 +3,7 @@
 </jsp:include> 
 <%@ page import="domeinklassen.User, domeinklassen.Klant" %>
 	<h1><span>Overzicht van uw gebruikersaccount</span></h1>
-	<form action="AccountServlet" method="get"> 
+	<form action="AccountServlet.do" method="post"> 
 		<%@ include file="messages.jsp" %> 
 		<% User u = (User)session.getAttribute("gebruiker"); 
 		if(request.getAttribute("controle") != null){

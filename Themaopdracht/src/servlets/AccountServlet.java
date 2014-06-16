@@ -12,8 +12,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import database.ConnectDBUser;
-import domeinklassen.User;
+import database.ConnectDBKlant;
 import domeinklassen.Klant;
+import domeinklassen.User;
 
 public class AccountServlet extends HttpServlet{
 	private static final long serialVersionUID = 1L;
@@ -84,37 +85,40 @@ public class AccountServlet extends HttpServlet{
 				for (Map.Entry<String, String> entry : w.entrySet()) {
 				    String key = entry.getKey();
 				    String value = entry.getValue();
-				    if(value != null && !value.equals("")){
-				    	if(key.equals("gn")){
-				    		gebruiker.setGebruikersnaam(value);
+			    	if(key.equals("gn")){
+			    		gebruiker.setGebruikersnaam(value);
+			    	}
+			    	else if(key.equals("em")){
+			    		gebruiker.setEmail(value);
+			    	}
+			    	else if(key.equals("ww")){
+			    		gebruiker.setWachtwoord(value);
+			    	}
+			    	if(gebruiker.getType() == 3){
+				    	if(key.equals("naam")){
+				    		k.setNaam(value);
 				    	}
-				    	else if(key.equals("em")){
-				    		gebruiker.setEmail(value);
-				    	}
-				    	else if(key.equals("ww")){
-				    		gebruiker.setWachtwoord(value);
-				    	}
-				    	if(gebruiker.getType() == 3){
-					    	if(key.equals("naam")){
-					    		
-					    	}
-					    	else if(key.equals("adr")){
-						    		
-						    }
-					    	else if(key.equals("wp")){
-						    		
-						    }
-					    	else if(key.equals("tel")){
-						    		
-						    }
-					    	else if(key.equals("rek")){
-						    		
-						    }
-				    	}
-				    }
+				    	else if(key.equals("adr")){
+					    	k.setAdres(value);
+					    }
+				    	else if(key.equals("wp")){
+					    	k.setPlaats(value);
+					    }
+				    	else if(key.equals("tel")){
+					    	k.setTelefoonnummer(Integer.parseInt(value));	
+					    }
+				    	else if(key.equals("rek")){
+					    	k.setRekeningnummer(value);
+					    }
+			    	}
 				}
 				ConnectDBUser ucon = new ConnectDBUser(con);
 				ucon.updateUser(gebruiker);
+				if(k != null){
+					ConnectDBKlant kcon = new ConnectDBKlant(con);
+					kcon.updateKlant(k);
+				}
+				req.getSession().setAttribute("gebruiker", ucon.getUser(gebruiker.getGebruikersnaam()));
 				req.setAttribute("msg", "Wijzigingen opgeslagen!");
 				req.setAttribute("controle", null);
 			}

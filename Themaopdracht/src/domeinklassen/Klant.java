@@ -61,6 +61,26 @@ public class Klant {
 		return telefoonnummer;
 	}
 
+	public void setNaam(String naam) {
+		this.naam = naam;
+	}
+
+	public void setAdres(String adres) {
+		this.adres = adres;
+	}
+
+	public void setPlaats(String plaats) {
+		this.plaats = plaats;
+	}
+
+	public void setRekeningnummer(String rekeningnummer) {
+		this.rekeningnummer = rekeningnummer;
+	}
+
+	public void setTelefoonnummer(int telefoonnummer) {
+		this.telefoonnummer = telefoonnummer;
+	}
+
 	public SimpleDateFormat getDf() {
 		return df;
 	}
