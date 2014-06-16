@@ -21,7 +21,7 @@ import domeinklassen.User;
 public class NieuweReserveringServlet extends HttpServlet{
 	private static final long serialVersionUID = 1L;
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		RequestDispatcher rd = req.getRequestDispatcher("nieuwereservering.jsp");
+		RequestDispatcher rd = req.getRequestDispatcher("parkeerplaatsoverzicht.jsp");
 		Connection con = (Connection)req.getSession().getAttribute("verbinding");
 		String knop = req.getParameter("knop");
 		

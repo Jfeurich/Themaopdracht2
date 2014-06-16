@@ -50,18 +50,14 @@
 			</li>
 			<%
 			}
+			if(u.getType() == 0 || u.getType() == 1){
 			%>
 			<li> <a href="#">Garage</a>
-				<%
-				if(u.getType() == 0 || u.getType() == 1){
-				%>
 				<ul><li><a href=klus.jsp>Hoofdmenu klussen</a></li></ul>
 				<ul><li><a href=overzichtwerkplaatsplanning.jsp>Overzicht planning werkplaats</a></li></ul>
-				<%
-				}
-				%>
 			</li>
 			<%
+			}
 			if(u.getType() != 1){
 			%>
 			<li> <a href="#">Parkeerplaats</a>

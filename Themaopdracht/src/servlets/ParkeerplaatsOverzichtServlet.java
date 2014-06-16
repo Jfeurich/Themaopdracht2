@@ -69,7 +69,6 @@ public class ParkeerplaatsOverzichtServlet extends HttpServlet {
 					req.getSession().setAttribute("parkeerplek", i);
 					//De gevonden parkeerplekken uit de sessie halen
 					req.getSession().setAttribute("gevondenReserveringen", null);
-					rd = req.getRequestDispatcher("nieuwereservering.jsp");
 				}
 			}
 		}
