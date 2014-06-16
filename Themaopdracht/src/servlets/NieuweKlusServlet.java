@@ -12,10 +12,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import database.ConnectDBAuto;
-import database.ConnectDBKlant;
 import database.ConnectDBKlus;
 import domeinklassen.Auto;
-import domeinklassen.Klant;
 import domeinklassen.Klus;
 import domeinklassen.Onderhoudsbeurt;
 import domeinklassen.Reparatie;
@@ -27,15 +25,10 @@ public class NieuweKlusServlet extends HttpServlet {
 		
 		Connection con = (Connection)req.getSession().getAttribute("verbinding");
 		String knop = req.getParameter("knop");
+		req.setAttribute("stap1", "done");
 		
-		//roep alle klanten van het bedrijf op
-		if(knop.equals("klanten")){
-			ConnectDBKlant klantconn = new ConnectDBKlant(con);	
-			ArrayList<Klant> klanten = klantconn.getKlanten();
-			req.setAttribute("klanten", klanten);
-		}
 		//roep alle autos van de geselecteerde klant op
-		else if(knop.equals("autos")){
+		if(knop.equals("autos")){
 			ConnectDBAuto autoconn = new ConnectDBAuto(con);
 			String knr = req.getParameter("gekozenklant");
 			int klantnummer = Integer.parseInt(knr);

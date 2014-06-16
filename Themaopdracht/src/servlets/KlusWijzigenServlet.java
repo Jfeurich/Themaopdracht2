@@ -12,14 +12,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import database.ConnectDBAuto;
 import database.ConnectDBGebruiktProduct;
-import database.ConnectDBKlant;
 import database.ConnectDBKlus;
 import database.ConnectDBProduct;
-import domeinklassen.Auto;
 import domeinklassen.GebruiktProduct;
-import domeinklassen.Klant;
 import domeinklassen.Klus;
 import domeinklassen.Product;
 
@@ -34,57 +30,8 @@ public class KlusWijzigenServlet extends HttpServlet {
 		//stuur antwoord bij default terug naar kluswijzigen.jsp
 		RequestDispatcher rd = req.getRequestDispatcher("kluswijzigen.jsp");
 		
-		//roep alle klanten van het bedrijf op
-		if(knop.equals("klanten")){
-			ConnectDBKlant klantconn = new ConnectDBKlant(con);	
-			ArrayList<Klant> klanten = klantconn.getKlanten();
-			if(klanten.size() > 0){
-				req.setAttribute("klanten", klanten);
-			}
-			else{
-				req.setAttribute("error", "Er staan nog geen klanten in het systeem!");
-			}
-		}
-		//roep alle autos van de geselecteerde klant op
-		else if(knop.equals("autos")){
-			ConnectDBAuto autoconn = new ConnectDBAuto(con);
-			String knr = req.getParameter("gekozenklant");
-			int klantnummer = Integer.parseInt(knr);
-			ArrayList<Auto> autos = autoconn.getAutosVan(klantnummer);
-			if(autos.size() > 0){
-				req.setAttribute("autos", autos);
-			}
-			else{
-				req.setAttribute("error", "Er staan geen autos geregistreerd voor deze klant!");
-			}
-		}
-		//haal de klussen van de gekozen auto uit de database
-		else if(knop.equals("klus")){
-			ConnectDBKlus klusconn = new ConnectDBKlus(con);
-			int autoid = Integer.parseInt(req.getParameter("gekozenauto"));
-			ArrayList<Klus> klussen = klusconn.getKlussenVoorAuto(autoid);
-			if(klussen.size() > 0){
-				req.setAttribute("klussen", klussen);
-			}
-			else{
-				req.setAttribute("error", "Er zijn nog geen klussen uitgevoerd aan deze auto!");
-			}
-		}
-		//roep de gekozen klus op uit de database
-		else if(knop.equals("wijzig")){
-			String klus = req.getParameter("gekozenklus");
-			if(klus != null){
-				int klusid = Integer.parseInt(klus);
-				ConnectDBKlus klusconn = new ConnectDBKlus(con);
-				Klus deKlus = klusconn.zoekKlus(klusid);
-				req.setAttribute("deKlus", deKlus);
-			}
-			else{
-				req.setAttribute("error", "Er is geen klus geselecteerd!");
-			}
-		}
 		//probeer de gegeven waardes te wijzigen bij de gekozen klus
-		else if(knop.equals("bevestig")){
+		if(knop.equals("bevestig")){
 			String dat = req.getParameter("datum");
 			String beschrijving = req.getParameter("beschrijving");
 			String status = req.getParameter("status");

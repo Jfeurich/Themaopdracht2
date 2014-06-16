@@ -1,6 +1,6 @@
 <%
 Object o = request.getAttribute("klanten");
-if(o == null){
+if(request.getAttribute("stap1") == null && o == null){
 	response.sendRedirect("klus.jsp");
 	return;
 }
@@ -85,8 +85,8 @@ if(o == null){
 					<th>Reparatie</th>
 				</tr>
 				<tr>
-					<td><input type="radio" name="type" value="onderhoudsbeurt" /></td>
 					<td><input type="radio" name="type" checked="checked" value="reparatie" /></td>
+					<td><input type="radio" name="type" value="onderhoudsbeurt" /></td>
 				</tr>
 				<tr>
 					<th>Datum: </th>
@@ -94,7 +94,7 @@ if(o == null){
 				</tr>
 				</table>
 			<textarea name="beschrijving" placeholder="Omschrijving van de klus"></textarea>
-			<input type="hidden" name="autovanklus" value=" + deAuto.getID() + " />
+			<input type="hidden" name="autovanklus" value="<%=deAuto.getID()%>" />
 			<input type="submit" name="knop" value="nieuw" />
 		<%}%>
 	</form>

@@ -24,10 +24,10 @@ if(o == null){
 		<p>Huidige datum: <%=deKlus.getFormattedDatum()%></p>
 		<input type="text" name="datum" class="datepicker" />
 		<table>
-		<tr><th>Status</th></tr>
-		<tr><td><input type="radio" name="status" checked="checked" value="voltooid" /></td><td>Voltooid</td></tr>
-		<tr><td><input type="radio" name="status" value="onvoltooid" /></td><td>Onvoltooid</td></tr>
-		<tr><td><input type="radio" name="status" value="wachten op onderdelen" /></td><td>Wachten op onderdelen</td></tr>
+			<tr><th>Status</th></tr>
+			<tr><td><input type="radio" name="status" checked="checked" value="voltooid" /></td><td>Voltooid</td></tr>
+			<tr><td><input type="radio" name="status" value="onvoltooid" /></td><td>Onvoltooid</td></tr>
+			<tr><td><input type="radio" name="status" value="wachten op onderdelen" /></td><td>Wachten op onderdelen</td></tr>
 		</table>
 		<p class="kop" >Manuren toevoegen</p>
 		<p>Huidige manuren: <%=deKlus.getManuren()%></p>

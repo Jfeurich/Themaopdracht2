@@ -31,6 +31,7 @@ public class KlusServlet extends HttpServlet {
 			ArrayList<Klant> klanten = klantconn.getKlanten();
 			if(klanten.size() > 0){
 				req.setAttribute("klanten", klanten);
+				req.setAttribute("stap1", "done");
 				rd = req.getRequestDispatcher("nieuweklus.jsp");
 			}
 			else{
@@ -50,6 +51,7 @@ public class KlusServlet extends HttpServlet {
 					req.setAttribute("msg", "Klus is succesvol geannuleerd");
 				}
 				else if(knop.equals("wijzig")){
+					req.setAttribute("deKlus", deKlus);
 					rd = req.getRequestDispatcher("kluswijzigen.jsp");
 				}
 			}
