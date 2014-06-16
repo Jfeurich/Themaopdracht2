@@ -29,7 +29,7 @@ public class BBTKlant {
   private static String baseUrl;
   private boolean acceptNextAlert = true;
   private StringBuffer verificationErrors = new StringBuffer(); 
-  private int i;
+  private static int i;
   
   public BBTKlant(int number) {
      i = number;
@@ -47,9 +47,9 @@ public class BBTKlant {
   @BeforeClass
   public static void setUpBeforeClass() throws Exception {
 	  driver = new FirefoxDriver();
-	  baseUrl = "http://127.0.0.1:8080/";
+	  baseUrl = "http://localhost:8080/";
 	  driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
-	    driver.get(baseUrl + "/Themaopdracht/loginpage.jsp");
+	    driver.get(baseUrl + "Themaopdracht/loginpage.jsp");
 	    driver.findElement(By.name("username")).clear();
 	    driver.findElement(By.name("username")).sendKeys("Henk");
 	    driver.findElement(By.name("password")).clear();
@@ -75,9 +75,9 @@ public class BBTKlant {
 			    String mail1 = regel[4];
 			    String mail2 = regel[5];
 			    String adr = regel[6];
-			    String wp = regel[6];
-			    String telnr = regel[6];
-			    String rnr = regel[6];
+			    String wp = regel[7];
+			    String telnr = regel[8];
+			    String rnr = regel[9];
 			    driver.get(baseUrl + "/Themaopdracht/index.jsp");
 			    driver.findElement(By.linkText("Registreer nieuwe klant(7)")).click();
 			    driver.findElement(By.name("gebrnaam")).clear();
@@ -125,7 +125,7 @@ public class BBTKlant {
 
   @After
   public void tearDown() throws Exception {
-    driver.quit();
+    //driver.quit();
     String verificationErrorString = verificationErrors.toString();
     if (!"".equals(verificationErrorString)) {
       fail(verificationErrorString);
@@ -164,4 +164,9 @@ public class BBTKlant {
       acceptNextAlert = true;
     }
   }
+  @AfterClass
+  public static void shutDown() throws Exception {
+    driver.quit();
+  }
+
 }
