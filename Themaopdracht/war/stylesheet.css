@@ -149,6 +149,23 @@ td {
 	border: 2px outset #000066;
 	background: #C0C0D8; 
 }
+#accountinfo p{
+	margin: 9px;
+	text-align: left;
+	color: #000033;
+}
+#accountinfo a{
+	color: #000033;
+	text-decoration:none;	
+}
+#accountinfo input[type="submit"]{
+	background: #C0C0D8;
+	font-size: 20px;
+}
+#accountinfo input[type="submit"]:hover{
+	color: #CCCCE0;
+	background: #00001F;
+}
 
 /*Message box*/
 #bericht {

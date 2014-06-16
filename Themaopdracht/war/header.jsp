@@ -8,29 +8,48 @@
 </head>
 <body> 
 	<div id="head">
+		<%@ page import="domeinklassen.User" %>
 		<div id="titel">
 			<span id="hoofdtitel">Auto Totaal Dienst Utrecht</span><br />
 			<span id="ondertitel">Plezier met rijden!</span>
 		</div>
 		<div id="accountinfo">
-			<a href="mijnaccount.jsp">Mijn Account</a>
-			<form action="LogoutServlet.do" method="post">
-				<p><input type="submit" name="knop" value="Loguit" /></p>
-			</form>
+			<%
+			User u = (User) request.getSession().getAttribute("gebruiker");
+			if(u != null){
+			%>
+				<p>Welkom <% out.print(u.getGebruikersnaam()); %>!</p>
+				<p><a href="mijnaccount.jsp">Mijn Account</a></p>
+				<form action="LogoutServlet.do" method="post">
+					<p><input type="submit" name="knop" value="Loguit" /></p>
+				</form>
+			<%
+			}
+			else{
+			%>
+				<p><a href="loginpage.jsp">Inloggen</a></p>
+				<p><a href="registreer.jsp">Registeren</a></p>
+			<%	
+			}
+			%>
 		</div>
 	</div>
 	<div id="menu">
-	<ul>
-		<%@ page import="domeinklassen.User" %>
+	<ul>	
 		<%
-		User u = (User) request.getSession().getAttribute("gebruiker");
 		if(u != null){
 		%>
 			<li> <a href="index.jsp">Homepage</a>
 			</li>
+			<%
+			if(u.getType() != 1){
+			%>
 			<li> <a href="#">Auto</a>
 				<ul><li><a href="autotoevoegen.jsp">Auto toevoegen</a></li></ul>
 			</li>
+			<%
+			}
+			%>
 			<li> <a href="#">Garage</a>
 				<%
 				if(u.getType() == 0 || u.getType() == 1){
@@ -75,7 +94,7 @@
 		}
 		else{
 		%>
-			<li> <a href="loginpage.jsp">Login</a>
+			<li> <a href="loginpage.jsp">Inloggen</a>
 			</li>
 		<%
 		}
