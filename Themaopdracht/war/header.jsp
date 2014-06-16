@@ -12,6 +12,7 @@
 		<div id="titel">
 			<span id="hoofdtitel">Auto Totaal Dienst Utrecht</span><br />
 			<span id="ondertitel">Plezier met rijden!</span>
+			<span><img src="Logo.png" id="logo" alt="Logo" /></span>
 		</div>
 		<div id="accountinfo">
 			<%
@@ -55,7 +56,6 @@
 				if(u.getType() == 0 || u.getType() == 1){
 				%>
 				<ul><li><a href=klus.jsp>Hoofdmenu klussen</a></li></ul>
-				<ul><li><a href=klusannuleren.jsp>Een klus annuleren</a></li></ul>
 				<ul><li><a href=overzichtwerkplaatsplanning.jsp>Overzicht planning werkplaats</a></li></ul>
 				<%
 				}
