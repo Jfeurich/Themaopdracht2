@@ -13,7 +13,7 @@ if(gebruiker.getType() != 0){
 	<form action="AccountServlet.do" method="post" >
 		<%@ include file="messages.jsp" %> 
 		<% 
-		Object o = session.getAttribute("wijzig"); 
+		Object o = request.getSession().getAttribute("wijzig"); 
 		if(o == null){
 			Connection con = (Connection)session.getAttribute("verbinding");
 			ConnectDBUser ucon = new ConnectDBUser(con);

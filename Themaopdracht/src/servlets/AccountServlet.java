@@ -42,9 +42,11 @@ public class AccountServlet extends HttpServlet{
 			if(!em.equals("")){
 				w.put("em", em);
 			}
-			String ww = req.getParameter("wachtwoord");
-			if(!ww.equals("")){
-				w.put("ww", ww);
+			if(knop.equals("Wijzigingen opslaan")){
+				String ww = req.getParameter("wachtwoord");
+				if(!ww.equals("")){
+					w.put("ww", ww);
+				}
 			}
 			if(gebruiker.getType() == 3){
 				String nm = req.getParameter("naam");
@@ -159,7 +161,7 @@ public class AccountServlet extends HttpServlet{
 			String geb = req.getParameter("kiesgebruiker");
 			ConnectDBUser ucon = new ConnectDBUser(con);
 			User u = ucon.zoekUser(Integer.parseInt(geb));
-			session.setAttribute("wijzig", u);
+			req.getSession().setAttribute("wijzig", u);
 		}
 		rd.forward(req, resp);
 	}

@@ -80,6 +80,7 @@
 				<ul><li><a href=nieuwebrief.jsp>Nieuwe herinneringsbrief</a></li></ul>
 				<ul><li><a href=factuur.jsp>Overzicht Facturen</a></li></ul>
 				<ul><li><a href=btwoverzicht.jsp>Overzicht BTW</a></li></ul>
+				<ul><li><a href=accountwijzigen.jsp>Account wijzigen</a></li></ul>
 			</li>
 			<li> <a href="#">Producten</a>
 				<ul><li><a href=nieuwebestelling.jsp>Nieuwe bestelling</a></li></ul>

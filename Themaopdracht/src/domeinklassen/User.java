@@ -8,6 +8,7 @@ public class User {
 	//types: 0) administratie, 1) monteur, 2) jopie, en 3) klanten
 	
 	public User(int id, int tp, String unm, String pw, String email){
+		this.id = id;
 		type = tp;
 		gebruikersnaam = unm;
 		wachtwoord = pw;
