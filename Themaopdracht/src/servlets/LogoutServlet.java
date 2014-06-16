@@ -1,13 +1,16 @@
 package servlets;
 
 import java.io.IOException;
+import java.sql.Connection;
 import java.util.logging.Logger;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
+import database.ConnectDB;
 import domeinklassen.User;
 
 public class LogoutServlet extends HttpServlet {
@@ -17,11 +20,16 @@ public class LogoutServlet extends HttpServlet {
 		User u = (User)req.getSession().getAttribute("gebruiker");
 		String naam = u.getGebruikersnaam();
 		//logger
+		HttpSession session = req.getSession();
 		Logger logger = Logger.getLogger("ATDlogger");
 		logger.info("Gebruiker uitgelogd: " + naam);
-		req.getSession().setAttribute("gebruiker", null);
+		session.setAttribute("gebruiker", null);
 		String terug = "Tot ziens, " + naam + "!";
 		req.setAttribute("msg", terug);
 		req.getRequestDispatcher("loginpage.jsp").forward(req, resp); 
+		ConnectDB database = new ConnectDB();
+		Connection con = (Connection)session.getAttribute("verbinding");
+		database.sluitVerbinding(con);
+		session.invalidate();
 	}
 }

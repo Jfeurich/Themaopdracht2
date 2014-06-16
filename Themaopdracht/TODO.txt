@@ -3,15 +3,11 @@
 	-bij toevoegen nieuw, check of al bestaat & non-actief, zo ja, reactiveer (na bevestiging)
 	-NIET verwijderen, dan raak je oude gegevens kwijt en dat is NOT DONE in het bedrijfsleven
 
--lijst producten onder min voorraad (+ auto-bestelling?)
-
 -waarschuwing popup (mogelijk in web??) / bevestigingschermen waar relevant
 
 -sql aanpassen met meer booleans, maak usernames lowercase
 
 -zoekfuncties (op nummer, naam, kenteken, etc)
-
--autofill naam van klant in herinneringsbrief
 
 -progress bar bij acties die meerdere stappen vereisen
 

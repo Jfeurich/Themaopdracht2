@@ -9,6 +9,10 @@
 			<input type="submit" name="knop" value="overzicht" />
 		</div>
 		<div>
+			<h2><span>Overzicht producten onder minimumvoorraad</span></h2>
+			<input type="submit" name="knop" value="OnderVoorraad" />
+		</div>
+		<div>
 			<h2><span>Nieuw product aanmaken</span></h2>
 			<%@ include file="messages.jsp" %>
 			<table>

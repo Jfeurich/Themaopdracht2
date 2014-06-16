@@ -27,8 +27,38 @@ public class ProductServlet extends HttpServlet{
 		
 		//forward voorraadlijst naar de overzicht-pagina.
 		if(knop.equals("overzicht")){
-			req.setAttribute("voorraadlijst", deVoorraad);
-		}		
+			if(deVoorraad.size() == 0){
+				req.setAttribute("msg", "Geen producten beschikbaar!");
+				rd = req.getRequestDispatcher("product.jsp");
+			}
+			else{
+				req.setAttribute("voorraadlijst", deVoorraad);
+			}
+		}	
+		//forward lijst producten onder min voorraad
+		else if (knop.equals("OnderVoorraad")){
+			ArrayList<Product> ondermin = conn.getProductenOnderMinimum();
+			if(ondermin.size() == 0){
+				req.setAttribute("msg", "Alle producten zijn op voorraad!");
+				rd = req.getRequestDispatcher("product.jsp");
+			}
+			else{
+				req.setAttribute("voorraadlijst", ondermin);
+			}
+		}
+		//bestel producten onder min voorraad
+		else if(knop.equals("WerkVoorraadBij")){
+			ArrayList<Product> ondermin = conn.getProductenOnderMinimum();
+			if(ondermin.size() == 0){
+				req.setAttribute("msg", "Alle producten zijn op voorraad!");
+				rd = req.getRequestDispatcher("product.jsp");
+			}
+			else{
+				rd = req.getRequestDispatcher("nieuwebestelling.jsp");
+				req.setAttribute("stap1", "Done");
+				req.setAttribute("teBestellenProducten", ondermin);
+			}
+		}
 		//maak een nieuw product aan
 		else if(knop.equals("nieuw")){
 			String nm = req.getParameter("naam");
