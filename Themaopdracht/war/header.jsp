@@ -43,7 +43,7 @@
 			<li> <a href="index.jsp">Homepage</a>
 			</li>
 			<%
-			if(u.getType() != 1 || u.getType() != 2){
+			if(u.getType() == 0 || u.getType() == 3){
 			%>
 			<li> <a href="#">Auto</a>
 				<ul><li><a href="autotoevoegen.jsp">Auto toevoegen</a></li></ul>
@@ -65,7 +65,7 @@
 				<%
 				if(u.getType() == 0 || u.getType() == 2){
 				%>
-				<ul><li><a href=reserveringannuleren.jsp>Een parkeer reservering annuleren</a></li></ul>
+				<ul><li><a href=reserveringannuleren.jsp>Een parkeerplaats reservering annuleren</a></li></ul>
 				<%
 				}
 				%>
