@@ -187,3 +187,23 @@ td {
 	color: #CCCCE0;
 	background: #00001F;
 }
+
+/*ParkeerOverzicht*/
+#parkeerplaatsoverzicht input[type="submit"] {
+	margin: 5px;
+	background: #707070;
+	font-size: 20px;
+	border-style: solid;
+	border-width: 1px;
+	border-color: white;
+}
+#content input[type="submit"]:hover {
+	color: #CCCCE0;
+	background: #00001F;
+}
+#parkeerplaatsoverzicht td {
+	height: 165px;
+	width: 88px;
+	background-image: url("parkeerplek.png");
+	background-repeat: no-repeat;
+}

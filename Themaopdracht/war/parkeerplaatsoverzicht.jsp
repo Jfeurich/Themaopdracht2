@@ -122,7 +122,7 @@
 				</tr>
 			</table>
 		</div>
-		<div>
+		<div id="parkeerplaatsoverzicht">
 			<%	
 			Object o = request.getSession().getAttribute("gevondenReserveringen");
 			if(o != null){
@@ -143,10 +143,10 @@
 						}
 						%><td><%
 						if(b){
-							%>BEZET<%
+							%><img src="autoo.jpg" alt="Auto" height="165" width="88"><%
 						}
 						else{
-							%><input type="submit" name="knop" value="<%=teller%>" /><%
+							%><input id="parkeerbutton" type="submit" name="knop" value="<%=teller%>" /><%
 						}
 						%></td><%
 						teller++;
