@@ -32,6 +32,16 @@ public class AccountServlet extends HttpServlet{
 		HttpSession session = req.getSession();
 		
 		if(knop.equals("Wijzigingen opslaan") || knop.equals("Account aanpassen")){
+			boolean isKlant = false;
+			if(gebruiker.getType() == 3){
+				isKlant = true;
+			}
+			if(knop.equals("Account aanpassen")){
+				User u = (User)session.getAttribute("wijzig");
+				if(u.getType() == 3){
+					isKlant = true;
+				}
+			}
 			boolean magWijzigen = true;
 			Map<String, String> w = new HashMap<String, String>();
 			String gn = req.getParameter("gebruikersnaam");
@@ -48,7 +58,7 @@ public class AccountServlet extends HttpServlet{
 					w.put("ww", ww);
 				}
 			}
-			if(gebruiker.getType() == 3){
+			if(isKlant){
 				String nm = req.getParameter("naam");
 				if(!nm.equals("")){
 					w.put("nm", nm);
@@ -161,7 +171,7 @@ public class AccountServlet extends HttpServlet{
 			String geb = req.getParameter("kiesgebruiker");
 			ConnectDBUser ucon = new ConnectDBUser(con);
 			User u = ucon.zoekUser(Integer.parseInt(geb));
-			req.getSession().setAttribute("wijzig", u);
+			session.setAttribute("wijzig", u);
 		}
 		rd.forward(req, resp);
 	}
