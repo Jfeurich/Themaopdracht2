@@ -36,7 +36,7 @@ public class IngelogdFilter implements Filter{
         		chain.doFilter(req, resp);
         	}
         }
-        else if(requestPath.endsWith("registreer.jsp") && requestPath.endsWith("loginpage.jsp") && session.getAttribute("gebruiker") != null){
+        else if((requestPath.endsWith("registreer.jsp") || requestPath.endsWith("loginpage.jsp")) && session.getAttribute("gebruiker") != null){
         	response.sendRedirect("index.jsp");
         }
         else{
