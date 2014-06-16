@@ -12,3 +12,5 @@
 -progress bar bij acties die meerdere stappen vereisen
 
 -fix logbestand (nieuwe aanmaken bij iedere server startup)
+
+-wachtwoord vergeten functionaliteit 

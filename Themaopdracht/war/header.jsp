@@ -13,6 +13,7 @@
 			<span id="ondertitel">Plezier met rijden!</span>
 		</div>
 		<div id="accountinfo">
+			<a href="mijnaccount.jsp">Mijn Account</a>
 			<form action="LogoutServlet.do" method="post">
 				<p><input type="submit" name="knop" value="Loguit" /></p>
 			</form>
