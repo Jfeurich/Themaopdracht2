@@ -44,7 +44,6 @@ if(o == null){
 		<input type="submit" name="knop" value="WerkVoorraadBij" />
 		<input type="submit" name="knop" value="wijzig" />
 		<input type="submit" name="knop" value="verwijder" />
-		%>
 	</form>
 	<p><a href="product.jsp">Terug naar hoofdmenu product</a></p>
 <%@ include file="footer.html" %>
