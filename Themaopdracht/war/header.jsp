@@ -43,7 +43,7 @@
 			<li> <a href="index.jsp">Homepage</a>
 			</li>
 			<%
-			if(u.getType() != 1){
+			if(u.getType() != 1 || u.getType() != 2){
 			%>
 			<li> <a href="#">Auto</a>
 				<ul><li><a href="autotoevoegen.jsp">Auto toevoegen</a></li></ul>
