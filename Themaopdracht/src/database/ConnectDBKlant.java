@@ -5,8 +5,6 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
 
-import domeinklassen.Auto;
-import domeinklassen.Herinneringsbrief;
 import domeinklassen.Klant;
 
 public class ConnectDBKlant{
@@ -153,6 +151,8 @@ public class ConnectDBKlant{
 			Statement stmt = con.createStatement();
 			stmt.executeUpdate(sql);
 			stmt.close();
+			ConnectDBUser ucon = new ConnectDBUser(con);
+			ucon.verwijderAccountVan(klantid);
 			return true;
 		}
 		catch(Exception ex){

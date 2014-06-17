@@ -32,6 +32,8 @@ public class AccountServlet extends HttpServlet{
 		HttpSession session = req.getSession();
 		
 		if(knop.equals("Wijzigingen opslaan") || knop.equals("Account aanpassen")){
+			boolean magWijzigen = true;
+			Map<String, String> w = new HashMap<String, String>();
 			boolean isKlant = false;
 			if(gebruiker.getType() == 3){
 				isKlant = true;
@@ -41,9 +43,13 @@ public class AccountServlet extends HttpServlet{
 				if(u.getType() == 3){
 					isKlant = true;
 				}
+				if(req.getParameter("deactivate") != null){
+					w.put("deactivate", "ja");
+				}
+				else if(req.getParameter("activate") != null){
+					w.put("activate", "ja");
+				}
 			}
-			boolean magWijzigen = true;
-			Map<String, String> w = new HashMap<String, String>();
 			String em = req.getParameter("email");
 			if(!em.equals("")){
 				w.put("em", em);
@@ -106,6 +112,7 @@ public class AccountServlet extends HttpServlet{
 				if(gebruiker.getType() == 3){
 					k = gebruiker.getDeKlant();
 				}
+				ConnectDBUser ucon = new ConnectDBUser(con);
 				String wijzignaam = gebruiker.getGebruikersnaam();
 				Map<String, String> w = (HashMap<String, String>)wijzigingen;
 				for (Entry<String, String> entry : w.entrySet()) {
@@ -116,6 +123,12 @@ public class AccountServlet extends HttpServlet{
 			    	}
 			    	else if(key.equals("ww")){
 			    		gebruiker.setWachtwoord(value);
+			    	}
+			    	else if(key.equals("deactivate")){
+			    		ucon.verwijderUser(gebruiker.getID());
+			    	}
+			    	else if(key.equals("activate")){
+			    		ucon.activeerUser(gebruiker.getID());
 			    	}
 			    	if(gebruiker.getType() == 3){
 				    	if(key.equals("naam")){
@@ -135,7 +148,6 @@ public class AccountServlet extends HttpServlet{
 					    }
 			    	}
 				}
-				ConnectDBUser ucon = new ConnectDBUser(con);
 				ucon.updateUser(gebruiker);
 				if(k != null){
 					ConnectDBKlant kcon = new ConnectDBKlant(con);
@@ -164,6 +176,10 @@ public class AccountServlet extends HttpServlet{
 			ConnectDBUser ucon = new ConnectDBUser(con);
 			User u = ucon.zoekUser(Integer.parseInt(geb));
 			session.setAttribute("wijzig", u);
+			String actief = req.getParameter("actief");
+			if(actief.equals("ja")){
+				req.setAttribute("deactiveren", "mogelijk");
+			}
 			rd = req.getRequestDispatcher("accountwijzigen.jsp");
 		}
 		rd.forward(req, resp);

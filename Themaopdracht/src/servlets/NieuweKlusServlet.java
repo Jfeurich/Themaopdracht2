@@ -12,13 +12,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import database.ConnectDBAuto;
-import database.ConnectDBKlus;
 import database.ConnectDBKlant;
+import database.ConnectDBKlus;
 import domeinklassen.Auto;
-import domeinklassen.Klus;
 import domeinklassen.Klant;
-import domeinklassen.Onderhoudsbeurt;
-import domeinklassen.Reparatie;
+import domeinklassen.Klus;
 
 public class NieuweKlusServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;

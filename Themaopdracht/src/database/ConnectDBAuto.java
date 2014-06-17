@@ -7,7 +7,6 @@ import java.util.ArrayList;
 
 import domeinklassen.Auto;
 import domeinklassen.Klant;
-import domeinklassen.Klus;
 
 public class ConnectDBAuto{
 	

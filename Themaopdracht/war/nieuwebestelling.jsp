@@ -45,7 +45,7 @@
 				for(Product p : teBestellenProducten){
 					%>
 					<tr>
-						<td><%=p.getArtikelNr()%></td>
+						<td><input type="hidden" name="wijzig" value="<%=p.getArtikelNr()%>" /><%=p.getArtikelNr()%></td>
 						<td><%=p.getNaam()%></td>
 						<td><%=p.getEenheid()%></td>
 						<td><%=p.getMinimumAanwezig()%></td>
@@ -53,7 +53,6 @@
 						<td name="prijsperstuk" ><%=p.getPrijsPerStuk()%></td>
 						<td><input type="text" onkeyup="updatePrijs()" name="wijzigaantal" /></td>
 					</tr>
-					<input type="hidden" name="wijzig" value="<%=p.getArtikelNr()%>" />
 				<%}%>
 			</table>
 			<p id="totaalprijs" >Totaalprijs: </p>

@@ -8,7 +8,7 @@ if(gebruiker.getType() != 0){
 <jsp:include page="header.jsp" > 
 	<jsp:param name="titel" value="Accountgegevens wijzigen" /> 
 </jsp:include> 
-	<%@ page import="java.util.ArrayList,domeinklassen.Klant,domeinklassen.User,database.ConnectDBUser,java.sql.Connection" %>
+	<%@ page import="java.util.ArrayList,domeinklassen.Klant,database.ConnectDBUser,java.sql.Connection" %>
 	<h1><span>Gegevens van een gebruikersaccount wijzigen</span></h1>
 	<form action="AccountServlet.do" method="post" >
 		<%@ include file="messages.jsp" %> 
@@ -18,8 +18,10 @@ if(gebruiker.getType() != 0){
 			Connection con = (Connection)session.getAttribute("verbinding");
 			ConnectDBUser ucon = new ConnectDBUser(con);
 			ArrayList<User> gebruikers = ucon.getUsers();
+			ArrayList<User> nonactievegebruikers = ucon.getUsersNonActief();
 			%>
 			<h2><span>Kies de gebruiker waar u de gegevens van wilt wijzigen</span></h2>
+			<h3><span>Actieve gebruikers:</span></h3>
 			<table>
 				<tr>
 					<th>X</th>
@@ -30,28 +32,61 @@ if(gebruiker.getType() != 0){
 				boolean eerste = true;
 				for(User u : gebruikers){%>
 					<tr>
-						<td><input type="radio" name="kiesgebruiker" 
+						<td><input type="radio" onclick="setActief()" name="kiesgebruiker" 
 						<%if(eerste){eerste = false;out.print("checked=checked ");}%> 
 						value="<%=u.getID()%>" /></td>
 						<td><%=u.getGebruikersnaam()%></td>
 						<td><%=u.getEmail()%></td>
+						
 					</tr>
 				<%}%>
 			</table>
-			<input type="submit" name="knop" value="Kies gebruiker" />	
+			<%
+			if(nonactievegebruikers.size() > 0){	
+			%>	
+			<h3><span>Non-actieve gebruikers:</span></h3>
+			<table>
+				<tr>
+					<th>X</th>
+					<th>Gebruikersnaam</th>
+					<th>Emailadres</th>
+				</tr>
+				<%
+				for(User u : nonactievegebruikers){%>
+					<tr>
+						<td><input type="radio" onclick="setNonActief()" name="kiesgebruiker" value="<%=u.getID()%>" /></td>
+						<td><%=u.getGebruikersnaam()%></td>
+						<td><%=u.getEmail()%></td>
+						
+					</tr>
+				<%}%>
+			</table>
+			<%}%>
+			<input type="hidden" name="actief" id="actief" value="ja" />
+			<input type="submit" name="knop" value="Kies gebruiker" />		
+			<script type="text/javascript">
+				function setNonActief(){
+					var s = document.getElementById("actief");
+	          		s.value = "nee";
+				}
+				function setActief(){
+					var s = document.getElementById("actief");
+	          		s.value = "ja";
+				}
+			</script>
 		<%}
 		else{
 			if(request.getAttribute("controle") != null){
 			%>
 				<div>
-				<h2><span>Klik op "Bevestig" om de wijzigingen op te slaan</span></h2>
-				<input type="submit" value="Bevestig" name="knop" />
-				<input type="hidden" name="bevestigwachtwoord" value="<%=gebruiker.getWachtwoord()%>" />	
+					<h2><span>Klik op "Bevestig" om de wijzigingen op te slaan</span></h2>
+					<input type="submit" value="Bevestig" name="knop" />
+					<input type="hidden" name="bevestigwachtwoord" value="<%=gebruiker.getWachtwoord()%>" />	
 				</div>			
 			<%}
 			else{
 				User u = (User)o;
-			%>
+				%>
 				<div>
 					<h2><span>Vul de velden in die u wilt wijzigen en klik op "Account aanpassen"</span></h2>
 					<table>
@@ -81,6 +116,19 @@ if(gebruiker.getType() != 0){
 							<tr>
 								<th>Rekeningnummer: <%=k.getRekeningnummer()%></th>
 								<td><input type="text" name="rnr" /></td>
+							</tr>
+						<%}
+						if(request.getAttribute("deactiveren") != null){%>
+							<tr>
+								<th>Account deactiveren?</th>
+								<td><input type="checkbox" name="deactivate" /></td>
+							</tr>
+						<%}
+						else{
+						%>
+							<tr>
+								<th>Account activeren?</th>
+								<td><input type="checkbox" name="activate" /></td>
 							</tr>
 						<%}%>
 					</table>

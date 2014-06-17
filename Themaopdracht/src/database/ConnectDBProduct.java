@@ -6,8 +6,6 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
-import domeinklassen.BesteldProduct;
-import domeinklassen.GebruiktProduct;
 import domeinklassen.Product;
 
 public class ConnectDBProduct{

@@ -46,6 +46,36 @@ public class ConnectDBUser{
 		return terug;
 	}
 	
+	//alle non-actieve users in het systeem
+	public ArrayList<User> getUsersNonActief(){
+		ArrayList<User> terug = new ArrayList<User>();
+		try{
+			String sql = "SELECT * FROM User WHERE actief='f'";
+			Statement stmt = con.createStatement();
+			ResultSet rs = stmt.executeQuery(sql);
+			while (rs.next()) {   // rs.next() geeft false als er niets meer is 
+				int id = rs.getInt("userid");
+				String unm = rs.getString("gebruikersnaam");
+				String ww = rs.getString("wachtwoord");
+				String email = rs.getString("email");
+				int type = rs.getInt("type");
+				int klantid = rs.getInt("klantid");
+				User u = new User(id, type, unm, ww, email);
+				if(type == 3){ //als het de account van een klant is, stel de klant dan in
+					ConnectDBKlant klantconn = new ConnectDBKlant(con);
+					Klant deKlant = klantconn.zoekKlant(klantid);
+					u.setDeKlant(deKlant);
+				}
+				terug.add(u);
+			}
+			stmt.close();
+		}
+		catch(Exception ex){
+			System.out.println("Probleem bij users ophalen " + ex);
+		}
+		return terug;
+	}
+	
 	//zoek naar alle users van een bepaald type (0) administratie, 1) monteur, 2) jopie, en 3) klanten)
 	public ArrayList<User> getUsersVanType(int nummer){
 		ArrayList<User> terug = new ArrayList<User>();
@@ -254,6 +284,21 @@ public class ConnectDBUser{
 	public boolean verwijderUser(int id){
 		try{
 			String sql = "UPDATE User SET actief='f' WHERE userid=" + id;
+			Statement stmt = con.createStatement();
+			stmt.executeUpdate(sql);
+			stmt.close();
+			return true;
+		}
+		catch(Exception ex){
+			System.out.println("Probleem bij user verwijderen " + ex);
+		}
+		return false;
+	}
+	
+	//zet user op actief
+	public boolean activeerUser(int id){
+		try{
+			String sql = "UPDATE User SET actief='t' WHERE userid=" + id;
 			Statement stmt = con.createStatement();
 			stmt.executeUpdate(sql);
 			stmt.close();

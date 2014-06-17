@@ -7,3 +7,9 @@
 -fix logbestand (nieuwe aanmaken bij iedere server startup)
 
 -wachtwoord vergeten functionaliteit 
+
+-klant activeren/deactiveren 
+
+-auto activeren/deactiveren
+
+-product activeren

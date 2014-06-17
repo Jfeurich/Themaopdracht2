@@ -41,11 +41,11 @@
 					<h2><span>Selecteer de auto waar de reservering voor wordt gemaakt</span></h2>
 					<table>
 					<tr>
-						<td>Kies</td>
-						<td>Kenteken</td>
-						<td>Merk</td>
-						<td>Type</td>
-						<td>Eigenaar</td>
+						<th>Kies</th>
+						<th>Kenteken</th>
+						<th>Merk</th>
+						<th>Type</th>
+						<th>Eigenaar</th>
 					</tr>
 					<%
 					boolean eerste=true;
