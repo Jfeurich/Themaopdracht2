@@ -4,57 +4,80 @@ import java.io.IOException;
 import java.sql.Connection;
 import java.util.ArrayList;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import database.ConnectDBKlant;
 import database.ConnectDBReservering;
+import domeinklassen.Auto;
 import domeinklassen.Reservering;
+import domeinklassen.User;
 
 public class ReserveringAnnulerenServlet extends HttpServlet{
 	private static final long serialVersionUID = 1L;
 
-	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		
 		Connection con = (Connection)req.getSession().getAttribute("verbinding");	
 		String knop = req.getParameter("knop");
+		RequestDispatcher rd = req.getRequestDispatcher("reserveringannuleren.jsp");
 		
-		//Haalt de reserveringen op via ingevoerde ID
-		if (knop.equals("zoek")){
-			String viaID = req.getParameter("zoekviaID");
-			if(!viaID.equals("")){
-				try{
-					ConnectDBReservering reserveringconn = new ConnectDBReservering(con);
-					int autoid = Integer.parseInt(req.getParameter("zoekviaID"));
-					ArrayList<Reservering> reserveringen = reserveringconn.zoekReserveringenVanAuto(autoid);
-					if(reserveringen.size() > 0){		
-						req.setAttribute("reserveringen", reserveringen);
-					}
-					else{
-						req.setAttribute("error", "Er zijn geen reserveringen voor deze auto!");
-					}
-				}
-				catch(Exception ex){
-					req.setAttribute("error","Voer een geldig ID in!");
+		if(knop.equals("Haal op")){
+			ConnectDBKlant klantconn = new ConnectDBKlant(con);
+			req.setAttribute("klanten", klantconn.getKlanten());
+		}
+		else if(knop.equals("Kies klant")){
+			String knr = req.getParameter("gekozenklant");
+			int klantnummer = Integer.parseInt(knr);
+			ConnectDBKlant klantconn = new ConnectDBKlant(con);
+			ArrayList<Auto> autosVanKlant = klantconn.zoekKlant(klantnummer).getDeAutos();
+			ArrayList<Reservering> deReserveringen = new ArrayList<Reservering>();
+			for(Auto a: autosVanKlant){
+				ConnectDBReservering resconn = new ConnectDBReservering(con);
+				for(Reservering r: resconn.zoekReserveringenVanAuto(a.getID())){
+					deReserveringen.add(r);
 				}
 			}
-			else{
-				req.setAttribute("error", "Voer een auto ID in!");
-			}
-		}		
-		//haalt de gekozen reservering op uit de database en verwijderd hem vervolgens uit de database
-		else if(knop.equals("annuleer")){
-			String reservering = req.getParameter("gekozenreservering");
-			if(reservering != null){
-				ConnectDBReservering reserveringconn = new ConnectDBReservering(con);
-				reserveringconn.verwijderReservering(Integer.parseInt(reservering));
-				req.setAttribute("msg", "De reservering is succesvol geannuleerd");
+			if(deReserveringen.size() > 0){		
+				req.setAttribute("deReserveringen", deReserveringen);
 			}
 			else{
-				req.setAttribute("error", "Er is geen reservering geselecteerd!");
+				req.setAttribute("error", "Er zijn geen reserveringen voor deze auto!");
 			}
 		}
-		req.getRequestDispatcher("reserveringannuleren.jsp").forward(req, resp);
+		else if(knop.equals("Haal reserveringen op")){
+			User gebruiker = (User) req.getSession().getAttribute("gebruiker");
+			ArrayList<Auto> autosVanKlant = gebruiker.getDeKlant().getAutos();
+			ArrayList<Reservering> deReserveringen = new ArrayList<Reservering>();
+			for(Auto a: autosVanKlant){
+				ConnectDBReservering resconn = new ConnectDBReservering(con);
+				for(Reservering r: resconn.zoekReserveringenVanAuto(a.getID())){
+					deReserveringen.add(r);
+				}
+			}
+			if(deReserveringen.size() > 0){		
+				req.setAttribute("deReserveringen", deReserveringen);
+			}
+			else{
+				req.setAttribute("error", "Er zijn geen reserveringen voor deze auto!");
+			}
+		}
+		else if(knop.equals("Kies reservering")){
+			ConnectDBReservering resconn = new ConnectDBReservering(con);
+			Reservering r = resconn.zoekReservering(Integer.parseInt(req.getParameter("gekozenReservering")));
+			req.setAttribute("reservering", r);
+			req.setAttribute("reserveringID", r.getID());
+		}
+		else if(knop.equals("Bevestig")){
+			ConnectDBReservering resconn = new ConnectDBReservering(con);
+			Reservering r = resconn.zoekReservering(Integer.parseInt(req.getParameter("gekozenReservering")));
+			resconn.verwijderReservering(r.getID());
+			req.setAttribute("msg", "De reservering is succesvol geannuleerd");
+			req.getRequestDispatcher("index.jsp");
+		}
+		rd.forward(req, resp);
 	}
 }

@@ -1,8 +1,8 @@
 <jsp:include page="header.jsp" > 
 	<jsp:param name="titel" value="Reservering Annuleren" /> 
 </jsp:include> 
-	<form action="ReserveringAnnulerenServlet.do" method="get"> 
-	<%@ page import="java.util.ArrayList,domeinklassen.Reservering, domeinklassen.Auto, domeinklassen.User" %>
+	<form action="ReserveringAnnulerenServlet.do" method="post"> 
+	<%@ page import="java.util.ArrayList,domeinklassen.Reservering, domeinklassen.Auto, domeinklassen.Klant, domeinklassen.User" %>
 		<h1>Een Reservering Annuleren</h1>
 		<%@ include file="messages.jsp" %>
 		<%	
@@ -26,7 +26,8 @@
 						<td><%= r.getAuto().getKenteken() %></td>
 					</tr>
 				</table>
-				<input type="submit" value="bevestig" name="knop">
+				<input type="hidden" value=<%=request.getAttribute("reserveringID")%> name="gekozenReservering" />
+				<input type="submit" value="Bevestig" name="knop" />
 			</div>
 		<%			
 		}
@@ -35,7 +36,7 @@
 			if(reserveringen != null){
 				ArrayList<Reservering> deReserveringen = (ArrayList<Reservering>) reserveringen;
 			%>
-				<h2></h2>
+				<h2>Kies een reservering</h2>
 				<div>
 					<table>
 						<tr>
@@ -67,47 +68,58 @@
 			<%
 			}
 			else{
-				
+				User gebruiker = (User) request.getSession().getAttribute("gebruiker");
+				if(gebruiker.getType() == 3){
+				%>
+					<h2>Haal uw reserveringen op</h2>
+					<div>
+						<input type="submit" value="Haal reserveringen op" name="knop">
+					</div>
+				<%
+				}
+				else{
+					Object kl = request.getAttribute("klanten");
+					if(kl != null){
+						ArrayList<Klant> klanten = (ArrayList<Klant>) kl;
+					%>
+						<h2>Kies een klant</h2>
+						<div>
+							<table>
+								<tr>
+									<th>X</th>
+									<th>Klantnummer</th>
+									<th>Naam</th>
+								</tr>
+								<%
+								for(Klant k : klanten){
+									boolean eerste=true;
+								%>
+									<tr>
+										<td><input type="radio" name="gekozenklant" 
+										<%if(eerste){out.println("checked=checked ");eerste=false;}%>
+										value="<%=k.getKlantnummer()%>" /></td>
+										<td><%=k.getKlantnummer() %></td>
+										<td><%=k.getNaam() %></td>
+									</tr>
+								<%
+								}
+								%>
+							</table>
+							<input type="submit" value="Kies klant" name="knop">
+						</div>
+					<%
+					}
+					else{
+					%>
+						<h2>Haal klanten op</h2>
+						<div>
+							<input type="submit" value="Haal op" name="knop">
+						</div>
+					<%
+					}
+				}
 			}
 		}
-		//Object o = request.getAttribute("reserveringen");
-		if(o == null){
-			%>
-			<h2>Zoek een reservering via auto ID</h2>
-			<p><input type="text" name="zoekviaID" /></p>
-			<p><input type="submit" value="zoek" name="knop"></input></p>
-			<%
-		}
-		else{
-			ArrayList<Reservering> reserveringen = (ArrayList<Reservering>)o;
-			%>
-			<h2><span>Kies de reservering die geannuleerd moet worden:</span></h2>
-			<table>
-			<tr>
-				<th>Kies</th>
-				<th>De parkeerplek</th>
-				<th>Begin datum</th>
-				<th>Eind datum</th>
-			</tr>
-			<%
-			boolean eerste=true; 
-	 		for(Reservering r : reserveringen){
-	 			%>
-				<tr>
-					<td><input type="radio" name="gekozenreservering" 
-					<%if(eerste){out.println(" checked=checked ");eerste=false;}%>
-					value="<%=r.getID()%>" /></td>
-					<td><%=r.getDeParkeerplek()%></td>
-					<td><%=r.getBegDatNetjes()%></td>
-					<td><%=r.getEindDatNetjes()%></td>
-				</tr>
-				<%
-			} 
-			%> 
-	 		</table>
-			<input type="submit" name="knop" value="annuleer" />	
-			<%
-		} 
 		%>
 	</form>
 <%@ include file="footer.html" %>
