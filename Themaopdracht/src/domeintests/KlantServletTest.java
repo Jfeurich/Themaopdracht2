@@ -10,15 +10,11 @@ import java.util.Arrays;
 import java.util.Collection;
 
 import org.junit.After;
-import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 import org.junit.runners.Parameterized.Parameters;
-import org.openqa.selenium.By;
-import org.testng.annotations.BeforeTest;
-
 import domeinklassen.Klant;
 import domeinklassen.User;
 
@@ -41,15 +37,7 @@ public class KlantServletTest {
 		   }
 		   return Arrays.asList(data);
 	  }
-	
-	@BeforeClass
-	public void setUpBeforeClass() {
-		gebruiker = new User(0, 0, null, null, null);
-		klant = new Klant(0, null, null, null, null, 0);
-		gebruiker.setDeKlant(klant);
-		klant.setUser(gebruiker);
-	}	
-
+		
 	@Test
 	public void test() {
 		String csvPersonen = "/Themaopdracht/Klant.csv	";
@@ -68,6 +56,8 @@ public class KlantServletTest {
 			    int telefoonnummer = Integer.parseInt(regel[5]);
 			    klant = new Klant(klantnummer, naam, adres, plaats, rekeningnummer, telefoonnummer);
 			    gebruiker = new User(1, 3, klant.getNaam(),"wachtwoord", "test@test.test");
+			    gebruiker.setDeKlant(klant);
+				klant.setUser(gebruiker);
 			    try {
 			      assertEquals(klant.toString(),"Naam " + naam + "; adres " + adres + "; woonplaats " + plaats + "; rekeningnummer " + rekeningnummer + "; telefoonnummer " + telefoonnummer);
 			      assertEquals(gebruiker.toString(),"User username=" + gebruiker.getGebruikersnaam()+ ", password=" + gebruiker.getWachtwoord() + "\n" + "Account is van klant:\n" + klant.toString());
