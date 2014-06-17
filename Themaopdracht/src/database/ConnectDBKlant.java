@@ -77,6 +77,29 @@ public class ConnectDBKlant{
 		return terug;		
 	}
 	
+	//zoek klant op klantnummer
+	public Klant zoekEigenaar(int klantnummer){
+		Klant terug = null;
+		try{
+			String sql = "SELECT * FROM Klant WHERE klantid=" + klantnummer;
+			Statement stmt = con.createStatement();
+			ResultSet rs = stmt.executeQuery(sql);
+			while (rs.next()) {   // rs.next() geeft false als er niets meer is 
+				String nm = rs.getString("naam");
+				String adr = rs.getString("adres");
+				String wp = rs.getString("plaats");
+				String rnr = rs.getString("rekeningnummer");
+				int nr = rs.getInt("telefoonnummer");
+				terug = new Klant(klantnummer, nm, adr, wp, rnr, nr);
+			}
+			stmt.close();
+		}
+		catch(Exception ex){
+			System.out.println("Probleem bij klant zoeken" + ex);
+		}
+		return terug;		
+	}
+	
 	//maakt nieuwe klant.  id wordt automatisch toegewezen. geeft klant-object terug zodat je het id weet.
 	public Klant nieuweKlant(String nm, String adr, String wp, String rnr, int nr){
 		Klant terug = null;

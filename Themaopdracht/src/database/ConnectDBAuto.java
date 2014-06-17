@@ -31,11 +31,11 @@ public class ConnectDBAuto{
 				String tp = rs.getString("type");
 				int klantid = rs.getInt("klantid");
 				ConnectDBKlant klantconn = new ConnectDBKlant(con);
-				Klant eigenaar = klantconn.zoekKlant(klantid);
+				Klant eigenaar = klantconn.zoekEigenaar(klantid);
 				Auto a = new Auto(ken, mk, tp, eigenaar);
 				a.setID(id);
 				ConnectDBKlus klusconn = new ConnectDBKlus(con);
-				klusconn.getKlussenVoorAuto(a);
+				klusconn.getKlussenVoorAuto(id);
 				terug.add(a);
 			}
 			stmt.close();
@@ -59,11 +59,11 @@ public class ConnectDBAuto{
 				String mk = rs.getString("merk");
 				String tp = rs.getString("type");
 				ConnectDBKlant klantconn = new ConnectDBKlant(con);
-				Klant eigenaar = klantconn.zoekKlant(zoekid);
+				Klant eigenaar = klantconn.zoekEigenaar(zoekid);
 				Auto a = new Auto(ken, mk, tp, eigenaar);
 				a.setID(id);
 				ConnectDBKlus klusconn = new ConnectDBKlus(con);
-				klusconn.getKlussenVoorAuto(a);
+				klusconn.getKlussenVoorAuto(id);
 				terug.add(a);
 			}
 			stmt.close();
@@ -89,7 +89,7 @@ public class ConnectDBAuto{
 				Auto a = new Auto(ken, mk, tp, k);
 				a.setID(id);
 				ConnectDBKlus klusconn = new ConnectDBKlus(con);
-				klusconn.getKlussenVoorAuto(a);
+				klusconn.getKlussenVoorAuto(id);
 				terug.add(a);
 			}
 			stmt.close();
@@ -113,11 +113,39 @@ public class ConnectDBAuto{
 				String tp = rs.getString("type");
 				int klantid = rs.getInt("klantid");
 				ConnectDBKlant klantconn = new ConnectDBKlant(con);
-				Klant eigenaar = klantconn.zoekKlant(klantid);
+				Klant eigenaar = klantconn.zoekEigenaar(klantid);
 				Auto a = new Auto(ken, mk, tp, eigenaar);
 				a.setID(autoid);
 				ConnectDBKlus klusconn = new ConnectDBKlus(con);
-				klusconn.getKlussenVoorAuto(a);
+				klusconn.getKlussenVoorAuto(autoid);
+				terug = a;
+			}
+			stmt.close();
+		}
+		catch(Exception ex){
+			System.out.println("Probleem bij zoeken naar auto" + ex);
+		}
+		return terug;		
+	}
+	
+	//zoek auto op kenteken
+	public Auto zoekAutoKenteken(String ken){
+		Auto terug = null;
+		try{
+			String sql = "SELECT * FROM Auto WHERE kenteken='" + ken + "'";
+			Statement stmt = con.createStatement();
+			ResultSet rs = stmt.executeQuery(sql);
+			while (rs.next()) {   // rs.next() geeft false als er niets meer is 
+				int autoid = rs.getInt("autoid");
+				String mk = rs.getString("merk");
+				String tp = rs.getString("type");
+				int klantid = rs.getInt("klantid");
+				ConnectDBKlant klantconn = new ConnectDBKlant(con);
+				Klant eigenaar = klantconn.zoekEigenaar(klantid);
+				Auto a = new Auto(ken, mk, tp, eigenaar);
+				a.setID(autoid);
+				ConnectDBKlus klusconn = new ConnectDBKlus(con);
+				klusconn.getKlussenVoorAuto(autoid);
 				terug = a;
 			}
 			stmt.close();
@@ -141,7 +169,7 @@ public class ConnectDBAuto{
 				String tp = rs.getString("type");
 				int klantid = rs.getInt("klantid");
 				ConnectDBKlant klantconn = new ConnectDBKlant(con);
-				Klant eigenaar = klantconn.zoekKlant(klantid);
+				Klant eigenaar = klantconn.zoekEigenaar(klantid);
 				Auto a = new Auto(ken, mk, tp, eigenaar);
 				a.setID(autoid);
 				terug = a;

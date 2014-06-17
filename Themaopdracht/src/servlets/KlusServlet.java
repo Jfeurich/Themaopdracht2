@@ -2,7 +2,13 @@ package servlets;
 
 import java.io.IOException;
 import java.sql.Connection;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Map.Entry;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -10,8 +16,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import database.ConnectDBAuto;
 import database.ConnectDBKlant;
 import database.ConnectDBKlus;
+import domeinklassen.Auto;
 import domeinklassen.Klant;
 import domeinklassen.Klus;
 
@@ -37,6 +45,126 @@ public class KlusServlet extends HttpServlet {
 			else{
 				req.setAttribute("error", "Er staan nog geen klanten in het systeem!");
 			} 
+		}
+		else if(knop.equals("Zoek")){
+			Date dat1 = null;
+			Date dat2 = null;
+			SimpleDateFormat df = null;
+			ConnectDBKlus kcon = new ConnectDBKlus(con);
+			ArrayList<Klus> klussen = new ArrayList<Klus>();
+			Map<String, String> zoekenop = new HashMap<String, String>();
+			String id = req.getParameter("zoekid");
+			if(!id.equals("")){
+				zoekenop.put("id", id);
+			}
+			String autoid = req.getParameter("zoekautoid");
+			if(!autoid.equals("")){
+				zoekenop.put("autoid", autoid);
+			}
+			String ken = req.getParameter("zoekautoken");
+			if(!ken.equals("")){
+				zoekenop.put("ken", ken);
+			}
+			String status = req.getParameter("zoekstatus");
+			if(!status.equals("")){
+				zoekenop.put("status", status);
+			}
+			String nadat = req.getParameter("nadatum");
+			String voordat = req.getParameter("voordatum");
+			if(!voordat.equals("") && !nadat.equals("")){
+				zoekenop.put("nadat", nadat);
+				zoekenop.put("voordat", voordat);
+				df = new SimpleDateFormat("dd-MM-yyyy");
+			}
+			else if(!voordat.equals("") || !nadat.equals("")){
+				req.setAttribute("error", "Als u op datum wilt zoeken, vul dan beide velden in!");
+			}
+			String beschrijving = req.getParameter("zoekbeschrijving");
+			if(!beschrijving.equals("")){
+				zoekenop.put("beschrijving", beschrijving);
+			}
+			for (Entry<String, String> entry : zoekenop.entrySet()) {
+			    String key = entry.getKey();
+			    String value = entry.getValue();
+				if(key.equals("id")){
+					try{
+						Klus k = kcon.zoekKlus(Integer.parseInt(value));
+						if(k != null){
+							klussen.add(k);
+						}
+					}catch(NumberFormatException ex){
+						req.setAttribute("error", "Voer een geldig id in!");
+					}
+				}
+				else if(key.equals("autoid")){
+					try{
+						ArrayList<Klus> lijst = kcon.getKlussenVoorAuto(Integer.parseInt(value));
+						if(lijst.size() != 0){
+							for(Klus k : lijst){
+								klussen.add(k);
+							}
+						}
+					}catch(NumberFormatException ex){
+						req.setAttribute("error", "Voer een geldig id in!");
+					}				
+				}
+				else if(key.equals("ken")){
+					ConnectDBAuto acon = new ConnectDBAuto(con);
+					Auto a = acon.zoekAutoKenteken(value);
+					if(a != null){
+						for(Klus k : a.getKlussen()){
+							klussen.add(k);
+						}
+					}
+				}
+				else if(key.equals("status")){
+					ArrayList<Klus> lijst = kcon.getKlussenMetStatus(value);
+					if(lijst.size() != 0){
+						for(Klus k : lijst){
+							klussen.add(k);
+						}
+					}			
+				}
+				else if(key.equals("nadat")){
+					try {
+						dat1 = df.parse(value);
+					} catch (ParseException e) {
+						req.setAttribute("error", "Vul een geldige datum in!");
+					}
+				}
+				else if(key.equals("voordat")){
+					try {
+						dat2 = df.parse(value);
+					} catch (ParseException e) {
+						req.setAttribute("error", "Vul een geldige datum in!");
+					}				
+				}
+				else if(key.equals("beschrijving")){
+					ArrayList<Klus> lijst = kcon.getKlussenMetBeschrijving(value);
+					if(lijst.size() != 0){
+						for(Klus k : lijst){
+							klussen.add(k);
+						}
+					}			
+				}
+			}
+			if(dat1 != null && dat2 != null){
+				ArrayList<Klus> lijst = kcon.getKlussenTussenData(dat1, dat2);;
+				if(lijst.size() != 0){
+					for(Klus k : lijst){
+						klussen.add(k);
+					}
+				}			
+			}
+			if(klussen.size() == 0){
+				req.setAttribute("msg", "Geen klussen gevonden met ingevoerde zoekterm(en)");
+			}
+			else{
+				req.setAttribute("gevondenklussen", klussen);
+			}
+		}
+		else if(knop.equals("Nieuwe zoektermen")){
+			req.setAttribute("gevondenklussen", null);
 		}
 		//klanten ophalen en doorsturen bij nieuwe klus of klus wijzigen
 		else{

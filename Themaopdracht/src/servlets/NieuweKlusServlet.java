@@ -61,7 +61,7 @@ public class NieuweKlusServlet extends HttpServlet {
 					Klus nieuw = klusconn.nieuweKlus(datum, beschrijving, type, autoid);
 					if(nieuw != null){
 						String terug = "Nieuwe reparatie toevoegd voor: " + nieuw.getAuto().getKenteken();
-						if(type.equals("Onderhoudsbeurt")){
+						if(type.equals("onderhoudsbeurt")){
 							terug = "Nieuwe onderhoudsbeurt toevoegd voor: " + nieuw.getAuto().getKenteken();
 						}
 						req.setAttribute("msg", terug);

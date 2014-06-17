@@ -38,7 +38,7 @@
 						<td><input type="text" name="nadatum" class="datepicker" /></td>
 					</tr>
 					<tr>
-						<th>Voor datum:</th>
+						<th>En voor datum:</th>
 						<td><input type="text" name="voordatum" class="datepicker" /></td>
 					</tr>
 					<tr>
@@ -46,6 +46,7 @@
 						<td><input type="text" name="zoekbeschrijving" /></td>
 					</tr>
 				</table>
+				<input type="submit" name="knop" value="Zoek" />
 			</div>
 			<%
 		}
@@ -53,6 +54,7 @@
 			%>
 			<div>
 				<h2><span>9: Overzicht gevonden klussen</span></h2>
+				<input type="submit" name="knop" value="Nieuwe zoektermen" />
 				<p>Selecteer een klus om deze te wijzigen of annuleren</p>
 				<%	
 				ArrayList<Klus> klussen = (ArrayList<Klus>)o;

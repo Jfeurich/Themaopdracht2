@@ -35,7 +35,7 @@ public class ConnectDBKlus{
 				int manuren = rs.getInt("manuren");
 				String status = rs.getString("status");
 				ConnectDBAuto autoconn = new ConnectDBAuto(con);
-				Auto deAuto = autoconn.zoekAuto(rs.getInt("autoid"));
+				Auto deAuto = autoconn.zoekAutoZonderKlussen(rs.getInt("autoid"));
 				ConnectDBGebruiktProduct gp = new ConnectDBGebruiktProduct(con);
 				ArrayList<GebruiktProduct> deProducten = gp.getProductenVanKlus(id);
 				Onderhoudsbeurt o = null;
@@ -80,7 +80,7 @@ public class ConnectDBKlus{
 				int manuren = rs.getInt("manuren");
 				String status = rs.getString("status");
 				ConnectDBAuto autoconn = new ConnectDBAuto(con);
-				Auto deAuto = autoconn.zoekAuto(rs.getInt("autoid"));
+				Auto deAuto = autoconn.zoekAutoZonderKlussen(rs.getInt("autoid"));
 				ConnectDBGebruiktProduct gp = new ConnectDBGebruiktProduct(con);
 				ArrayList<GebruiktProduct> deProducten = gp.getProductenVanKlus(id);
 				Onderhoudsbeurt o = null;
@@ -109,73 +109,142 @@ public class ConnectDBKlus{
 		}
 		return terug;
 	}
-	
-	//alle onderhoudsbeurten in het systeem
-	public ArrayList<Onderhoudsbeurt> getOnderhoudsbeurten(){
-		ArrayList<Onderhoudsbeurt> terug = new ArrayList<Onderhoudsbeurt>();
+	//zoek klussen met status...
+	public ArrayList<Klus> getKlussenTussenData(java.util.Date dat1, java.util.Date dat2){
+		ArrayList<Klus> terug = new ArrayList<Klus>();
 		try{
-			String sql = "SELECT * FROM Klus WHERE actief='t' AND soort='onderhoudsbeurt'";
+			java.sql.Date beginDat = new java.sql.Date(dat1.getTime());
+			java.sql.Date eindDat = new java.sql.Date(dat2.getTime());
+			String sql = "SELECT * FROM Klus WHERE actief='t' AND datum BETWEEN'" + beginDat + "' AND '"+ eindDat + "'";
 			Statement stmt = con.createStatement();
 			ResultSet rs = stmt.executeQuery(sql);
 			while (rs.next()) {   // rs.next() geeft false als er niets meer is 
 			    java.sql.Date datum = rs.getDate("datum");
 			    java.util.Date dat = new java.util.Date(datum.getTime());
 				String bes = rs.getString("beschrijving");
+				String type = rs.getString("soort");
 				int id = rs.getInt("klusid");
 				int manuren = rs.getInt("manuren");
 				String status = rs.getString("status");
-				Onderhoudsbeurt o = new Onderhoudsbeurt(dat, bes);
-				o.setID(id);
 				ConnectDBAuto autoconn = new ConnectDBAuto(con);
-				Auto deAuto = autoconn.zoekAuto(rs.getInt("autoid"));
-				o.setDeAuto(deAuto);
-				ConnectDBGebruiktProduct gpconn = new ConnectDBGebruiktProduct(con);
-				o.setGebruikteProducten(gpconn.getProductenVanKlus(id));
-				o.setStatus(status);
-				o.addManuren(manuren);
-				terug.add(o);
+				Auto deAuto = autoconn.zoekAutoZonderKlussen(rs.getInt("autoid"));
+				ConnectDBGebruiktProduct gp = new ConnectDBGebruiktProduct(con);
+				ArrayList<GebruiktProduct> deProducten = gp.getProductenVanKlus(id);
+				Onderhoudsbeurt o = null;
+				Reparatie r = null;
+				if(type.equals("onderhoudsbeurt")){
+					o = new Onderhoudsbeurt(dat, bes, deAuto);
+					o.setID(id);
+					o.setGebruikteProducten(deProducten);
+					o.addManuren(manuren);
+					o.setStatus(status);
+					terug.add(o);
+				}
+				else if(type.equals("reparatie")){
+					r = new Reparatie(dat, bes, deAuto);
+					r.setID(id);
+					r.setGebruikteProducten(deProducten);
+					r.addManuren(manuren);
+					r.setStatus(status);
+					terug.add(r);
+				}
 			}
 			stmt.close();
 		}
 		catch(Exception ex){
-			System.out.println("Probleem bij onderhoudsbeurten ophalen " + ex);
+			System.out.println("Probleem bij klussen ophalen " + ex);
 		}
 		return terug;
 	}
 
-	//alle reparaties in het systeem
-	public ArrayList<Reparatie> getReparaties(){
-		ArrayList<Reparatie> terug = new ArrayList<Reparatie>();
+	//zoek klussen met status...
+	public ArrayList<Klus> getKlussenMetStatus(String status){
+		ArrayList<Klus> terug = new ArrayList<Klus>();
 		try{
-			String sql = "SELECT * FROM Klus WHERE actief='t' AND soort='reparatie'";
+			String sql = "SELECT * FROM Klus WHERE actief='t' AND status LIKE'%" + status + "%'";
 			Statement stmt = con.createStatement();
 			ResultSet rs = stmt.executeQuery(sql);
 			while (rs.next()) {   // rs.next() geeft false als er niets meer is 
 			    java.sql.Date datum = rs.getDate("datum");
 			    java.util.Date dat = new java.util.Date(datum.getTime());
 				String bes = rs.getString("beschrijving");
+				String type = rs.getString("soort");
 				int id = rs.getInt("klusid");
 				int manuren = rs.getInt("manuren");
-				String status = rs.getString("status");
-				Reparatie r = new Reparatie(dat, bes);
-				r.setID(id);
 				ConnectDBAuto autoconn = new ConnectDBAuto(con);
-				Auto deAuto = autoconn.zoekAuto(rs.getInt("autoid"));
-				r.setDeAuto(deAuto);
-				ConnectDBGebruiktProduct gpconn = new ConnectDBGebruiktProduct(con);
-				r.setGebruikteProducten(gpconn.getProductenVanKlus(id));
-				r.setStatus(status);
-				r.addManuren(manuren);
-				terug.add(r);
+				Auto deAuto = autoconn.zoekAutoZonderKlussen(rs.getInt("autoid"));
+				ConnectDBGebruiktProduct gp = new ConnectDBGebruiktProduct(con);
+				ArrayList<GebruiktProduct> deProducten = gp.getProductenVanKlus(id);
+				Onderhoudsbeurt o = null;
+				Reparatie r = null;
+				if(type.equals("onderhoudsbeurt")){
+					o = new Onderhoudsbeurt(dat, bes, deAuto);
+					o.setID(id);
+					o.setGebruikteProducten(deProducten);
+					o.addManuren(manuren);
+					o.setStatus(status);
+					terug.add(o);
+				}
+				else if(type.equals("reparatie")){
+					r = new Reparatie(dat, bes, deAuto);
+					r.setID(id);
+					r.setGebruikteProducten(deProducten);
+					r.addManuren(manuren);
+					r.setStatus(status);
+					terug.add(r);
+				}
 			}
 			stmt.close();
 		}
 		catch(Exception ex){
-			System.out.println("Probleem bij reparaties ophalen " + ex);
+			System.out.println("Probleem bij klussen ophalen " + ex);
 		}
 		return terug;
 	}
-	
+	//zoek klussen met beschrijving...
+	public ArrayList<Klus> getKlussenMetBeschrijving(String bes){
+		ArrayList<Klus> terug = new ArrayList<Klus>();
+		try{
+			String sql = "SELECT * FROM Klus WHERE actief='t' AND beschrijving LIKE'%" + bes + "%'";
+			Statement stmt = con.createStatement();
+			ResultSet rs = stmt.executeQuery(sql);
+			while (rs.next()) {   // rs.next() geeft false als er niets meer is 
+			    java.sql.Date datum = rs.getDate("datum");
+			    java.util.Date dat = new java.util.Date(datum.getTime());
+				String type = rs.getString("soort");
+				int id = rs.getInt("klusid");
+				int manuren = rs.getInt("manuren");
+				String status = rs.getString("status");
+				ConnectDBAuto autoconn = new ConnectDBAuto(con);
+				Auto deAuto = autoconn.zoekAutoZonderKlussen(rs.getInt("autoid"));
+				ConnectDBGebruiktProduct gp = new ConnectDBGebruiktProduct(con);
+				ArrayList<GebruiktProduct> deProducten = gp.getProductenVanKlus(id);
+				Onderhoudsbeurt o = null;
+				Reparatie r = null;
+				if(type.equals("onderhoudsbeurt")){
+					o = new Onderhoudsbeurt(dat, bes, deAuto);
+					o.setID(id);
+					o.setGebruikteProducten(deProducten);
+					o.addManuren(manuren);
+					o.setStatus(status);
+					terug.add(o);
+				}
+				else if(type.equals("reparatie")){
+					r = new Reparatie(dat, bes, deAuto);
+					r.setID(id);
+					r.setGebruikteProducten(deProducten);
+					r.addManuren(manuren);
+					r.setStatus(status);
+					terug.add(r);
+				}
+			}
+			stmt.close();
+		}
+		catch(Exception ex){
+			System.out.println("Probleem bij klussen ophalen " + ex);
+		}
+		return terug;
+	}
 	//geeft alle klussen bij het ingevoerde id
 	public ArrayList<Klus> getKlussenVoorAuto(int autoid){
 		ArrayList<Klus> terug = new ArrayList<Klus>();
@@ -192,51 +261,7 @@ public class ConnectDBKlus{
 				int manuren = rs.getInt("manuren");
 				String status = rs.getString("status");
 				ConnectDBAuto autoconn = new ConnectDBAuto(con);
-				Auto deAuto = autoconn.zoekAuto(autoid);
-				ConnectDBGebruiktProduct gpconn = new ConnectDBGebruiktProduct(con);
-				if(type.equals("onderhoudsbeurt")){
-					Klus o = new Onderhoudsbeurt(dat, bes);
-					o.setID(id);
-					o.setGebruikteProducten(gpconn.getProductenVanKlus(id));
-					o.setDeAuto(deAuto);
-					o.addManuren(manuren);
-					o.setStatus(status);
-					terug.add(o);
-				}
-				else if(type.equals("reparatie")){
-					Klus r = new Reparatie(dat, bes);
-					r.setID(id);
-					r.setGebruikteProducten(gpconn.getProductenVanKlus(id));
-					r.setDeAuto(deAuto);
-					r.addManuren(manuren);
-					r.setStatus(status);
-					terug.add(r);
-				}
-			}
-			stmt.close();
-		}
-		catch(Exception ex){
-			System.out.println("Probleem bij klussen van auto ophalen " + ex);
-		}
-		return terug;
-	}
-	
-	//geeft alle klussen bij het ingevoerde auto-object
-	public ArrayList<Klus> getKlussenVoorAuto(Auto deAuto){
-		ArrayList<Klus> terug = new ArrayList<Klus>();
-		try{
-			int autoid = deAuto.getID();
-			String sql = "SELECT * FROM Klus WHERE actief='t' AND autoid=" + autoid;
-			Statement stmt = con.createStatement();
-			ResultSet rs = stmt.executeQuery(sql);
-			while (rs.next()) {   // rs.next() geeft false als er niets meer is 
-			    java.sql.Date datum = rs.getDate("datum");
-			    java.util.Date dat = new java.util.Date(datum.getTime());
-				String bes = rs.getString("beschrijving");
-				String type = rs.getString("soort");
-				int id = rs.getInt("klusid");
-				int manuren = rs.getInt("manuren");
-				String status = rs.getString("status");
+				Auto deAuto = autoconn.zoekAutoZonderKlussen(autoid);
 				ConnectDBGebruiktProduct gpconn = new ConnectDBGebruiktProduct(con);
 				if(type.equals("onderhoudsbeurt")){
 					Klus o = new Onderhoudsbeurt(dat, bes);
@@ -337,12 +362,9 @@ public class ConnectDBKlus{
 		try{
 			java.util.Date datum = k.getDatum();
 		    java.sql.Date dat = new java.sql.Date(datum.getTime());	
-		    String soort = "";
+		    String soort = "reparatie";
 		    if(k instanceof Onderhoudsbeurt){
 		    	soort = "onderhoudsbeurt";
-		    }
-		    else if(k instanceof Reparatie){
-		    	soort = "reparatie";
 		    }
 			String sql = "UPDATE Klus SET datum='" + dat + "',  beschrijving='" + k.getBeschrijving() + "', soort='" + soort + 
 					"', status='" + k.getStatus() + "', manuren=" + k.getManuren() + " WHERE klusid = " + k.getID();

@@ -2,7 +2,7 @@
 	<jsp:param name="titel" value="Overzicht werkplaats" /> 
 </jsp:include> 
 	<%@ page import="java.util.ArrayList, domeinklassen.Klus" %>
-	<form action="OverzichtWerkplaatsPlanning.do" method="post">
+	<form action="OverzichtWerkplaatsPlanningServlet.do" method="post">
 		<h1><span>12: Overzicht werkplaats</span></h1>
 		<%@ include file="messages.jsp" %>
 		<%	
