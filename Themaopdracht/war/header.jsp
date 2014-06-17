@@ -75,7 +75,6 @@
 			if(u.getType() == 0){
 			%>
 			<li> <a href="#">Administratie</a>
-				<ul><li><a href=registreer.jsp>Registreer nieuwe klant</a></li></ul>
 				<ul><li><a href=nieuwegebruikersaccount.jsp>Registreer nieuwe gebruikersaccount</a></li></ul>
 				<ul><li><a href=nieuwebrief.jsp>Nieuwe herinneringsbrief</a></li></ul>
 				<ul><li><a href=factuur.jsp>Overzicht Facturen</a></li></ul>
