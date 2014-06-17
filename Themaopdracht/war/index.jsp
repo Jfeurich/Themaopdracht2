@@ -3,7 +3,7 @@
 </jsp:include> 
 	<h1><span>Homepage</span></h1>
 	<div>
-		<%@ page import="domeinklassen.User, domeinklassen.Auto, domeinklassen.Klant, java.text.SimpleDateFormat, java.util.ArrayList" %>
+		<%@ page import="domeinklassen.Reservering, domeinklassen.User, domeinklassen.Auto, domeinklassen.Klant, java.text.SimpleDateFormat, java.util.ArrayList" %>
 		<%@ include file="messages.jsp" %>
 	</div>
 	<%
@@ -50,6 +50,14 @@
 			%>
 		</div>
 		<h2><span>Mijn auto's</span></h2>
+		<%
+		if(u.getDeKlant().getAutos().size() == 0){
+		%>
+			U heeft nog geen auto's in het systeem staan, voeg deze toe door <a href="autotoevoegen.jsp">hier</a> te klikken.
+		<%
+		}
+		else{
+		%>
 		<div>
 			<table>
 			<tr>
@@ -60,17 +68,20 @@
 			</tr>
 			<%
 			for(Auto a : u.getDeKlant().getAutos()){
-				%>
+			%>
 				<tr>
 					<td><%=a.getKenteken()%></td>
 					<td><%=a.getMerk()%></td>
 					<td><%=a.getType()%></td>
 					<td><%=df.format(a.laatsteKlus()) %></td>
 				</tr>
-			<%}%>
+			<%
+			}
+			%>
 			</table>
 		</div>
 	<%
+		}
 	}
 	else{
 		switch(u.getType()){

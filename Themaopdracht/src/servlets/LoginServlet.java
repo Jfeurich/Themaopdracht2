@@ -47,8 +47,10 @@ public class LoginServlet extends HttpServlet {
 						break;
 					}
 				}
-				rd = req.getRequestDispatcher(verwijder.getValue());
-				verwijder.setMaxAge(-1);
+				if(verwijder != null){
+					rd = req.getRequestDispatcher(verwijder.getValue());
+					verwijder.setMaxAge(-1);
+				}
 				resp.addCookie(new Cookie("username", username));
 				//logger
 				Logger logger = Logger.getLogger("ATDlogger");
