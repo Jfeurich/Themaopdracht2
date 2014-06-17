@@ -26,7 +26,7 @@ public class AccountServlet extends HttpServlet{
 		
 		Connection con = (Connection)req.getSession().getAttribute("verbinding");
 		String knop = req.getParameter("knop");
-		RequestDispatcher rd = req.getRequestDispatcher("accountwijzigen.jsp");
+		RequestDispatcher rd = req.getRequestDispatcher("mijnaccount.jsp");
 		
 		User gebruiker = (User)req.getSession().getAttribute("gebruiker");
 		HttpSession session = req.getSession();
@@ -89,8 +89,8 @@ public class AccountServlet extends HttpServlet{
 			else if(magWijzigen){
 				req.setAttribute("msg", "Geen wijzigingen aanwezig");
 			}
-			if(knop.equals("Wijzigingen opslaan")){			
-				rd = req.getRequestDispatcher("mijnaccount.jsp");
+			if(knop.equals("Account aanpassen")){			
+				rd = req.getRequestDispatcher("accountwijzigen.jsp");
 			}
 		}
 		else if(knop.equals("Bevestig")){
@@ -100,6 +100,7 @@ public class AccountServlet extends HttpServlet{
 				Object o = session.getAttribute("wijzig");
 				if(o != null){
 					gebruiker = (User)o;
+					rd = req.getRequestDispatcher("accountwijzigen.jsp");
 				}
 				Klant k = null;
 				if(gebruiker.getType() == 3){
@@ -144,7 +145,6 @@ public class AccountServlet extends HttpServlet{
 					User u = ucon.getUser(wijzignaam);
 					session.setAttribute("gebruiker", u);
 					resp.addCookie(new Cookie("username", wijzignaam));
-					rd = req.getRequestDispatcher("mijnaccount.jsp");
 				}
 				else{
 					session.removeAttribute("wijzig");
@@ -164,6 +164,7 @@ public class AccountServlet extends HttpServlet{
 			ConnectDBUser ucon = new ConnectDBUser(con);
 			User u = ucon.zoekUser(Integer.parseInt(geb));
 			session.setAttribute("wijzig", u);
+			rd = req.getRequestDispatcher("accountwijzigen.jsp");
 		}
 		rd.forward(req, resp);
 	}

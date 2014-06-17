@@ -50,7 +50,7 @@ public class ConnectDBAuto{
 	public ArrayList<Auto> getAutosVan(int zoekid){
 		ArrayList<Auto> terug = new ArrayList<Auto>();
 		try{
-			String sql = "SELECT * FROM Auto WHERE actief='t' AND klantid=" + zoekid;
+			String sql = "SELECT * FROM Auto WHERE actief='t' AND klantid=" + zoekid + ";";
 			Statement stmt = con.createStatement();
 			ResultSet rs = stmt.executeQuery(sql);
 			while (rs.next()) {   // rs.next() geeft false als er niets meer is 
@@ -78,7 +78,7 @@ public class ConnectDBAuto{
 	public ArrayList<Auto> getAutosVan(Klant k){
 		ArrayList<Auto> terug = new ArrayList<Auto>();
 		try{
-			String sql = "SELECT * FROM Auto WHERE actief='t' klantid=" + k.getKlantnummer();
+			String sql = "SELECT * FROM Auto WHERE actief='t' AND klantid=" + k.getKlantnummer() + ";";
 			Statement stmt = con.createStatement();
 			ResultSet rs = stmt.executeQuery(sql);
 			while (rs.next()) {   // rs.next() geeft false als er niets meer is 
