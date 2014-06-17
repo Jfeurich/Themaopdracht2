@@ -66,7 +66,7 @@
 				if(u.getType() == 0 || u.getType() == 2){
 				%>
 				<ul><li><a href=reserveringbevestigen.jsp>Reservering bevestigen</a></li></ul>
-				<ul><li><a href=reserveringannuleren.jsp>Parkeerplaatsreservering annuleren</a></li></ul>
+				<ul><li><a href=reserveringannuleren.jsp>Reservering annuleren</a></li></ul>
 				<%
 				}
 				%>
