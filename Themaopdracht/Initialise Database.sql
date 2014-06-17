@@ -180,7 +180,7 @@ INSERT INTO GebruiktProduct (aantal, productid, klusid) VALUES
 
 CREATE TABLE Herinneringsbrief (
 herinneringsbriefid	INTEGER 		NOT NULL PRIMARY KEY AUTO_INCREMENT,
-reden				VARCHAR(100)	NOT NULL,
+reden				VARCHAR(1000)	NOT NULL,
 datum				DATE			NOT NULL,
 klantid				INTEGER 		NOT NULL,
 FOREIGN KEY (klantid) REFERENCES Klant(klantid) 

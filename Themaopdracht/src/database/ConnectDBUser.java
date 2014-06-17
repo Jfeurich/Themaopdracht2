@@ -210,7 +210,7 @@ public class ConnectDBUser{
 	public User checkUser(String unm, String em){
 		User terug = null;
 		try{
-			String sql = "SELECT * FROM User WHERE gebruikersnaam='" + unm + "' OR email LIKE %'" + em + "'%";
+			String sql = "SELECT * FROM User WHERE gebruikersnaam='" + unm + "' OR email LIKE '%" + em + "%'";
 			Statement stmt = con.createStatement();
 			ResultSet rs = stmt.executeQuery(sql);
 			while (rs.next()) {   // rs.next() geeft false als er niets meer is 

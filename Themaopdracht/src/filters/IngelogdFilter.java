@@ -25,7 +25,6 @@ public class IngelogdFilter implements Filter{
         String requestPath = request.getRequestURI();
         HttpSession session = request.getSession(false);
         HttpServletResponse response = (HttpServletResponse)resp;
-
         //niet-ingelogde gebruikers mogen alleen bij inloggen of registreren
         if((session == null || session.getAttribute("gebruiker") == null)) { 
         	if(!requestPath.endsWith("registreer.jsp") && !requestPath.endsWith("loginpage.jsp") && !requestPath.endsWith("LoginServlet.do") && !requestPath.endsWith("RegistreerServlet.do")){

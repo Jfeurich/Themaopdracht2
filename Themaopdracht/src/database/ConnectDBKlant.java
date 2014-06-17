@@ -82,7 +82,7 @@ public class ConnectDBKlant{
 		Klant terug = null;
 		try{			
 			//maak nieuw product met gegeven waarden
-			String sql = "INSERT INTO Klant (naam, adres, plaats, telefoonnummer, rekeningnummer, actief) VALUES ('" + nm + "', '" + adr + "', '" + wp + "', '" + rnr + "', '" + nr +  "', 't');";
+			String sql = "INSERT INTO Klant (naam, adres, plaats, rekeningnummer, telefoonnummer, actief) VALUES ('" + nm + "', '" + adr + "', '" + wp + "', '" + rnr + "', '" + nr +  "', 't');";
 			Statement stmt = con.createStatement();
 			stmt.executeUpdate(sql);
 			stmt.close();
