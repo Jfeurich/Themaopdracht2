@@ -23,16 +23,16 @@ public class ProductServlet extends HttpServlet{
 		
 		ConnectDBProduct conn = new ConnectDBProduct(con);	
 		ArrayList<Product> deVoorraad = conn.getProducten();
-		RequestDispatcher rd = req.getRequestDispatcher("productenoverzicht.jsp");	//stuur bij default naar voorraadoverzicht
+		RequestDispatcher rd = req.getRequestDispatcher("product.jsp");	//stuur bij default naar voorraadoverzicht
 		
 		//forward voorraadlijst naar de overzicht-pagina.
 		if(knop.equals("overzicht")){
 			if(deVoorraad.size() == 0){
 				req.setAttribute("msg", "Geen producten beschikbaar!");
-				rd = req.getRequestDispatcher("product.jsp");
 			}
 			else{
 				req.setAttribute("voorraadlijst", deVoorraad);
+				rd = req.getRequestDispatcher("productenoverzicht.jsp");
 			}
 		}	
 		//forward lijst producten onder min voorraad
@@ -40,10 +40,10 @@ public class ProductServlet extends HttpServlet{
 			ArrayList<Product> ondermin = conn.getProductenOnderMinimum();
 			if(ondermin.size() == 0){
 				req.setAttribute("msg", "Alle producten zijn op voorraad!");
-				rd = req.getRequestDispatcher("product.jsp");
 			}
 			else{
 				req.setAttribute("voorraadlijst", ondermin);
+				rd = req.getRequestDispatcher("productenoverzicht.jsp");
 			}
 		}
 		//bestel producten onder min voorraad
@@ -51,7 +51,6 @@ public class ProductServlet extends HttpServlet{
 			ArrayList<Product> ondermin = conn.getProductenOnderMinimum();
 			if(ondermin.size() == 0){
 				req.setAttribute("msg", "Alle producten zijn op voorraad!");
-				rd = req.getRequestDispatcher("product.jsp");
 			}
 			else{
 				rd = req.getRequestDispatcher("nieuwebestelling.jsp");
@@ -91,7 +90,6 @@ public class ProductServlet extends HttpServlet{
 					req.setAttribute("error", "Voer geldige nummers in!");
 				}
 			}
-			rd = req.getRequestDispatcher("product.jsp");
 		}
 		
 		//zoek product op naam of artikelnummer
@@ -128,7 +126,6 @@ public class ProductServlet extends HttpServlet{
 			else{
 				req.setAttribute("error", "Vul een zoekcriterium in!");
 			}
-			rd = req.getRequestDispatcher("product.jsp");
 		}
 		
 		//wijzig gezochte product
@@ -148,6 +145,7 @@ public class ProductServlet extends HttpServlet{
 			}
 			deVoorraad = conn.getProducten();
 			req.setAttribute("voorraadlijst", deVoorraad);
+			rd = req.getRequestDispatcher("productenoverzicht.jsp");
 		}	
 		rd.forward(req, resp);	
 	}

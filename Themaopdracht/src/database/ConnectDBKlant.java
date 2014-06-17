@@ -21,7 +21,7 @@ public class ConnectDBKlant{
 	public ArrayList<Klant> getKlanten(){
 		ArrayList<Klant> terug = new ArrayList<Klant>();
 		try{
-			String sql = "SELECT * FROM Klant";
+			String sql = "SELECT * FROM Klant WHERE actief='t'";
 			Statement stmt = con.createStatement();
 			ResultSet rs = stmt.executeQuery(sql);
 			while (rs.next()) {   // rs.next() geeft false als er niets meer is 
@@ -82,7 +82,7 @@ public class ConnectDBKlant{
 		Klant terug = null;
 		try{			
 			//maak nieuw product met gegeven waarden
-			String sql = "INSERT INTO Klant (naam, adres, plaats, telefoonnummer, rekeningnummer) VALUES ('" + nm + "', '" + adr + "', '" + wp + "', '" + rnr + "', '" + nr +  "');";
+			String sql = "INSERT INTO Klant (naam, adres, plaats, telefoonnummer, rekeningnummer, actief) VALUES ('" + nm + "', '" + adr + "', '" + wp + "', '" + rnr + "', '" + nr +  "', 't');";
 			Statement stmt = con.createStatement();
 			stmt.executeUpdate(sql);
 			stmt.close();
@@ -123,25 +123,10 @@ public class ConnectDBKlant{
 		return false;
 	}
 	
-	//delete tabelrij met ingevoerd klantid
+	//zet klant op non-actief
 	public boolean verwijderKlant(int klantid){
 		try{
-			//verwijder eerst alle autos van deze klant
-			Klant deKlant = zoekKlant(klantid);
-			ConnectDBAuto aconn = new ConnectDBAuto(con);
-			for(Auto a : aconn.getAutosVan(deKlant)){
-				aconn.verwijderAuto(a.getID());
-			}
-			//en brieven voor deze klant
-			ConnectDBHerinneringsbrief hcon = new ConnectDBHerinneringsbrief(con);
-			for(Herinneringsbrief h : hcon.getBrievenVan(deKlant)){
-				hcon.verwijderBrief(h.getID());
-			}
-			//en de useraccount
-			ConnectDBUser usercon = new ConnectDBUser(con);
-			usercon.verwijderAccountVan(klantid);
-			//en vervolgens de klant zelf
-			String sql = "DELETE FROM Klant WHERE klantid=" + klantid;
+			String sql = "UPDATE Klant SET actief='f' WHERE klantid=" + klantid;
 			Statement stmt = con.createStatement();
 			stmt.executeUpdate(sql);
 			stmt.close();

@@ -44,10 +44,6 @@ public class AccountServlet extends HttpServlet{
 			}
 			boolean magWijzigen = true;
 			Map<String, String> w = new HashMap<String, String>();
-			String gn = req.getParameter("gebruikersnaam");
-			if(!gn.equals("")){
-				w.put("gn", gn);
-			}
 			String em = req.getParameter("email");
 			if(!em.equals("")){
 				w.put("em", em);
@@ -114,11 +110,7 @@ public class AccountServlet extends HttpServlet{
 				for (Entry<String, String> entry : w.entrySet()) {
 				    String key = entry.getKey();
 				    String value = entry.getValue();
-			    	if(key.equals("gn")){
-			    		gebruiker.setGebruikersnaam(value);
-			    		wijzignaam = value;
-			    	}
-			    	else if(key.equals("em")){
+			    	if(key.equals("em")){
 			    		gebruiker.setEmail(value);
 			    	}
 			    	else if(key.equals("ww")){

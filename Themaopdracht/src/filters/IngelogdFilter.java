@@ -26,19 +26,25 @@ public class IngelogdFilter implements Filter{
         HttpSession session = request.getSession(false);
         HttpServletResponse response = (HttpServletResponse)resp;
 
+        //niet-ingelogde gebruikers mogen alleen bij inloggen of registreren
         if((session == null || session.getAttribute("gebruiker") == null)) { 
-        	if(!requestPath.endsWith("registreer.jsp")&& !requestPath.endsWith("loginpage.jsp")){
-	            requestPath = requestPath.substring(14, requestPath.length());
-	        	response.addCookie(new Cookie("vorigepagina", requestPath));
+        	if(!requestPath.endsWith("registreer.jsp") && !requestPath.endsWith("loginpage.jsp") && !requestPath.endsWith("LoginServlet.do") && !requestPath.endsWith("RegistreerServlet.do")){
+        		//probeerde de gebruiker een jsp te gebruiken? dan mogen ze na het inloggen terug keren naar die jsp
+        		if(!requestPath.endsWith(".do")){
+		            requestPath = requestPath.substring(14, requestPath.length());
+		        	response.addCookie(new Cookie("vorigepagina", requestPath));
+        		}
 	        	response.sendRedirect("loginpage.jsp"); 
 	        }
         	else{
         		chain.doFilter(req, resp);
         	}
         }
+        //ingelogde gebruikers mogen juist niet inloggen of registreren
         else if((requestPath.endsWith("registreer.jsp") || requestPath.endsWith("loginpage.jsp")) && session.getAttribute("gebruiker") != null){
         	response.sendRedirect("index.jsp");
         }
+        //in alle andere gevallen mag de gebruiker door naar de pagina
         else{
         	chain.doFilter(req, resp);
         }

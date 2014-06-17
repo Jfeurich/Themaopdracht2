@@ -46,8 +46,7 @@ public class KlusServlet extends HttpServlet {
 				ConnectDBKlus klusconn = new ConnectDBKlus(con);
 				Klus deKlus = klusconn.zoekKlus(klusid);
 				if(knop.equals("annuleren")){
-					deKlus.setStatus("geannuleerd");
-					klusconn.updateKlus(deKlus);
+					klusconn.verwijderKlus(deKlus.getID());
 					req.setAttribute("msg", "Klus is succesvol geannuleerd");
 				}
 				else if(knop.equals("wijzig")){

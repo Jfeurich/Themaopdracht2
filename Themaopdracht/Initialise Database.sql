@@ -18,13 +18,14 @@ naam 			VARCHAR(30) NOT NULL,
 adres 			VARCHAR(50)	NOT NULL,
 plaats			VARCHAR(30)	NOT NULL,
 rekeningnummer	VARCHAR(20)	NOT NULL,
-telefoonnummer	INTEGER		NOT NULL
+telefoonnummer	INTEGER		NOT NULL,
+actief			CHAR(1)		NOT NULL
 );
 
-INSERT INTO Klant (naam, adres, plaats, telefoonnummer, rekeningnummer) VALUES
-('Sandrilene', 'Padualaan 1', 'Utrecht', 0301111111, 'rekeningSandri'),
-('Trisana', 'Herengracht 50', 'Amsterdam', 0202222222, 'rekeningTris'),
-('Daja', 'Hoofdstraat 20', 'Den Haag', 0109999999, 'rekeningDaja')
+INSERT INTO Klant (naam, adres, plaats, telefoonnummer, rekeningnummer, actief) VALUES
+('Sandrilene', 'Padualaan 1', 'Utrecht', 0301111111, 'rekeningSandri', 't'),
+('Trisana', 'Herengracht 50', 'Amsterdam', 0202222222, 'rekeningTris', 't'),
+('Daja', 'Hoofdstraat 20', 'Den Haag', 0109999999, 'rekeningDaja', 't')
 ;
 
 /* User */
@@ -37,18 +38,19 @@ email			VARCHAR(50) NOT NULL,
 type			INTEGER		NOT NULL,
 naam			VARCHAR(50)	,
 klantid			INTEGER		,
+actief			CHAR(1)		NOT NULL,
 FOREIGN KEY (klantid) REFERENCES Klant(klantid)
 );
 
-INSERT INTO User (gebruikersnaam, wachtwoord, type, klantid, email) VALUES
-('sandri', 'sww', 3, 1, 'sari@gmail.com'),
-('tris', 'tww', 3, 2, 'tris@gmail.com'),
-('daj', 'dww', 3, 3, 'daja@gmail.com')
+INSERT INTO User (gebruikersnaam, wachtwoord, type, klantid, email, actief) VALUES
+('sandri', 'sww', 3, 1, 'sari@gmail.com', 't'),
+('tris', 'tww', 3, 2, 'tris@gmail.com', 't'),
+('daj', 'dww', 3, 3, 'daja@gmail.com', 't')
 ;
-INSERT INTO User (gebruikersnaam, wachtwoord, type, email, naam) VALUES
-('Henk', 'hww', 0, 'henk@atb.nl', 'Henk Paladijn'),
-('Mike', 'mww', 1, 'mike@atb.nl', 'Mike Monteur'),
-('Jopie', 'jww', 2, 'jopie@atb.nl', 'Jopie Garagebeheerder')
+INSERT INTO User (gebruikersnaam, wachtwoord, type, email, naam, actief) VALUES
+('henk', 'hww', 0, 'henk@atb.nl', 'Henk Paladijn', 't'),
+('mike', 'mww', 1, 'mike@atb.nl', 'Mike Monteur', 't'),
+('jopie', 'jww', 2, 'jopie@atb.nl', 'Jopie Garagebeheerder', 't')
 ;
 
 /* Product */
@@ -59,13 +61,14 @@ naam 			VARCHAR(30)	NOT NULL,
 minimumAanwezig INTEGER		NOT NULL,
 eenheid 		VARCHAR(30)	NOT NULL,
 prijsPerStuk	DOUBLE		NOT NULL,
-aantal 			INTEGER	
+aantal 			INTEGER		NOT NULL,
+actief			CHAR(1)		NOT NULL
 );
 
-INSERT INTO Product (naam, minimumAanwezig, eenheid, prijsPerStuk) VALUES
-('Bandtype A', 10, 'stuk', 40.00),
-('Moertje type 2', 50, 'stuk', 0.50),
-('Brandstof type Diesel', 50, 'liter', 4.00)
+INSERT INTO Product (naam, minimumAanwezig, eenheid, prijsPerStuk, aantal, actief) VALUES
+('Bandtype A', 10, 'stuk', 40.00, 0, 't'),
+('Moertje type 2', 50, 'stuk', 0.50, 0, 't'),
+('Brandstof type Diesel', 50, 'liter', 4.00, 0, 't')
 ;
 
 /* Bestelling */
@@ -107,13 +110,14 @@ kenteken VARCHAR(20)	NOT NULL,
 merk	 VARCHAR(20)	NOT NULL,
 type	 VARCHAR(20)	NOT NULL,
 klantid	 INTEGER 		NOT NULL,
+actief	 CHAR(1)		NOT NULL,
 FOREIGN KEY (klantid) REFERENCES Klant(klantid) 
 );
 
-INSERT INTO Auto (kenteken, merk, type, klantid) VALUES
-('ABC', 'Ford', 'Fiesta', 1),
-('DEF', 'Volkswagen', 'Polo', 2),
-('GHI', 'Fiat', 'Panda', 3)
+INSERT INTO Auto (kenteken, merk, type, klantid, actief) VALUES
+('ABC', 'Ford', 'Fiesta', 1, 't'),
+('DEF', 'Volkswagen', 'Polo', 2, 't'),
+('GHI', 'Fiat', 'Panda', 3, 't')
 ;
 
 /* Klus */
@@ -126,13 +130,14 @@ manuren 		INTEGER			NOT NULL,
 status 			VARCHAR(25)		NOT NULL,
 soort 			VARCHAR(20)		NOT NULL,
 autoid			INTEGER 		NOT NULL,
+actief			CHAR(1)			NOT NULL,
 FOREIGN KEY (autoid) REFERENCES Auto(autoid) 
 );
 
-INSERT INTO Klus (datum, beschrijving, soort, autoid, status, manuren) VALUES 
-('2010-04-25', 'Band vervangen', 'onderhoudsbeurt', 1, 'Nog niet begonnen', 0),
-('2012-12-12', 'Einde van de wereld voorkomen', 'reparatie', 2, 'Nog niet begonnen', 0),
-('2006-06-06', 'Day of the Beast', 'reparatie', 3, 'Nog niet begonnen', 0)
+INSERT INTO Klus (datum, beschrijving, soort, autoid, status, manuren, actief) VALUES 
+('2010-04-25', 'Band vervangen', 'onderhoudsbeurt', 1, 'Nog niet begonnen', 0, 't'),
+('2012-12-12', 'Einde van de wereld voorkomen', 'reparatie', 2, 'Nog niet begonnen', 0, 't'),
+('2006-06-06', 'Day of the Beast', 'reparatie', 3, 'Nog niet begonnen', 0, 't')
 ;
 
 /* Factuur */

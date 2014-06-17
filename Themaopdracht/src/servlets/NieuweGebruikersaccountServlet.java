@@ -69,7 +69,7 @@ public class NieuweGebruikersaccountServlet extends HttpServlet {
 					if(telefoonnr.matches("((-|\\+)?[0-9]+(\\.[0-9]+)?)+")){
 						//kijk of gebruikersaccount al bestaat
 						ConnectDBUser usercon = new ConnectDBUser(con);
-						if(usercon.getUser(gebruikersnaam) == null){
+						if(usercon.checkUser(gebruikersnaam, email1) == null){
 							//Hier is het stuk waar gecontroleerd wordt of een nieuwe user een klant is(type=3)
 							if(type.equals("3")){
 								try{
@@ -93,7 +93,7 @@ public class NieuweGebruikersaccountServlet extends HttpServlet {
 							}
 						}
 						else{
-							req.setAttribute("error", "Deze gebruikersnaam is bezet!");
+							req.setAttribute("error", "Er bestaat al een gebruiker met deze gebruikersnaam en/of dit emailadres!");
 						}
 					}
 					else{

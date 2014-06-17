@@ -44,7 +44,7 @@ public class RegistreerServlet extends HttpServlet{
 							Connection con = database.maakVerbinding();
 							ConnectDBUser usercon = new ConnectDBUser(con);
 							//kijk of gebruikersnaam bezet is
-							if(usercon.getUser(gebruikersnaam) == null){
+							if(usercon.checkUser(gebruikersnaam.toLowerCase(), email1) == null){
 								//user aanmaken en in database stoppen
 								//user die al klant zijn
 								//Klant object aanmaken, dan met dat klant object een user object aanmaken

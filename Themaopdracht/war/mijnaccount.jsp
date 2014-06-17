@@ -15,11 +15,10 @@
 		}
 		else{
 		%>
-			<h2><span>Vul de velden onder uw gegevens in en klik op "Wijzigingen opslaan"</span></h2>
+			<h2><span>Vul de velden in die u wilt wijzigen en klik op "Wijzigingen opslaan"</span></h2>
 			<table>
 				<tr>
 					<th>Gebruikersnaam: <%=u.getGebruikersnaam()%></th>
-					<td><input type="text" name="gebruikersnaam" /></td>
 				</tr>
 				<tr>
 					<th>Email: <%=u.getEmail()%></th>

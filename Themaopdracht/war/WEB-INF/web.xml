@@ -195,6 +195,7 @@ version="2.4">
 <filter-mapping>
 	<filter-name>IngelogdFilter</filter-name>
 	<url-pattern>*.jsp</url-pattern>
+	<url-pattern>*.do</url-pattern>
 </filter-mapping>
 <filter>
 	<filter-name>GeenKlantFilter</filter-name>

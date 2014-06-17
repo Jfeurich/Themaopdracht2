@@ -2,6 +2,7 @@
 	<jsp:param name="titel" value="Hoofdmenu product" /> 
 </jsp:include> 
 	<h1><span>Hoofdmenu Product</span></h1>
+	<%@ include file="messages.jsp" %>
 	<form action="ProductServlet.do" method="post">
 		<%@ page import="domeinklassen.Product,java.util.ArrayList" %>
 		<div>
@@ -14,7 +15,6 @@
 		</div>
 		<div>
 			<h2><span>Nieuw product aanmaken</span></h2>
-			<%@ include file="messages.jsp" %>
 			<table>
 				<tr>
 					<th>Naam:</th>

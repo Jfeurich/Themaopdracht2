@@ -23,7 +23,7 @@ public class ConnectDBKlus{
 	public ArrayList<Klus> getKlussen(){
 		ArrayList<Klus> terug = new ArrayList<Klus>();
 		try{
-			String sql = "SELECT * FROM Klus ORDER BY autoid";
+			String sql = "SELECT * FROM Klus WHERE actief='t' ORDER BY autoid";
 			Statement stmt = con.createStatement();
 			ResultSet rs = stmt.executeQuery(sql);
 			while (rs.next()) {   // rs.next() geeft false als er niets meer is 
@@ -68,7 +68,7 @@ public class ConnectDBKlus{
 	public ArrayList<Klus> getKlussenbydatum(){
 		ArrayList<Klus> terug = new ArrayList<Klus>();
 		try{
-			String sql = "SELECT * FROM Klus ORDER BY datum";
+			String sql = "SELECT * FROM Klus WHERE actief='t' ORDER BY datum";
 			Statement stmt = con.createStatement();
 			ResultSet rs = stmt.executeQuery(sql);
 			while (rs.next()) {   // rs.next() geeft false als er niets meer is 
@@ -114,7 +114,7 @@ public class ConnectDBKlus{
 	public ArrayList<Onderhoudsbeurt> getOnderhoudsbeurten(){
 		ArrayList<Onderhoudsbeurt> terug = new ArrayList<Onderhoudsbeurt>();
 		try{
-			String sql = "SELECT * FROM Klus WHERE soort='onderhoudsbeurt'";
+			String sql = "SELECT * FROM Klus WHERE actief='t' AND soort='onderhoudsbeurt'";
 			Statement stmt = con.createStatement();
 			ResultSet rs = stmt.executeQuery(sql);
 			while (rs.next()) {   // rs.next() geeft false als er niets meer is 
@@ -147,7 +147,7 @@ public class ConnectDBKlus{
 	public ArrayList<Reparatie> getReparaties(){
 		ArrayList<Reparatie> terug = new ArrayList<Reparatie>();
 		try{
-			String sql = "SELECT * FROM Klus WHERE soort='reparatie'";
+			String sql = "SELECT * FROM Klus WHERE actief='t' AND soort='reparatie'";
 			Statement stmt = con.createStatement();
 			ResultSet rs = stmt.executeQuery(sql);
 			while (rs.next()) {   // rs.next() geeft false als er niets meer is 
@@ -180,7 +180,7 @@ public class ConnectDBKlus{
 	public ArrayList<Klus> getKlussenVoorAuto(int autoid){
 		ArrayList<Klus> terug = new ArrayList<Klus>();
 		try{
-			String sql = "SELECT * FROM Klus WHERE autoid=" + autoid + ";";
+			String sql = "SELECT * FROM Klus WHERE actief='t' AND autoid=" + autoid;
 			Statement stmt = con.createStatement();
 			ResultSet rs = stmt.executeQuery(sql);
 			while (rs.next()) {   // rs.next() geeft false als er niets meer is 
@@ -226,7 +226,7 @@ public class ConnectDBKlus{
 		ArrayList<Klus> terug = new ArrayList<Klus>();
 		try{
 			int autoid = deAuto.getID();
-			String sql = "SELECT * FROM Klus WHERE autoid=" + autoid + ";";
+			String sql = "SELECT * FROM Klus WHERE actief='t' AND autoid=" + autoid;
 			Statement stmt = con.createStatement();
 			ResultSet rs = stmt.executeQuery(sql);
 			while (rs.next()) {   // rs.next() geeft false als er niets meer is 
@@ -309,7 +309,7 @@ public class ConnectDBKlus{
 		try{	
 		    java.sql.Date dat = new java.sql.Date(datum.getTime());		
 			//maak nieuwe klus met gegeven waarden
-			String sql = "INSERT INTO Klus (datum, beschrijving, soort, autoid, status, manuren) VALUES ('" + dat + "', '" + bes + "', '" + tp + "', " + autoid + ", 'Nog niet begonnen', 0);";
+			String sql = "INSERT INTO Klus (datum, beschrijving, soort, autoid, status, manuren, actief) VALUES ('" + dat + "', '" + bes + "', '" + tp + "', " + autoid + ", 'Nog niet begonnen', 0, 't');";
 			Statement stmt = con.createStatement();
 			stmt.executeUpdate(sql);
 			stmt.close();
@@ -357,20 +357,10 @@ public class ConnectDBKlus{
 		return false;
 	}
 	
-	//delete tabelrij met ingevoerd klusid
+	//zet klus op non-actief
 	public boolean verwijderKlus(int klusid){
 		try{
-			//verwijder eerst de gebruikte producten
-			ConnectDBGebruiktProduct gpconn = new ConnectDBGebruiktProduct(con);
-			ArrayList<GebruiktProduct> deProducten = gpconn.getProductenVanKlus(klusid);
-			for(GebruiktProduct gp : deProducten){
-				gpconn.verwijderGebruiktProduct(gp.getID());
-			}
-			//en de (eventuele) factuur
-			ConnectDBFactuur fconn = new ConnectDBFactuur(con);
-			fconn.verwijderFactuur(fconn.getFactuurVanKlus(klusid));
-			//en vervolgens de klus zelf
-			String sql = "DELETE FROM Klus WHERE klusid=" + klusid;
+			String sql = "UPDATE Klus SET actief='f' WHERE klusid=" + klusid;
 			Statement stmt = con.createStatement();
 			stmt.executeUpdate(sql);
 			stmt.close();

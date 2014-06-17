@@ -32,6 +32,7 @@ public class LoginServlet extends HttpServlet {
 			req.getSession().setAttribute("verbinding", con);
 			//login check
 			ConnectDBUser usercon = new ConnectDBUser(con);
+			username = username.toLowerCase();
 			User u = usercon.getUser(username);
 			if(u != null && u.getWachtwoord().equals(password)){
 				rd = req.getRequestDispatcher("index.jsp");

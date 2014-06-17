@@ -21,7 +21,7 @@ public class ConnectDBAuto{
 	public ArrayList<Auto> getAutos(){
 		ArrayList<Auto> terug = new ArrayList<Auto>();
 		try{
-			String sql = "SELECT * FROM Auto";
+			String sql = "SELECT * FROM Auto WHERE actief='t'";
 			Statement stmt = con.createStatement();
 			ResultSet rs = stmt.executeQuery(sql);
 			while (rs.next()) {   // rs.next() geeft false als er niets meer is 
@@ -50,7 +50,7 @@ public class ConnectDBAuto{
 	public ArrayList<Auto> getAutosVan(int zoekid){
 		ArrayList<Auto> terug = new ArrayList<Auto>();
 		try{
-			String sql = "SELECT * FROM Auto WHERE klantid=" + zoekid;
+			String sql = "SELECT * FROM Auto WHERE actief='t' AND klantid=" + zoekid;
 			Statement stmt = con.createStatement();
 			ResultSet rs = stmt.executeQuery(sql);
 			while (rs.next()) {   // rs.next() geeft false als er niets meer is 
@@ -78,7 +78,7 @@ public class ConnectDBAuto{
 	public ArrayList<Auto> getAutosVan(Klant k){
 		ArrayList<Auto> terug = new ArrayList<Auto>();
 		try{
-			String sql = "SELECT * FROM Auto WHERE klantid=" + k.getKlantnummer();
+			String sql = "SELECT * FROM Auto WHERE actief='t' klantid=" + k.getKlantnummer();
 			Statement stmt = con.createStatement();
 			ResultSet rs = stmt.executeQuery(sql);
 			while (rs.next()) {   // rs.next() geeft false als er niets meer is 
@@ -132,7 +132,7 @@ public class ConnectDBAuto{
 	public Auto nieuweAuto(String kenteken, String merk, String type, Klant eigenaar){
 		Auto terug = null;
 		try{
-			String sql = "INSERT INTO Auto (kenteken, merk, type, klantid) VALUES ('" + kenteken + "', '" + merk + "', '" + type + "', " + eigenaar.getKlantnummer() + ")";
+			String sql = "INSERT INTO Auto (kenteken, merk, type, klantid, actief) VALUES ('" + kenteken + "', '" + merk + "', '" + type + "', " + eigenaar.getKlantnummer() + ", 't')";
 			Statement stmt = con.createStatement();
 			stmt.executeUpdate(sql);
 			stmt.close();
@@ -168,17 +168,10 @@ public class ConnectDBAuto{
 		return false;
 	}
 	
-	//verwijderd tabelrij met ingevoerd autoid
+	//zet auto op non-actief
 	public boolean verwijderAuto(int autoid){
 		try{
-			//verwijder eerst alle klussen van deze auto
-			ConnectDBKlus kconn = new ConnectDBKlus(con);
-			ArrayList<Klus> deKlussen = kconn.getKlussenVoorAuto(autoid);
-			for(Klus k : deKlussen){
-				kconn.verwijderKlus(k.getID());
-			}
-			//en vervolgens de auto zelf
-			String sql = "DELETE FROM Auto WHERE autoid=" + autoid;
+			String sql = "UPDATE Auto SET actief='f' WHERE autoid=" + autoid;
 			Statement stmt = con.createStatement();
 			stmt.executeUpdate(sql);
 			stmt.close();
