@@ -171,6 +171,7 @@ public class ConnectDBKlus{
 				String type = rs.getString("soort");
 				int id = rs.getInt("klusid");
 				int manuren = rs.getInt("manuren");
+				status = rs.getString("status");
 				ConnectDBAuto autoconn = new ConnectDBAuto(con);
 				Auto deAuto = autoconn.zoekAutoZonderKlussen(rs.getInt("autoid"));
 				ConnectDBGebruiktProduct gp = new ConnectDBGebruiktProduct(con);
@@ -215,6 +216,7 @@ public class ConnectDBKlus{
 				int id = rs.getInt("klusid");
 				int manuren = rs.getInt("manuren");
 				String status = rs.getString("status");
+				bes = rs.getString("beschrijving");
 				ConnectDBAuto autoconn = new ConnectDBAuto(con);
 				Auto deAuto = autoconn.zoekAutoZonderKlussen(rs.getInt("autoid"));
 				ConnectDBGebruiktProduct gp = new ConnectDBGebruiktProduct(con);

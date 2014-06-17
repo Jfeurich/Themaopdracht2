@@ -51,9 +51,12 @@
 			<%
 		}
 		else{
+			String s = (String)request.getAttribute("gezochtop");
 			%>
 			<div>
 				<h2><span>9: Overzicht gevonden klussen</span></h2>
+				<h3><span>Zoektermen:</span></h3>
+				<p><%=s%></p>
 				<input type="submit" name="knop" value="Nieuwe zoektermen" />
 				<p>Selecteer een klus om deze te wijzigen of annuleren</p>
 				<%	

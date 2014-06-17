@@ -47,6 +47,7 @@ public class KlusServlet extends HttpServlet {
 			} 
 		}
 		else if(knop.equals("Zoek")){
+			String s = "Er is gezocht aan de hand van de volgende zoektermen:\n";
 			Date dat1 = null;
 			Date dat2 = null;
 			SimpleDateFormat df = null;
@@ -91,6 +92,7 @@ public class KlusServlet extends HttpServlet {
 						Klus k = kcon.zoekKlus(Integer.parseInt(value));
 						if(k != null){
 							klussen.add(k);
+							s += "ID = " + value;
 						}
 					}catch(NumberFormatException ex){
 						req.setAttribute("error", "Voer een geldig id in!");
@@ -103,6 +105,7 @@ public class KlusServlet extends HttpServlet {
 							for(Klus k : lijst){
 								klussen.add(k);
 							}
+							s += " AutoID = " + value;
 						}
 					}catch(NumberFormatException ex){
 						req.setAttribute("error", "Voer een geldig id in!");
@@ -115,6 +118,7 @@ public class KlusServlet extends HttpServlet {
 						for(Klus k : a.getKlussen()){
 							klussen.add(k);
 						}
+						s += " kenteken = " + value;
 					}
 				}
 				else if(key.equals("status")){
@@ -123,6 +127,7 @@ public class KlusServlet extends HttpServlet {
 						for(Klus k : lijst){
 							klussen.add(k);
 						}
+						s += " status = " + value;
 					}			
 				}
 				else if(key.equals("nadat")){
@@ -145,6 +150,7 @@ public class KlusServlet extends HttpServlet {
 						for(Klus k : lijst){
 							klussen.add(k);
 						}
+						s += " beschrijving = " + value;
 					}			
 				}
 			}
@@ -154,12 +160,14 @@ public class KlusServlet extends HttpServlet {
 					for(Klus k : lijst){
 						klussen.add(k);
 					}
+					s += " datum tussen = " + df.format(dat1) + " en " + df.format(dat2);
 				}			
 			}
 			if(klussen.size() == 0){
 				req.setAttribute("msg", "Geen klussen gevonden met ingevoerde zoekterm(en)");
 			}
 			else{
+				req.setAttribute("gezochtop", s);
 				req.setAttribute("gevondenklussen", klussen);
 			}
 		}
