@@ -65,7 +65,7 @@
 	}
 	else{
 		%>
-		<p>Kies voor welke periode u de betaalde facturen op wilt halen</p>
+		<h4>Kies voor welke periode u de betaalde facturen op wilt halen</h4>
 		<%
 	}
 	%>

@@ -55,7 +55,7 @@
 			%>
 			<div>
 				<h2><span>9: Overzicht gevonden klussen</span></h2>
-				<h3><span>Zoektermen:</span></h3>
+				<h4><span>Zoektermen:</span></h4>
 				<p><%=s%></p>
 				<input type="submit" name="knop" value="Nieuwe zoektermen" />
 				<p>Selecteer een klus om deze te wijzigen of annuleren</p>
@@ -75,29 +75,29 @@
 				for(Klus k : klussen ){
 					%>
 					<tr>
-						<td><input type=radio name=gekozenklus 
+						<td class="hoofdcel"><input type=radio name=gekozenklus 
 						<%if(eerste){out.println("checked=checked ");eerste=false;}%>
 						value="<%=k.getID()%>" /></td>
 						<%if(k instanceof Reparatie){%>
-							<td>Reparatie</td>
+							<td class="hoofdcel">Reparatie</td>
 						<%}
 						else{%>
-							<td>Onderhoud</td>
+							<td class="hoofdcel">Onderhoud</td>
 						<%}%>
-						<td><%=k.getFormattedDatum()%></td>
-						<td><%=k.getBeschrijving()%></td>
-						<td><%=k.getStatus()%></td>
+						<td class="hoofdcel"><%=k.getFormattedDatum()%></td>
+						<td class="hoofdcel"><%=k.getBeschrijving()%></td>
+						<td class="hoofdcel"><%=k.getStatus()%></td>
 					</tr>
 					<%
 					ArrayList<GebruiktProduct> producten = k.getGebruikteProducten();
 					if(producten.size() > 0){
 						%>
 						<tr>
-							<th>Product:</th>
-							<th>Artikelnummer</th>
-							<th>Naam</th>
-							<th>Aantal</th>
-							<th>Prijs per stuk</th>
+							<td class="tussenkop">Product:</td>
+							<td class="tussenkop">Artikelnummer</td>
+							<td class="tussenkop">Naam</td>
+							<td class="tussenkop">Aantal</td>
+							<td class="tussenkop">Prijs per stuk</td>
 						</tr>
 						<%
 						for(GebruiktProduct gp : producten){

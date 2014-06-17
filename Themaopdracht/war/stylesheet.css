@@ -132,6 +132,13 @@ td {
 	border: 1px solid #CCCCE0;
 	background: #C0C0D8;
 }
+td.hoofdcel{
+	background: #33335C;
+	color: #CCCCE0;
+}
+td.tussenkop{
+	background: #9A9AAD;
+}
 
 /*Header*/
 #titel {

@@ -2,7 +2,7 @@
 	<jsp:param name="titel" value="Overzicht parkeerplaats" /> 
 </jsp:include> 
 <%@include file="datepicker.jsp" %>
-	<%@ page import="java.util.ArrayList,domeinklassen.Klant,domeinklassen.Auto,domeinklassen.User,java.text.SimpleDateFormat, domeinklassen.Reservering" %>	
+	<%@ page import="java.util.ArrayList,domeinklassen.Klant,domeinklassen.Auto,domeinklassen.User,java.text.SimpleDateFormat, domeinklassen.Reservering, java.text.DateFormat, java.text.SimpleDateFormat" %>	
 		<%
 		if(request.getSession().getAttribute("parkeerplek") != null && request.getSession().getAttribute("beginDat") != null && request.getSession().getAttribute("eindDat") != null){
 		%>
@@ -126,6 +126,13 @@
 			<%	
 			Object o = request.getSession().getAttribute("gevondenReserveringen");
 			if(o != null){
+				DateFormat df = new SimpleDateFormat("dd-MM-yyyy");
+				String begDat = df.format(request.getSession().getAttribute("beginDat"));
+				String eindDat = df.format(request.getSession().getAttribute("eindDat"));
+				%>
+				<h4>Begin datum: <%= begDat %></h4>
+				<h4>Eind datum: <%= eindDat %></h4>
+				<%
 				ArrayList<Reservering> deReserveringen = (ArrayList<Reservering>)o;
 				int teller = 1;
 				%><table><%
