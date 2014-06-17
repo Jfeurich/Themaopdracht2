@@ -2,6 +2,7 @@
 	<jsp:param name="titel" value="Factuur menu" /> 
 </jsp:include>
 	<h1><span>Hoofdmenu factuur</span></h1>
+	<%@ include file="messages.jsp" %>
 	<form action="FactuurServlet.do" method="post">
 		<%@ page import="domeinklassen.Factuur,java.util.ArrayList" %>
 		<div>

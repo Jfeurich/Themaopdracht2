@@ -54,6 +54,5 @@ if(o == null && factuurid == null){
 		<%
 	}
 	%>
-	<p><a href="factuur.jsp" >Terug naar hoofdmenu factuur</a></p>
 	</form>	
 <%@ include file="footer.html" %>

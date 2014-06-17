@@ -107,6 +107,7 @@ if(request.getAttribute("stap1") == null){
 				<%
 				boolean eerste=true;
 				for(Klus k : klussen ){
+					String status = k.getStatus();
 					%>
 					<tr>
 						<td><input type="radio" name="gekozenklus"
@@ -114,9 +115,8 @@ if(request.getAttribute("stap1") == null){
 						value="<%=k.getID()%>" /></td>
 						<td><%=k.getFormattedDatum()%></td>
 						<td><%=k.getBeschrijving()%></td>
-						<td><%=k.getStatus()%></td>
+						<td><%=status%></td>
 					</tr>
-					<input type="hidden" name="status" value="<%=k.getStatus()%>" />
 				<%}%>
 				</table>
 				<input type="submit" name="knop" value="nieuw" />
@@ -125,5 +125,4 @@ if(request.getAttribute("stap1") == null){
 		}
 		%>
 	</form>
-	<p><a href="factuur.jsp">Terug naar hoofdmenu factuur</a></p>
 <%@ include file="footer.html" %>

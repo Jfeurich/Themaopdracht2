@@ -11,19 +11,20 @@ import javax.mail.Session;
 import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import database.ConnectDBAuto;
-import database.ConnectDBKlant;
 import database.ConnectDBFactuur;
+import database.ConnectDBKlant;
 import database.ConnectDBKlus;
 import domeinklassen.Auto;
 import domeinklassen.Factuur;
-import domeinklassen.Klus;
 import domeinklassen.Klant;
+import domeinklassen.Klus;
 
 public class NieuweFactuurServlet extends HttpServlet{
 	private static final long serialVersionUID = 1L;
@@ -32,7 +33,7 @@ public class NieuweFactuurServlet extends HttpServlet{
 		
 		Connection con = (Connection)req.getSession().getAttribute("verbinding");
 		String knop = req.getParameter("knop");
-		
+		RequestDispatcher rd = req.getRequestDispatcher("nieuwefactuur.jsp");
 		req.setAttribute("stap1", "done");
 		if(knop.equals("Done")){
 			resp.sendRedirect("index.html");
@@ -54,16 +55,15 @@ public class NieuweFactuurServlet extends HttpServlet{
 		}
 		//gebruiker heeft een klus geselecteerd en wil een factuur maken
 		else if(knop.equals("nieuw")){
-			String status = req.getParameter("status");
 			String klus = req.getParameter("gekozenklus");
 			boolean gemaakt = false;
-			if(req.getParameter("klus") != null){
+			if(!klus.equals("")){
 				int klusid = Integer.parseInt(klus);
-				if(status.equals("voltooid")){	//is de status van de klus wel "voltooid?"
+				ConnectDBKlus klusconn = new ConnectDBKlus(con);
+				Klus deKlus = klusconn.zoekKlus(klusid);
+				if(deKlus.getStatus().equals("voltooid")){	//is de status van de klus wel "voltooid?"
 					ConnectDBFactuur fconn = new ConnectDBFactuur(con);
 					if(fconn.getFactuurVanKlus(klusid) == null){	//check of deze klus al een factuur heeft
-						ConnectDBKlus klusconn = new ConnectDBKlus(con);
-						Klus deKlus = klusconn.zoekKlus(klusid);
 						Factuur nieuw = fconn.nieuweFactuur(deKlus);
 						if(nieuw != null){		//kijk of de factuur met succes in de database is gezet
 							req.setAttribute("msg", "Factuur aangemaakt");
@@ -102,6 +102,7 @@ public class NieuweFactuurServlet extends HttpServlet{
 				deFactuur.setKortingsPercentage(dekorting);
 				factuurcon.updateFactuur(deFactuur);
 				req.setAttribute("msg", "De korting is ingesteld");
+				rd = req.getRequestDispatcher("factuur.jsp");
 				//mail factuur naar klant
 				Properties props = new Properties();
 				props.put("mail.smtp.host", "smtp.gmail.com");
@@ -119,9 +120,11 @@ public class NieuweFactuurServlet extends HttpServlet{
 							"\nKosten: " + deFactuur.getTotaal() + "\nGelieve dit bedrag binnen 30 dagen over te maken." + 
 							"\nMet vriendelijke groet,\n\nAutoTotaalBeheer");
 					Transport.send(msg, "testvoorwebapps@gmail.com", "Wachtwoord0");
+					req.setAttribute("msg", "De factuur is verstuurd");
 				} 
 				catch (Exception e) {
 					e.printStackTrace();
+					req.setAttribute("error", "Kon factuur niet versturen");
 				}
 			}
 			catch(Exception e){
@@ -129,6 +132,6 @@ public class NieuweFactuurServlet extends HttpServlet{
 				req.setAttribute("deFactuur", factuurid);
 			}
 		}
-		req.getRequestDispatcher("nieuwefactuur.jsp").forward(req, resp);
+		rd.forward(req, resp);
 	}
 }

@@ -29,8 +29,7 @@ if(o == null){
 			<tr><td><input type="radio" name="status" value="onvoltooid" /></td><td>Onvoltooid</td></tr>
 			<tr><td><input type="radio" name="status" value="wachten op onderdelen" /></td><td>Wachten op onderdelen</td></tr>
 		</table>
-		<p class="kop" >Manuren toevoegen</p>
-		<p>Huidige manuren: <%=deKlus.getManuren()%></p>
+		<p class="kop" >Manuren toevoegen (Huidige uren: <%=deKlus.getManuren()%>)</p>
 		<input type="text" name="manuren" />
 		<p class="kop" >Beschrijving</p>
 		<textarea name="beschrijving"><%=deKlus.getBeschrijving()%></textarea>

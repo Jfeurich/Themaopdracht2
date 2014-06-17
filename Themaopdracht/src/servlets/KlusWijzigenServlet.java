@@ -72,6 +72,7 @@ public class KlusWijzigenServlet extends HttpServlet {
 			if(magMaken){
 				if(klusconn.updateKlus(deKlus)){
 					req.setAttribute("msg", "Klus gewijzigd");
+					rd = req.getRequestDispatcher("klus.jsp");
 					gemaakt = true;
 				}
 				else{
