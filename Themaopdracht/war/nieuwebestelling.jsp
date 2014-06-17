@@ -36,8 +36,8 @@
 					<th>Artikelnummer</th>
 					<th>Naam</th>
 					<th>Eenheid</th>
-					<th>Aantal aanwezig</th>
 					<th>Minimum aanwezig</th>
+					<th>Aantal aanwezig</th>
 					<th>Prijs per stuk</th>
 					<th>Aantal te bestellen</th>		
 				</tr>
