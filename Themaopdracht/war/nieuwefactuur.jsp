@@ -1,8 +1,10 @@
 <%
 Object o = request.getAttribute("klanten");
-if(o == null){
-	response.sendRedirect("factuur.jsp");
-	return;
+if(request.getAttribute("stap1") == null){
+	if(o == null){
+		response.sendRedirect("factuur.jsp");
+		return;
+	}
 }
 %>
 <jsp:include page="header.jsp" > 
@@ -96,11 +98,11 @@ if(o == null){
 				%>
 				<h2>Kies de klus waarvan een factuur moet worden aangemaakt</h2>
 				<table>
-				<tr>
-					<th>Kies</th>
-					<th>Datum</th>
-					<th>Beschrijving</th>
-					<th>Status</th>
+					<tr>
+						<th>Kies</th>
+						<th>Datum</th>
+						<th>Beschrijving</th>
+						<th>Status</th>
 					</tr>
 				<%
 				boolean eerste=true;

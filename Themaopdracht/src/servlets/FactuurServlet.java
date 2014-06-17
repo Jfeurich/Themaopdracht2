@@ -47,6 +47,10 @@ public class FactuurServlet extends HttpServlet {
 			req.setAttribute("klanten", klanten);
 			rd = req.getRequestDispatcher("nieuwefactuur.jsp");
 		}
+		else if(knop.equals("zoek")){
+			String gekozenfactuur = req.getParameter("factuurid");
+			req.setAttribute("factuurid", gekozenfactuur);
+		}
 		rd.forward(req, resp);
 	}
 }

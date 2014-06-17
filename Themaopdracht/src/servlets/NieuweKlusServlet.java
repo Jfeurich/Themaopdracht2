@@ -13,8 +13,10 @@ import javax.servlet.http.HttpServletResponse;
 
 import database.ConnectDBAuto;
 import database.ConnectDBKlus;
+import database.ConnectDBKlant;
 import domeinklassen.Auto;
 import domeinklassen.Klus;
+import domeinklassen.Klant;
 import domeinklassen.Onderhoudsbeurt;
 import domeinklassen.Reparatie;
 
@@ -58,14 +60,14 @@ public class NieuweKlusServlet extends HttpServlet {
 					Date datum = df.parse(dat);
 					Klus nieuw = klusconn.nieuweKlus(datum, beschrijving, type, autoid);
 					if(nieuw != null){
-						String terug = "Nieuwe klus toevoegd voor: " + nieuw.getAuto().getKenteken();
-						if(nieuw instanceof Onderhoudsbeurt){
+						String terug = "Nieuwe reparatie toevoegd voor: " + nieuw.getAuto().getKenteken();
+						if(type.equals("Onderhoudsbeurt")){
 							terug = "Nieuwe onderhoudsbeurt toevoegd voor: " + nieuw.getAuto().getKenteken();
 						}
-						else if(nieuw instanceof Reparatie){
-							terug = "Nieuwe reparatie toevoegd voor: " + nieuw.getAuto().getKenteken();
-						}
 						req.setAttribute("msg", terug);
+						ConnectDBKlant kcon = new ConnectDBKlant(con);
+						ArrayList<Klant> klanten = kcon.getKlanten();
+						req.setAttribute("klanten", klanten);
 						gemaakt = true;
 					}
 					else{

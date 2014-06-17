@@ -17,11 +17,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import database.ConnectDBAuto;
+import database.ConnectDBKlant;
 import database.ConnectDBFactuur;
 import database.ConnectDBKlus;
 import domeinklassen.Auto;
 import domeinklassen.Factuur;
 import domeinklassen.Klus;
+import domeinklassen.Klant;
 
 public class NieuweFactuurServlet extends HttpServlet{
 	private static final long serialVersionUID = 1L;
@@ -31,6 +33,7 @@ public class NieuweFactuurServlet extends HttpServlet{
 		Connection con = (Connection)req.getSession().getAttribute("verbinding");
 		String knop = req.getParameter("knop");
 		
+		req.setAttribute("stap1", "done");
 		if(knop.equals("Done")){
 			resp.sendRedirect("index.html");
 		}
@@ -57,42 +60,35 @@ public class NieuweFactuurServlet extends HttpServlet{
 			if(req.getParameter("klus") != null){
 				int klusid = Integer.parseInt(klus);
 				if(status.equals("voltooid")){	//is de status van de klus wel "voltooid?"
-					//check voor geldige datum
-					try{
-						ConnectDBFactuur fconn = new ConnectDBFactuur(con);
-						if(fconn.getFactuurVanKlus(klusid) == null){	//check of deze klus al een factuur heeft
-							ConnectDBKlus klusconn = new ConnectDBKlus(con);
-							Klus deKlus = klusconn.zoekKlus(klusid);
-							Factuur nieuw = fconn.nieuweFactuur(deKlus);
-							if(nieuw != null){		//kijk of de factuur met succes in de database is gezet
-								req.setAttribute("msg", "Factuur aangemaakt");
-								req.setAttribute("deFactuur", nieuw);
-								gemaakt = true;
-							}
-							else{
-								req.setAttribute("msg", "Factuur kan niet aangemaakt worden");
-							}
+					ConnectDBFactuur fconn = new ConnectDBFactuur(con);
+					if(fconn.getFactuurVanKlus(klusid) == null){	//check of deze klus al een factuur heeft
+						ConnectDBKlus klusconn = new ConnectDBKlus(con);
+						Klus deKlus = klusconn.zoekKlus(klusid);
+						Factuur nieuw = fconn.nieuweFactuur(deKlus);
+						if(nieuw != null){		//kijk of de factuur met succes in de database is gezet
+							req.setAttribute("msg", "Factuur aangemaakt");
+							req.setAttribute("deFactuur", nieuw);
+							gemaakt = true;
 						}
 						else{
-							req.setAttribute("error", "De factuur van deze klus bestaat al!");
+							req.setAttribute("error", "Factuur kan niet aangemaakt worden");
 						}
 					}
-					catch(Exception ex){
-						System.out.println(ex);
-						req.setAttribute("error", "Geen geldige datum! Gebruik format dd-mm-jjjj");
+					else{
+						req.setAttribute("error", "De factuur van deze klus bestaat al!");
 					}
 				}
 				else{
 					req.setAttribute("error", "Deze klus is nog niet voltooid!");
 				}
-				if(!gemaakt){	//als de factuur niet aan is gemaakt, geef de klus terug voor een tweede poging
-					ConnectDBKlus klusconn = new ConnectDBKlus(con);
-					Klus deKlus = klusconn.zoekKlus(klusid);
-					req.setAttribute("deKlus",deKlus);
-				}
 			}
 			else{
 				req.setAttribute("error", "Er zijn geen klussen beschikbaar!");
+			}
+			if(!gemaakt){	//als de factuur niet aan is gemaakt, geef de klanten terug voor een tweede poging
+				ConnectDBKlant kcon = new ConnectDBKlant(con);
+				ArrayList<Klant> klanten = kcon.getKlanten();
+				req.setAttribute("klanten", klanten);
 			}
 		}
 		//stel het kortingspercentage in
@@ -130,6 +126,7 @@ public class NieuweFactuurServlet extends HttpServlet{
 			}
 			catch(Exception e){
 				req.setAttribute("error", "Geen geldige waarde");
+				req.setAttribute("deFactuur", factuurid);
 			}
 		}
 		req.getRequestDispatcher("nieuwefactuur.jsp").forward(req, resp);

@@ -50,11 +50,11 @@ if(request.getAttribute("stap1") == null && o == null){
 				<h2><span>Selecteer de auto waar aan is gewerkt</span></h2>
 				<table>
 					<tr>
-						<td>Kies</td>
-						<td>Kenteken</td>
-						<td>Merk</td>
-						<td>Type</td>
-						<td>Eigenaar</td>
+						<th>Kies</th>
+						<th>Kenteken</th>
+						<th>Merk</th>
+						<th>Type</th>
+						<th>Eigenaar</th>
 					</tr>
 				<%
 				boolean eerste = true;
@@ -81,8 +81,8 @@ if(request.getAttribute("stap1") == null && o == null){
 			<h2><span>Vul het formulier in en klik op 'nieuw' om de nieuwe klus aan te maken</span></h2>
 			<table>
 				<tr>
-					<th>Onderhoudsbeurt</th>
 					<th>Reparatie</th>
+					<th>Onderhoudsbeurt</th>
 				</tr>
 				<tr>
 					<td><input type="radio" name="type" checked="checked" value="reparatie" /></td>

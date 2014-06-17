@@ -292,7 +292,7 @@ public class ConnectDBKlus{
 			terug.setStatus(status);
 			stmt.close();
 			ConnectDBAuto autoconn = new ConnectDBAuto(con);
-			Auto deAuto = autoconn.zoekAuto(autoid);
+			Auto deAuto = autoconn.zoekAutoZonderKlussen(autoid);
 			terug.setDeAuto(deAuto);
 			ConnectDBGebruiktProduct gpconn = new ConnectDBGebruiktProduct(con);
 			terug.setGebruikteProducten(gpconn.getProductenVanKlus(klusid));

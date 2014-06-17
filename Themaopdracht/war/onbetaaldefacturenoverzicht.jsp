@@ -1,6 +1,7 @@
 <%
 Object o = request.getAttribute("OverzichtFacturenNietBetaald");
-if(o == null){
+Object factuurid = request.getAttribute("factuurid");
+if(o == null && factuurid == null){
 	response.sendRedirect("factuur.jsp");
 	return;
 }
@@ -12,7 +13,6 @@ if(o == null){
 	<%@ page import="java.util.ArrayList,domeinklassen.Factuur,domeinklassen.Klus" %>
 	<%@ include file="messages.jsp" %>
 	<%
-	Object factuurid = request.getAttribute("factuurid");
 	if(factuurid != null){
 		%>
 		<h1><span>18: Factuur betalen:</span></h1>

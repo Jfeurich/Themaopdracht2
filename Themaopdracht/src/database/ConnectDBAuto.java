@@ -128,6 +128,32 @@ public class ConnectDBAuto{
 		return terug;		
 	}
 	
+	//zoek auto op id
+	public Auto zoekAutoZonderKlussen(int autoid){
+		Auto terug = null;
+		try{
+			String sql = "SELECT * FROM Auto WHERE autoid=" + autoid;
+			Statement stmt = con.createStatement();
+			ResultSet rs = stmt.executeQuery(sql);
+			while (rs.next()) {   // rs.next() geeft false als er niets meer is 
+				String ken = rs.getString("kenteken");
+				String mk = rs.getString("merk");
+				String tp = rs.getString("type");
+				int klantid = rs.getInt("klantid");
+				ConnectDBKlant klantconn = new ConnectDBKlant(con);
+				Klant eigenaar = klantconn.zoekKlant(klantid);
+				Auto a = new Auto(ken, mk, tp, eigenaar);
+				a.setID(autoid);
+				terug = a;
+			}
+			stmt.close();
+		}
+		catch(Exception ex){
+			System.out.println("Probleem bij zoeken naar auto" + ex);
+		}
+		return terug;		
+	}
+	
 	//maak nieuwe auto. id wordt automatisch toegewezen. geeft auto-object terug zodat je het id weet.
 	public Auto nieuweAuto(String kenteken, String merk, String type, Klant eigenaar){
 		Auto terug = null;
