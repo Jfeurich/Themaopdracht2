@@ -33,7 +33,6 @@ if(o == null){
 				<th>FactuurID</th>
 				<th>AanmaakDatum</th>
 				<th>Korting</th>
-				<th>De Klus</th>
 				<th>Totaal</th>
 			</tr>
 			<%
@@ -46,7 +45,7 @@ if(o == null){
 					value="<%=f.getID()%>" /></td>
 					<td><%=f.getID()%></td>
 					<td><%=f.getAanmaakDatumNetjes()%></td>
-					<td><%=f.getKorting()%></td>
+					<td><%=f.getKorting()%>%</td>
 					<td><%=f.getTotaal()%></td>
 				</tr>
 		<%}%>
