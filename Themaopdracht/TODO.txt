@@ -1,11 +1,4 @@
- 
--op non-actief zetten: auto, klant, product, user, reservering, klus
-	-bij toevoegen nieuw, check of al bestaat & non-actief, zo ja, reactiveer (na bevestiging)
-	-NIET verwijderen, dan raak je oude gegevens kwijt en dat is NOT DONE in het bedrijfsleven
-
--waarschuwing popup (mogelijk in web??) / bevestigingschermen waar relevant
-
--sql aanpassen met meer booleans, maak usernames lowercase
+ -waarschuwing popup (mogelijk in web??) / bevestigingschermen waar relevant
 
 -zoekfuncties (op nummer, naam, kenteken, etc)
 
