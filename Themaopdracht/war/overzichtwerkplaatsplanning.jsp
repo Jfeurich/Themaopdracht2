@@ -1,44 +1,62 @@
 <jsp:include page="header.jsp" > 
 	<jsp:param name="titel" value="Overzicht werkplaats" /> 
 </jsp:include> 
-	<%@ page import="java.util.ArrayList, domeinklassen.Klus" %>
+<%@include file="datepicker.jsp" %>
+<%@ page import="java.util.ArrayList,domeinklassen.Klus,domeinklassen.Reparatie,domeinklassen.Onderhoudsbeurt,domeinklassen.Auto" %>
 	<form action="OverzichtWerkplaatsPlanningServlet.do" method="post">
-		<h1><span>12: Overzicht werkplaats</span></h1>
+		<h1><span>Overzicht werkplaats</span></h1>
 		<%@ include file="messages.jsp" %>
 		<%	
-		Object o = request.getAttribute("gevondenKlussen");
+		Object o = request.getAttribute("gevondenklussen");
 		if(o == null){
 			%>
-			<h2><span>Zoek klussen gepland na vandaag<span></h2>
-			<p><input type="submit" name="knop" value="zoek" /></p>
+			<h2><span>Zoek klussen gepland voor de komende maand<span></h2>
+			<p><input type="submit" name="knop" value="Komende maand" /></p>
+			<h2><span>Zoek klussen gepland tussen de ingevoerde data<span></h2>
+			<p>Na datum:<input type="text" name="nadatum" class="datepicker" /> en voor datum:<input type="text" name="voordatum" class="datepicker" /></p>
+			<p><input type="submit" name="knop" value="Zoek" /></p>
 			<%
 		}
 		else{
-			ArrayList<Klus> deKlussen = (ArrayList<Klus>)o;
-			%>
-			<h2><span> Ingeplande klussen </span></h2>
-			<table>
-			<tr>
-				<th>Datum</th>
-				<th>Beschrijving</th>
-				<th>Auto</th>
-			</tr>
-			<tr>
-			<% 
-			for(Klus k : deKlussen){
+			%>		
+			<h2><span>Geplande klussen</span></h2>
+			<%
+			Object tekst = request.getAttribute("gezochtop");
+			if(tekst != null){
 				%>
-				<td><%=k.getDatum()%></td>
-				<td><%=k.getBeschrijving()%></td>
-				<td><%=k.getAuto().getKenteken()%></td>
+				<h3><span>Tussen data</span></h3>
+				<p><%=(String)tekst%></p>
 				<%
 			}
+			ArrayList<Klus> klussen = (ArrayList<Klus>)o;
 			%>
+			<table>
+			<tr>
+				<th>ID</th>
+				<th>Kenteken</th>
+				<th>Type</th>
+				<th>Datum</th>
+				<th>Beschrijving</th>
+				<th>Status</th>
 			</tr>
-			</table>
 			<%
-		}
-		%>
+			for(Klus k : klussen ){
+				%>
+				<tr>
+					<td><%=k.getID()%></td>
+					<td><%=k.getAuto().getKenteken()%></td>
+					<%if(k instanceof Reparatie){%>
+						<td>Reparatie</td>
+					<%}
+					else{%>
+						<td>Onderhoud</td>
+					<%}%>
+					<td><%=k.getFormattedDatum()%></td>
+					<td><%=k.getBeschrijving()%></td>
+					<td><%=k.getStatus()%></td>
+				</tr>			
+			<%}
+		}%>
+		</table>
 	</form>
-	<p><a href="nieuweklus.jsp">Plan een nieuwe klus in</a></p>
-</body>
-</html>
+<%@ include file="footer.html" %>

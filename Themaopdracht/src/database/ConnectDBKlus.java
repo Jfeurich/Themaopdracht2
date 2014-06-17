@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Calendar;
 
 import domeinklassen.Auto;
 import domeinklassen.GebruiktProduct;
@@ -68,7 +69,12 @@ public class ConnectDBKlus{
 	public ArrayList<Klus> getKlussenbydatum(){
 		ArrayList<Klus> terug = new ArrayList<Klus>();
 		try{
-			String sql = "SELECT * FROM Klus WHERE actief='t' ORDER BY datum";
+			Calendar nu = Calendar.getInstance();
+			nu.add(Calendar.MONTH, 1);
+			java.util.Date zoekdat = nu.getTime();
+			java.sql.Date start = new java.sql.Date(new java.util.Date().getTime());
+			java.sql.Date eind = new java.sql.Date(zoekdat.getTime());
+			String sql = "SELECT * FROM Klus WHERE actief='t' AND datum BETWEEN '" + start + "' AND '" + eind + "'";
 			Statement stmt = con.createStatement();
 			ResultSet rs = stmt.executeQuery(sql);
 			while (rs.next()) {   // rs.next() geeft false als er niets meer is 
