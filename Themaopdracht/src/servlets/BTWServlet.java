@@ -53,13 +53,13 @@ public class BTWServlet extends HttpServlet {
 					try{
 						//stel data in aan de hand van gekozen kwartalen
 						if(beginkwartaal.equals("1")){ bjr = "01-01-" + bjr; }
-						else if(beginkwartaal.equals("2")){ bjr = "01-03-" + bjr; }
-						else if(beginkwartaal.equals("3")){ bjr = "01-06-" + bjr; }
-						else if(beginkwartaal.equals("4")){ bjr = "01-09-" + bjr; }
-						if(eindkwartaal.equals("1")){ ejr = "01-03-" + ejr; }
-						else if(eindkwartaal.equals("2")){ ejr = "01-06-" + ejr; }
-						else if(eindkwartaal.equals("3")){ ejr = "01-09-" + ejr; }
-						else if(eindkwartaal.equals("4")){ ejr = "01-01-" + ejr; }
+						else if(beginkwartaal.equals("2")){ bjr = "01-04-" + bjr; }
+						else if(beginkwartaal.equals("3")){ bjr = "01-07-" + bjr; }
+						else if(beginkwartaal.equals("4")){ bjr = "01-10-" + bjr; }
+						if(eindkwartaal.equals("1")){ ejr = "31-03-" + ejr; }
+						else if(eindkwartaal.equals("2")){ ejr = "30-06-" + ejr; }
+						else if(eindkwartaal.equals("3")){ ejr = "30-09-" + ejr; }
+						else if(eindkwartaal.equals("4")){ ejr = "31-12-" + ejr; }
 						SimpleDateFormat df = new SimpleDateFormat("dd-MM-yyyy");
 						Date start = df.parse(bjr);
 						Date eind = df.parse(ejr);

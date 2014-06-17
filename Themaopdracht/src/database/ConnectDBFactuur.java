@@ -111,7 +111,6 @@ public class ConnectDBFactuur{
 			java.sql.Date begindatum = new java.sql.Date(begindat.getTime());
 			java.sql.Date einddatum = new java.sql.Date(einddat.getTime());
 			String sql = "SELECT * FROM Factuur WHERE (aanmaakDatum BETWEEN '" + begindatum + "' AND '" + einddatum + "')";
-			System.out.println(sql);
 			Statement stmt = con.createStatement();
 			ResultSet rs = stmt.executeQuery(sql);
 			while (rs.next()) {   // rs.next() geeft false als er niets meer is 
@@ -141,6 +140,7 @@ public class ConnectDBFactuur{
 			java.sql.Date start = new java.sql.Date(d1.getTime());
 			java.sql.Date eind = new java.sql.Date(d2.getTime());
 			String sql = "SELECT * FROM Factuur WHERE isBetaald='t' AND (betaalDatum BETWEEN '" + start + "' AND '" + eind + "')";
+			System.out.println(sql);
 			Statement stmt = con.createStatement();
 			ResultSet rs = stmt.executeQuery(sql);
 			while (rs.next()) {   // rs.next() geeft false als er niets meer is 

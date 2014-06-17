@@ -77,6 +77,9 @@ public class NieuweReserveringServlet extends HttpServlet{
 				ConnectDBReservering rconn = new ConnectDBReservering(con);
 				rconn.nieuweReservering(deAuto, parkeerplek, bD, eD);
 				String terug = "Reservering met succes aangemaakt voor parkeerplaats: " + parkeerplek;
+				req.getSession().setAttribute("parkeerplek", null);
+				req.getSession().setAttribute("beginDat", null);
+				req.getSession().setAttribute("eindDat", null);
 				req.setAttribute("msg", terug);
 				rd = req.getRequestDispatcher("index.jsp");
 			}

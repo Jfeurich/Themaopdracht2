@@ -22,7 +22,7 @@ if(gebruiker.getType() != 0){
 			<h2><span>Kies de gebruiker waar u de gegevens van wilt wijzigen</span></h2>
 			<table>
 				<tr>
-					<td>X</td>
+					<th>X</th>
 					<th>Gebruikersnaam</th>
 					<th>Emailadres</th>
 				</tr>
