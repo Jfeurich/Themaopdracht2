@@ -4,7 +4,8 @@
 	<h1><span>Homepage</span></h1>
 	<div>
 		<%@ page import="domeinklassen.Reservering, domeinklassen.User, domeinklassen.Auto, domeinklassen.Klant, 
-		domeinklassen.Klus, java.text.SimpleDateFormat, java.util.ArrayList" %>
+		domeinklassen.Klus, domeinklassen.GebruiktProduct, domeinklassen.Product, domeinklassen.Reparatie, 
+		java.text.SimpleDateFormat, java.util.ArrayList" %>
 		<%@ include file="messages.jsp" %>
 	</div>
 	<%
@@ -94,26 +95,55 @@
 		%>
 			<table>
 				<tr>
+					<th>Kenteken</th>
+					<th>Type</th>
 					<th>Datum</th>
-					<th>Status</th>
-					<th>Manuren</th>
-					<th>Auto</th>
 					<th>Beschrijving</th>
-				</tr>				
-				<% 
-				for(Klus k: aankomendeKlussen){
-				%>
-					<tr>
-						<td><%=k.getFormattedDatum() %></td>
-						<td><%=k.getStatus() %></td>
-						<td><%=k.getManuren() %></td>
-						<td><%=k.getAuto().getKenteken() %></td>
-						<td><%=k.getBeschrijving() %></td>
-					</tr>
+					<th>Status</th>
+				</tr>
 				<%
+				for(Klus k : aankomendeKlussen ){
+					%>
+					<tr>
+						<td class="hoofdcel"><%=k.getAuto().getKenteken() %></td>
+						<%if(k instanceof Reparatie){%>
+							<td class="hoofdcel">Reparatie</td>
+						<%}
+						else{%>
+							<td class="hoofdcel">Onderhoud</td>
+						<%}%>
+						<td class="hoofdcel"><%=k.getFormattedDatum()%></td>
+						<td class="hoofdcel"><%=k.getBeschrijving()%></td>
+						<td class="hoofdcel"><%=k.getStatus()%></td>
+					</tr>
+					<%
+					ArrayList<GebruiktProduct> producten = k.getGebruikteProducten();
+					if(producten.size() > 0){
+						%>
+						<tr>
+							<td class="tussenkop">Product:</td>
+							<td class="tussenkop">Artikelnummer</td>
+							<td class="tussenkop">Naam</td>
+							<td class="tussenkop">Aantal</td>
+							<td class="tussenkop">Prijs per stuk</td>
+						</tr>
+						<%
+						for(GebruiktProduct gp : producten){
+							Product hetProduct = gp.getHetProduct();
+							%>
+							<tr>
+								<td></td>
+								<td><%=hetProduct.getArtikelNr()%></td>
+								<td><%=hetProduct.getNaam()%></td>
+								<td><%=gp.getAantal()%></td>
+								<td><%=hetProduct.getPrijsPerStuk()%></td>
+							</tr>
+							<%
+						}
+					}
 				}
 				%>
-			</table>
+				</table>
 		<%
 		}
 		%>

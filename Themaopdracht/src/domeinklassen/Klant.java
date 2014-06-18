@@ -196,6 +196,7 @@ public class Klant {
 	public ArrayList<Klus> getAankomendeKlussen(){
 		ArrayList<Klus> klussen = new ArrayList<Klus>();
 		for(Auto a : deAutos){
+			System.out.println("kenteken: " + a.getKenteken());
 			for(Klus k : a.getKlussen()){
 				if(k.getDatum().after(new Date())){
 					klussen.add(k);
