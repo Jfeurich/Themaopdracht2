@@ -13,21 +13,23 @@ public class MyServletContextListener implements ServletContextListener {
 	public void contextInitialized(ServletContextEvent sce) {
 		try{
 			ServletContext sc = sce.getServletContext();
-			//hou totale gebruikers bij
-			int aantalGebruikers = 0;
-			sc.setAttribute("aantalGebruikers", aantalGebruikers);
-			//logger
-			Logger logger = Logger.getLogger("ATDlogger");
-			try {
-				FileHandler fh = new FileHandler("%h\\Documents\\GitHub\\Themaopdracht2\\Themaopdracht\\src\\logger\\log.xml", true);
-				fh.setFormatter(new MyFormatter());
-				logger.addHandler(fh);
-			} 
-			catch (IOException ioe){ 
-				ioe.printStackTrace(); 
+			synchronized(sc){
+				//hou totale gebruikers bij
+				int aantalGebruikers = 0;
+				sc.setAttribute("aantalGebruikers", aantalGebruikers);
+				//logger
+				Logger logger = Logger.getLogger("ATDlogger");
+				try {
+					FileHandler fh = new FileHandler("%h\\Documents\\GitHub\\Themaopdracht2\\Themaopdracht\\src\\logger\\log.xml", true);
+					fh.setFormatter(new MyFormatter());
+					logger.addHandler(fh);
+				} 
+				catch (IOException ioe){ 
+					ioe.printStackTrace(); 
+				}
+				logger.setLevel(Level.ALL);
+				logger.info("Logger initialized, 1 gebruiker");
 			}
-			logger.setLevel(Level.ALL);
-			logger.info("Logger initialized, 1 gebruiker");
 		}
 		catch(Exception ex){
 			ex.printStackTrace();

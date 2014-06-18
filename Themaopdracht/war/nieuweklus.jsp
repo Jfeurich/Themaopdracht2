@@ -64,10 +64,10 @@ if(request.getAttribute("stap1") == null && o == null){
 						<td><input type="radio" name="gekozenauto"
 						<%if(eerste){out.println(" checked=checked ");eerste=false;}%>
 						value="<%=a.getID()%>" /></td>
-						<td><%=a.getKenteken()%>"</td>
-						<td><%=a.getMerk()%>"</td>
-						<td><%=a.getType()%>"</td>
-						<td><%=a.getEigenaar().getNaam()%>"</td>
+						<td><%=a.getKenteken()%></td>
+						<td><%=a.getMerk()%></td>
+						<td><%=a.getType()%></td>
+						<td><%=a.getEigenaar().getNaam()%></td>
 					</tr>
 				<%}%>
 				</table>

@@ -105,7 +105,7 @@ public class Klant {
 		deBrieven.add(br);
 	}
 
-	public ArrayList<Auto> onderhoudNodig(){
+	public ArrayList<Auto> onderhoudNodig() throws Exception{
 		ArrayList<Auto> oh = new ArrayList<Auto>();
 		Calendar cal = Calendar.getInstance();
 		cal.setTime(datum);

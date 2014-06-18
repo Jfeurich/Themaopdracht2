@@ -1,5 +1,6 @@
 package domeinklassen;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -9,7 +10,6 @@ public class Auto {
 	private String kenteken, merk, type;
 	private ArrayList<Klus> deKlussen = new ArrayList<Klus>();
 	private Klant deEigenaar;
-	private Date datum = new Date();
 
 	public Auto(String ken, String mk, String tp, Klant dE){
 		kenteken = ken;
@@ -47,12 +47,13 @@ public class Auto {
 		return deEigenaar;
 	}
 
-	public Date laatsteKlus(){
-		Date d = datum;
+	public Date laatsteKlus() throws Exception {
+		SimpleDateFormat df = new SimpleDateFormat("dd-MM-yyyy");
+		Date d = df.parse("01-01-1950");
 		for(Klus k : deKlussen){
-			Date check = k.getDatum();
-			if(check.before(d)){
-				d = check;
+			Date l = k.getDatum();
+			if(l.after(d)){
+				d = l;
 			}
 		}
 		return d;
