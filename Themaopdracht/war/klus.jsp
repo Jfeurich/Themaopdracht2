@@ -127,11 +127,11 @@
 			</div>
 			<div>
 				<h2><span>16: Klus wijzigen</span></h2>
-				<input type="submit" name="knop" value="wijzig" />
+				<input type="submit" name="knop" value="Wijzigen" />
 			</div>
 			<div>
 				<h2><span>26: Klus annuleren</span></h2>
-				<input type="submit" name="knop" value="annuleren" />
+				<input type="submit" name="knop" value="Annuleren" />
 			</div>
 		<%} %>
 	</form>
