@@ -26,7 +26,7 @@ if(hetProduct == null){
 				<th>Prijs per stuk</th>
 			</tr>
 			<tr>
-				<td><%=p.getArtikelNr()%></td>
+				<td><input type="hidden" name="product" value="<%=p.getArtikelNr()%>" /><%=p.getArtikelNr()%></td>
 				<td><%=p.getNaam()%></td>
 				<td><%=p.getAantal()%></td>
 				<td><%=p.getEenheid()%></td>
@@ -41,10 +41,13 @@ if(hetProduct == null){
 				<td><input type=text name=minaantal /></td>
 				<td><input type=text name=pps /></td>
 			</tr>
-		</table>
-		<input type="hidden" name="product" value="<%=p.getArtikelNr()%>" />
-		<input type="submit" name="knop" value="wijzig" />
-		<input type="submit" name="knop" value="verwijder" />
+		</table>	
+		<input type="submit" name="knop" value="Wijzigingen opslaan" />
+		<%if(p.isActief()){%>
+			<input type="submit" name="knop" value="Deactiveren" />
+		<%}else{ %>
+			<input type="submit" name="knop" value="Activeren" />
+		<%}%>
 	</form>
 	<p><a href="product.jsp">Terug naar hoofdmenu product</a></p>
 <%@ include file="footer.html" %>

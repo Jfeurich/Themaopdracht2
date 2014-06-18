@@ -23,7 +23,7 @@ public class WijzigProductServlet extends HttpServlet {
 		RequestDispatcher rd = null;	
 		ConnectDBProduct conn = new ConnectDBProduct(con);
 		
-		if(knop.equals("wijzig")){
+		if(knop.equals("Wijzigingen opslaan")){
 			String p = req.getParameter("product");
 			Product hetProduct = conn.zoekProduct(Integer.parseInt(p));
 			String naam = req.getParameter("naam");
@@ -93,10 +93,15 @@ public class WijzigProductServlet extends HttpServlet {
 			rd = req.getRequestDispatcher("wijzigproduct.jsp");
 		}
 		//stuur bij succesvollle wijziging terug naar overzicht producten
-		else if(knop.equals("verwijder")){
+		else if(knop.equals("Deactiveren") || knop.equals("Activeren")){
 			String p = req.getParameter("product");
-			if(conn.verwijderProduct(Integer.parseInt(p))){
-				req.setAttribute("msg", "Product met succes verwijderd.");
+			if(knop.equals("Deactiveren")){
+				conn.verwijderProduct(Integer.parseInt(p));
+				req.setAttribute("msg", "Product met succes op non-actief gezet.");
+			}
+			else if(knop.equals("Activeren")){
+				conn.activeerProduct(Integer.parseInt(p));
+				req.setAttribute("msg", "Product met succes op geactiveerd.");
 			}
 			ArrayList<Product> deVoorraad = conn.getProducten();
 			req.setAttribute("voorraadlijst", deVoorraad);

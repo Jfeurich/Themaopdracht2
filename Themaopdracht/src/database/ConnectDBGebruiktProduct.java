@@ -6,6 +6,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 
 import domeinklassen.GebruiktProduct;
+import domeinklassen.Product;
 
 public class ConnectDBGebruiktProduct{
 	
@@ -121,6 +122,10 @@ public class ConnectDBGebruiktProduct{
 				gpid = rs.getInt(1);		
 			}
 			stmt2.close();
+			ConnectDBProduct pcon = new ConnectDBProduct(con);
+			Product p = pcon.zoekProduct(productid);
+			p.setAantal(p.getAantal()-aantal);
+			pcon.updateProduct(p);
 			terug = zoekGebruiktProduct(gpid);	
 		}
 		catch(Exception ex){
