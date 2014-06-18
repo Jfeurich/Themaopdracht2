@@ -25,13 +25,13 @@ public class FactuurServlet extends HttpServlet {
 		RequestDispatcher rd = req.getRequestDispatcher("onbetaaldefacturenoverzicht.jsp");
 		
 		//overzicht van niet-betaalde facturen
-		if(knop.equals("overzicht")){
+		if(knop.equals("Naar overzicht")){
 			ConnectDBFactuur conn = new ConnectDBFactuur(con);	
 			ArrayList<Factuur> terug = conn.getFacturenNietBetaald();
 			req.setAttribute("OverzichtFacturenNietBetaald", terug);
 		}
 		//betaal geselecteerde factuur
-		else if(knop.equals("betaal")){
+		else if(knop.equals("Bevestig betaling")){
 			ConnectDBFactuur factuurcon = new ConnectDBFactuur(con);
 			Factuur deFactuur = factuurcon.zoekFactuur(Integer.parseInt(req.getParameter("factuurid")));
 			Date datum = new Date();
@@ -41,15 +41,24 @@ public class FactuurServlet extends HttpServlet {
 			req.setAttribute("OverzichtFacturenNietBetaald", terug);
 		}
 		//nieuwe factuur aanmaken
-		else if(knop.equals("Kies")){
+		else if(knop.equals("Nieuwe factuur")){
 			ConnectDBKlant klantconn = new ConnectDBKlant(con);
 			ArrayList<Klant> klanten = klantconn.getKlanten();
 			req.setAttribute("klanten", klanten);
 			rd = req.getRequestDispatcher("nieuwefactuur.jsp");
 		}
-		else if(knop.equals("zoek")){
+		else if(knop.equals("Factuur betalen") || knop.equals("Stuur reminder")){
 			String gekozenfactuur = req.getParameter("factuurid");
 			req.setAttribute("factuurid", gekozenfactuur);
+			if(knop.equals("Stuur reminder")){
+				ConnectDBFactuur factuurcon = new ConnectDBFactuur(con);
+				Factuur deFactuur = factuurcon.zoekFactuur(Integer.parseInt(req.getParameter("factuurid")));
+				Klant deKlant = deFactuur.getDeKlus().getAuto().getEigenaar();
+				req.setAttribute("briefvoorfactuur", "ja");
+				req.setAttribute("deFactuur", deFactuur);
+				req.setAttribute("deKlant", deKlant);
+				rd = req.getRequestDispatcher("nieuwebrief.jsp");
+			}
 		}
 		rd.forward(req, resp);
 	}

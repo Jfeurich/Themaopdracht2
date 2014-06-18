@@ -18,33 +18,27 @@ public class ConnectDBBestelling{
 		con = c;
 	}
 	
-	//alle bestellingen in het systeem
-	public ArrayList<Bestelling> getBestellingen(){
+	//alle geleverde bestellingen in het systeem
+	public ArrayList<Bestelling> getBestellingenGeleverd(){
 		ArrayList<Bestelling> terug = new ArrayList<Bestelling>();
 		try{			
-			String sql = "SELECT * FROM Bestelling";
+			String sql = "SELECT * FROM Bestelling WHERE isGeleverd='t'";
 			Statement stmt = con.createStatement();
 			ResultSet rs = stmt.executeQuery(sql);
 			while (rs.next()) {   // rs.next() geeft false als er niets meer is 
 				int id = rs.getInt("bestellingid");
-				java.sql.Date dat = rs.getDate("datum");
-				String isGeleverd = rs.getString("isGeleverd");
-				java.util.Date datum = new java.util.Date(dat.getTime());
 				Bestelling b = new Bestelling(id);
-				if(isGeleverd.equals("t")){
-					b.setIsGeleverd(true);
-				}
-				if(datum != null){
-					b.setVerwachteDatum(datum);
-				}
+				b.setIsGeleverd(true);
+				java.sql.Date dat = rs.getDate("datum");
+				java.util.Date datum = new java.util.Date(dat.getTime());
+				b.setVerwachteDatum(datum);
 				ConnectDBBesteldProduct bpconn = new ConnectDBBesteldProduct(con);
-				b.setBesteldeProducten(bpconn.getProductenVanBestelling(id));
+				bpconn.getProductenVanBestelling(b);
 				terug.add(b);
 			}
-			stmt.close();
 		}
 		catch(Exception ex){
-			System.out.println("Probleem bij bestellingen ophalen" + ex);
+			System.out.println("Probleem bij geleverde bestellingen ophalen" + ex);
 		}		
 		return terug;
 	}
@@ -65,7 +59,7 @@ public class ConnectDBBestelling{
 					b.setVerwachteDatum(datum);
 				}
 				ConnectDBBesteldProduct bpconn = new ConnectDBBesteldProduct(con);
-				b.setBesteldeProducten(bpconn.getProductenVanBestelling(id));
+				bpconn.getProductenVanBestelling(b);
 				terug.add(b);
 			}
 			stmt.close();
@@ -74,6 +68,56 @@ public class ConnectDBBestelling{
 			System.out.println("Probleem bij niet-geleverde bestellingen ophalen" + ex);
 		}		
 		return terug;
+	}
+	
+	//get bestellingen met een bepaald product erin (per productid)
+	public ArrayList<Bestelling> getBestellingenVanProduct(int pid){
+		ArrayList<Bestelling> terug = new ArrayList<Bestelling>();
+		ArrayList<Integer> bestellingids = new ArrayList<Integer>();
+		try{
+			String sql = "SELECT * FROM BesteldProduct WHERE productid=" + pid;
+			Statement stmt = con.createStatement();
+			ResultSet rs = stmt.executeQuery(sql);
+			while (rs.next()) {   // rs.next() geeft false als er niets meer is 
+				bestellingids.add(rs.getInt("bestellingid"));
+			}
+			stmt.close();
+		}
+		catch(Exception ex){
+			System.out.println("Probleem bij bestellingen per product ophalen " + ex);
+		}
+		for(int i : bestellingids){
+			terug.add(zoekBestelling(i));
+		}
+		return terug;		
+	}
+	
+	//get bestellingen met een bepaalde datum
+	public ArrayList<Bestelling> getBestellingenOpDatum(java.util.Date dat){
+		ArrayList<Bestelling> terug = new ArrayList<Bestelling>();
+		try{
+			java.sql.Date datum = new java.sql.Date(dat.getTime());
+			String sql = "SELECT * FROM Bestelling WHERE datum=" + datum;
+			Statement stmt = con.createStatement();
+			ResultSet rs = stmt.executeQuery(sql);
+			while (rs.next()) {   // rs.next() geeft false als er niets meer is 
+				int id = rs.getInt("bestellingid");
+				String isGeleverd = rs.getString("isGeleverd");
+				Bestelling b = new Bestelling(id);
+				if(isGeleverd.equals("t")){
+					b.setIsGeleverd(true);
+				}
+				b.setVerwachteDatum(dat);
+				ConnectDBBesteldProduct bpconn = new ConnectDBBesteldProduct(con);
+				bpconn.getProductenVanBestelling(b);
+				terug.add(b);
+			}
+			stmt.close();
+		}
+		catch(Exception ex){
+			System.out.println("Probleem bij bestellingen per product ophalen " + ex);
+		}
+		return terug;		
 	}
 	
 	//zoek bestelling (per id)
@@ -95,7 +139,7 @@ public class ConnectDBBestelling{
 					b.setVerwachteDatum(datum);
 				}
 				ConnectDBBesteldProduct bpconn = new ConnectDBBesteldProduct(con);
-				b.setBesteldeProducten(bpconn.getProductenVanBestelling(id));
+				bpconn.getProductenVanBestelling(b);
 				terug = b;
 			}
 			stmt.close();
@@ -146,11 +190,7 @@ public class ConnectDBBestelling{
 		try{
 			java.util.Date datum = b.getVerwachteDatum();
 		    java.sql.Date dat = new java.sql.Date(datum.getTime());	
-		    String isGeleverd = "f";
-		    if(b.getIsGeleverd()){
-		    	isGeleverd = "t";
-		    }
-			String sql = "UPDATE Bestelling SET datum='" + dat + "',  isGeleverd='" + isGeleverd + "' WHERE bestellingid = " + b.getBestelNummer();
+			String sql = "UPDATE Bestelling SET datum='" + dat + "',  isGeleverd='t' WHERE bestellingid = " + b.getBestelNummer();
 			Statement stmt = con.createStatement();
 			stmt.executeUpdate(sql);	
 			stmt.close();
@@ -159,27 +199,6 @@ public class ConnectDBBestelling{
 		catch(Exception ex){
 			System.out.println("Probleem bij bestelling updaten" + ex);
 		}
-		return false;
-	}
-	//boolean verwijderClass	
-	public boolean verwijderBestelling(int bestellingid){
-		try{
-			//verwijder eerst alle producten van deze bestelling
-			ConnectDBBesteldProduct bpconn = new ConnectDBBesteldProduct(con);
-			ArrayList<BesteldProduct> deProducten = bpconn.getProductenVanBestelling(bestellingid);
-			for(BesteldProduct bp : deProducten){
-				bpconn.verwijderBesteldProduct(bp.getID());
-			}
-			//en vervolgens de bestelling zelf
-			String sql = "DELETE FROM Bestelling WHERE bestellingid=" + bestellingid;
-			Statement stmt = con.createStatement();
-			stmt.executeUpdate(sql);
-			stmt.close();
-			return true;
-		}
-		catch(Exception ex){
-			System.out.println("Probleem bij bestelling verwijderen " + ex);
-		}		
 		return false;
 	}
 }

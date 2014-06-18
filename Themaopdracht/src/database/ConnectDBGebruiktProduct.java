@@ -16,29 +16,6 @@ public class ConnectDBGebruiktProduct{
 		con = c;
 	}
 	
-	public ArrayList<GebruiktProduct> getGebruikteProducten(){
-		ArrayList<GebruiktProduct> terug = new ArrayList<GebruiktProduct>();
-		try{
-			String sql = "SELECT * FROM GebruiktProduct";
-			Statement stmt = con.createStatement();
-			ResultSet rs = stmt.executeQuery(sql);
-			while (rs.next()) {   // rs.next() geeft false als er niets meer is 
-				int gpid = rs.getInt("gebruiktproductid");
-				int pid = rs.getInt("productid");
-				int a = rs.getInt("aantal");
-				GebruiktProduct gp = new GebruiktProduct(gpid, a);
-				ConnectDBProduct pconn = new ConnectDBProduct(con);
-				gp.setHetProduct(pconn.zoekProduct(pid));
-				terug.add(gp);
-			}
-			stmt.close();
-		}
-		catch(Exception ex){
-			System.out.println("Probleem bij gebruikte producten ophalen " + ex);
-		}
-		return terug;
-	}
-	
 	public ArrayList<GebruiktProduct> getProductenVanKlus(int klusid){
 		ArrayList<GebruiktProduct> terug = new ArrayList<GebruiktProduct>();
 		try{
@@ -60,28 +37,6 @@ public class ConnectDBGebruiktProduct{
 			System.out.println("Probleem bij producten van klus ophalen " + ex);
 		}
 		return terug;
-	}
-	
-	public ArrayList<GebruiktProduct> getGebruikVanProduct(int pid){
-		ArrayList<GebruiktProduct> terug = new ArrayList<GebruiktProduct>();
-		try{
-			String sql = "SELECT * FROM GebruiktProduct WHERE productid=" + pid;
-			Statement stmt = con.createStatement();
-			ResultSet rs = stmt.executeQuery(sql);
-			while (rs.next()) {   // rs.next() geeft false als er niets meer is 
-				int bpid = rs.getInt("besteldproductid");
-				int a = rs.getInt("aantal");
-				GebruiktProduct bp = new GebruiktProduct(bpid, a);
-				ConnectDBProduct pconn = new ConnectDBProduct(con);
-				bp.setHetProduct(pconn.zoekProduct(pid));
-				terug.add(bp);
-			}
-			stmt.close();
-		}
-		catch(Exception ex){
-			System.out.println("Probleem bij klussen met gebruiktproduct ophalen" + ex);
-		}
-		return terug;		
 	}	
 	
 	public GebruiktProduct zoekGebruiktProduct(int gpid){
@@ -132,33 +87,5 @@ public class ConnectDBGebruiktProduct{
 			System.out.println("Probleem bij nieuw gebruiktproduct" + ex);
 		}
 		return terug;
-	}
-	
-	public boolean updateGebruiktProduct(GebruiktProduct gp){
-		try{
-			String sql = "UPDATE GebruiktProduct SET aantal=" + gp.getAantal() + " WHERE gebruiktproductid = " + gp.getID();
-			Statement stmt = con.createStatement();
-			stmt.executeUpdate(sql);	
-			stmt.close();
-			return true;
-		}
-		catch(Exception ex){
-			System.out.println("Probleem bij gebruiktproduct updaten " + ex);
-		}
-		return false;
-	}
-	
-	public boolean verwijderGebruiktProduct(int gpid){
-		try{
-			String sql = "DELETE FROM GebruiktProduct WHERE gebruiktproductid=" + gpid;
-			Statement stmt = con.createStatement();
-			stmt.executeUpdate(sql);
-			stmt.close();
-			return true;
-		}
-		catch(Exception ex){
-			System.out.println("Probleem bij gebruiktproduct verwijderen" + ex);
-		}
-		return false;
 	}
 }

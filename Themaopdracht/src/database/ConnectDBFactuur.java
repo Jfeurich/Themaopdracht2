@@ -16,35 +16,6 @@ public class ConnectDBFactuur{
 		con = c;
 	}
 	
-	//alle facturen in het systeem
-	public ArrayList<Factuur> getFacturen(){
-		ArrayList<Factuur> terug = new ArrayList<Factuur>();
-		try{
-			String sql = "SELECT * FROM Factuur";
-			Statement stmt = con.createStatement();
-			ResultSet rs = stmt.executeQuery(sql);
-			while (rs.next()) {   // rs.next() geeft false als er niets meer is 
-				int factuurid = rs.getInt("factuurid");
-				int klusid = rs.getInt("klusid");
-				java.sql.Date dat = rs.getDate("aanmaakDatum");
-				java.util.Date datum = new java.util.Date(dat.getTime());
-				Klus deKlus = null;
-				//NOG CHECKEN OF DIT KAN (2 connecties tegelijkertijd??
-				ConnectDBKlus klusconn = new ConnectDBKlus(con);
-				deKlus = klusconn.zoekKlus(klusid);
-				Factuur f = new Factuur(datum, deKlus);
-				f.setID(factuurid);
-				//checks of er meer info in de factuur staat (betaald etc)
-				terug.add(f);
-			}
-			stmt.close();
-		}
-		catch(Exception ex){
-			System.out.println("Probleem bij facturen ophalen " + ex);
-		}
-		return terug;
-	}
-	
 	//alle facturen die nog niet zijn betaald
 	public ArrayList<Factuur> getFacturenNietBetaald(){
 		ArrayList<Factuur> terug = new ArrayList<Factuur>();
@@ -68,68 +39,6 @@ public class ConnectDBFactuur{
 		}
 		catch(Exception ex){
 			System.out.println("Probleem bij niet-betaalde facturen ophalen " + ex);
-		}
-		return terug;
-	}
-
-	public ArrayList<Factuur> getBetaaldeFacturen(){
-		ArrayList<Factuur> terug = new ArrayList<Factuur>();
-		try{
-			String sql = "SELECT * FROM Factuur WHERE isBetaald='t'";
-			Statement stmt = con.createStatement();
-			ResultSet rs = stmt.executeQuery(sql);
-			while (rs.next()) {   // rs.next() geeft false als er niets meer is 
-				int factuurid = rs.getInt("factuurid");
-				int klusid = rs.getInt("klusid");
-				int kP = rs.getInt("kortingspercentage");
-				String bw = rs.getString("betalingswijze");
-				java.sql.Date dat = rs.getDate("aanmaakDatum");
-				java.util.Date datum = new java.util.Date(dat.getTime());
-				java.sql.Date dat2 = rs.getDate("betaalDatum");
-				java.util.Date datum2 = new java.util.Date(dat2.getTime());
-				Klus deKlus = null;
-				ConnectDBKlus klusconn = new ConnectDBKlus(con);
-				deKlus = klusconn.zoekKlus(klusid);
-				Factuur f = new Factuur(datum, deKlus);
-				f.setID(factuurid);
-				f.setKortingsPercentage(kP);
-				f.betaal(bw, datum2);
-				terug.add(f);
-			}
-			stmt.close();
-		}
-		catch(Exception ex){
-			System.out.println("Probleem bij betaalde facturen ophalen " + ex);
-		}
-		return terug;
-	}
-	
-	//alle facturen aangemaakt tussen begindatum en einddatum
-	public ArrayList<Factuur> getFacturenTussen(java.util.Date begindat, java.util.Date einddat){
-		ArrayList<Factuur> terug = new ArrayList<Factuur>();
-		try{
-			java.sql.Date begindatum = new java.sql.Date(begindat.getTime());
-			java.sql.Date einddatum = new java.sql.Date(einddat.getTime());
-			String sql = "SELECT * FROM Factuur WHERE (aanmaakDatum BETWEEN '" + begindatum + "' AND '" + einddatum + "')";
-			Statement stmt = con.createStatement();
-			ResultSet rs = stmt.executeQuery(sql);
-			while (rs.next()) {   // rs.next() geeft false als er niets meer is 
-				int factuurid = rs.getInt("factuurid");
-				int klusid = rs.getInt("klusid");
-				java.sql.Date dat = rs.getDate("aanmaakDatum");
-				java.util.Date datum = new java.util.Date(dat.getTime());
-				Klus deKlus = null;
-				//NOG CHECKEN OF DIT KAN (2 connecties tegelijkertijd??
-				ConnectDBKlus klusconn = new ConnectDBKlus(con);
-				deKlus = klusconn.zoekKlus(klusid);
-				Factuur f = new Factuur(datum, deKlus);
-				f.setID(factuurid);
-				terug.add(f);
-			}
-			stmt.close();
-		}
-		catch(Exception ex){
-			System.out.println("Probleem bij facturen tussen data ophalen " + ex);
 		}
 		return terug;
 	}
@@ -183,7 +92,14 @@ public class ConnectDBFactuur{
 				Klus deKlus = klusconn.zoekKlus(klusid);
 				Factuur f = new Factuur(datum, deKlus);
 				f.setID(factuurid);
-				//try voor extra waardes bij betaald
+				java.sql.Date dat2 = rs.getDate("betaalDatum");
+				if(dat2 != null){
+					java.util.Date betaalDatum = new java.util.Date(dat2.getTime());
+					String betalingswijze = rs.getString("betalingswijze");
+					int kP = rs.getInt("kortingspercentage");
+					f.setKortingsPercentage(kP);
+					f.betaal(betalingswijze, betaalDatum);
+				}
 				terug = f;
 			}
 			stmt.close();
@@ -205,12 +121,18 @@ public class ConnectDBFactuur{
 				int klusid = rs.getInt("klusid");
 				java.sql.Date dat = rs.getDate("aanmaakDatum");
 				java.util.Date datum = new java.util.Date(dat.getTime());
-				//NOG CHECKEN OF DIT KAN (2 connecties tegelijkertijd??
 				ConnectDBKlus klusconn = new ConnectDBKlus(con);
 				Klus deKlus = klusconn.zoekKlus(klusid);
 				Factuur f = new Factuur(datum, deKlus);
 				f.setID(factuurid);
-				//try voor extra waardes bij betaald
+				java.sql.Date dat2 = rs.getDate("betaalDatum");
+				if(dat2 != null){
+					java.util.Date betaalDatum = new java.util.Date(dat2.getTime());
+					String betalingswijze = rs.getString("betalingswijze");
+					int kP = rs.getInt("kortingspercentage");
+					f.setKortingsPercentage(kP);
+					f.betaal(betalingswijze, betaalDatum);
+				}
 				terug = f;
 			}
 			stmt.close();
@@ -273,21 +195,6 @@ public class ConnectDBFactuur{
 		}
 		catch(Exception ex){
 			System.out.println("Probleem bij factuur updaten" + ex);
-		}
-		return false;
-	}
-	
-	//verwijder factuur (per id, geeft false als de gekoppelde klus nog in de database staat)
-	public boolean verwijderFactuur(Factuur f){
-		try{
-			String sql = "DELETE FROM Factuur WHERE factuurid=" + f.getID();
-			Statement stmt = con.createStatement();
-			stmt.executeUpdate(sql);
-			stmt.close();
-			return true;
-		}
-		catch(Exception ex){
-			System.out.println("Probleem bij factuur verwijderen" + ex);
 		}
 		return false;
 	}

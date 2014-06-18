@@ -48,6 +48,12 @@ public class Bestelling {
 	}
 	public void setIsGeleverd(boolean b){
 		isGeleverd = b;
+		if(b){
+			for(BesteldProduct bp : deBesteldeProducten){
+				Product p = bp.getProduct();
+				p.setAantal(p.getAantal() + bp.getHoeveelheid());
+			}
+		}
 	}
 	public boolean getIsGeleverd(){
 		return isGeleverd;
@@ -60,6 +66,9 @@ public class Bestelling {
 	}
 	public Date getVerwachteDatum(){
 		return datum;
+	}
+	public String datum(){
+		return df.format(datum);
 	}
 	public String toString(){
 		String s = "Bestelnummer: " + bestelNummer;

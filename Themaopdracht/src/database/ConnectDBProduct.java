@@ -2,7 +2,6 @@ package database;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
@@ -193,9 +192,15 @@ public class ConnectDBProduct{
 			stmt.executeUpdate(sql);
 			stmt.close();
 			//zoek meest recente product (hoogste artikelnr) momenteel in database (dat is degene die we net toe hebben gevoegd)
-			int hoogste = hoogsteArtNr();
+			String sql2 = "SELECT MAX(productid) AS max FROM Product";
+			Statement stmt2;
+			stmt2 = con.createStatement();
+			ResultSet rs = stmt2.executeQuery(sql2);
+			rs.next();
+			int maximum = rs.getInt(1);			
+			stmt2.close();
 			//zoek product op basis van gevonden artikelnummer
-			terug = zoekProduct(hoogste);
+			terug = zoekProduct(maximum);
 		}
 		catch(Exception ex){
 			System.out.println("Probleem bij nieuw product " + ex);
@@ -248,23 +253,5 @@ public class ConnectDBProduct{
 			System.out.println("Probleem bij product activeren " + ex);
 		}
 		return false;
-	}
-	
-	//hoogste artikelnummer
-	public int hoogsteArtNr(){
-		try {
-			String sql = "SELECT MAX(productid) AS max FROM Product";
-			Statement stmt;
-			stmt = con.createStatement();
-			ResultSet rs = stmt.executeQuery(sql);
-			rs.next();
-			int maximum = rs.getInt(1);			
-			stmt.close();
-			return maximum;
-		} 
-		catch (SQLException e) {
-			System.out.println("Probleem bij product met hoogste artikelnr zoeken" + e);
-			return -1;
-		}
 	}
 }
