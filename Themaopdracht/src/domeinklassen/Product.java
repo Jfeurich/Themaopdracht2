@@ -7,6 +7,7 @@ public class Product{
 	private String eenheid;
 	private int aantal;
 	private double prijsPerStuk;
+	private boolean actief = true;
 
 	public Product(String nm, int aNr, int mA, String ee){
 		naam = nm;
@@ -23,6 +24,12 @@ public class Product{
 		eenheid = ee;
 		aantal = 0;
 		prijsPerStuk = pPS;
+	}
+	public boolean isActief() {
+		return actief;
+	}
+	public void setActief(boolean actief) {
+		this.actief = actief;
 	}
 	public String getNaam(){
 		return naam;
@@ -65,6 +72,11 @@ public class Product{
 		return prijsPerStuk;
 	}
 	public String toString(){
-		return "Naam: " + naam + "; Artikelnummer: " + artikelNr + "; Minimum aanwezig: " + minimumAanwezig + "; Eenheid: " + eenheid + "; Voorraad: " + aantal;
+		String s = "";
+		if(!actief){
+			s += "NON-ACTIEF PRODUCT: ";
+		}
+		s += "Naam: " + naam + "; Artikelnummer: " + artikelNr + "; Minimum aanwezig: " + minimumAanwezig + "; Eenheid: " + eenheid + "; Voorraad: " + aantal;
+		return s;
 	}
 }

@@ -10,6 +10,7 @@ public class Auto {
 	private String kenteken, merk, type;
 	private ArrayList<Klus> deKlussen = new ArrayList<Klus>();
 	private Klant deEigenaar;
+	private boolean actief = true;
 
 	public Auto(String ken, String mk, String tp, Klant dE){
 		kenteken = ken;
@@ -17,9 +18,14 @@ public class Auto {
 		type = tp;
 		deEigenaar = dE;
 		deEigenaar.voegAutoToe(this);
-		autoid = 0;
 	}
-	
+
+	public boolean isActief() {
+		return actief;
+	}
+	public void setActief(boolean actief) {
+		this.actief = actief;
+	}
 	public void setID(int id){
 		autoid = id;
 	}

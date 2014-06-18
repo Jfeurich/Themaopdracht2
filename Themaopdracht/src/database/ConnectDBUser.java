@@ -295,6 +295,23 @@ public class ConnectDBUser{
 		return false;
 	}
 	
+	//zet user op non-actief
+	public boolean verwijderUserIsKlant(int id, int klantid){
+		try{
+			ConnectDBKlant kcon = new ConnectDBKlant(con);
+			kcon.verwijderKlant(klantid);
+			String sql = "UPDATE User SET actief='f' WHERE userid=" + id;
+			Statement stmt = con.createStatement();
+			stmt.executeUpdate(sql);
+			stmt.close();
+			return true;
+		}
+		catch(Exception ex){
+			System.out.println("Probleem bij user verwijderen " + ex);
+		}
+		return false;
+	}
+	
 	//zet user op actief
 	public boolean activeerUser(int id){
 		try{
@@ -310,10 +327,12 @@ public class ConnectDBUser{
 		return false;
 	}
 	
-	//zet account van klantid op non-actief
-	public boolean verwijderAccountVan(int klantid){
+	//zet user op actief
+	public boolean activeerUserIsKlant(int id, int klantid){
 		try{
-			String sql = "UPDATE User SET actief='f' WHERE klantid=" + klantid;
+			ConnectDBKlant kcon = new ConnectDBKlant(con);
+			kcon.activeerKlant(klantid);
+			String sql = "UPDATE User SET actief='t' WHERE userid=" + id;
 			Statement stmt = con.createStatement();
 			stmt.executeUpdate(sql);
 			stmt.close();

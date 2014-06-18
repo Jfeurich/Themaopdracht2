@@ -147,12 +147,28 @@ public class ConnectDBKlant{
 	//zet klant op non-actief
 	public boolean verwijderKlant(int klantid){
 		try{
+			ConnectDBAuto acon = new ConnectDBAuto(con);
+			acon.verwijderAutosVan(klantid);
 			String sql = "UPDATE Klant SET actief='f' WHERE klantid=" + klantid;
 			Statement stmt = con.createStatement();
 			stmt.executeUpdate(sql);
 			stmt.close();
-			ConnectDBUser ucon = new ConnectDBUser(con);
-			ucon.verwijderAccountVan(klantid);
+			return true;
+		}
+		catch(Exception ex){
+			System.out.println("Probleem bij klant verwijderen " + ex);
+		}
+		return false;
+	}
+	//zet klant op actief
+	public boolean activeerKlant(int klantid){
+		try{
+			ConnectDBAuto acon = new ConnectDBAuto(con);
+			acon.activeerAutosVan(klantid);
+			String sql = "UPDATE Klant SET actief='t' WHERE klantid=" + klantid;
+			Statement stmt = con.createStatement();
+			stmt.executeUpdate(sql);
+			stmt.close();
 			return true;
 		}
 		catch(Exception ex){

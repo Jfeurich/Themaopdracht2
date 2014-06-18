@@ -321,6 +321,7 @@ public class ConnectDBKlus{
 					o.addManuren(manuren);
 					o.setStatus(status);
 					terug.add(o);
+					deAuto.voegKlusToe(o);
 				}
 				else if(type.equals("reparatie")){
 					Klus r = new Reparatie(dat, bes);
@@ -330,6 +331,7 @@ public class ConnectDBKlus{
 					r.addManuren(manuren);
 					r.setStatus(status);
 					terug.add(r);
+					deAuto.voegKlusToe(r);
 				}
 			}
 			stmt.close();

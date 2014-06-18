@@ -42,17 +42,8 @@
 				if(zoekmsg != null){
 					%><h3 class=msg ><span><%=zoekmsg%></span></h3><%
 				}
-				Object gevonden = request.getAttribute("productgevonden");
 				Object arraygevonden = request.getAttribute("arraygevonden");
-				if(gevonden != null){
-					Product hetProduct = (Product)gevonden;
-					%>
-					<p><%=hetProduct.toString()%></p>
-					<input type="hidden" name="product" value="<%=hetProduct.getArtikelNr()%>" />
-					<p><input type="submit" name="knop" value="wijzig" /></p>
-					<%
-				}
-				else if(arraygevonden != null){
+				if(arraygevonden != null){
 					ArrayList<Product> lijst = (ArrayList<Product>)arraygevonden;
 					boolean eerste = true;
 					for(Product p: lijst){
@@ -67,12 +58,16 @@
 			%>
 			<table>
 				<tr>
+					<th>Artikelnummer:</th>
+					<td><input type="text" name="zoeknummer" /></td>
+				</tr>
+				<tr>
 					<th>Naam:</th>
 					<td><input type="text" name="zoeknaam" /></td>
 				</tr>
 				<tr>
-					<th>Artikelnummer:</th>
-					<td><input type="text" name="zoeknummer" /></td>
+					<th>Eenheid:</th>
+					<td><input type="text" name="zoekeenheid" /></td>
 				</tr>
 			</table>
 			<input type="submit" name="knop" value="zoek" />

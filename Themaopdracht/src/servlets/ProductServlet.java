@@ -95,16 +95,11 @@ public class ProductServlet extends HttpServlet{
 		//zoek product op naam of artikelnummer
 		else if(knop.equals("zoek")){
 			String nm = req.getParameter("zoeknaam");
+			String eh = req.getParameter("zoekeenheid");
 			String anr = req.getParameter("zoeknummer");	
-			boolean zoekNaam = !nm.equals("");
-			boolean zoekNummer = !anr.equals("");
-
-			//in principe wordt het antwoord gegeven dat het product niet op de voorraadlijst staat
-			if(zoekNaam || zoekNummer){
-				req.setAttribute("zoekmsg", "Dit product staat niet op de voorraadlijst.");	
-			}
+			ArrayList<Product> terug = new ArrayList<Product>();
 			//check welke zoekterm er in is gevoerd
-			if(zoekNummer){
+			if(!anr.equals("")){
 				//check voor geldig artikelnummer (int)
 				if(!anr.matches("((-|\\+)?[0-9]+(\\.[0-9]+)?)+")){
 					req.setAttribute("error", "Vul een geldig artikelnummer in!");
@@ -117,14 +112,27 @@ public class ProductServlet extends HttpServlet{
 					req.setAttribute("productgevonden", p);	
 				}
 			}
-			else if(zoekNaam){
+			if(!nm.equals("")){
 				//wijzig antwoord naar gevonden en geef product(en) mee
-				ArrayList<Product> producten = conn.zoekProduct(nm);
-				req.setAttribute("zoekmsg", "Product(en) gevonden!");	
-				req.setAttribute("arraygevonden", producten);	
-			}				
+				for(Product p : conn.zoekProductNaam(nm)){
+					terug.add(p);
+				}
+			}	
+			if(!eh.equals("")){
+				//wijzig antwoord naar gevonden en geef product(en) mee
+				for(Product p : conn.zoekProductEenheid(eh)){
+					terug.add(p);
+				}
+			}			
 			else{
 				req.setAttribute("error", "Vul een zoekcriterium in!");
+			}
+			if(terug.size() == 0){
+				req.setAttribute("zoekmsg", "Geen producten gevonden met ingevulde criteria");
+			}
+			else{
+				req.setAttribute("zoekmsg", "Product(en) gevonden!");	
+				req.setAttribute("arraygevonden", terug);				
 			}
 		}
 		

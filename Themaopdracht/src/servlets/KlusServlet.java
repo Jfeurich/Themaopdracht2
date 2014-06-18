@@ -113,12 +113,14 @@ public class KlusServlet extends HttpServlet {
 				}
 				else if(key.equals("ken")){
 					ConnectDBAuto acon = new ConnectDBAuto(con);
-					Auto a = acon.zoekAutoKenteken(value);
-					if(a != null){
-						for(Klus k : a.getKlussen()){
-							klussen.add(k);
+					ArrayList<Auto> lijst = acon.zoekAutoKenteken(value);
+					if(lijst != null){
+						for(Auto a : lijst){
+							for(Klus k : a.getKlussen()){
+								klussen.add(k);
+							}
+							s += " kenteken = " + value;
 						}
-						s += " kenteken = " + value;
 					}
 				}
 				else if(key.equals("status")){

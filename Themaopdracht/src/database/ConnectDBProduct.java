@@ -110,6 +110,10 @@ public class ConnectDBProduct{
 				terug = new Product(nm, aNr, mA, ee, pPS);
 				int aantal = rs.getInt("aantal");
 				terug.setAantal(aantal);
+				String actief = rs.getString("actief");
+				if(actief.equals("f")){
+					terug.setActief(false);
+				}
 			}
 			stmt.close();
 		}
@@ -120,7 +124,7 @@ public class ConnectDBProduct{
 	}
 	
 	//zoek producten die de zoekterm in hun naam hebben
-	public ArrayList<Product> zoekProduct(String naam){
+	public ArrayList<Product> zoekProductNaam(String naam){
 		ArrayList<Product> terug = new ArrayList<Product>();
 		try{
 			String sql = "SELECT * FROM Product WHERE naam LIKE '%" + naam + "%'";
@@ -135,6 +139,40 @@ public class ConnectDBProduct{
 				Product p = new Product(nm, aNr, mA, ee, pPS);
 				int aantal = rs.getInt("aantal");
 				p.setAantal(aantal);
+				String actief = rs.getString("actief");
+				if(actief.equals("f")){
+					p.setActief(false);
+				}
+				terug.add(p);
+			}
+			stmt.close();
+		}
+		catch(Exception ex){
+			System.out.println("Probleem bij product zoeken op naam " + ex);
+		}
+		return terug;
+	}
+	
+	//zoek producten op eenheid
+	public ArrayList<Product> zoekProductEenheid(String eh){
+		ArrayList<Product> terug = new ArrayList<Product>();
+		try{
+			String sql = "SELECT * FROM Product WHERE eenheid LIKE '%" + eh + "%'";
+			Statement stmt = con.createStatement();
+			ResultSet rs = stmt.executeQuery(sql);
+			while (rs.next()) {   // rs.next() geeft false als er niets meer is 
+				String nm = rs.getString("naam");
+				int aNr = rs.getInt("productid");
+				int mA = rs.getInt("minimumAanwezig");
+				String ee = rs.getString("eenheid");
+				double pPS = rs.getDouble("prijsPerStuk");
+				Product p = new Product(nm, aNr, mA, ee, pPS);
+				int aantal = rs.getInt("aantal");
+				p.setAantal(aantal);
+				String actief = rs.getString("actief");
+				if(actief.equals("f")){
+					p.setActief(false);
+				}
 				terug.add(p);
 			}
 			stmt.close();
@@ -193,6 +231,21 @@ public class ConnectDBProduct{
 		}
 		catch(Exception ex){
 			System.out.println("Probleem bij product verwijderen " + ex);
+		}
+		return false;
+	}
+	
+	//zet product op actief
+	public boolean activeerProduct(int productid){
+		try{
+			String sql = "UPDATE Product SET actief='t' WHERE productid=" + productid;
+			Statement stmt = con.createStatement();
+			stmt.executeUpdate(sql);
+			stmt.close();
+			return true;
+		}
+		catch(Exception ex){
+			System.out.println("Probleem bij product activeren " + ex);
 		}
 		return false;
 	}

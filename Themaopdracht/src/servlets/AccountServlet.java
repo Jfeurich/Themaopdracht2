@@ -42,12 +42,20 @@ public class AccountServlet extends HttpServlet{
 				User u = (User)session.getAttribute("wijzig");
 				if(u.getType() == 3){
 					isKlant = true;
+					if(req.getParameter("deactivate") != null){
+						w.put("deactivateklant", "ja");
+					}
+					else if(req.getParameter("activate") != null){
+						w.put("activateklant", "ja");
+					}
 				}
-				if(req.getParameter("deactivate") != null){
-					w.put("deactivate", "ja");
-				}
-				else if(req.getParameter("activate") != null){
-					w.put("activate", "ja");
+				else{
+					if(req.getParameter("deactivate") != null){
+						w.put("deactivate", "ja");
+					}
+					else if(req.getParameter("activate") != null){
+						w.put("activate", "ja");
+					}
 				}
 			}
 			String em = req.getParameter("email");
@@ -131,7 +139,13 @@ public class AccountServlet extends HttpServlet{
 			    		ucon.activeerUser(gebruiker.getID());
 			    	}
 			    	if(gebruiker.getType() == 3){
-				    	if(key.equals("naam")){
+			    		if(key.equals("deactivateklant")){
+			    			ucon.verwijderUserIsKlant(gebruiker.getID(), gebruiker.getDeKlant().getKlantnummer());
+			    		}
+			    		else if(key.equals("activateklant")){
+				    		ucon.activeerUserIsKlant(gebruiker.getID(), gebruiker.getDeKlant().getKlantnummer());
+				    	}
+			    		else if(key.equals("naam")){
 				    		k.setNaam(value);
 				    	}
 				    	else if(key.equals("adr")){

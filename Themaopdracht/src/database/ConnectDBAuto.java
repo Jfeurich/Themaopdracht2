@@ -88,7 +88,7 @@ public class ConnectDBAuto{
 				Auto a = new Auto(ken, mk, tp, k);
 				a.setID(id);
 				ConnectDBKlus klusconn = new ConnectDBKlus(con);
-				klusconn.getKlussenVoorAuto(id);
+				klusconn.getKlussenVoorAutoObject(a);
 				terug.add(a);
 			}
 			stmt.close();
@@ -117,6 +117,10 @@ public class ConnectDBAuto{
 				a.setID(autoid);
 				ConnectDBKlus klusconn = new ConnectDBKlus(con);
 				klusconn.getKlussenVoorAutoObject(a);
+				String actief = rs.getString("actief");
+				if(actief.equals("f")){
+					a.setActief(false);
+				}
 				terug = a;
 			}
 			stmt.close();
@@ -128,14 +132,15 @@ public class ConnectDBAuto{
 	}
 	
 	//zoek auto op kenteken
-	public Auto zoekAutoKenteken(String ken){
-		Auto terug = null;
+	public ArrayList<Auto> zoekAutoKenteken(String kenteken){
+		ArrayList<Auto> terug = new ArrayList<Auto>();
 		try{
-			String sql = "SELECT * FROM Auto WHERE kenteken='" + ken + "'";
+			String sql = "SELECT * FROM Auto WHERE kenteken LIKE'%" + kenteken + "%'";
 			Statement stmt = con.createStatement();
 			ResultSet rs = stmt.executeQuery(sql);
 			while (rs.next()) {   // rs.next() geeft false als er niets meer is 
 				int autoid = rs.getInt("autoid");
+				String ken = rs.getString("kenteken");
 				String mk = rs.getString("merk");
 				String tp = rs.getString("type");
 				int klantid = rs.getInt("klantid");
@@ -145,7 +150,77 @@ public class ConnectDBAuto{
 				a.setID(autoid);
 				ConnectDBKlus klusconn = new ConnectDBKlus(con);
 				klusconn.getKlussenVoorAutoObject(a);
-				terug = a;
+				String actief = rs.getString("actief");
+				if(actief.equals("f")){
+					a.setActief(false);
+				}
+				terug.add(a);
+			}
+			stmt.close();
+		}
+		catch(Exception ex){
+			System.out.println("Probleem bij zoeken naar auto" + ex);
+		}
+		return terug;		
+	}
+	
+	//zoek auto op type
+	public ArrayList<Auto> zoekAutoType(String type){
+		ArrayList<Auto> terug = new ArrayList<Auto>();
+		try{
+			String sql = "SELECT * FROM Auto WHERE type LIKE '%" + type + "%'";
+			Statement stmt = con.createStatement();
+			ResultSet rs = stmt.executeQuery(sql);
+			while (rs.next()) {   // rs.next() geeft false als er niets meer is 
+				int autoid = rs.getInt("autoid");
+				String ken = rs.getString("kenteken");
+				String mk = rs.getString("merk");
+				String tp = rs.getString("type");
+				int klantid = rs.getInt("klantid");
+				ConnectDBKlant klantconn = new ConnectDBKlant(con);
+				Klant eigenaar = klantconn.zoekEigenaar(klantid);
+				Auto a = new Auto(ken, mk, tp, eigenaar);
+				a.setID(autoid);
+				ConnectDBKlus klusconn = new ConnectDBKlus(con);
+				klusconn.getKlussenVoorAutoObject(a);
+				String actief = rs.getString("actief");
+				if(actief.equals("f")){
+					a.setActief(false);
+				}
+				terug.add(a);
+			}
+			stmt.close();
+		}
+		catch(Exception ex){
+			System.out.println("Probleem bij zoeken naar auto" + ex);
+		}
+		return terug;		
+	}
+	
+	//zoek auto's op merk
+	public ArrayList<Auto> zoekAutoMerk(String merk){
+		ArrayList<Auto> terug = new ArrayList<Auto>();
+		try{
+			String sql = "SELECT * FROM Auto WHERE merk LIKE'%" + merk + "%'";
+			Statement stmt = con.createStatement();
+			ResultSet rs = stmt.executeQuery(sql);
+			while (rs.next()) {   // rs.next() geeft false als er niets meer is 
+				int autoid = rs.getInt("autoid");
+				String ken = rs.getString("kenteken");
+				String mk = rs.getString("merk");
+				String tp = rs.getString("type");
+				int klantid = rs.getInt("klantid");
+				ConnectDBKlant klantconn = new ConnectDBKlant(con);
+				Klant eigenaar = klantconn.zoekEigenaar(klantid);
+				Auto a = new Auto(ken, mk, tp, eigenaar);
+				a.setID(autoid);
+				ConnectDBKlus klusconn = new ConnectDBKlus(con);
+				klusconn.getKlussenVoorAutoObject(a);
+				String actief = rs.getString("actief");
+				if(actief.equals("f")){
+					a.setActief(false);
+				}
+				terug.add(a);
 			}
 			stmt.close();
 		}
@@ -225,6 +300,51 @@ public class ConnectDBAuto{
 	public boolean verwijderAuto(int autoid){
 		try{
 			String sql = "UPDATE Auto SET actief='f' WHERE autoid=" + autoid;
+			Statement stmt = con.createStatement();
+			stmt.executeUpdate(sql);
+			stmt.close();
+			return true;
+		}
+		catch(Exception ex){
+			System.out.println("Probleem bij auto verwijderen " + ex);
+		}
+		return false;
+	}
+	
+	//zet autos van een klant op non-actief
+	public boolean verwijderAutosVan(int klantid){
+		try{
+			String sql = "UPDATE Auto SET actief='f' WHERE klantid=" + klantid;
+			Statement stmt = con.createStatement();
+			stmt.executeUpdate(sql);
+			stmt.close();
+			return true;
+		}
+		catch(Exception ex){
+			System.out.println("Probleem bij auto verwijderen " + ex);
+		}
+		return false;
+	}
+	
+	//zet auto op actief
+	public boolean activeerAuto(int autoid){
+		try{
+			String sql = "UPDATE Auto SET actief='t' WHERE autoid=" + autoid;
+			Statement stmt = con.createStatement();
+			stmt.executeUpdate(sql);
+			stmt.close();
+			return true;
+		}
+		catch(Exception ex){
+			System.out.println("Probleem bij auto verwijderen " + ex);
+		}
+		return false;
+	}
+	
+	//zet autos van een klant op actief
+	public boolean activeerAutosVan(int klantid){
+		try{
+			String sql = "UPDATE Auto SET actief='t' WHERE klantid=" + klantid;
 			Statement stmt = con.createStatement();
 			stmt.executeUpdate(sql);
 			stmt.close();

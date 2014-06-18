@@ -6,8 +6,6 @@
 
 -wachtwoord vergeten functionaliteit 
 
--klant activeren/deactiveren 
-
 -auto activeren/deactiveren
 
 -product activeren
