@@ -193,4 +193,15 @@ public class Klant {
 	public ArrayList<Herinneringsbrief> getHerinneringsBrieven(){
 		return deBrieven;
 	}
+	public ArrayList<Klus> getAankomendeKlussen(){
+		ArrayList<Klus> klussen = new ArrayList<Klus>();
+		for(Auto a : deAutos){
+			for(Klus k : a.getKlussen()){
+				if(k.getDatum().after(new Date())){
+					klussen.add(k);
+				}
+			}
+		}
+		return klussen;
+	}
 }

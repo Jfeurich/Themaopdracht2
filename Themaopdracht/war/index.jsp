@@ -3,7 +3,8 @@
 </jsp:include> 
 	<h1><span>Homepage</span></h1>
 	<div>
-		<%@ page import="domeinklassen.Reservering, domeinklassen.User, domeinklassen.Auto, domeinklassen.Klant, java.text.SimpleDateFormat, java.util.ArrayList" %>
+		<%@ page import="domeinklassen.Reservering, domeinklassen.User, domeinklassen.Auto, domeinklassen.Klant, 
+		domeinklassen.Klus, java.text.SimpleDateFormat, java.util.ArrayList" %>
 		<%@ include file="messages.jsp" %>
 	</div>
 	<%
@@ -79,6 +80,43 @@
 			}
 			%>
 			</table>
+		</div>
+		<h2>Mijn klussen</h2>
+		<div>
+		<%
+		ArrayList<Klus> aankomendeKlussen = u.getDeKlant().getAankomendeKlussen();
+		if(aankomendeKlussen.size() == 0){
+		%>
+			U heeft geen aankomende klussen
+		<%
+		}
+		else{
+		%>
+			<table>
+				<tr>
+					<th>Datum</th>
+					<th>Status</th>
+					<th>Manuren</th>
+					<th>Auto</th>
+					<th>Beschrijving</th>
+				</tr>				
+				<% 
+				for(Klus k: aankomendeKlussen){
+				%>
+					<tr>
+						<td><%=k.getFormattedDatum() %></td>
+						<td><%=k.getStatus() %></td>
+						<td><%=k.getManuren() %></td>
+						<td><%=k.getAuto().getKenteken() %></td>
+						<td><%=k.getBeschrijving() %></td>
+					</tr>
+				<%
+				}
+				%>
+			</table>
+		<%
+		}
+		%>
 		</div>
 	<%
 		}
