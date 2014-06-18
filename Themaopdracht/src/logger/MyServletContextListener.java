@@ -20,7 +20,7 @@ public class MyServletContextListener implements ServletContextListener {
 				//logger
 				Logger logger = Logger.getLogger("ATDlogger");
 				try {
-					FileHandler fh = new FileHandler("%h\\Documents\\GitHub\\Themaopdracht2\\Themaopdracht\\src\\logger\\log.xml", true);
+					FileHandler fh = new FileHandler("%h\\Documents\\GitHub\\Themaopdracht2\\Themaopdracht\\src\\logger\\log.%u.%g.txt",  128 * 128, 10, true);
 					fh.setFormatter(new MyFormatter());
 					logger.addHandler(fh);
 				} 
