@@ -56,7 +56,7 @@ public class KlantServletTest {
 	  
 	  @BeforeClass
 	  	public static void setUpBeforeClass() throws Exception{
-		  String csvPersonen = "/Themaopdracht/Klant.csv	";
+		  String csvPersonen = "/users/jayfeurich/Themaopdracht2/Themaopdracht/Klant.csv";
 			String cvsSplitBy = ";";	
 			BufferedReader brp = null;
 			String linep = "";
