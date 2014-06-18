@@ -5,7 +5,6 @@ import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
-
 import domeinklassen.Auto;
 import domeinklassen.Reservering;
 
@@ -209,5 +208,15 @@ public class ConnectDBReservering{
 			System.out.println("Probleem bij reservering verwijderen " + ex);
 		}
 		return false;
+	}
+	public ArrayList<Reservering> getAankomendeReservering(ArrayList<Auto> autos){
+		ArrayList<Reservering> deReserveringen = new ArrayList<Reservering>();
+		for(Auto a: autos){
+			ArrayList<Reservering> res = zoekReserveringenVanAuto(a.getID());
+			for(Reservering r: res){
+				deReserveringen.add(r);
+			}
+		}
+		return deReserveringen;
 	}
 }

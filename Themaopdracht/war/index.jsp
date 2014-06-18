@@ -5,7 +5,7 @@
 	<div>
 		<%@ page import="domeinklassen.Reservering, domeinklassen.User, domeinklassen.Auto, domeinklassen.Klant, 
 		domeinklassen.Klus, domeinklassen.GebruiktProduct, domeinklassen.Product, domeinklassen.Reparatie, 
-		java.text.SimpleDateFormat, java.util.ArrayList" %>
+		java.text.SimpleDateFormat, java.util.ArrayList, database.ConnectDBReservering, java.sql.Connection" %>
 		<%@ include file="messages.jsp" %>
 	</div>
 	<%
@@ -168,6 +168,43 @@
 		}
 		%>
 		</div>
+		<h2>Mijn parkeerplaatsreserveringen</h2>
+		<div>
+		<%
+		Connection con = (Connection)session.getAttribute("verbinding");
+		ConnectDBReservering rescon = new ConnectDBReservering(con);
+		ArrayList<Reservering> deReserveringen = rescon.getAankomendeReservering(u.getDeKlant().getAutos());	
+		if(deReserveringen.size() == 0){
+			%>
+			<p>U heeft geen reserveringen voor de parkeerplaats.</p>
+			<%
+		}
+		else{
+			%>
+			<table>
+				<tr>
+					<th>Begin datum</th>
+					<th>Eind datum</th>
+					<th>Parkeerplek</th>
+					<th>Auto</th>
+				</tr>			
+				<%
+				for(Reservering r: deReserveringen){
+				%>
+					<tr>
+						<td><%= r.getBegDatNetjes() %></td>
+						<td><%= r.getEindDatNetjes()%></td>
+						<td><%= r.getDeParkeerplek() %></td>
+						<td><%= r.getAuto().getKenteken() %></td>
+					</tr>
+				<%
+				}
+				%>
+			</table>
+			<%
+		}
+		%>
+	</div>
 	<%
 		}
 	}
