@@ -1,6 +1,7 @@
 package domeintests;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
 
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
@@ -30,14 +31,13 @@ public class KlantServletTest {
 
 	private StringBuffer verificationErrors = new StringBuffer();
 	private ArrayList<Auto> autos = new ArrayList<Auto>();
-	private ArrayList<Klus> klussen = new ArrayList<Klus>();
 	private static Date dat = new Date();
-	private static int[] klantnummer = new int[12];
-	private static String[] naam = new String[12];
-	private static String[] adres = new String[12];
-	private static String[] plaats = new String [12];
-	private static String[] rekeningnummer = new String[12];
-	private static int[] telefoonnummer = new int[12];
+	private static int[] klantnummer = new int[11];
+	private static String[] naam = new String[11];
+	private static String[] adres = new String[11];
+	private static String[] plaats = new String [11];
+	private static String[] rekeningnummer = new String[11];
+	private static int[] telefoonnummer = new int[11];
 
 	private static int nummer;
 	
@@ -77,10 +77,7 @@ public class KlantServletTest {
 					    plaats[nummer] = regel[3];
 					    rekeningnummer[nummer] = regel[4];
 					    telefoonnummer[nummer] = Integer.parseInt(regel[5]);
-				    }
-				    catch(ArrayIndexOutOfBoundsException e){
-				    	
-				    }
+				    }catch(ArrayIndexOutOfBoundsException e){ }
 				    nummer++;
 				}
 			}
