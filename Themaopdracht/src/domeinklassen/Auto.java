@@ -55,10 +55,11 @@ public class Auto {
 
 	public Date laatsteKlus() throws Exception {
 		SimpleDateFormat df = new SimpleDateFormat("dd-MM-yyyy");
+		Date vandaag = new Date();
 		Date d = df.parse("01-01-1950");
 		for(Klus k : deKlussen){
 			Date l = k.getDatum();
-			if(l.after(d)){
+			if(l.after(d) && l.before(vandaag)){
 				d = l;
 			}
 		}

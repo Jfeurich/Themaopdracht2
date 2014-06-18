@@ -5,5 +5,3 @@
 -progress bar bij acties die meerdere stappen vereisen
 
 -wachtwoord vergeten functionaliteit 
-
--auto activeren/deactiveren

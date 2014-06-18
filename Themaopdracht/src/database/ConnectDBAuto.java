@@ -45,6 +45,34 @@ public class ConnectDBAuto{
 		return terug;
 	}
 
+	//alle nonactieve autos in het systeem
+	public ArrayList<Auto> getAutosNietActief(){
+		ArrayList<Auto> terug = new ArrayList<Auto>();
+		try{
+			String sql = "SELECT * FROM Auto WHERE actief='f'";
+			Statement stmt = con.createStatement();
+			ResultSet rs = stmt.executeQuery(sql);
+			while (rs.next()) {   // rs.next() geeft false als er niets meer is 
+				int id = rs.getInt("autoid");
+				String ken = rs.getString("kenteken");
+				String mk = rs.getString("merk");
+				String tp = rs.getString("type");
+				int klantid = rs.getInt("klantid");
+				ConnectDBKlant klantconn = new ConnectDBKlant(con);
+				Klant eigenaar = klantconn.zoekEigenaar(klantid);
+				Auto a = new Auto(ken, mk, tp, eigenaar);
+				a.setID(id);
+				ConnectDBKlus klusconn = new ConnectDBKlus(con);
+				klusconn.getKlussenVoorAutoObject(a);
+				terug.add(a);
+			}
+			stmt.close();
+		}
+		catch(Exception ex){
+			System.out.println("Probleem bij ophalen autos" + ex);
+		}
+		return terug;
+	}
 	//zoek naar alle autos van een bepaalde klant (per klantid)
 	public ArrayList<Auto> getAutosVan(int zoekid){
 		ArrayList<Auto> terug = new ArrayList<Auto>();
