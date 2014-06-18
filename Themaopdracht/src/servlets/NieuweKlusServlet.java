@@ -6,6 +6,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -17,6 +18,7 @@ import database.ConnectDBKlus;
 import domeinklassen.Auto;
 import domeinklassen.Klant;
 import domeinklassen.Klus;
+import domeinklassen.User;
 
 public class NieuweKlusServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -26,6 +28,7 @@ public class NieuweKlusServlet extends HttpServlet {
 		Connection con = (Connection)req.getSession().getAttribute("verbinding");
 		String knop = req.getParameter("knop");
 		req.setAttribute("stap1", "done");
+		RequestDispatcher rd = req.getRequestDispatcher("nieuweklus.jsp");
 		
 		//roep alle autos van de geselecteerde klant op
 		if(knop.equals("autos")){
@@ -36,7 +39,7 @@ public class NieuweKlusServlet extends HttpServlet {
 			req.setAttribute("autos", autos);
 		}
 		//roep al het werk aan wat aan deze auto is gedaan en laat nieuweklus.jsp het forumulier tonen om een klus toe te voegen
-		else if(knop.equals("kiesauto")){
+		else if(knop.equals("kiesauto") || knop.equals("Nieuwe klus")){
 			ConnectDBAuto autoconn = new ConnectDBAuto(con);
 			String autoid = req.getParameter("gekozenauto");
 			Auto deAuto = autoconn.zoekAuto(Integer.parseInt(autoid));
@@ -52,24 +55,36 @@ public class NieuweKlusServlet extends HttpServlet {
 			int autoid = Integer.parseInt(auto);
 			boolean allesIngevuld = (type != null) && (!dat.equals("")) && (!beschrijving.equals(""));
 			boolean gemaakt = false;
+			User u = (User)req.getSession().getAttribute("gebruiker");
+			int utp = u.getType();
 			if(allesIngevuld){	//check of alle velden in zijn gevuld
 				try{	//check voor geldige datum
 					SimpleDateFormat df = new SimpleDateFormat("dd-MM-yyyy");
 					Date datum = df.parse(dat);
-					Klus nieuw = klusconn.nieuweKlus(datum, beschrijving, type, autoid);
-					if(nieuw != null){
-						String terug = "Nieuwe reparatie toevoegd voor: " + nieuw.getAuto().getKenteken();
-						if(type.equals("onderhoudsbeurt")){
-							terug = "Nieuwe onderhoudsbeurt toevoegd voor: " + nieuw.getAuto().getKenteken();
-						}
-						req.setAttribute("msg", terug);
-						ConnectDBKlant kcon = new ConnectDBKlant(con);
-						ArrayList<Klant> klanten = kcon.getKlanten();
-						req.setAttribute("klanten", klanten);
-						gemaakt = true;
+					if(utp == 3 && datum.before(new Date())){
+						req.setAttribute("error", "U mag geen klussen in het verleden aanmaken!");
 					}
 					else{
-						req.setAttribute("msg", "Kan deze klus niet toevoegen!");	
+						Klus nieuw = klusconn.nieuweKlus(datum, beschrijving, type, autoid);
+						if(nieuw != null){
+							String terug = "Nieuwe reparatie toevoegd voor: " + nieuw.getAuto().getKenteken();
+							if(type.equals("onderhoudsbeurt")){
+								terug = "Nieuwe onderhoudsbeurt toevoegd voor: " + nieuw.getAuto().getKenteken();
+							}
+							req.setAttribute("msg", terug);
+							if(utp == 3){
+								req.setAttribute("nieuweklus", nieuw);
+							}
+							else{
+								ConnectDBKlant kcon = new ConnectDBKlant(con);
+								ArrayList<Klant> klanten = kcon.getKlanten();
+								req.setAttribute("klanten", klanten);
+							}
+							gemaakt = true;
+						}
+						else{
+							req.setAttribute("msg", "Kan deze klus niet toevoegen!");	
+						}
 					}
 				}
 				catch(Exception ex){
@@ -84,7 +99,10 @@ public class NieuweKlusServlet extends HttpServlet {
 				Auto deAuto = autoconn.zoekAuto(autoid);
 				req.setAttribute("deAuto", deAuto);
 			}
+			if(gemaakt && utp == 3){
+				rd = req.getRequestDispatcher("index.jsp");
+			}
 		}
-		req.getRequestDispatcher("nieuweklus.jsp").forward(req, resp);	
+		rd.forward(req, resp);	
 	}
 }

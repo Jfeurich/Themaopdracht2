@@ -31,7 +31,7 @@ public class KlusWijzigenServlet extends HttpServlet {
 		RequestDispatcher rd = req.getRequestDispatcher("kluswijzigen.jsp");
 		
 		//probeer de gegeven waardes te wijzigen bij de gekozen klus
-		if(knop.equals("bevestig")){
+		if(knop.equals("Bevestig")){
 			String dat = req.getParameter("datum");
 			String beschrijving = req.getParameter("beschrijving");
 			String status = req.getParameter("status");

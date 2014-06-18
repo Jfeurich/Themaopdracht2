@@ -22,6 +22,7 @@ import database.ConnectDBKlus;
 import domeinklassen.Auto;
 import domeinklassen.Klant;
 import domeinklassen.Klus;
+import domeinklassen.User;
 
 public class KlusServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -33,7 +34,7 @@ public class KlusServlet extends HttpServlet {
 		//stuur antwoord bij default naar nieuweklus.jsp
 		RequestDispatcher rd = req.getRequestDispatcher("klus.jsp");
 		
-		//geselecteerde klus annuleren
+		//nieuwe klus maken
 		if(knop.equals("nieuw")){
 			ConnectDBKlant klantconn = new ConnectDBKlant(con);	
 			ArrayList<Klant> klanten = klantconn.getKlanten();
@@ -46,6 +47,7 @@ public class KlusServlet extends HttpServlet {
 				req.setAttribute("error", "Er staan nog geen klanten in het systeem!");
 			} 
 		}
+		//klus zoeken aan de hand van zoektermen
 		else if(knop.equals("Zoek")){
 			String s = "Er is gezocht aan de hand van de volgende zoektermen:\n";
 			Date dat1 = null;
@@ -208,16 +210,20 @@ public class KlusServlet extends HttpServlet {
 		else if(knop.equals("Nieuwe zoektermen")){
 			req.setAttribute("gevondenklussen", null);
 		}
-		//klanten ophalen en doorsturen bij nieuwe klus of klus wijzigen
+		//geselecteerde klus annuleren of doorsturen naar kluswijzigen.jsp
 		else{
 			String klus = req.getParameter("gekozenklus");
 			if(klus != null){
 				int klusid = Integer.parseInt(klus);
 				ConnectDBKlus klusconn = new ConnectDBKlus(con);
 				Klus deKlus = klusconn.zoekKlus(klusid);
-				if(knop.equals("annuleren")){
+				if(knop.equals("Annuleren")){
 					klusconn.verwijderKlus(deKlus.getID());
 					req.setAttribute("msg", "Klus is succesvol geannuleerd");
+					User u = (User)req.getSession().getAttribute("gebruiker");
+					if(u.getType() == 3){
+						rd = req.getRequestDispatcher("index.jsp");
+					}
 				}
 				else if(knop.equals("wijzig")){
 					req.setAttribute("deKlus", deKlus);

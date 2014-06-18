@@ -27,24 +27,22 @@ import domeinklassen.User;
 
 @RunWith(value = Parameterized.class)
 public class KlantServletTest {
-	private static User gebruiker;
-	private static Klant klant;
-	private static Auto auto;
-	private static Klus klus;
-	private static Klus klus2;
+
 	private StringBuffer verificationErrors = new StringBuffer();
-	private static int i;
-	private static ArrayList<Auto> autos = new ArrayList<Auto>();
+	private ArrayList<Auto> autos = new ArrayList<Auto>();
 	private ArrayList<Klus> klussen = new ArrayList<Klus>();
 	private static Date dat = new Date();
-	private static String naam;
-	private static String adres;
-	private static String rekeningnummer;
-	private static String plaats;
-	private int telefoonnummer;
+	private static int[] klantnummer = new int[12];
+	private static String[] naam = new String[12];
+	private static String[] adres = new String[12];
+	private static String[] plaats = new String [12];
+	private static String[] rekeningnummer = new String[12];
+	private static int[] telefoonnummer = new int[12];
+
+	private static int nummer;
 	
-	public KlantServletTest(int nummer){
-		nummer = i;
+	public KlantServletTest(int nr){
+		nr = nummer;
 	}
 	  @Parameters
 	  public static Collection<Object[]> data() {
@@ -66,23 +64,24 @@ public class KlantServletTest {
 				brp = new BufferedReader(new FileReader(csvPersonen));
 				while ((linep = brp.readLine()) != null) {
 					String[] regel = linep.split(cvsSplitBy); //file is gescheiden door ;
-				    int klantnummer = Integer.parseInt(regel[0]);
-				    naam = regel[1];
-				    adres = regel[2];
-				    plaats = regel[3];
-				    rekeningnummer = regel[4];
-				    int telefoonnummer = Integer.parseInt(regel[5]);
-				    klant = new Klant(klantnummer, naam, adres, plaats, rekeningnummer, telefoonnummer);
-				    gebruiker = new User(1, 3, klant.getNaam(),"wachtwoord", "test@test.test");
-				    auto = new Auto("kenteken", "merk", "type", klant);
-				    klus = new Reparatie(dat, "testreparatie");
-					klus2 = new Onderhoudsbeurt(dat, "testrekeningnummer");
-					auto.voegKlusToe(klus);
-					auto.voegKlusToe(klus2);
-				    gebruiker.setDeKlant(klant);
-					klant.setUser(gebruiker);
-					autos.add(auto);
-					klant.setAutos(autos);
+				    klantnummer[nummer] = 0;
+				    naam[nummer] = "";
+				    adres[nummer] = "";
+				    plaats[nummer] = "";
+				    rekeningnummer[nummer] = "";
+				    telefoonnummer[nummer] = 0;
+				    try{
+					    klantnummer[nummer] = Integer.parseInt(regel[0]);
+					    naam[nummer] = regel[1];
+					    adres[nummer] = regel[2];
+					    plaats[nummer] = regel[3];
+					    rekeningnummer[nummer] = regel[4];
+					    telefoonnummer[nummer] = Integer.parseInt(regel[5]);
+				    }
+				    catch(ArrayIndexOutOfBoundsException e){
+				    	
+				    }
+				    nummer++;
 				}
 			}
 		catch (FileNotFoundException e) {
@@ -99,22 +98,41 @@ public class KlantServletTest {
 					e.printStackTrace();
 				}
 			}
+			nummer = 0;
 		}
 	  }
 	  
 		
 	  @SuppressWarnings("deprecation")
 	  @Test
-		public void test() throws Exception{					
+		public void test() throws Exception{
+		  int knr = klantnummer[nummer];
+		  String nm = naam[nummer];
+		  String adr = adres[nummer];
+		  String ps = plaats[nummer];
+		  String rkn = rekeningnummer[nummer];
+		  int tnr = telefoonnummer[nummer];
+		  
+		    Klant klant = new Klant(knr, nm, adr, ps, rkn, tnr);
+		    User gebruiker = new User(1, 3, klant.getNaam(),"wachtwoord", "test@test.test");
+		    Auto auto = new Auto("kenteken", "merk", "type", klant);
+		    Klus klus = new Reparatie(dat, "testreparatie");
+			Klus klus2 = new Onderhoudsbeurt(dat, "testrekeningnummer");
+			auto.voegKlusToe(klus);
+			auto.voegKlusToe(klus2);
+		    gebruiker.setDeKlant(klant);
+			klant.setUser(gebruiker);
+			autos.add(auto);
+			klant.setAutos(autos);
 				    try {
-			      assertEquals(klant.toString(),"Naam " + naam + "; adres " + adres + "; woonplaats " + plaats + "; rekeningnummer " + rekeningnummer + "; telefoonnummer " + telefoonnummer);
+			      assertEquals(klant.toString(),"Naam " + nm + "; adres " + adr + "; woonplaats " + ps + "; rekeningnummer " + rkn + "; telefoonnummer " + tnr);
 			      assertEquals(gebruiker.toString(),"User username=" + gebruiker.getGebruikersnaam()+ ", password=" + gebruiker.getWachtwoord() + "\n" + "Account is van klant:\n" + klant.toString());
 			      klant.setNaam("piet");
 			      assertEquals(klant.getNaam(),"piet");
-			      assertEquals(klant.getAdres(),adres);
-			      assertEquals(klant.getPlaats(),plaats);
-			      klant.setRekeningnummer(rekeningnummer);
-			      assertEquals(rekeningnummer,"rekeningnummer");
+			      assertEquals(klant.getAdres(),adr);
+			      assertEquals(klant.getPlaats(),ps);
+			      klant.setRekeningnummer(rkn);
+			      assertEquals(klant.getRekeningnummer(),"rkn");
 			      assertEquals(gebruiker.getID(),1);
 			      assertEquals(gebruiker.getType(),3);
 			      assertEquals(gebruiker.getWachtwoord(),"wachtwoord");

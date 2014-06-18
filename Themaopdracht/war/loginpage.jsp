@@ -13,5 +13,6 @@
 			</tr>
 		</table>
 		<p><input type="submit" value="Login!" /> </p>
+		<a href="wwvergeten.jsp">Wachtwoord vergeten?</a>
 	</form>
 <%@ include file="footer.html" %>

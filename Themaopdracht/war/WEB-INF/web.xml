@@ -157,14 +157,6 @@ version="2.4">
 	<url-pattern>/RegistreerServlet.do</url-pattern>
 </servlet-mapping>
 <servlet>
-	<servlet-name>KlusAnnulerenServlet</servlet-name>
-	<servlet-class>servlets.KlusAnnulerenServlet</servlet-class>
-</servlet>
-<servlet-mapping>
-	<servlet-name>KlusAnnulerenServlet</servlet-name>
-	<url-pattern>/KlusAnnulerenServlet.do</url-pattern>
-</servlet-mapping>
-<servlet>
 	<servlet-name>ReserveringBevestigenServlet</servlet-name>
 	<servlet-class>servlets.ReserveringBevestigenServlet</servlet-class>
 </servlet>
@@ -221,18 +213,14 @@ version="2.4">
 	<filter-name>GeenKlantFilter</filter-name>
 	<servlet-name>BriefServlet</servlet-name>
 	<servlet-name>BTWServlet</servlet-name>
-	<servlet-name>KlusServlet</servlet-name>
-	<servlet-name>KlusWijzigenServlet</servlet-name>
 	<servlet-name>NieuweBestellingServlet</servlet-name>
 	<servlet-name>NieuweFactuurServlet</servlet-name>
-	<servlet-name>NieuweKlusServlet</servlet-name>
 	<servlet-name>FactuurServlet</servlet-name>
 	<servlet-name>ProductServlet</servlet-name>
 	<servlet-name>WijzigProductServlet</servlet-name>
 	<servlet-name>RegistreerServlet</servlet-name>	
 	<servlet-name>NieuweGebruikersaccountServlet</servlet-name>
 	<servlet-name>OverzichtWerkplaatsPlanningServlet</servlet-name>
-	<servlet-name>KlusAnnulerenServlet</servlet-name>
 	<servlet-name>ReserveringAnnulerenServlet</servlet-name>
 	<servlet-name>ReserveringBevestigenServlet</servlet-name>
 </filter-mapping>

@@ -62,28 +62,34 @@
 		}
 		else{
 		%>
-		<div>
-			<table>
-			<tr>
-				<th>Kenteken</th>
-				<th>Merk</th>
-				<th>Type</th>
-				<th>Laatste klus</th>
-			</tr>
-			<%
-			for(Auto a : u.getDeKlant().getAutos()){
-			%>
+		<form action="NieuweKlusServlet.do" method="post">
+			<div>
+				<table>
 				<tr>
-					<td><%=a.getKenteken()%></td>
-					<td><%=a.getMerk()%></td>
-					<td><%=a.getType()%></td>
-					<td><%=df.format(a.laatsteKlus()) %></td>
+					<th>X</th>
+					<th>Kenteken</th>
+					<th>Merk</th>
+					<th>Type</th>
+					<th>Laatste klus</th>
 				</tr>
-			<%
-			}
-			%>
-			</table>
-		</div>
+				<%
+				boolean eersteauto=true;
+				for(Auto a : u.getDeKlant().getAutos()){
+				%>
+					<tr>
+						<td><input type="radio" name="gekozenauto" <%if(eersteauto){eersteauto=false;%>checked="checked" <%} %>value="<%=a.getID()%>" /></td>
+						<td><%=a.getKenteken()%></td>
+						<td><%=a.getMerk()%></td>
+						<td><%=a.getType()%></td>
+						<td><%=df.format(a.laatsteKlus()) %></td>
+					</tr>
+				<%
+				}
+				%>
+				</table>
+			</div>
+			<input type="submit" name="knop" value="Nieuwe klus" />
+		</form>
 		<h2>Mijn klussen</h2>
 		<div>
 		<%
@@ -94,9 +100,15 @@
 		<%
 		}
 		else{
+			Object nw = request.getAttribute("nieuweklus");
+			if(nw != null){
+				aankomendeKlussen.add((Klus)nw);
+			}
 		%>
+		<form action="KlusWijzigenServlet.do" method="post">
 			<table>
 				<tr>
+					<th>X</th>
 					<th>Kenteken</th>
 					<th>Type</th>
 					<th>Datum</th>
@@ -105,8 +117,12 @@
 				</tr>
 				<%
 				for(Klus k : aankomendeKlussen ){
+					boolean eerste=true;
 					%>
 					<tr>
+						<td class="hoofdcel"><input type="radio" name="gekozenklus" 
+							<%if(eerste){eerste=false;%> checked="checked" <%}%>value="<%=k.getID()%>" />
+						</td>
 						<td class="hoofdcel"><%=k.getAuto().getKenteken() %></td>
 						<%if(k instanceof Reparatie){%>
 							<td class="hoofdcel">Reparatie</td>
@@ -146,6 +162,8 @@
 				}
 				%>
 				</table>
+				<input type="submit" name="knop" value="Annuleren" />
+			</form>
 		<%
 		}
 		%>
