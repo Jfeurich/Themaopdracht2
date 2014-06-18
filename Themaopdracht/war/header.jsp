@@ -3,7 +3,6 @@
 <head>
 	<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
 	<title>${param.titel}</title> 
-	<link rel="stylesheet" href="//code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css" />
 	<link rel="stylesheet" href="stylesheet.css" />
 </head>
 <body> 
@@ -47,6 +46,13 @@
 			%>
 			<li> <a href="#">Auto</a>
 				<ul><li><a href="autotoevoegen.jsp">Auto toevoegen</a></li></ul>
+				<%
+				if(u.getType() == 0){
+				%>
+					<ul><li><a href="overzichtautos.jsp">Overzicht auto's</a></li></ul>
+				<%
+				}
+				%>
 			</li>
 			<%
 			}

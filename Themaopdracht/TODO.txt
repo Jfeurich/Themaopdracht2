@@ -1,7 +1,5 @@
  -waarschuwing popup (mogelijk in web??) / bevestigingschermen waar relevant
 
--zoekfuncties (op nummer, naam, kenteken, etc)
-
 -progress bar bij acties die meerdere stappen vereisen
 
 -wachtwoord vergeten functionaliteit 

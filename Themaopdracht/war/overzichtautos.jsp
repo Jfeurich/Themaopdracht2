@@ -10,32 +10,35 @@
 		ConnectDBAuto acon = new ConnectDBAuto(con);	
 		ArrayList<Auto> autos = acon.getAutos();
 		ArrayList<Auto> nonactief = acon.getAutosNietActief();
-		%>
-		<h2><span>Auto's</span></h2>
-		<table>
-		<tr>
-			<th>X</th>
-			<th>Kenteken</th>
-			<th>Merk</th>
-			<th>Type</th>
-			<th>Eigenaar</th>
-		</tr>
-		<%
-		boolean eerste=true;
-		for(Auto a : autos){
+		if(autos.size() > 0){
 			%>
+			<h2><span>Auto's</span></h2>
+			<table>
 			<tr>
-				<td><input type="radio" name="kiesauto" 
-				<%if(eerste){out.println("checked=checked ");eerste=false;}%>
-				value="<%=a.getID()%>" /></td>
-				<td><%=a.getKenteken()%></td>
-				<td><%=a.getMerk()%></td>
-				<td><%=a.getType()%></td>
-				<td><%=a.getEigenaar().getNaam()%></td>
+				<th>X</th>
+				<th>Kenteken</th>
+				<th>Merk</th>
+				<th>Type</th>
+				<th>Eigenaar</th>
 			</tr>
-		<%}%>
-		</table>
-		<%if(nonactief.size() > 0){	
+			<%
+			boolean eerste=true;
+			for(Auto a : autos){
+				%>
+				<tr>
+					<td><input type="radio" name="kiesauto" 
+					<%if(eerste){out.println("checked=checked ");eerste=false;}%>
+					value="<%=a.getID()%>" /></td>
+					<td><%=a.getKenteken()%></td>
+					<td><%=a.getMerk()%></td>
+					<td><%=a.getType()%></td>
+					<td><%=a.getEigenaar().getNaam()%></td>
+				</tr>
+			<%}%>
+			</table>
+		<%
+		}
+		if(nonactief.size() > 0){	
 		%>	
 		<h3><span>Non-actieve auto's:</span></h3>
 		<table>
@@ -47,9 +50,12 @@
 				<th>Eigenaar</th>
 			</tr>
 			<%
+			boolean eerste = true;
 			for(Auto a : nonactief){%>
 				<tr>
-					<td><input type="radio" onclick="setNonActief()" name="kiesauto" value="<%=a.getID()%>" /></td>
+					<td><input type="radio" onclick="setNonActief()" name="kiesauto" 
+					<%if(eerste){if(autos.size()==0){out.println("checked=checked ");}eerste=false;}%>
+					value="<%=a.getID()%>" /></td>
 					<td><%=a.getKenteken()%></td>
 					<td><%=a.getMerk()%></td>
 					<td><%=a.getType()%></td>

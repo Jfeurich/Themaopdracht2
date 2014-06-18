@@ -66,6 +66,14 @@ public class KlusServlet extends HttpServlet {
 			if(!ken.equals("")){
 				zoekenop.put("ken", ken);
 			}
+			String mk = req.getParameter("zoekautomerk");
+			if(!mk.equals("")){
+				zoekenop.put("mk", mk);
+			}
+			String tp = req.getParameter("zoekautotype");
+			if(!tp.equals("")){
+				zoekenop.put("tp", tp);
+			}
 			String status = req.getParameter("zoekstatus");
 			if(!status.equals("")){
 				zoekenop.put("status", status);
@@ -120,6 +128,30 @@ public class KlusServlet extends HttpServlet {
 								klussen.add(k);
 							}
 							s += " kenteken = " + value;
+						}
+					}
+				}
+				else if(key.equals("mk")){
+					ConnectDBAuto acon = new ConnectDBAuto(con);
+					ArrayList<Auto> lijst = acon.zoekAutoMerk(value);
+					if(lijst != null){
+						for(Auto a : lijst){
+							for(Klus k : a.getKlussen()){
+								klussen.add(k);
+							}
+							s += " merk = " + value;
+						}
+					}
+				}
+				else if(key.equals("tp")){
+					ConnectDBAuto acon = new ConnectDBAuto(con);
+					ArrayList<Auto> lijst = acon.zoekAutoType(value);
+					if(lijst != null){
+						for(Auto a : lijst){
+							for(Klus k : a.getKlussen()){
+								klussen.add(k);
+							}
+							s += " type = " + value;
 						}
 					}
 				}

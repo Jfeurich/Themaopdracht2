@@ -30,6 +30,14 @@
 						<td><input type="text" name="zoekautoken" /></td>
 					</tr>
 					<tr>
+						<th>Merk auto:</th>
+						<td><input type="text" name="zoekautomerk" /></td>
+					</tr>
+					<tr>
+						<th>Type auto:</th>
+						<td><input type="text" name="zoekautotype" /></td>
+					</tr>
+					<tr>
 						<th>Status:</th>
 						<td><input type="text" name="zoekstatus" /></td>
 					</tr>
