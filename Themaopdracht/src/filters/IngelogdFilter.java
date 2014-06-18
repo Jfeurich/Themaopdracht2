@@ -27,7 +27,7 @@ public class IngelogdFilter implements Filter{
         HttpServletResponse response = (HttpServletResponse)resp;
         //niet-ingelogde gebruikers mogen alleen bij inloggen of registreren
         if((session == null || session.getAttribute("gebruiker") == null)) { 
-        	if(!requestPath.endsWith("registreer.jsp") && !requestPath.endsWith("loginpage.jsp") && !requestPath.endsWith("LoginServlet.do") && !requestPath.endsWith("RegistreerServlet.do")){
+        	if(!requestPath.endsWith("wwvergeten.jsp") && !requestPath.endsWith("registreer.jsp") && !requestPath.endsWith("loginpage.jsp") && !requestPath.endsWith("WwVergetenServlet.do") && !requestPath.endsWith("LoginServlet.do") && !requestPath.endsWith("RegistreerServlet.do")){
         		//probeerde de gebruiker een jsp te gebruiken? dan mogen ze na het inloggen terug keren naar die jsp
         		if(!requestPath.endsWith(".do")){
 		            requestPath = requestPath.substring(14, requestPath.length());

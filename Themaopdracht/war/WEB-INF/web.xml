@@ -188,6 +188,14 @@ version="2.4">
 	<servlet-name>OverzichtWerkplaatsPlanningServlet</servlet-name>
 	<url-pattern>/OverzichtWerkplaatsPlanningServlet.do</url-pattern>
 </servlet-mapping>
+<servlet>
+	<servlet-name>WwVergetenServlet</servlet-name>
+	<servlet-class>servlets.WwVergetenServlet</servlet-class>
+</servlet>
+<servlet-mapping>
+	<servlet-name>WwVergetenServlet</servlet-name>
+	<url-pattern>/WwVergetenServlet.do</url-pattern>
+</servlet-mapping>
 <filter>
 	<filter-name>IngelogdFilter</filter-name>
 	<filter-class>filters.IngelogdFilter</filter-class>
