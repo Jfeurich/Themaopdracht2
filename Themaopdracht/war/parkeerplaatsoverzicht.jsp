@@ -62,7 +62,7 @@
 						</tr>
 					<%}%>
 					</table>
-					<input type="submit" name="knop" value="kiesAuto" />
+					<p><input type="submit" name="knop" value="kiesAuto" /></p>
 					<%
 				}
 				else{
@@ -91,13 +91,13 @@
 							</tr>
 						<%}%>
 						</table>
-						<input type="submit" name="knop" value="autos" />
+						<p><input type="submit" name="knop" value="autos" /></p>
 						<%
 					}
 					else{
 						%>
 						<h2><span>Haal eerst gegevens van de klanten op</span></h2>
-						<input type="submit" name="knop" value="klanten" />
+						<p><input type="submit" name="knop" value="klanten" /></p>
 						<%
 					}
 				}

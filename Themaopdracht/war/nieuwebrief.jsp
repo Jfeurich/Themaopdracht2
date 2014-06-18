@@ -44,7 +44,7 @@ De medewerkers van AutoTotaalDienst Utrecht
 				%>
 				<tr>
 					<td><input type="radio" name="gekozenklant" 
-					<%if(eerste){out.println("checked=checked ");eerste=false;}%>
+					<%if(eerste){%> checked="checked" <% eerste=false;}%>
 					value="<%=k.getKlantnummer()%>" /></td>
 					<td><%=k.getKlantnummer()%></td>
 					<td><%=k.getNaam()%></td>
@@ -53,7 +53,7 @@ De medewerkers van AutoTotaalDienst Utrecht
 				</tr>
 			<%}%>
 			</table>
-			<input type="submit" name="knop" value="KiesKlant" />
+			<p><input type="submit" name="knop" value="KiesKlant" /></p>
 			<%
 		}
 		%>

@@ -40,6 +40,6 @@
 				<th>Telefoonnummer</th>
 				<td><input type="text" name="telefoonnummer" value="${param.telefoonnummer}" /></td></tr>
 		</table>
-		<input type="submit" value="Maak user" name="knop"/>
+		<p><input type="submit" value="Maak user" name="knop"/></p>
 	</form>
 <%@ include file="footer.html" %>

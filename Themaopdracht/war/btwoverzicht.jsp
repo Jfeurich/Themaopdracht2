@@ -8,29 +8,25 @@
 		<h2><span>Geef aan voor welke kwartalen u een overzicht wilt</span></h2>
 		<h4><span>Begindatum</span></h4>
 		<p class="kop" >Jaar: <input type="text" name="beginjaar" /></p>
-		<p>
-			<table>
-				<tr>
-					<td><input type="radio" name="beginkwartaal" checked="checked" value="1" />1e kwartaal</td>
-					<td><input type="radio" name="beginkwartaal" value="2" />2e kwartaal</td>
-					<td><input type="radio" name="beginkwartaal" value="3" />3e kwartaal</td>
-					<td><input type="radio" name="beginkwartaal" value="4" />4e kwartaal</td>
-				</tr>
-			</table>		
-		</p>
+		<table>
+			<tr>
+				<td><input type="radio" name="beginkwartaal" checked="checked" value="1" />1e kwartaal</td>
+				<td><input type="radio" name="beginkwartaal" value="2" />2e kwartaal</td>
+				<td><input type="radio" name="beginkwartaal" value="3" />3e kwartaal</td>
+				<td><input type="radio" name="beginkwartaal" value="4" />4e kwartaal</td>
+			</tr>
+		</table>		
 		<h4><span>Einddatum</span></h4>
 		<p class="kop" >Jaar:<input type="text" name="eindjaar" /></p>
-		<p>
-			<table>
-				<tr>
-					<td><input type="radio" name="eindkwartaal" checked="checked" value="1" />1e kwartaal</td>
-					<td><input type="radio" name="eindkwartaal" value="2" />2e kwartaal</td>
-					<td><input type="radio" name="eindkwartaal" value="3" />3e kwartaal</td>
-					<td><input type="radio" name="eindkwartaal" value="4" />4e kwartaal</td>
-				</tr>
-			</table>
-		</p>
-		<input type="submit" name="knop" value="overzicht" />
+		<table>
+			<tr>
+				<td><input type="radio" name="eindkwartaal" checked="checked" value="1" />1e kwartaal</td>
+				<td><input type="radio" name="eindkwartaal" value="2" />2e kwartaal</td>
+				<td><input type="radio" name="eindkwartaal" value="3" />3e kwartaal</td>
+				<td><input type="radio" name="eindkwartaal" value="4" />4e kwartaal</td>
+			</tr>
+		</table>
+		<p><input type="submit" name="knop" value="overzicht" /></p>
 	</form>
 	<div>
 	<%

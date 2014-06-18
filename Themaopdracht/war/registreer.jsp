@@ -46,6 +46,6 @@
 				<td><input type="text" name="rnr" value="${param.rnr}" /></td>
 			</tr>
 		</table>
-		<input type="submit" value="Registreer" name="knop" />
+		<p><input type="submit" value="Registreer" name="knop" /></p>
 	</form>
 <%@ include file="footer.html" %>

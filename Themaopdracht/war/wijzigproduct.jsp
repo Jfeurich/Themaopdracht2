@@ -35,19 +35,19 @@ if(hetProduct == null){
 			</tr>
 			<tr>
 				<td><%=p.getArtikelNr()%></td>
-				<td><input type=text name=naam /></td>
-				<td><input type=text name=aantal /></td>
-				<td><input type=text name=eenheid /></td>
-				<td><input type=text name=minaantal /></td>
-				<td><input type=text name=pps /></td>
+				<td><input type="text" name="naam" /></td>
+				<td><input type="text" name="aantal" /></td>
+				<td><input type="text" name="eenheid" /></td>
+				<td><input type="text" name="minaantal" /></td>
+				<td><input type="text" name="pps" /></td>
 			</tr>
 		</table>	
-		<input type="submit" name="knop" value="Wijzigingen opslaan" />
+		<p><input type="submit" name="knop" value="Wijzigingen opslaan" />
 		<%if(p.isActief()){%>
 			<input type="submit" name="knop" value="Deactiveren" />
 		<%}else{ %>
 			<input type="submit" name="knop" value="Activeren" />
-		<%}%>
+		<%}%></p>
 	</form>
 	<p><a href="product.jsp">Terug naar hoofdmenu product</a></p>
 <%@ include file="footer.html" %>

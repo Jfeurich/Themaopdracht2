@@ -26,8 +26,8 @@
 					<td><input type="text" name="type" /></td>
 				</tr>
 			</table>
-			<input type="hidden" name="klantnummer" value="<%=klant%>" />
-			<input type="submit" name="knop" value=VoegAutoToe />
+			<p><input type="hidden" name="klantnummer" value="<%=klant%>" />
+			<input type="submit" name="knop" value="VoegAutoToe" /></p>
 			<% 
 		}
 		else{
@@ -47,8 +47,8 @@
 			for(Klant k : klanten){
 				%>
 				<tr>
-					<td><input type="radio" name="autovanklant" 
-					<%if(eerste){out.println(" checked=checked ");eerste=false;} %>
+					<td><input type="radio" name="autovanklant"
+					<%if(eerste){%> checked="checked"  <% eerste=false;} %>
 					value="<%=k.getKlantnummer()%>" /></td>
 					<td><%=k.getKlantnummer()%></td>
 					<td><%=k.getNaam()%></td>
@@ -57,7 +57,7 @@
 			}
 			%>
 			</table>
-			<input type=submit name=knop value=KiesKlant />
+			<p><input type="submit" name="knop" value="KiesKlant" /></p>
 			<%
 		}
 		%>

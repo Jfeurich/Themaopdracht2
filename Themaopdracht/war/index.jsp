@@ -45,9 +45,11 @@
 						<td><%=a.getType()%></td>
 						<td><%=df.format(a.laatsteKlus()) %></td>
 					</tr>
-				</table>
 				<%
 				}
+				%>
+				</table>
+				<%
 			}
 			%>
 		</div>

@@ -16,11 +16,11 @@ if(o == null && factuurid == null){
 	if(factuurid != null){
 		%>
 		<h1><span>18: Factuur betalen:</span></h1>
-		<input type="hidden" name="factuurid" value="<%=(String)factuurid%>" />
+		<p><input type="hidden" name="factuurid" value="<%=(String)factuurid%>" />
 		<input type="radio" name="betaalmiddel" value="giro" checked="checked" >Giro</>
 		<input type="radio" name="betaalmiddel" value="pin">Pin</>
 		<input type="radio" name="betaalmiddel" value="contant">Contant</>
-		<input type="submit" name="knop" value="betaal" />
+		<input type="submit" name="knop" value="betaal" /></p>
 		<%
 	}
 	else{
@@ -41,7 +41,7 @@ if(o == null && factuurid == null){
 				%>
 				<tr>
 					<td><input type="radio" name="factuurid" 
-					<%if(eerste){out.println(" checked=checked ");eerste=false;}%>
+					<%if(eerste){ %> checked="checked" <% eerste=false;}%>
 					value="<%=f.getID()%>" /></td>
 					<td><%=f.getID()%></td>
 					<td><%=f.getAanmaakDatumNetjes()%></td>
@@ -50,7 +50,7 @@ if(o == null && factuurid == null){
 				</tr>
 		<%}%>
 		</table>
-		<input type="submit" name="knop" value="zoek" />
+		<p><input type="submit" name="knop" value="zoek" /></p>
 		<%
 	}
 	%>

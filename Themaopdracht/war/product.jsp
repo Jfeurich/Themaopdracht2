@@ -33,7 +33,7 @@
 					<td><input type="text" name="pps" /></td>
 				</tr>
 			</table>
-			<input type="submit" name="knop" value="nieuw" />
+			<p><input type="submit" name="knop" value="nieuw" /></p>
 		</div>
 		<div>
 			<h2><span>Zoek product</span></h2>
@@ -49,7 +49,7 @@
 					for(Product p: lijst){
 						%>
 						<p><input type="radio" name="product" 
-						<%if(eerste){out.println(" checked=checked ");eerste=false;}%>
+						<%if(eerste){ %> checked="checked" <% eerste=false;}%>
 						value="<%=p.getArtikelNr()%>" /><%=p.toString()%></p>
 						<%			
 					}
@@ -70,7 +70,7 @@
 					<td><input type="text" name="zoekeenheid" /></td>
 				</tr>
 			</table>
-			<input type="submit" name="knop" value="zoek" />
+			<p><input type="submit" name="knop" value="zoek" /></p>
 		</div>
 	</form>
 <%@ include file="footer.html" %>

@@ -22,7 +22,7 @@ if(o == null){
 		<h3><span>En voer dan eventuele andere wijzigingen in</span></h3>
 		<p class="kop" >Datum</p>
 		<p>Huidige datum: <%=deKlus.getFormattedDatum()%></p>
-		<input type="text" name="datum" class="datepicker" />
+		<p><input type="text" name="datum" class="datepicker" /></p>
 		<table>
 			<tr><th>Status</th></tr>
 			<tr><td><input type="radio" name="status" checked="checked" value="voltooid" /></td><td>Voltooid</td></tr>
@@ -30,11 +30,11 @@ if(o == null){
 			<tr><td><input type="radio" name="status" value="wachten op onderdelen" /></td><td>Wachten op onderdelen</td></tr>
 		</table>
 		<p class="kop" >Manuren toevoegen (Huidige uren: <%=deKlus.getManuren()%>)</p>
-		<input type="text" name="manuren" />
+		<p><input type="text" name="manuren" /></p>
 		<p class="kop" >Beschrijving</p>
 		<textarea name="beschrijving"><%=deKlus.getBeschrijving()%></textarea>
-		<input type="hidden" name="gekozenklus" value="<%=deKlus.getID()%>" />
-		<input type="submit" name="knop" value="bevestig" />
+		<p><input type="hidden" name="gekozenklus" value="<%=deKlus.getID()%>" /></p>
+		<p><input type="submit" name="knop" value="bevestig" /></p>
 	</form>
 	<p><a href="kluswijzigen.jsp">Terug</a></p>
 <%@ include file="footer.html" %>

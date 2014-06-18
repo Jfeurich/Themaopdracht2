@@ -34,7 +34,7 @@ if(request.getAttribute("stap1") == null && o == null){
 					%>
 					<tr>
 						<td><input type="radio" name="gekozenklant" 
-						<%if(eerste){out.println("checked=checked ");eerste=false;}%>
+						<%if(eerste){ %> checked="checked" <% eerste=false;}%>
 						value="<%=k.getKlantnummer()%>" /></td>
 						<td><%=k.getNaam()%></td>
 						<td><%=k.getAdres()%></td>
@@ -42,7 +42,7 @@ if(request.getAttribute("stap1") == null && o == null){
 					</tr>
 				<%}%>
 				</table>
-				<input type="submit" name="knop" value="autos" />
+				<p><input type="submit" name="knop" value="autos" /></p>
 				<%
 			}
 			else{
@@ -62,7 +62,7 @@ if(request.getAttribute("stap1") == null && o == null){
 					%>
 					<tr>
 						<td><input type="radio" name="gekozenauto"
-						<%if(eerste){out.println(" checked=checked ");eerste=false;}%>
+						<%if(eerste){ %> checked="checked" <% eerste=false;}%>
 						value="<%=a.getID()%>" /></td>
 						<td><%=a.getKenteken()%></td>
 						<td><%=a.getMerk()%></td>
@@ -71,7 +71,7 @@ if(request.getAttribute("stap1") == null && o == null){
 					</tr>
 				<%}%>
 				</table>
-				<input type="submit" name="knop" value="kiesauto" />
+				<p><input type="submit" name="knop" value="kiesauto" /></p>
 				<%
 			}
 		}
@@ -94,8 +94,8 @@ if(request.getAttribute("stap1") == null && o == null){
 				</tr>
 				</table>
 			<textarea name="beschrijving" placeholder="Omschrijving van de klus"></textarea>
-			<input type="hidden" name="autovanklus" value="<%=deAuto.getID()%>" />
-			<input type="submit" name="knop" value="nieuw" />
+			<p><input type="hidden" name="autovanklus" value="<%=deAuto.getID()%>" />
+			<input type="submit" name="knop" value="nieuw" /></p>
 		<%}%>
 	</form>
 <%@ include file="footer.html" %>

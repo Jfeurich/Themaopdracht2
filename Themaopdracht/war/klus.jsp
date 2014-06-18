@@ -8,7 +8,7 @@
 		<%@ page import="domeinklassen.Klus,java.sql.Connection,database.ConnectDBKlus,domeinklassen.Onderhoudsbeurt,domeinklassen.Reparatie,domeinklassen.Product,domeinklassen.GebruiktProduct,java.util.ArrayList" %>
 		<div>
 			<h2><span>28: Nieuwe klus aanmaken</span></h2>
-			<input type="submit" name="knop" value="nieuw" />
+			<p><input type="submit" name="knop" value="nieuw" /></p>
 		</div>
 		<%
 		Object o = request.getAttribute("gevondenklussen");
@@ -54,7 +54,7 @@
 						<td><input type="text" name="zoekbeschrijving" /></td>
 					</tr>
 				</table>
-				<input type="submit" name="knop" value="Zoek" />
+				<p><input type="submit" name="knop" value="Zoek" /></p>
 			</div>
 			<%
 		}
@@ -83,8 +83,8 @@
 				for(Klus k : klussen ){
 					%>
 					<tr>
-						<td class="hoofdcel"><input type=radio name=gekozenklus 
-						<%if(eerste){out.println("checked=checked ");eerste=false;}%>
+						<td class="hoofdcel"><input type="radio" name="gekozenklus "
+						<%if(eerste){ %> checked="checked" <% eerste=false;}%>
 						value="<%=k.getID()%>" /></td>
 						<%if(k instanceof Reparatie){%>
 							<td class="hoofdcel">Reparatie</td>
@@ -127,11 +127,11 @@
 			</div>
 			<div>
 				<h2><span>16: Klus wijzigen</span></h2>
-				<input type="submit" name="knop" value="wijzig" />
+				<p><input type="submit" name="knop" value="wijzig" /></p>
 			</div>
 			<div>
 				<h2><span>26: Klus annuleren</span></h2>
-				<input type="submit" name="knop" value="annuleren" />
+				<p><input type="submit" name="knop" value="annuleren" /></p>
 			</div>
 		<%} %>
 	</form>

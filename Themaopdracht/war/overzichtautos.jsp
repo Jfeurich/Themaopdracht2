@@ -27,7 +27,7 @@
 				%>
 				<tr>
 					<td><input type="radio" name="kiesauto" 
-					<%if(eerste){out.println("checked=checked ");eerste=false;}%>
+					<%if(eerste){ %> checked="checked" <% eerste=false;}%>
 					value="<%=a.getID()%>" /></td>
 					<td><%=a.getKenteken()%></td>
 					<td><%=a.getMerk()%></td>
@@ -54,7 +54,7 @@
 			for(Auto a : nonactief){%>
 				<tr>
 					<td><input type="radio" onclick="setNonActief()" name="kiesauto" 
-					<%if(eerste){if(autos.size()==0){out.println("checked=checked ");}eerste=false;}%>
+					<%if(eerste){if(autos.size()==0){ %> checked="checked" <%}eerste=false;}%>
 					value="<%=a.getID()%>" /></td>
 					<td><%=a.getKenteken()%></td>
 					<td><%=a.getMerk()%></td>
@@ -64,7 +64,7 @@
 			<%}%>
 		</table>
 		<%}%>
-		<input type="hidden" name="actief" id="actief" value="ja" />	
+		<p><input type="hidden" name="actief" id="actief" value="ja" />	</p>
 		<script type="text/javascript">
 			function setNonActief(){
 				var s = document.getElementById("actief");
@@ -75,6 +75,6 @@
           		s.value = "ja";
 			}
 		</script>
-		<input type="submit" name="knop" value="Zet actief/non-actief" />
+		<p><input type="submit" name="knop" value="Zet actief/non-actief" /></p>
 	</form>
 <%@ include file="footer.html" %>

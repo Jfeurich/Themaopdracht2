@@ -33,7 +33,7 @@ if(gebruiker.getType() != 0){
 				for(User u : gebruikers){%>
 					<tr>
 						<td><input type="radio" onclick="setActief()" name="kiesgebruiker" 
-						<%if(eerste){eerste = false;out.print("checked=checked ");}%> 
+						<%if(eerste){eerste = false;%> checked="checked" <%}%> 
 						value="<%=u.getID()%>" /></td>
 						<td><%=u.getGebruikersnaam()%></td>
 						<td><%=u.getEmail()%></td>
@@ -62,8 +62,8 @@ if(gebruiker.getType() != 0){
 				<%}%>
 			</table>
 			<%}%>
-			<input type="hidden" name="actief" id="actief" value="ja" />
-			<input type="submit" name="knop" value="Kies gebruiker" />		
+			<p><input type="hidden" name="actief" id="actief" value="ja" />
+			<input type="submit" name="knop" value="Kies gebruiker" /></p>
 			<script type="text/javascript">
 				function setNonActief(){
 					var s = document.getElementById("actief");
@@ -80,8 +80,8 @@ if(gebruiker.getType() != 0){
 			%>
 				<div>
 					<h2><span>Klik op "Bevestig" om de wijzigingen op te slaan</span></h2>
-					<input type="submit" value="Bevestig" name="knop" />
-					<input type="hidden" name="bevestigwachtwoord" value="<%=gebruiker.getWachtwoord()%>" />	
+					<p><input type="submit" value="Bevestig" name="knop" />
+					<input type="hidden" name="bevestigwachtwoord" value="<%=gebruiker.getWachtwoord()%>" /></p>
 				</div>			
 			<%}
 			else{
@@ -132,7 +132,7 @@ if(gebruiker.getType() != 0){
 							</tr>
 						<%}%>
 					</table>
-					<input type="submit" value="Account aanpassen" name="knop" />	
+					<p><input type="submit" value="Account aanpassen" name="knop" /></p>
 				</div>	
 		<%}}%>
 	</form>

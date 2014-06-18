@@ -39,21 +39,21 @@ if(gekozen == null){
 			for(Product p : voorraadlijst){
 				%>
 				<tr>
-					<td><input type=checkbox name=product value="<%=p.getArtikelNr()%>" /></td>
+					<td><input type="checkbox" name="product" value="<%=p.getArtikelNr()%>" /></td>
 					<td><%=p.getArtikelNr()%></td>
 					<td><%=p.getNaam()%></td>
 					<td><%=p.getAantal()%></td>
 					<td><%=p.getEenheid()%></td>
 					<td><input type="text" name="aantal"  /></td>
-					<input type="hidden" name="alleProducten" value="<%=p.getArtikelNr()%>" />
-					<input type="hidden" name="voorraad" value="<%=p.getAantal()%>" />
 				</tr>
+				<input type="hidden" name="alleProducten" value="<%=p.getArtikelNr()%>" />
+				<input type="hidden" name="voorraad" value="<%=p.getAantal()%>" />
 				<%
 			}
 			%>
 			</table>
-			<input type="hidden" name="gekozenklus" value="<%=deKlus.getID()%>" />
-			<input type="submit" name="knop" value="VoegToe" />
+			<p><input type="hidden" name="gekozenklus" value="<%=deKlus.getID()%>" />
+			<input type="submit" name="knop" value="VoegToe" /></p>
 			<%
 		}
 		%>

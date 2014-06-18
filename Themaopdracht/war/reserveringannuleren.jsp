@@ -26,8 +26,8 @@
 						<td><%= r.getAuto().getKenteken() %></td>
 					</tr>
 				</table>
-				<input type="hidden" value=<%=request.getAttribute("reserveringID")%> name="gekozenReservering" />
-				<input type="submit" value="Bevestig" name="knop" />
+				<p><input type="hidden" value="<%=request.getAttribute("reserveringID")%>" name="gekozenReservering" />
+				<input type="submit" value="Bevestig" name="knop" /></p>
 			</div>
 		<%			
 		}
@@ -52,7 +52,7 @@
 						%>
 							<tr>
 								<td><input type="radio" name="gekozenReservering" 
-								<%if(eerste){out.println("checked=checked ");eerste=false;}%>
+								<%if(eerste){ %> checked="checked" <% eerste=false;}%>
 								value="<%=r.getID()%>" /></td>
 								<td><%= r.getBegDat()%></td>
 								<td><%= r.getEindDat() %></td>
@@ -63,7 +63,7 @@
 						}
 						%>	
 					</table>
-					<input type="submit" value="Kies reservering" name="knop">
+					<p><input type="submit" value="Kies reservering" name="knop" /></p>
 				</div>
 			<%
 			}
@@ -73,7 +73,7 @@
 				%>
 					<h2>Haal uw reserveringen op</h2>
 					<div>
-						<input type="submit" value="Haal reserveringen op" name="knop">
+						<input type="submit" value="Haal reserveringen op" name="knop" />
 					</div>
 				<%
 				}
@@ -96,7 +96,7 @@
 								%>
 									<tr>
 										<td><input type="radio" name="gekozenklant" 
-										<%if(eerste){out.println("checked=checked ");eerste=false;}%>
+										<%if(eerste){ %> checked="checked" <% eerste=false;}%>
 										value="<%=k.getKlantnummer()%>" /></td>
 										<td><%=k.getKlantnummer() %></td>
 										<td><%=k.getNaam() %></td>
@@ -105,7 +105,7 @@
 								}
 								%>
 							</table>
-							<input type="submit" value="Kies klant" name="knop">
+							<p><input type="submit" value="Kies klant" name="knop" /></p>
 						</div>
 					<%
 					}
@@ -113,7 +113,7 @@
 					%>
 						<h2>Haal klanten op</h2>
 						<div>
-							<input type="submit" value="Haal op" name="knop">
+							<p><input type="submit" value="Haal op" name="knop" /></p>
 						</div>
 					<%
 					}

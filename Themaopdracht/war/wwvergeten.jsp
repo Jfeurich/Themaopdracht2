@@ -10,6 +10,6 @@
 				<th>Username</th><td><input type="text" name="username" /></td>
 			</tr>
 		</table>
-		<input type="submit" value="Nieuw wachtwoord" name="knop" /> 
+		<p><input type="submit" value="Nieuw wachtwoord" name="knop" /> </p>
 	</form>
 <%@ include file="footer.html" %>

@@ -56,7 +56,7 @@
 				<%}%>
 			</table>
 			<p id="totaalprijs" >Totaalprijs: </p>
-			<input type="submit" name="knop" value="Bestel" />
+			<p><input type="submit" name="knop" value="Bestel" /></p>
 			<%
 		}
 		else if(request.getAttribute("stap2") != null){
@@ -84,7 +84,7 @@
 					</tr>
 				<%}%>
 			</table>
-			<input type="submit" name="knop" value="Done" />
+			<p><input type="submit" name="knop" value="Done" /></p>
 			<%
 		}
 		else{
@@ -111,7 +111,7 @@
 				</tr>
 			<%}%>
 			</table>
-			<input type="submit" name="knop" value="KiesProducten" />
+			<p><input type="submit" name="knop" value="KiesProducten" /></p>
 			<%		
 		}
 		%>

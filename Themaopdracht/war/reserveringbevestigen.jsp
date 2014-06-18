@@ -10,8 +10,8 @@
 		if(o == null){
 			%>
 			<h2>Zoek een reservering via auto ID</h2>
-			<p><input type=text name=zoekviaID /></p>
-			<p><input type=submit value=zoek name=knop></input></p>
+			<p><input type="text" name="zoekviaID" /></p>
+			<p><input type="submit" value="zoek" name="knop"></input></p>
 			<%
 		}
 		else{
@@ -31,7 +31,7 @@
 	 			%>
 				<tr>
 					<td><input type="radio" name="gekozenreservering" 
-					<%if(eerste){out.println(" checked=checked ");eerste=false;}%>
+					<%if(eerste){ %> checked="checked" <% eerste=false;}%>
 					value="<%=r.getID()%>" /></td>
 					<td><%=r.getDeParkeerplek()%></td>
 					<td><%=r.getBegDatNetjes()%></td>
@@ -41,7 +41,7 @@
 			} 
 			%>
 	 		</table>
-			<input type="submit" name="knop" value="bevestigen" /> 
+			<p><input type="submit" name="knop" value="bevestigen" /></p> 
 			<%
 		}
 		%>

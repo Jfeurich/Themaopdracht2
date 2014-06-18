@@ -53,7 +53,7 @@
 					</tr>
 				<%}%>
 			</table>
-			<input type="submit" value="Wijzigingen opslaan" name="knop" />
+			<p><input type="submit" value="Wijzigingen opslaan" name="knop" /></p>
 		<%}%>
 	</form>
 <%@ include file="footer.html" %>

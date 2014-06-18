@@ -53,7 +53,7 @@ if(request.getAttribute("stap1") == null){
 						%>
 						<tr>
 							<td><input type="radio" name="gekozenklant"
-							<%if(eerste){out.println("checked=checked ");eerste=false;}%>
+							<%if(eerste){ %> checked="checked" <% eerste=false;}%>
 							value="<%=k.getKlantnummer()%>" /></td>
 							<td><%=k.getNaam()%></td>
 							<td><%=k.getAdres()%></td>
@@ -119,7 +119,7 @@ if(request.getAttribute("stap1") == null){
 					</tr>
 				<%}%>
 				</table>
-				<input type="submit" name="knop" value="nieuw" />
+				<p><input type="submit" name="knop" value="nieuw" /></p>
 				<%					
 			}	
 		}

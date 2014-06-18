@@ -30,7 +30,7 @@ if(o == null){
 			%>
 			<tr>
 				<td><input type="radio" name="product" 
-				<%if(eerste){out.println("checked=checked ");eerste=false;}%>
+				<%if(eerste){ %> checked="checked" <% eerste=false;}%>
 				value="<%=p.getArtikelNr()%>" /></td>
 				<td><%=p.getArtikelNr()%></td>
 				<td><%=p.getNaam()%></td>
@@ -41,9 +41,9 @@ if(o == null){
 			</tr>
 		<%}%>
 		</table>
-		<input type="submit" name="knop" value="WerkVoorraadBij" />
+		<p><input type="submit" name="knop" value="WerkVoorraadBij" />
 		<input type="submit" name="knop" value="wijzig" />
-		<input type="submit" name="knop" value="verwijder" />
+		<input type="submit" name="knop" value="verwijder" /></p>
 	</form>
 	<p><a href="product.jsp">Terug naar hoofdmenu product</a></p>
 <%@ include file="footer.html" %>
