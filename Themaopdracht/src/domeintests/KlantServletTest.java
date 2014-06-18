@@ -36,6 +36,8 @@ public class KlantServletTest {
 	private ArrayList<Auto> autos = new ArrayList<Auto>();
 	private ArrayList<Klus> klussen = new ArrayList<Klus>();
 	private Date dat = new Date();
+	private String naam,adres,rekeningnummer,plaats;
+	private int telefoonnummer;
 	
 	public KlantServletTest(int nummer){
 		nummer = i;
@@ -49,38 +51,58 @@ public class KlantServletTest {
 		   }
 		   return Arrays.asList(data);
 	  }
+	  
+	  @BeforeClass
+	  	public void setUpBeforeClass() throws Exception{
+		  String csvPersonen = "/Themaopdracht/Klant.csv	";
+			String cvsSplitBy = ";";	
+			BufferedReader brp = null;
+			String linep = "";
+			try {
+				brp = new BufferedReader(new FileReader(csvPersonen));
+				while ((linep = brp.readLine()) != null) {
+					String[] regel = linep.split(cvsSplitBy); //file is gescheiden door ;
+				    int klantnummer = Integer.parseInt(regel[0]);
+				    naam = regel[1];
+				    adres = regel[2];
+				    plaats = regel[3];
+				    rekeningnummer = regel[4];
+				    int telefoonnummer = Integer.parseInt(regel[5]);
+				    klant = new Klant(klantnummer, naam, adres, plaats, rekeningnummer, telefoonnummer);
+				    gebruiker = new User(1, 3, klant.getNaam(),"wachtwoord", "test@test.test");
+				    auto = new Auto("kenteken", "merk", "type", klant);
+				    klus = new Reparatie(dat, "testreparatie");
+					klus2 = new Onderhoudsbeurt(dat, "testrekeningnummer");
+					auto.voegKlusToe(klus);
+					auto.voegKlusToe(klus2);
+				    gebruiker.setDeKlant(klant);
+					klant.setUser(gebruiker);
+					autos.add(auto);
+					klant.setAutos(autos);
+				}
+			}
+		catch (FileNotFoundException e) {
+			e.printStackTrace();
+			} 
+			catch (IOException e) {
+				e.printStackTrace();
+			} finally {
+			if (brp != null) {
+				try {
+					brp.close();
+				} 
+				catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+	  }
+	  
 		
-	@SuppressWarnings("deprecation")
-	@Test
-	public void test() {
-		String csvPersonen = "/Themaopdracht/Klant.csv	";
-		String cvsSplitBy = ";";	
-		BufferedReader brp = null;
-		String linep = "";
-		try {
-			brp = new BufferedReader(new FileReader(csvPersonen));
-			while ((linep = brp.readLine()) != null) {
-				String[] regel = linep.split(cvsSplitBy); //file is gescheiden door ;
-			    int klantnummer = Integer.parseInt(regel[0]);
-			    String naam = regel[1];
-			    String adres = regel[2];
-			    String plaats = regel[3];
-			    String rekeningnummer = regel[4];
-			    int telefoonnummer = Integer.parseInt(regel[5]);
-			    klant = new Klant(klantnummer, naam, adres, plaats, rekeningnummer, telefoonnummer);
-			    gebruiker = new User(1, 3, klant.getNaam(),"wachtwoord", "test@test.test");
-			    auto = new Auto("kenteken", "merk", "type", klant);
-			    klus = new Reparatie(dat, "testreparatie");
-				klus2 = new Onderhoudsbeurt(dat, "testrekeningnummer");
-				auto.voegKlusToe(klus);
-				auto.voegKlusToe(klus2);
-			    gebruiker.setDeKlant(klant);
-				klant.setUser(gebruiker);
-				autos.add(auto);
-				klant.setAutos(autos);
-				
-				
-			    try {
+	  @SuppressWarnings("deprecation")
+	  @Test
+		public void test() throws Exception{					
+				    try {
 			      assertEquals(klant.toString(),"Naam " + naam + "; adres " + adres + "; woonplaats " + plaats + "; rekeningnummer " + rekeningnummer + "; telefoonnummer " + telefoonnummer);
 			      assertEquals(gebruiker.toString(),"User username=" + gebruiker.getGebruikersnaam()+ ", password=" + gebruiker.getWachtwoord() + "\n" + "Account is van klant:\n" + klant.toString());
 			      klant.setNaam("piet");
@@ -105,34 +127,17 @@ public class KlantServletTest {
 			      assertEquals(klus.getStatus(),"Nog niet begonnen");
 			      klus.setStatus("voltooid");
 			      assertEquals(klus.getStatus(),"voltooid");
-			      
-			      
-			      
-			      
-			      
-			    } catch (Error e) {
+			      //hier nog iets over factuur 
+			    } 
+			    catch (Error e) {
 			      verificationErrors.append(e.toString());
 			    }
-			}	 
-			} catch (FileNotFoundException e) {
-			e.printStackTrace();
-			} catch (IOException e) {
-			e.printStackTrace();
-			} finally {
-			if (brp != null) {
-				try {
-					brp.close();
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
-			}
-		}
+		  }
+	  @After
+	  public void tearDown() throws Exception {
+	    String verificationErrorString = verificationErrors.toString();
+	    if (!"".equals(verificationErrorString)) {
+	      fail(verificationErrorString);
+	    }
 	  }
-  @After
-  public void tearDown() throws Exception {
-    String verificationErrorString = verificationErrors.toString();
-    if (!"".equals(verificationErrorString)) {
-      fail(verificationErrorString);
-    }
-  }
 }
