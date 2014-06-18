@@ -34,7 +34,7 @@ body{
 	min-height: 400px;
 }
 
-footer{
+#footer{
 	color: #CCCCE0;
 	background: #00001F;
 	border: 10px outset #000066;
@@ -217,7 +217,7 @@ td.tussenkop{
 	border-width: 1px;
 	border-color: white;
 }
-#content input[type="submit"]:hover {
+#parkeerplaatsoverzicht input[type="submit"]:hover {
 	color: #CCCCE0;
 	background: #00001F;
 }

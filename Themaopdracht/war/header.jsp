@@ -53,20 +53,20 @@
 			if(u.getType() == 0 || u.getType() == 1){
 			%>
 			<li> <a href="#">Garage</a>
-				<ul><li><a href=klus.jsp>Hoofdmenu klussen</a></li></ul>
-				<ul><li><a href=overzichtwerkplaatsplanning.jsp>Overzicht planning werkplaats</a></li></ul>
+				<ul><li><a href="klus.jsp">Hoofdmenu klussen</a></li></ul>
+				<ul><li><a href="overzichtwerkplaatsplanning.jsp">Overzicht planning werkplaats</a></li></ul>
 			</li>
 			<%
 			}
 			if(u.getType() != 1){
 			%>
 			<li> <a href="#">Parkeerplaats</a>
-				<ul><li><a href=parkeerplaatsoverzicht.jsp>Parkeerplaats reserveren</a></li></ul>
-				<ul><li><a href=reserveringannuleren.jsp>Parkeerplaatsreservering annuleren</a></li></ul>
+				<ul><li><a href="parkeerplaatsoverzicht.jsp">Parkeerplaats reserveren</a></li></ul>
+				<ul><li><a href="reserveringannuleren.jsp">Parkeerplaatsreservering annuleren</a></li></ul>
 				<%
 				if(u.getType() == 0 || u.getType() == 2){
 				%>
-				<ul><li><a href=reserveringbevestigen.jsp>Parkeerplaatsreservering bevestigen</a></li></ul>
+				<ul><li><a href="reserveringbevestigen.jsp">Parkeerplaatsreservering bevestigen</a></li></ul>
 				<%
 				}
 				%>
@@ -76,15 +76,15 @@
 			if(u.getType() == 0){
 			%>
 			<li> <a href="#">Administratie</a>
-				<ul><li><a href=nieuwegebruikersaccount.jsp>Registreer nieuwe gebruikersaccount</a></li></ul>
-				<ul><li><a href=nieuwebrief.jsp>Nieuwe herinneringsbrief</a></li></ul>
-				<ul><li><a href=factuur.jsp>Overzicht Facturen</a></li></ul>
-				<ul><li><a href=btwoverzicht.jsp>Overzicht BTW</a></li></ul>
-				<ul><li><a href=accountwijzigen.jsp>Account wijzigen</a></li></ul>
+				<ul><li><a href="nieuwegebruikersaccount.jsp">Registreer nieuwe gebruikersaccount</a></li></ul>
+				<ul><li><a href="nieuwebrief.jsp">Nieuwe herinneringsbrief</a></li></ul>
+				<ul><li><a href="factuur.jsp">Overzicht Facturen</a></li></ul>
+				<ul><li><a href="btwoverzicht.jsp">Overzicht BTW</a></li></ul>
+				<ul><li><a href="accountwijzigen.jsp">Account wijzigen</a></li></ul>
 			</li>
 			<li> <a href="#">Producten</a>
-				<ul><li><a href=nieuwebestelling.jsp>Nieuwe bestelling</a></li></ul>
-				<ul><li><a href=product.jsp>Hoofdmenu producten</a></li></ul>
+				<ul><li><a href="nieuwebestelling.jsp">Nieuwe bestelling</a></li></ul>
+				<ul><li><a href="product.jsp">Hoofdmenu producten</a></li></ul>
 			</li>
 			<%
 			}

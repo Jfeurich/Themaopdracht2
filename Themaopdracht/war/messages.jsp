@@ -3,7 +3,7 @@ Object error =  request.getAttribute("error");
 if(error != null){
 	%>
 		<div id = "bericht">
-			<h3 name="error" class="error">Error! <br />
+			<h3 class="error">Error! <br />
 			<%=error %>  </h3>
 		</div>
 	<%
@@ -13,7 +13,7 @@ else{
 	if(msg != null){
 		%>
 			<div id = "bericht">
-				<h3 name="msg" class="msg"><span><%=msg%></span></h3>
+				<h3 class="msg"><span><%=msg%></span></h3>
 			</div>
 		<%
 	}

@@ -138,7 +138,9 @@
 				%><table><%
 				//8 rijen
 				for(int i = 1; i <= 8; i++){
-					out.println("<tr>");
+					%>
+					<tr>
+					<%
 					//5 kolommen
 					for(int j = 1; j <= 5; j++){
 						boolean b = false;
@@ -150,15 +152,15 @@
 						}
 						%><td><%
 						if(b){
-							%><img src="autoo.jpg" alt="Auto" height="165" width="88"><%
+							%><img src="autoo.jpg" alt="Auto" height="165" width="88" /><%
 						}
 						else{
-							%><input id="parkeerbutton" type="submit" name="knop" value="<%=teller%>" /><%
+							%><input class="parkeerbutton" type="submit" name="knop" value="<%=teller%>" /><%
 						}
 						%></td><%
 						teller++;
 					}
-					%></td><%
+					%></tr><%
 				}
 				%></table><%
 			}

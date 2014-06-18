@@ -12,6 +12,6 @@
 				<th>Password</th><td><input type="password" name="password" /></td>
 			</tr>
 		</table>
-		<input type="submit" value="Login!" /> 
+		<p><input type="submit" value="Login!" /> </p>
 	</form>
 <%@ include file="footer.html" %>
