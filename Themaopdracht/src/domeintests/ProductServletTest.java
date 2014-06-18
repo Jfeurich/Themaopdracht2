@@ -6,7 +6,6 @@ import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
@@ -27,19 +26,18 @@ import domeinklassen.Product;
 @RunWith(value = Parameterized.class)
 public class ProductServletTest {
 	private StringBuffer verificationErrors = new StringBuffer();
-	private static int i;
 	private Date dat = new Date();
-	private static String naam;
-	private static int artikelNr;
-	private static int minimumAanwezig;
-	private static String eenheid;
-	private static int aantal;
-	private static double prijsPerStuk;
-	private ArrayList<Product> producten = new ArrayList<Product>();
+	private static String[] naam = new String[21];
+	private static int[] artikelNr = new int[21];
+	private static int[] minimumAanwezig = new int[21];
+	private static String[] eenheid = new String[21];
+	private static int[] aantal = new int[21];
+	private static double[] prijsPerStuk = new double[21];
+	private static int nummer;
 	private ArrayList<BesteldProduct> besteldeproducten = new ArrayList<BesteldProduct>();
 	
-	public ProductServletTest(int nummer){
-		nummer = i;
+	public ProductServletTest(int nr){
+		nr = nummer;
 	}
 	  @Parameters
 	  public static Collection<Object[]> data() {
@@ -61,13 +59,23 @@ public class ProductServletTest {
 				brp = new BufferedReader(new FileReader(csvPersonen));
 				while ((linep = brp.readLine()) != null) {
 					String[] regel = linep.split(cvsSplitBy); //file is gescheiden door ;
-				    naam = regel[0];
-				    artikelNr = Integer.parseInt(regel[1]);
-				    minimumAanwezig= Integer.parseInt(regel[2]);
-				    eenheid = regel[3];
-				    aantal = Integer.parseInt(regel[4]);
-				    prijsPerStuk = Double.parseDouble(regel[5]);
-				    //declaraties gevonden objecten
+					naam[nummer] = "";
+				    artikelNr[nummer] = 0;
+				    minimumAanwezig[nummer]= 0;
+				    eenheid[nummer] = "";
+				    aantal[nummer] = 0;
+				    prijsPerStuk[nummer] = 0.0;
+					try{
+					    naam[nummer] = regel[0];
+					    artikelNr[nummer] = Integer.parseInt(regel[1]);
+					    minimumAanwezig[nummer]= Integer.parseInt(regel[2]);
+					    eenheid[nummer] = regel[3];
+					    aantal[nummer] = Integer.parseInt(regel[4]);
+					    prijsPerStuk[nummer] = Double.parseDouble(regel[5]);
+					}
+					catch(ArrayIndexOutOfBoundsException e){
+					}
+					nummer++;
 				}
 			}
 		catch (FileNotFoundException e) {
@@ -84,6 +92,7 @@ public class ProductServletTest {
 					e.printStackTrace();
 				}
 			}
+			nummer = 0;
 		}
 	  }
 	  
@@ -92,29 +101,34 @@ public class ProductServletTest {
 	  @Test
 		public void test() throws Exception{					
 				    try {
-				    	Product p = new Product(naam,artikelNr,minimumAanwezig,eenheid,prijsPerStuk);
-				    	GebruiktProduct gp = new GebruiktProduct(aantal, p);
-				    	BesteldProduct bp = new BesteldProduct(p, aantal);
-				    	Bestelling b = new Bestelling(aantal);
-				    	b.setBestelNummer(aantal);
+				    	String nm = naam[nummer];
+				    	int an = artikelNr[nummer];
+				    	int ma = minimumAanwezig[nummer];
+				    	String eh = eenheid[nummer];
+				    	double pps = prijsPerStuk[nummer];
+				    	Product p = new Product(nm,an,ma,eh,pps);
+				    	GebruiktProduct gp = new GebruiktProduct(an, p);
+				    	BesteldProduct bp = new BesteldProduct(p, an);
+				    	Bestelling b = new Bestelling(an);
+				    	b.setBestelNummer(an);
 				    	Product hetProduct = p;
 				    	besteldeproducten.add(bp);
 				    	b.setBesteldeProducten(besteldeproducten);
 				    	assertEquals(b.getIsGeleverd(),false);
-				    	p.setAantal(aantal);
-				    	assertEquals(p.toString(),"Naam: " + naam + "; Artikelnummer: " + artikelNr + "; Minimum aanwezig: " + minimumAanwezig + "; Eenheid: " + eenheid + "; Voorraad: " + aantal);
-				    	assertEquals(gp.getKosten(),aantal*prijsPerStuk);
+				    	p.setAantal(an);
+				    	assertEquals(p.toString(),"Naam: " + nm + "; Artikelnummer: " + an + "; Minimum aanwezig: " + ma+ "; Eenheid: " + eh + "; Voorraad: " + an);
+				    	assertEquals(gp.getKosten(),an*pps);
 				    	assertEquals(gp.getHetProduct(),p);
 				    	p.voegAantalToe(5);
-				    	assertEquals(p.getAantal(),aantal+5);
-				    	p.setNaam("naam");
-				    	assertEquals(p.getNaam(),naam);
+				    	assertEquals(p.getAantal(),an+5);
+				    	p.setNaam("nm");
+				    	assertEquals(p.getNaam(),nm);
 				    	assertEquals(bp.toString(),hetProduct.getNaam() + "; " + bp.getHoeveelheid() + " " + hetProduct.getEenheid());
-				    	bp.setID(aantal);
-				    	assertEquals(bp.getHoeveelheid(),aantal);
+				    	bp.setID(an);
+				    	assertEquals(bp.getHoeveelheid(),an);
 				    	assertEquals(bp.getProduct(),p);
-				    	assertEquals(aantal,bp.getID());
-				    	assertEquals(aantal,b.getBestelNummer());
+				    	assertEquals(an,bp.getID());
+				    	assertEquals(an,b.getBestelNummer());
 				    	b.setVerwachteDatum(dat);
 				    	assertEquals(b.getVerwachteDatum(),dat);
 				    	
