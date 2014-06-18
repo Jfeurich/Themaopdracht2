@@ -29,12 +29,12 @@ public class ProductServletTest {
 	private StringBuffer verificationErrors = new StringBuffer();
 	private static int i;
 	private Date dat = new Date();
-	private String naam;
-	private int artikelNr;
-	private int minimumAanwezig;
-	private String eenheid;
-	private int aantal;
-	private double prijsPerStuk;
+	private static String naam;
+	private static int artikelNr;
+	private static int minimumAanwezig;
+	private static String eenheid;
+	private static int aantal;
+	private static double prijsPerStuk;
 	private ArrayList<Product> producten = new ArrayList<Product>();
 	private ArrayList<BesteldProduct> besteldeproducten = new ArrayList<BesteldProduct>();
 	
@@ -52,7 +52,7 @@ public class ProductServletTest {
 	  }
 	  
 	  @BeforeClass
-	  	public void setUpBeforeClass() throws Exception{
+	  	public static void setUpBeforeClass() throws Exception{
 		  String csvPersonen = "/Themaopdracht/Product.csv	";
 			String cvsSplitBy = ";";	
 			BufferedReader brp = null;

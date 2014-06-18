@@ -27,16 +27,20 @@ import domeinklassen.User;
 
 @RunWith(value = Parameterized.class)
 public class KlantServletTest {
-	private User gebruiker;
-	private Klant klant;
-	private Auto auto;
-	private Klus klus,klus2;
+	private static User gebruiker;
+	private static Klant klant;
+	private static Auto auto;
+	private static Klus klus;
+	private static Klus klus2;
 	private StringBuffer verificationErrors = new StringBuffer();
 	private static int i;
-	private ArrayList<Auto> autos = new ArrayList<Auto>();
+	private static ArrayList<Auto> autos = new ArrayList<Auto>();
 	private ArrayList<Klus> klussen = new ArrayList<Klus>();
-	private Date dat = new Date();
-	private String naam,adres,rekeningnummer,plaats;
+	private static Date dat = new Date();
+	private static String naam;
+	private static String adres;
+	private static String rekeningnummer;
+	private static String plaats;
 	private int telefoonnummer;
 	
 	public KlantServletTest(int nummer){
@@ -44,8 +48,8 @@ public class KlantServletTest {
 	}
 	  @Parameters
 	  public static Collection<Object[]> data() {
-		   Object[][] data = new Object[20][];
-		   for(int i = 0; i < 20; i++){
+		   Object[][] data = new Object[11][];
+		   for(int i = 0; i < 11; i++){
 			   Object[] zet = new Object[] {i};
 			   data[i] = zet;
 		   }
@@ -53,7 +57,7 @@ public class KlantServletTest {
 	  }
 	  
 	  @BeforeClass
-	  	public void setUpBeforeClass() throws Exception{
+	  	public static void setUpBeforeClass() throws Exception{
 		  String csvPersonen = "/Themaopdracht/Klant.csv	";
 			String cvsSplitBy = ";";	
 			BufferedReader brp = null;
