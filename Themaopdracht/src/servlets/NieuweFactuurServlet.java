@@ -50,7 +50,7 @@ public class NieuweFactuurServlet extends HttpServlet{
 		else if(knop.equals("klus")){
 			ConnectDBKlus klusconn = new ConnectDBKlus(con);
 			int autoid = Integer.parseInt(req.getParameter("gekozenauto"));
-			ArrayList<Klus> klussen = klusconn.getKlussenVoorAuto(autoid);
+			ArrayList<Klus> klussen = klusconn.getVoltooideKlussenVoorAuto(autoid);
 			req.setAttribute("klussen", klussen);
 		}
 		//gebruiker heeft een klus geselecteerd en wil een factuur maken

@@ -47,10 +47,10 @@ public class FactuurServlet extends HttpServlet {
 			req.setAttribute("klanten", klanten);
 			rd = req.getRequestDispatcher("nieuwefactuur.jsp");
 		}
-		else if(knop.equals("Factuur betalen") || knop.equals("Stuur reminder")){
+		else if(knop.equals("Factuur betalen") || knop.equals("Reminder sturen")){
 			String gekozenfactuur = req.getParameter("factuurid");
 			req.setAttribute("factuurid", gekozenfactuur);
-			if(knop.equals("Stuur reminder")){
+			if(knop.equals("Reminder sturen")){
 				ConnectDBFactuur factuurcon = new ConnectDBFactuur(con);
 				Factuur deFactuur = factuurcon.zoekFactuur(Integer.parseInt(req.getParameter("factuurid")));
 				Klant deKlant = deFactuur.getDeKlus().getAuto().getEigenaar();

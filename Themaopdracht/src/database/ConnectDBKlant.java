@@ -89,6 +89,8 @@ public class ConnectDBKlant{
 				String rnr = rs.getString("rekeningnummer");
 				int nr = rs.getInt("telefoonnummer");
 				terug = new Klant(klantnummer, nm, adr, wp, rnr, nr);
+				ConnectDBUser usercon = new ConnectDBUser(con);
+				usercon.zoekUserVanKlant(terug);
 			}
 			stmt.close();
 		}

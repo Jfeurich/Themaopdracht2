@@ -27,11 +27,13 @@ public class ConnectDBFactuur{
 				int factuurid = rs.getInt("factuurid");
 				int klusid = rs.getInt("klusid");
 				java.sql.Date dat = rs.getDate("aanmaakDatum");
+				int kP = rs.getInt("kortingspercentage");
 				java.util.Date datum = new java.util.Date(dat.getTime());
 				Klus deKlus = null;
 				ConnectDBKlus klusconn = new ConnectDBKlus(con);
 				deKlus = klusconn.zoekKlus(klusid);
 				Factuur f = new Factuur(datum, deKlus);
+				f.setKortingsPercentage(kP);
 				f.setID(factuurid);
 				terug.add(f);
 			}
