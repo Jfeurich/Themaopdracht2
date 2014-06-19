@@ -45,14 +45,14 @@
 			if(u.getType() == 0 || u.getType() == 3){
 			%>
 			<li> <a href="#">Auto</a>
-				<ul><li><a href="autotoevoegen.jsp">Auto toevoegen</a></li></ul>
 				<%
 				if(u.getType() == 0){
 				%>
-					<ul><li><a href="overzichtautos.jsp">Overzicht auto's</a></li></ul>
+				<ul><li><a href="overzichtautos.jsp">Overzicht auto's</a></li></ul>
 				<%
 				}
 				%>
+				<ul><li><a href="autotoevoegen.jsp">Auto toevoegen</a></li></ul>
 			</li>
 			<%
 			}
@@ -68,7 +68,6 @@
 			%>
 			<li> <a href="#">Parkeerplaats</a>
 				<ul><li><a href="parkeerplaatsoverzicht.jsp">Parkeerplaats reserveren</a></li></ul>
-				<ul><li><a href="reserveringannuleren.jsp">Parkeerplaatsreservering annuleren</a></li></ul>
 				<%
 				if(u.getType() == 0 || u.getType() == 2){
 				%>
@@ -76,6 +75,7 @@
 				<%
 				}
 				%>
+				<ul><li><a href="reserveringannuleren.jsp">Parkeerplaatsreservering annuleren</a></li></ul>
 			</li>
 			<%
 			}
@@ -83,14 +83,15 @@
 			%>
 			<li> <a href="#">Administratie</a>
 				<ul><li><a href="nieuwegebruikersaccount.jsp">Registreer nieuwe gebruikersaccount</a></li></ul>
-				<ul><li><a href="nieuwebrief.jsp">Nieuwe herinneringsbrief</a></li></ul>
-				<ul><li><a href="factuur.jsp">Overzicht Facturen</a></li></ul>
+				<ul><li><a href="accountwijzigen.jsp">Gebruikersacount wijzigen</a></li></ul>
+				<ul><li><a href="factuur.jsp">Hoofdmenu Facturen</a></li></ul>
 				<ul><li><a href="btwoverzicht.jsp">Overzicht BTW</a></li></ul>
-				<ul><li><a href="accountwijzigen.jsp">Account wijzigen</a></li></ul>
+				<ul><li><a href="nieuwebrief.jsp">Nieuwe herinneringsbrief</a></li></ul>
 			</li>
 			<li> <a href="#">Producten</a>
-				<ul><li><a href="nieuwebestelling.jsp">Nieuwe bestelling</a></li></ul>
 				<ul><li><a href="product.jsp">Hoofdmenu producten</a></li></ul>
+				<ul><li><a href="bestelling.jsp">Overzicht bestellingen</a></li></ul>
+				<ul><li><a href="nieuwebestelling.jsp">Nieuwe bestelling</a></li></ul>
 			</li>
 			<%
 			}
