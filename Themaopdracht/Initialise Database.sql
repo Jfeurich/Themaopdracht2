@@ -137,7 +137,8 @@ FOREIGN KEY (autoid) REFERENCES Auto(autoid)
 INSERT INTO Klus (datum, beschrijving, soort, autoid, status, manuren, actief) VALUES 
 ('2010-04-25', 'Band vervangen', 'onderhoudsbeurt', 1, 'Nog niet begonnen', 0, 't'),
 ('2012-12-12', 'Einde van de wereld voorkomen', 'reparatie', 2, 'Nog niet begonnen', 0, 't'),
-('2006-06-06', 'Day of the Beast', 'reparatie', 3, 'Nog niet begonnen', 0, 't')
+('2006-06-06', 'Day of the Beast', 'reparatie', 3, 'Nog niet begonnen', 0, 't'),
+('2014-06-05', 'Uitlaat repareren', 'reparatie', 1, 'voltooid', 5, 't')
 ;
 
 /* Factuur */
