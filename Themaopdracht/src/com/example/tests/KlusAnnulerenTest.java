@@ -29,6 +29,11 @@ public class KlusAnnulerenTest {
 	@Test
 	public void testKlusAnnuleren() throws Exception {
 		driver.get(baseUrl + "/Themaopdracht/klus.jsp");
+		driver.findElement(By.name("zoekid")).clear();
+		driver.findElement(By.name("zoekid")).sendKeys("1");
+		driver.findElement(By.xpath("(//input[@name='knop'])[3]")).click();
+		driver.findElement(By.name("gekozenklus")).click();
+		driver.findElement(By.xpath("(//input[@name='knop'])[5]")).click();
 		driver.findElement(By.xpath("(//input[@name='knop'])[3]")).click();
 		assertEquals("Geen klussen gevonden met ingevoerde zoekterm(en)",
 				driver.findElement(By.cssSelector("h3.msg > span")).getText());
@@ -36,11 +41,6 @@ public class KlusAnnulerenTest {
 		driver.findElement(By.name("zoekid")).sendKeys("abc");
 		driver.findElement(By.xpath("(//input[@name='knop'])[3]")).click();
 		assertTrue(isElementPresent(By.cssSelector("h3.error")));
-		driver.findElement(By.name("zoekid")).clear();
-		driver.findElement(By.name("zoekid")).sendKeys("1");
-		driver.findElement(By.xpath("(//input[@name='knop'])[3]")).click();
-		driver.findElement(By.name("gekozenklus")).click();
-		driver.findElement(By.xpath("(//input[@name='knop'])[5]")).click();
 	}
 
 	@After
