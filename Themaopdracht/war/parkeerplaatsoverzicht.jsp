@@ -7,7 +7,7 @@
 		if(request.getSession().getAttribute("parkeerplek") != null && request.getSession().getAttribute("beginDat") != null && request.getSession().getAttribute("eindDat") != null){
 		%>
 		<form action="NieuweReserveringServlet.do" method="post">
-			<h1><span>3: Nieuwe Reservering aanmaken</span></h1>
+			<h1><span>Nieuwe Reservering aanmaken</span></h1>
 			<%@ include file="messages.jsp" %>
 			<%
 			Object auto = request.getAttribute("deAuto");
@@ -109,15 +109,15 @@
 	else{
 	%>
 	<form action="ParkeerplaatsOverzichtServlet.do" method="post">
-		<h1><span>12: Overzicht parkeerplaats</span></h1>
+		<h1><span>Overzicht parkeerplaats</span></h1>
 		<%@ include file="messages.jsp"%>
 		<div>	
 			<table>
 				<tr>
 					<td>Begin datum:</td>
-					<td><input type="text" name="begindat" class="datepicker" /></td>
+					<td><input type="text" name="begindat" class="datepicker" id="bdat "/></td>
 					<td>Eind datum:</td>
-					<td><input type="text" name="einddat" class="datepicker" /></td>
+					<td><input type="text" name="einddat" class="datepicker" id="edat"/></td>
 					<td><input type="submit" name="knop" value="Checkdatum" /></td>
 				</tr>
 			</table>

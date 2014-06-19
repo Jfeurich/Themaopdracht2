@@ -43,11 +43,11 @@
 					</tr>
 					<tr>
 						<th>Na datum:</th>
-						<td><input type="text" name="nadatum" class="datepicker" /></td>
+						<td><input type="text" name="nadatum" class="datepicker" id="bdat"/></td>
 					</tr>
 					<tr>
 						<th>En voor datum:</th>
-						<td><input type="text" name="voordatum" class="datepicker" /></td>
+						<td><input type="text" name="voordatum" class="datepicker" id="edat"/></td>
 					</tr>
 					<tr>
 						<th>Beschrijving:</th>
@@ -126,11 +126,11 @@
 				</table>
 			</div>
 			<div>
-				<h2><span>16: Klus wijzigen</span></h2>
+				<h2><span>Klus wijzigen</span></h2>
 				<p><input type="submit" name="knop" value="wijzig" /></p>
 			</div>
 			<div>
-				<h2><span>26: Klus annuleren</span></h2>
+				<h2><span>Klus annuleren</span></h2>
 				<p><input type="submit" name="knop" value="annuleren" /></p>
 			</div>
 		<%} %>

@@ -22,7 +22,7 @@ if(o == null){
 		<h3><span>En voer dan eventuele andere wijzigingen in</span></h3>
 		<p class="kop" >Datum</p>
 		<p>Huidige datum: <%=deKlus.getFormattedDatum()%></p>
-		<p><input type="text" name="datum" class="datepicker" /></p>
+		<p><input type="text" name="datum" class="datepicker" id="dat"/></p>
 		<table>
 			<tr><th>Status</th></tr>
 			<tr><td><input type="radio" name="status" checked="checked" value="voltooid" /></td><td>Voltooid</td></tr>

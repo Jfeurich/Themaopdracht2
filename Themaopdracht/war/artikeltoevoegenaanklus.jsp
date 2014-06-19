@@ -10,7 +10,7 @@ if(gekozen == null){
 </jsp:include> 
 	<form action="KlusWijzigenServlet.do" method="post">
 		<%@ page import="java.util.ArrayList,domeinklassen.Klus,domeinklassen.Onderhoudsbeurt,domeinklassen.Reparatie,domeinklassen.Product" %>
-		<h1><span>5: Kies de gewenste artikel(en) en klik op "VoegToe"</span></h1>
+		<h1><span>Kies de gewenste artikel(en) en klik op "VoegToe"</span></h1>
 		<%@ include file="messages.jsp" %>
 		<h2><span>Wijzig de klus</span></h2>
 		<%

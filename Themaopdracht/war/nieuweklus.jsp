@@ -90,7 +90,7 @@ if(request.getAttribute("stap1") == null && o == null){
 				</tr>
 				<tr>
 					<th>Datum: </th>
-					<td><input type="text" name="datum" class="datepicker" /></td>
+					<td><input type="text" name="datum" class="datepicker" id="dat"/></td>
 				</tr>
 				</table>
 			<textarea name="beschrijving" placeholder="Omschrijving van de klus"></textarea>

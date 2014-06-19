@@ -13,7 +13,7 @@
 			<h2><span>Zoek klussen gepland voor de komende maand</span></h2>
 			<p><input type="submit" name="knop" value="Komende maand" /></p>
 			<h2><span>Zoek klussen gepland tussen de ingevoerde data</span></h2>
-			<p>Na datum:<input type="text" name="nadatum" class="datepicker" /> en voor datum:<input type="text" name="voordatum" class="datepicker" /></p>
+			<p>Na datum:<input type="text" name="nadatum" class="datepicker" id="bdat"/> en voor datum:<input type="text" name="voordatum" class="datepicker" id="edat"/></p>
 			<p><input type="submit" name="knop" value="Zoek" /></p>
 			<%
 		}

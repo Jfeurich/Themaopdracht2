@@ -24,7 +24,7 @@
 	</script>
 	<form action="NieuweBestellingServlet.do" method="post">
 		<%@ page import="java.util.ArrayList,java.sql.Connection,database.ConnectDBProduct,domeinklassen.Bestelling,domeinklassen.Product,domeinklassen.BesteldProduct" %>
-		<h1><span>11: Nieuwe bestelling aanmaken</span></h1>
+		<h1><span>Nieuwe bestelling aanmaken</span></h1>
 		<%@ include file="messages.jsp" %>
 		<%
 		if(request.getAttribute("stap1") != null){
