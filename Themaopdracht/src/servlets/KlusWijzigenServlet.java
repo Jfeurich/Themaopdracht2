@@ -113,7 +113,7 @@ public class KlusWijzigenServlet extends HttpServlet {
 			ArrayList<GebruiktProduct> toegevoegdeProducten = new ArrayList<GebruiktProduct>();
 			boolean allesToegevoegd = true;
 			/*
-			Dit stuk is nogal lastig omdat checkboxes met product idalleen door worden gegeven als ze zijn geselecteerd, 
+			Dit stuk is nogal lastig omdat checkboxes met productid alleen door worden gegeven als ze zijn geselecteerd, 
 			tewijl zowel de aantallen als de voorraad hoe dan ook door worden gegeven.
 			De lijst index van het gewijzigde product komt dus niet overeen met de index voor het aantal en de voorraad
 			van dat product. 
@@ -130,16 +130,15 @@ public class KlusWijzigenServlet extends HttpServlet {
 					for(int j = 0; j < producten.length; j++){		//en de index in de gewijzigde productenIDs
 						int productid = Integer.parseInt(producten[j]);	
 						if(productid == optieID){	//kijk hier of het product gewijzigd moet worden
-							int aantal = 0;
-							int voorraad = 5;
+							int aantal = 5;
+							int voorraad = 0;
 							try{	//zo ja, haal de bijpassende aantal en voorraad op en kijk of dit geldige getallen zijn
 								aantal = Integer.parseInt(aantallen[i]);
 								voorraad = Integer.parseInt(opVoorraad[i]);
 							}
-							catch(Exception ex){
-								System.out.println(ex);
-								req.setAttribute("error", "Voer een geldig aantal in!");
+							catch(NumberFormatException ex){
 								allesToegevoegd = false;
+								req.setAttribute("error", "Voer een geldig getal in!");
 								break;
 							}
 							if(aantal < voorraad){	//en of het gewenste aantal niet hoger is dan de voorraad
@@ -166,7 +165,7 @@ public class KlusWijzigenServlet extends HttpServlet {
 			//als ie niet toe kan voegen, stuur weer terug naar artikeltoevoegenaanklus en geef producten op voorraad
 			//opnieuw mee
 			else{
-				req.setAttribute("msg", "Geen producten toegevoegd!");
+				req.setAttribute("error", "Geen producten toegevoegd!");
 				rd = req.getRequestDispatcher("artikeltoevoegenaanklus.jsp");
 				ConnectDBProduct conn = new ConnectDBProduct(con);	
 				ArrayList<Product> deVoorraad = conn.getProductenOpVoorraad();

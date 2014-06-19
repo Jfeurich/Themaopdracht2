@@ -101,12 +101,11 @@ public class ProductServlet extends HttpServlet{
 			//check welke zoekterm er in is gevoerd
 			if(!anr.equals("")){
 				//check voor geldig artikelnummer (int)
-				if(!anr.matches("((-|\\+)?[0-9]+(\\.[0-9]+)?)+")){
-					req.setAttribute("error", "Vul een geldig artikelnummer in!");
-				}
-				else{
+				try{
 					int nummer = Integer.parseInt(anr);
 					terug.add(conn.zoekProduct(nummer));
+				}catch(NumberFormatException e){
+					req.setAttribute("error", "Vul een geldig artikelnummer in!");
 				}
 			}
 			if(!nm.equals("")){
