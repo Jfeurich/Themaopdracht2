@@ -31,7 +31,7 @@ public class US5_Artikel_Toevoegen_Aan_Klus {
     driver.findElement(By.name("password")).clear();
     driver.findElement(By.name("password")).sendKeys("hww");
     driver.findElement(By.cssSelector("input[type=\"submit\"]")).click();
-    driver.get("http://localhost:8080//Themaopdracht/product.jsp");
+    driver.get("http:/localhost:8080/Themaopdracht/product.jsp");
     driver.findElement(By.xpath("(//input[@name='knop'])[3]")).click();
     driver.findElement(By.cssSelector("#content > form > p > input[name=\"knop\"]")).click();
     driver.findElement(By.name("wijzigaantal")).clear();
@@ -42,7 +42,7 @@ public class US5_Artikel_Toevoegen_Aan_Klus {
     driver.findElement(By.xpath("(//input[@name='wijzigaantal'])[3]")).sendKeys("50");
     driver.findElement(By.xpath("(//input[@name='knop'])[2]")).click();
     driver.findElement(By.xpath("(//input[@name='knop'])[2]")).click();
-    driver.get("http://localhost:8080//Themaopdracht/bestelling.jsp");
+    driver.get("http:/localhost:8080/Themaopdracht/bestelling.jsp");
     driver.findElement(By.xpath("(//input[@name='gekozenbestelling'])[4]")).click();
     driver.findElement(By.xpath("(//input[@name='knop'])[3]")).click();
     driver.findElement(By.name("knop")).click();
@@ -56,7 +56,7 @@ public class US5_Artikel_Toevoegen_Aan_Klus {
     driver.findElement(By.name("password")).clear();
     driver.findElement(By.name("password")).sendKeys("mww");
     driver.findElement(By.cssSelector("input[type=\"submit\"]")).click();
-    driver.get("http://localhost:8080//Themaopdracht/klus.jsp");
+    driver.get("http:/localhost:8080/Themaopdracht/klus.jsp");
     driver.findElement(By.name("zoekid")).clear();
     driver.findElement(By.name("zoekid")).sendKeys("1");
     driver.findElement(By.xpath("(//input[@name='knop'])[3]")).click();
