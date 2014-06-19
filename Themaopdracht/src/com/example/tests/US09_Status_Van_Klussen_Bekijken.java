@@ -1,20 +1,19 @@
 package com.example.tests;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.fail;
-
 import java.util.concurrent.TimeUnit;
 
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
+import org.junit.*;
+
+import static org.junit.Assert.*;
+
+import org.openqa.selenium.*;
 import org.openqa.selenium.firefox.FirefoxDriver;
 
-public class US1_LoginTestTP1 {
+public class US09_Status_Van_Klussen_Bekijken {
   private WebDriver driver;
   private String baseUrl;
+  @SuppressWarnings("unused")
+private boolean acceptNextAlert = true;
   private StringBuffer verificationErrors = new StringBuffer();
 
   @Before
@@ -25,16 +24,14 @@ public class US1_LoginTestTP1 {
   }
 
   @Test
-  public void testLoginTestTP1() throws Exception {
+  public void testStatusVanKlussen() throws Exception {
     driver.get(baseUrl + "/Themaopdracht/loginpage.jsp");
     driver.findElement(By.name("username")).clear();
-    driver.findElement(By.name("username")).sendKeys("sandri");
+    driver.findElement(By.name("username")).sendKeys("Sandri");
     driver.findElement(By.name("password")).clear();
     driver.findElement(By.name("password")).sendKeys("sww");
     driver.findElement(By.cssSelector("input[type=\"submit\"]")).click();
-    assertEquals("Welkom sandri!", driver.findElement(By.cssSelector("p")).getText());
-    driver.findElement(By.name("knop")).click();
-    assertEquals("Tot ziens, sandri!", driver.findElement(By.cssSelector("h3.msg > span")).getText());
+    assertEquals("U heeft geen aankomende klussen", driver.findElement(By.xpath("//div[@id='content']/div[3]")).getText());
   }
 
   @After
@@ -45,6 +42,4 @@ public class US1_LoginTestTP1 {
       fail(verificationErrorString);
     }
   }
-
-
 }

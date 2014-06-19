@@ -13,7 +13,7 @@ import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 
-public class US3_ParkeerplaatsReserverenTP2 {
+public class US03_US12_ParkeerplaatsReserverenTP3 {
   private WebDriver driver;
   private String baseUrl;
   private StringBuffer verificationErrors = new StringBuffer();
@@ -26,7 +26,7 @@ public class US3_ParkeerplaatsReserverenTP2 {
   }
 
   @Test
-  public void testParkeerplaatsReserverenTP2() throws Exception {
+  public void testParkeerplaatsReserverenTP3() throws Exception {
     driver.get(baseUrl + "/Themaopdracht/loginpage.jsp");
     driver.findElement(By.name("username")).clear();
     driver.findElement(By.name("username")).sendKeys("sandri");
@@ -39,9 +39,9 @@ public class US3_ParkeerplaatsReserverenTP2 {
     driver.findElement(By.name("begindat")).sendKeys("01-07-2014");
     driver.findElement(By.name("einddat")).click();
     driver.findElement(By.name("einddat")).clear();
-    driver.findElement(By.name("einddat")).sendKeys("14-07-2014");
+    driver.findElement(By.name("einddat")).sendKeys("01-06-2014");
     driver.findElement(By.xpath("(//input[@name='knop'])[2]")).click();
-    assertTrue(isElementPresent(By.cssSelector("img[alt=\"Auto\"]")));
+    assertTrue(isElementPresent(By.cssSelector("h3.error")));
   }
 
   @After
@@ -62,5 +62,4 @@ public class US3_ParkeerplaatsReserverenTP2 {
     }
   }
 
- 
 }

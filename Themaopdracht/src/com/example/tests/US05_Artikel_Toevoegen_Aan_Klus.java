@@ -14,7 +14,7 @@ import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 
-public class US5_Artikel_Toevoegen_Aan_Klus {
+public class US05_Artikel_Toevoegen_Aan_Klus {
   private static WebDriver driver;
   private static String baseUrl;
   private StringBuffer verificationErrors = new StringBuffer();

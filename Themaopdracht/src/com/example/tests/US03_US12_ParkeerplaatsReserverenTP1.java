@@ -12,7 +12,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 
-public class US3_ParkeerplaatsReserverenTP1 {
+public class US03_US12_ParkeerplaatsReserverenTP1 {
   private WebDriver driver;
   private String baseUrl;
   private StringBuffer verificationErrors = new StringBuffer();
