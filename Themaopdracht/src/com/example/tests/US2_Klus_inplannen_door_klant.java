@@ -7,7 +7,7 @@ import static org.junit.Assert.fail;
 import java.util.concurrent.TimeUnit;
 
 import org.junit.After;
-import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
@@ -15,12 +15,12 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 
 public class US2_Klus_inplannen_door_klant {
-  private WebDriver driver;
-  private String baseUrl;
+  private static WebDriver driver;
+  private static String baseUrl;
   private StringBuffer verificationErrors = new StringBuffer();
 
-  @Before
-  public void setUp() throws Exception {
+  @BeforeClass
+  public static void setUp() throws Exception {
     driver = new FirefoxDriver();
     baseUrl = "http://localhost:8080/";
     driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
@@ -34,6 +34,7 @@ public class US2_Klus_inplannen_door_klant {
 
   @Test
   public void testUS2KlusInplannenDoorKlant() throws Exception {
+	driver.get(baseUrl + "/Themaopdracht/index.jsp");
     driver.findElement(By.cssSelector("form > input[name=\"knop\"]")).click();
     driver.findElement(By.xpath("(//input[@name='type'])[2]")).click();
     driver.findElement(By.id("dat")).click();
