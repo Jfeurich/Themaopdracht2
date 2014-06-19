@@ -20,6 +20,7 @@ import org.junit.runners.Parameterized;
 import org.junit.runners.Parameterized.Parameters;
 
 import domeinklassen.Auto;
+import domeinklassen.Factuur;
 import domeinklassen.Klant;
 import domeinklassen.Klus;
 import domeinklassen.Onderhoudsbeurt;
@@ -101,7 +102,6 @@ public class KlantServletTest {
 	  }
 	  
 		
-	  @SuppressWarnings("deprecation")
 	  @Test
 		public void test() throws Exception{
 		  int knr = Integer.parseInt(klantnummer[nummer]);
@@ -116,6 +116,8 @@ public class KlantServletTest {
 		    Auto auto = new Auto("kenteken", "merk", "type", klant);
 		    Klus klus = new Reparatie(dat, "testreparatie");
 			Klus klus2 = new Onderhoudsbeurt(dat, "testrekeningnummer");
+			Factuur f = new Factuur(dat,klus);
+			Factuur f2 = new Factuur(dat,klus2);
 			auto.voegKlusToe(klus);
 			auto.voegKlusToe(klus2);
 		    gebruiker.setDeKlant(klant);
@@ -130,7 +132,7 @@ public class KlantServletTest {
 			      assertEquals(klant.getAdres(),adr);
 			      assertEquals(klant.getPlaats(),ps);
 			      klant.setRekeningnummer(rkn);
-			      assertEquals(klant.getRekeningnummer(),"rkn");
+			      assertEquals(klant.getRekeningnummer(),rkn);
 			      assertEquals(gebruiker.getID(),1);
 			      assertEquals(gebruiker.getType(),3);
 			      assertEquals(gebruiker.getWachtwoord(),"wachtwoord");
@@ -147,6 +149,11 @@ public class KlantServletTest {
 			      assertEquals(klus.getStatus(),"Nog niet begonnen");
 			      klus.setStatus("voltooid");
 			      assertEquals(klus.getStatus(),"voltooid");
+			      f.betaal("pin", dat);
+			      assertEquals(f.getIsBetaald(),true);
+			      assertEquals(f2.getIsBetaald(),false);
+			      assertEquals(klus.berekenKosten(),f.getTotaal(),DELTA);
+			      assertEquals(klus2.berekenKosten(),f2.getTotaal(),DELTA);
 			      //hier nog iets over factuur 
 			    } 
 			    catch (Error e) {

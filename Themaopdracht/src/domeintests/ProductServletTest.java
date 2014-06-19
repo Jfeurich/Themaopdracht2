@@ -28,11 +28,11 @@ public class ProductServletTest {
 	private StringBuffer verificationErrors = new StringBuffer();
 	private Date dat = new Date();
 	private static String[] naam = new String[21];
-	private static int[] artikelNr = new int[21];
-	private static int[] minimumAanwezig = new int[21];
+	private static String[] artikelNr = new String[21];
+	private static String[] minimumAanwezig = new String[21];
 	private static String[] eenheid = new String[21];
-	private static int[] aantal = new int[21];
-	private static double[] prijsPerStuk = new double[21];
+	private static String[] aantal = new String[21];
+	private static String[] prijsPerStuk = new String[21];
 	private static int nummer;
 	private ArrayList<BesteldProduct> besteldeproducten = new ArrayList<BesteldProduct>();
 	private static final double DELTA = 1e-5;
@@ -52,7 +52,7 @@ public class ProductServletTest {
 	  
 	  @BeforeClass
 	  	public static void setUpBeforeClass() throws Exception{
-		  String csvPersonen = "1;Rolland;Klinkhamer 41;Nieuwkoop;12345678;61234567>2;Steve;GraafFloris;Gouda;IBAN1234567;18212345>3;Julie;1 Nijenoord;Utrecht;98654321;69182736>4;Vonda;Bleuland;Utrecht;45665432;61211167>5;Rolland;Klinkhamer 41;Nieuwkoop;12345678;61234567>zes;dave;lalala 1234;LOL;12712312;123456>7;Sjon;sjonniestraat 1;In The CITY;23459432;!@#$%^&*()_+>8;Henk;blabla 45;kuxh;94279483;987578>9;Jan;Hehehe 456;Stadjuh;asd;3456543>10;Timmy;<(-_-)>;O_o;(-_-);asd>11;;Gaar;Weird;cool12345;987654>12;Martin;Leermos 90;Rotterdam;12356743;nullzeseentwee>13;Rene;&&;Amsterdam;IBAN 7654321;69876543>";
+		  String csvPersonen = "/users/jayfeurich/Themaopdracht2/Themaopdracht/Product.csv";
 			String cvsSplitBy = ";";	
 			BufferedReader brp = null;
 			String linep = ">";
@@ -61,18 +61,18 @@ public class ProductServletTest {
 				while ((linep = brp.readLine()) != null) {
 					String[] regel = linep.split(cvsSplitBy); //file is gescheiden door ;
 					naam[nummer] = "";
-				    artikelNr[nummer] = 0;
-				    minimumAanwezig[nummer]= 0;
+				    artikelNr[nummer] = "";
+				    minimumAanwezig[nummer]= "";
 				    eenheid[nummer] = "";
-				    aantal[nummer] = 0;
-				    prijsPerStuk[nummer] = 0.0;
+				    aantal[nummer] = "";
+				    prijsPerStuk[nummer] = "";
 					try{
 					    naam[nummer] = regel[0];
-					    artikelNr[nummer] = Integer.parseInt(regel[1]);
-					    minimumAanwezig[nummer]= Integer.parseInt(regel[2]);
+					    artikelNr[nummer] = regel[1];
+					    minimumAanwezig[nummer]= regel[2];
 					    eenheid[nummer] = regel[3];
-					    aantal[nummer] = Integer.parseInt(regel[4]);
-					    prijsPerStuk[nummer] = Double.parseDouble(regel[5]);
+					    aantal[nummer] = regel[4];
+					    prijsPerStuk[nummer] = regel[5];
 					}
 					catch(ArrayIndexOutOfBoundsException e){
 					}
@@ -98,15 +98,15 @@ public class ProductServletTest {
 	  }
 	  
 		
-	  @SuppressWarnings("deprecation")
 	  @Test
 		public void test() throws Exception{					
 				    try {
 				    	String nm = naam[nummer];
-				    	int an = artikelNr[nummer];
-				    	int ma = minimumAanwezig[nummer];
+				    	int an = Integer.parseInt(artikelNr[nummer]);
+				    	int ma = Integer.parseInt(minimumAanwezig[nummer]);
 				    	String eh = eenheid[nummer];
-				    	double pps = prijsPerStuk[nummer];
+				    	double pps = Double.parseDouble(prijsPerStuk[nummer]);
+				    	
 				    	Product p = new Product(nm,an,ma,eh,pps);
 				    	GebruiktProduct gp = new GebruiktProduct(an, p);
 				    	BesteldProduct bp = new BesteldProduct(p, an);
@@ -122,8 +122,8 @@ public class ProductServletTest {
 				    	assertEquals(gp.getHetProduct(),p);
 				    	p.voegAantalToe(5);
 				    	assertEquals(p.getAantal(),an+5);
-				    	p.setNaam("nm");
-				    	assertEquals(p.getNaam(),nm);
+				    	p.setNaam("naam");
+				    	assertEquals(p.getNaam(),"naam");
 				    	assertEquals(bp.toString(),hetProduct.getNaam() + "; " + bp.getHoeveelheid() + " " + hetProduct.getEenheid());
 				    	bp.setID(an);
 				    	assertEquals(bp.getHoeveelheid(),an);
