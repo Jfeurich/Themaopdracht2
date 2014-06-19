@@ -32,12 +32,13 @@ public class KlantServletTest {
 	private StringBuffer verificationErrors = new StringBuffer();
 	private ArrayList<Auto> autos = new ArrayList<Auto>();
 	private static Date dat = new Date();
-	private static int[] klantnummer = new int[11];
-	private static String[] naam = new String[11];
-	private static String[] adres = new String[11];
-	private static String[] plaats = new String [11];
-	private static String[] rekeningnummer = new String[11];
-	private static int[] telefoonnummer = new int[11];
+	private static String[] klantnummer = new String[13];
+	private static String[] naam = new String[13];
+	private static String[] adres = new String[13];
+	private static String[] plaats = new String [13];
+	private static String[] rekeningnummer = new String[13];
+	private static String[] telefoonnummer = new String[13];
+	private static final double DELTA = 1e-5;
 
 	private static int nummer;
 	
@@ -46,8 +47,8 @@ public class KlantServletTest {
 	}
 	  @Parameters
 	  public static Collection<Object[]> data() {
-		   Object[][] data = new Object[11][];
-		   for(int i = 0; i < 11; i++){
+		   Object[][] data = new Object[13][];
+		   for(int i = 0; i < 13; i++){
 			   Object[] zet = new Object[] {i};
 			   data[i] = zet;
 		   }
@@ -64,19 +65,19 @@ public class KlantServletTest {
 				brp = new BufferedReader(new FileReader(csvPersonen));
 				while ((linep = brp.readLine()) != null) {
 					String[] regel = linep.split(cvsSplitBy); //file is gescheiden door ;
-				    klantnummer[nummer] = 0;
+				    klantnummer[nummer] = "";
 				    naam[nummer] = "";
 				    adres[nummer] = "";
 				    plaats[nummer] = "";
 				    rekeningnummer[nummer] = "";
-				    telefoonnummer[nummer] = 0;
+				    telefoonnummer[nummer] = "";
 				    try{
-					    klantnummer[nummer] = Integer.parseInt(regel[0]);
+					    klantnummer[nummer] = regel[0];
 					    naam[nummer] = regel[1];
 					    adres[nummer] = regel[2];
 					    plaats[nummer] = regel[3];
 					    rekeningnummer[nummer] = regel[4];
-					    telefoonnummer[nummer] = Integer.parseInt(regel[5]);
+					    telefoonnummer[nummer] = regel[5];
 				    }catch(ArrayIndexOutOfBoundsException e){ }
 				    nummer++;
 				}
@@ -103,12 +104,12 @@ public class KlantServletTest {
 	  @SuppressWarnings("deprecation")
 	  @Test
 		public void test() throws Exception{
-		  int knr = klantnummer[nummer];
+		  int knr = Integer.parseInt(klantnummer[nummer]);
 		  String nm = naam[nummer];
 		  String adr = adres[nummer];
 		  String ps = plaats[nummer];
 		  String rkn = rekeningnummer[nummer];
-		  int tnr = telefoonnummer[nummer];
+		  int tnr = Integer.parseInt(telefoonnummer[nummer]);
 		  
 		    Klant klant = new Klant(knr, nm, adr, ps, rkn, tnr);
 		    User gebruiker = new User(1, 3, klant.getNaam(),"wachtwoord", "test@test.test");
@@ -139,8 +140,8 @@ public class KlantServletTest {
 			      klus2.addManuren(1700);
 			      assertEquals(klus.getManuren(),5);
 			      assertEquals(klus2.getManuren(),1700);
-			      assertEquals(klus.berekenKosten(),42.50);
-			      assertEquals(klus2.berekenKosten(),(1700*9.50));
+			      assertEquals(klus.berekenKosten(),42.50,DELTA);
+			      assertEquals(klus2.berekenKosten(),(1700*9.50),DELTA	);
 			      assertEquals(klus.getBeschrijving(),"testreparatie");
 			      assertEquals(klus2.getBeschrijving(),"testrekeningnummer");
 			      assertEquals(klus.getStatus(),"Nog niet begonnen");
