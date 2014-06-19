@@ -1,4 +1,5 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 package domeintests;
 
 import static org.junit.Assert.*;
@@ -166,6 +167,8 @@ public class KlantServletTest {
 	  }
 }
 =======
+=======
+>>>>>>> FETCH_HEAD
 package domeintests;
 
 import static org.junit.Assert.assertEquals;
@@ -328,4 +331,7 @@ public class KlantServletTest {
 	    }
 	  }
 }
+<<<<<<< HEAD
+>>>>>>> FETCH_HEAD
+=======
 >>>>>>> FETCH_HEAD
