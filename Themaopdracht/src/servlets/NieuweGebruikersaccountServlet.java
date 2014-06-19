@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import database.ConnectDBKlant;
 import database.ConnectDBUser;
 import domeinklassen.Klant;
 import domeinklassen.User;
@@ -47,6 +48,8 @@ public class NieuweGebruikersaccountServlet extends HttpServlet {
 							//Hier is het stuk waar gecontroleerd wordt of een nieuwe user een klant is(type=3)
 							if(type.equals("3")){
 								try{
+									ConnectDBKlant klantcon = new ConnectDBKlant(con);
+									k = klantcon.nieuweKlant(naam, adres, woonplaats, rekeningnr, Integer.parseInt(telefoonnr));
 									u = usercon.nieuweUserIsKlant(k, gebruikersnaam, wachtwoord1, email1);
 									req.setAttribute("msg", "Gebruiker "+ u.getGebruikersnaam()  +" met Klantnummer "+ u.getDeKlant().getKlantnummer() + " succesvol geregistreerd!");
 									rd = req.getRequestDispatcher("index.jsp");
