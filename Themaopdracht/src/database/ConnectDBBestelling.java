@@ -28,12 +28,12 @@ public class ConnectDBBestelling{
 			while (rs.next()) {   // rs.next() geeft false als er niets meer is 
 				int id = rs.getInt("bestellingid");
 				Bestelling b = new Bestelling(id);
+				ConnectDBBesteldProduct bpconn = new ConnectDBBesteldProduct(con);
+				bpconn.getProductenVanBestelling(b);
 				b.setIsGeleverd(true);
 				java.sql.Date dat = rs.getDate("datum");
 				java.util.Date datum = new java.util.Date(dat.getTime());
 				b.setVerwachteDatum(datum);
-				ConnectDBBesteldProduct bpconn = new ConnectDBBesteldProduct(con);
-				bpconn.getProductenVanBestelling(b);
 				terug.add(b);
 			}
 		}
@@ -104,12 +104,12 @@ public class ConnectDBBestelling{
 				int id = rs.getInt("bestellingid");
 				String isGeleverd = rs.getString("isGeleverd");
 				Bestelling b = new Bestelling(id);
+				ConnectDBBesteldProduct bpconn = new ConnectDBBesteldProduct(con);
+				bpconn.getProductenVanBestelling(b);
 				if(isGeleverd.equals("t")){
 					b.setIsGeleverd(true);
 				}
 				b.setVerwachteDatum(dat);
-				ConnectDBBesteldProduct bpconn = new ConnectDBBesteldProduct(con);
-				bpconn.getProductenVanBestelling(b);
 				terug.add(b);
 			}
 			stmt.close();
@@ -132,14 +132,14 @@ public class ConnectDBBestelling{
 				String isGeleverd = rs.getString("isGeleverd");
 				java.util.Date datum = new java.util.Date(dat.getTime());
 				Bestelling b = new Bestelling(id);
+				ConnectDBBesteldProduct bpconn = new ConnectDBBesteldProduct(con);
+				bpconn.getProductenVanBestelling(b);
 				if(isGeleverd.equals("t")){
 					b.setIsGeleverd(true);
 				}
 				if(datum != null){
 					b.setVerwachteDatum(datum);
 				}
-				ConnectDBBesteldProduct bpconn = new ConnectDBBesteldProduct(con);
-				bpconn.getProductenVanBestelling(b);
 				terug = b;
 			}
 			stmt.close();

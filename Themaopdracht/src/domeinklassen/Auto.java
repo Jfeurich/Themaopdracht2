@@ -70,8 +70,11 @@ public class Auto {
 		return deKlussen;
 	}
 
-	public String toString(){
-		String s = "Auto met kenteken " + kenteken + " is een " + type + " van " + merk;
-		return s;
+	@Override
+	public String toString() {
+		return "Auto [autoid=" + autoid + ", kenteken=" + kenteken + ", merk="
+				+ merk + ", type=" + type + ", deEigenaar=" + deEigenaar
+				+ ", actief=" + actief + "]";
 	}
+	
 }

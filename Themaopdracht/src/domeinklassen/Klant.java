@@ -89,14 +89,6 @@ public class Klant {
 		return deAutos;
 	}
 
-	public ArrayList<Herinneringsbrief> getDeBrieven() {
-		return deBrieven;
-	}
-
-	public ArrayList<Auto> getAutos(){
-		return deAutos;
-	}
-
 	public void voegAutoToe(Auto a){
 		deAutos.add(a);
 	}

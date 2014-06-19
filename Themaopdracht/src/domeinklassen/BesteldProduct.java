@@ -4,6 +4,7 @@ public class BesteldProduct{
 	private int id;
 	private int hoeveelheid;
 	private Product hetProduct;
+	
 	public BesteldProduct(Product pr, int hh){
 		hetProduct = pr;
 		hoeveelheid = hh;

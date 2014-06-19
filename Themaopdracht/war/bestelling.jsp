@@ -30,12 +30,12 @@
 				for(Bestelling b : lijst){
 					%>
 					<tr>
-						<td><%if(!b.getIsGeleverd()){%><input type="radio" name="gekozenbestelling" 
+						<td class="hoofdcel"><%if(!b.getIsGeleverd()){%><input type="radio" name="gekozenbestelling" 
 						<%if(eerste){ %> checked="checked" <% eerste=false;}%>
 						value="<%=b.getBestelNummer()%>" /><%}%></td>
-						<td><%=b.getBestelNummer()%></td>
-						<td><%=b.getTotaal()%></td>
-						<td><%=b.datum()%></td>
+						<td class="hoofdcel"><%=b.getBestelNummer()%></td>
+						<td class="hoofdcel"><%=b.getTotaal()%></td>
+						<td class="hoofdcel"><%=b.datum()%></td>
 					</tr>
 					<tr>
 						<td class="tussenkop">Naam</td>
@@ -105,12 +105,12 @@
 				for(Bestelling b : nietgeleverd){
 					%>
 					<tr>
-						<td><input type="radio" name="gekozenbestelling" 
+						<td class="hoofdcel"><input type="radio" name="gekozenbestelling" 
 						<%if(eerstenietgeleverd){ %> checked="checked" <% eerstenietgeleverd=false;}%>
 						value="<%=b.getBestelNummer()%>" /></td>
-						<td><%=b.getBestelNummer()%></td>
-						<td><%=b.getTotaal()%></td>
-						<td><%=b.datum()%></td>
+						<td class="hoofdcel"><%=b.getBestelNummer()%></td>
+						<td class="hoofdcel"><%=b.getTotaal()%></td>
+						<td class="hoofdcel"><%=b.datum()%></td>
 					</tr>
 					<tr>
 						<td class="tussenkop">Naam</td>
@@ -149,10 +149,10 @@
 				for(Bestelling b : geleverd){
 					%>
 					<tr>
-						<td></td>
-						<td><%=b.getBestelNummer()%></td>
-						<td><%=b.getTotaal()%></td>
-						<td><%=b.datum()%></td>
+						<td class="hoofdcel"></td>
+						<td class="hoofdcel"><%=b.getBestelNummer()%></td>
+						<td class="hoofdcel"><%=b.getTotaal()%></td>
+						<td class="hoofdcel"><%=b.datum()%></td>
 					</tr>
 					<tr>
 						<td class="tussenkop">Naam</td>
@@ -172,8 +172,7 @@
 						</tr>
 					<%}
 				}%>
-				</table>
-				<p><input type="submit" name="knop" value="Boek in" /></p>			
+				</table>	
 			<%}%>
 		</div>
 	</form>

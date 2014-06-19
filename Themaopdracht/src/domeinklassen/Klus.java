@@ -31,15 +31,6 @@ public abstract class Klus {
 		dA.voegKlusToe(this);
 		deFactuur = null;
 	}
-
-	public Klus(String dat, String b, Auto dA) throws Exception{
-		datum = df.parse(dat);
-		beschrijving = b;
-		manuren = 0;
-		deAuto = dA;
-		dA.voegKlusToe(this);
-		deFactuur = null;
-	}
 	
 	public void setDeAuto(Auto a){
 		deAuto = a;

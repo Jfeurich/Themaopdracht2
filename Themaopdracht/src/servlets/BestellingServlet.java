@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import database.ConnectDBBestelling;
 import database.ConnectDBProduct;
+import domeinklassen.BesteldProduct;
 import domeinklassen.Bestelling;
 import domeinklassen.Product;
 
@@ -96,6 +97,12 @@ public class BestellingServlet extends HttpServlet{
 				b.setIsGeleverd(true);
 				b.setVerwachteDatum(new Date());
 				bcon.updateBestelling(b);
+				ConnectDBProduct pcon = new ConnectDBProduct(con);
+				for(BesteldProduct bp : b.getBesteldeProducten()){
+					Product p = bp.getProduct();
+					p.setAantal(p.getAantal() + bp.getHoeveelheid());
+					pcon.updateProduct(p);
+				}
 				req.setAttribute("msg", "Bestelling gemarkeerd als geleverd!");
 			} catch(Exception e){
 				req.setAttribute("error", "Niet mogelijk om bestelling te wijzigen!");

@@ -12,10 +12,6 @@ public class Onderhoudsbeurt extends Klus {
 		super(dat, b, dA);
 	}
 
-	public Onderhoudsbeurt(String dat, String b, Auto dA) throws Exception{
-		super(dat, b, dA);
-	}
-
 	public double berekenKosten(){
 		double kosten = manuren * 9.50;
 		return kosten;

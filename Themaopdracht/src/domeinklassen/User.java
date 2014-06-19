@@ -36,10 +36,6 @@ public class User {
 		return gebruikersnaam;
 	}
 
-	public void setGebruikersnaam(String username) {
-		this.gebruikersnaam = username;
-	}
-
 	public String getWachtwoord() {
 		return wachtwoord;
 	}
