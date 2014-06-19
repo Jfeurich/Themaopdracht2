@@ -34,7 +34,7 @@ if(o == null){
 		<p class="kop" >Beschrijving</p>
 		<textarea name="beschrijving"><%=deKlus.getBeschrijving()%></textarea>
 		<p><input type="hidden" name="gekozenklus" value="<%=deKlus.getID()%>" /></p>
-		<p><input type="submit" name="knop" value="bevestig" /></p>
+		<p><input type="submit" name="knop" value="Bevestig" /></p>
 	</form>
 	<p><a href="kluswijzigen.jsp">Terug</a></p>
 <%@ include file="footer.html" %>

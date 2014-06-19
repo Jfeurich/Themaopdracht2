@@ -36,8 +36,11 @@
 				</tr>
 			<%}%>
 			</table>
+			<p><input type="hidden" name="actief" id="actief" value="ja" />	</p>
 		<%
-		}
+		}else{%>
+			<p><input type="hidden" name="actief" id="actief" value="nee" />	</p>
+		<%}
 		if(nonactief.size() > 0){	
 		%>	
 		<h3><span>Non-actieve auto's:</span></h3>
@@ -64,7 +67,6 @@
 			<%}%>
 		</table>
 		<%}%>
-		<p><input type="hidden" name="actief" id="actief" value="ja" />	</p>
 		<script type="text/javascript">
 			function setNonActief(){
 				var s = document.getElementById("actief");

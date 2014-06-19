@@ -2,7 +2,7 @@
 	<jsp:param name="titel" value="Nieuwe herinneringsbrief" /> 
 </jsp:include> 
 	<form action="BriefServlet.do" method="post">
-		<%@ page import="java.util.ArrayList,java.sql.Connection,database.ConnectDBKlant,domeinklassen.Klant,,domeinklassen.Factuur" %>
+		<%@ page import="java.util.ArrayList,java.sql.Connection,database.ConnectDBKlant,domeinklassen.Klant,domeinklassen.Factuur" %>
 		<h1><span>Nieuwe herinneringsbrief</span></h1>
 		<%@ include file="messages.jsp" %>
 		<%
@@ -14,7 +14,7 @@
 			<h2><span>Schrijf de brief en klik op "NieuweBrief" om hem te versturen</span></h2>
 			<textarea name="reden">Beste <%=deKlant.getNaam()%>, 
 <%if(fact != null){Factuur deFactuur = (Factuur)request.getAttribute("deFactuur");%>
-Graag willen wij u helpen herinneren dat er sinds <%=f.getAanmaakDatumNetjes()%> een factuur open staat ter waarde van <%=f.getTotaal()%> euro.
+Graag willen wij u helpen herinneren dat er sinds <%=deFactuur.getAanmaakDatumNetjes()%> een factuur open staat ter waarde van <%=deFactuur.getTotaal()%> euro.
 
 Wij verzoeken u vriendelijk bovenstaande bedrag binnen 5 werkdagen over te maken. 
 

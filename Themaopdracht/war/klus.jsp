@@ -83,7 +83,7 @@
 				for(Klus k : klussen ){
 					%>
 					<tr>
-						<td class="hoofdcel"><input type="radio" name="gekozenklus "
+						<td class="hoofdcel"><input type="radio" name="gekozenklus"
 						<%if(eerste){ %> checked="checked" <% eerste=false;}%>
 						value="<%=k.getID()%>" /></td>
 						<%if(k instanceof Reparatie){%>
