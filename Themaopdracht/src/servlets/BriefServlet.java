@@ -53,7 +53,7 @@ public class BriefServlet extends HttpServlet{
 				MimeMessage msg = new MimeMessage(mailSession);
 				msg.setFrom(new InternetAddress("testvoorwebapps@gmail.com", "Test"));
 				msg.setRecipients(Message.RecipientType.TO, u.getEmail());
-				msg.setSubject("Wachtwoorde vergeten");
+				msg.setSubject("AutoTotaalDienst Utrecht");
 				msg.setSentDate(Calendar.getInstance().getTime());
 				msg.setText(reden);
 				Transport.send(msg, "testvoorwebapps@gmail.com", "Wachtwoord0");
