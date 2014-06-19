@@ -154,9 +154,11 @@ FOREIGN KEY (klusid) REFERENCES Klus(klusid)
 );
 
 INSERT INTO Factuur (aanmaakDatum, klusid, isBetaald) VALUES
-('2010-04-25', 1, 'f'),
 ('2012-12-12', 2, 'f'),
 ('2006-06-06', 3, 'f')
+;
+INSERT INTO Factuur (aanmaakDatum, klusid, isBetaald, betaalDatum, betalingswijze) VALUES
+('2010-04-25', 1, 't', '2010-05-01', 'pin')
 ;
 
 /* GebruiktProduct */
