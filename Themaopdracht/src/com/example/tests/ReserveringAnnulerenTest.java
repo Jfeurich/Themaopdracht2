@@ -1,5 +1,6 @@
 package com.example.tests;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
@@ -27,23 +28,24 @@ public class ReserveringAnnulerenTest {
 
   @Test
   public void testReserveringAnnuleren() throws Exception {
-    driver.get(baseUrl + "/Themaopdracht/index.jsp");
-    driver.findElement(By.linkText("Een parkeer reservering annuleren(25)")).click();
-    driver.findElement(By.xpath("(//input[@name='knop'])[2]")).click();
-    assertTrue(isElementPresent(By.cssSelector("h3[name=\"error\"]")));
-    driver.findElement(By.name("zoekviaID")).clear();
-    driver.findElement(By.name("zoekviaID")).sendKeys("as!@#$%");
-    driver.findElement(By.xpath("(//input[@name='knop'])[2]")).click();
-    assertTrue(isElementPresent(By.cssSelector("h3[name=\"error\"]")));
-    driver.findElement(By.name("zoekviaID")).clear();
-    driver.findElement(By.name("zoekviaID")).sendKeys("6767");
-    driver.findElement(By.xpath("(//input[@name='knop'])[2]")).click();
-    assertTrue(isElementPresent(By.cssSelector("h3[name=\"error\"]")));
-    driver.findElement(By.name("zoekviaID")).clear();
-    driver.findElement(By.name("zoekviaID")).sendKeys("1");
-    driver.findElement(By.xpath("(//input[@name='knop'])[2]")).click();
-    driver.findElement(By.cssSelector("form > input[name=\"knop\"]")).click();
-    assertTrue(isElementPresent(By.cssSelector("h3[name=\"msg\"] > span")));
+		driver.get(baseUrl + "/Themaopdracht/reserveringannuleren.jsp");
+		driver.findElement(By.cssSelector("div > p > input[name=\"knop\"]"))
+				.click();
+		driver.findElement(By.name("gekozenklant")).click();
+		driver.findElement(By.cssSelector("div > p > input[name=\"knop\"]"))
+				.click();
+		driver.findElement(By.cssSelector("div > p > input[name=\"knop\"]"))
+				.click();
+		driver.findElement(By.cssSelector("div > p > input[name=\"knop\"]"))
+				.click();
+		assertEquals("De reservering is succesvol geannuleerd", driver
+				.findElement(By.cssSelector("h3.msg > span")).getText());
+		driver.findElement(By.cssSelector("div > p > input[name=\"knop\"]"))
+				.click();
+		driver.findElement(By.name("gekozenklant")).click();
+		driver.findElement(By.cssSelector("div > p > input[name=\"knop\"]"))
+				.click();
+		assertTrue(isElementPresent(By.cssSelector("h3.error")));
   }
 
   @After
