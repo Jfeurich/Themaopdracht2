@@ -36,7 +36,7 @@ public class BTWOverzichtTestTP3 {
     driver.findElement(By.name("password")).clear();
     driver.findElement(By.name("password")).sendKeys("hww");
     driver.findElement(By.cssSelector("input[type=\"submit\"]")).click();
-    driver.findElement(By.linkText("Overzicht BTW")).click();
+    driver.get("http://localhost:8080/Themaopdracht/btwoverzicht.jsp");
     driver.findElement(By.name("beginjaar")).clear();
     driver.findElement(By.name("beginjaar")).sendKeys("2020");
     driver.findElement(By.name("eindjaar")).clear();

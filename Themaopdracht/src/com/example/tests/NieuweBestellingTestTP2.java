@@ -36,7 +36,7 @@ public class NieuweBestellingTestTP2 {
     driver.findElement(By.name("password")).clear();
     driver.findElement(By.name("password")).sendKeys("hww");
     driver.findElement(By.cssSelector("input[type=\"submit\"]")).click();
-    driver.findElement(By.linkText("Nieuwe bestelling")).click();
+    driver.get("http://localhost:8080/Themaopdracht/nieuwebestelling.jsp");
     driver.findElement(By.cssSelector("#content > form > p > input[name=\"knop\"]")).click();
     assertTrue(isElementPresent(By.cssSelector("h3.error")));
   }

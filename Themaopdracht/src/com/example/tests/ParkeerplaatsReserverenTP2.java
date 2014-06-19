@@ -36,7 +36,7 @@ public class ParkeerplaatsReserverenTP2 {
     driver.findElement(By.name("password")).clear();
     driver.findElement(By.name("password")).sendKeys("sww");
     driver.findElement(By.cssSelector("input[type=\"submit\"]")).click();
-    driver.findElement(By.linkText("Parkeerplaats reserveren")).click();
+    driver.get("http://localhost:8080/Themaopdracht/parkeerplaatsoverzicht.jsp");
     driver.findElement(By.name("begindat")).click();
     driver.findElement(By.name("begindat")).clear();
     driver.findElement(By.name("begindat")).sendKeys("01-07-2014");
