@@ -41,15 +41,17 @@ public class LoginServlet extends HttpServlet {
 				//check of gebruiker hier is gekomen via redirect. 
 				//zo ja, probeer terug te sturen naar pagina waar redirect plaats vond
 				Cookie verwijder = null;
-				for(Cookie c : req.getCookies()){	
-					if(c.getName().equals("vorigepagina")){
-						verwijder = c;
-						break;
+				if(req.getCookies() != null){
+					for(Cookie c : req.getCookies()){	
+						if(c.getName().equals("vorigepagina")){
+							verwijder = c;
+							break;
+						}
 					}
-				}
-				if(verwijder != null){
-					rd = req.getRequestDispatcher(verwijder.getValue());
-					verwijder.setMaxAge(-1);
+					if(verwijder != null){
+						rd = req.getRequestDispatcher(verwijder.getValue());
+						verwijder.setMaxAge(-1);
+					}
 				}
 				resp.addCookie(new Cookie("username", username));
 				//logger

@@ -30,7 +30,7 @@
 				if(g != null){
 					User deGebruiker = (User)g;
 					if(deGebruiker.getType() == 3){
-						autos = deGebruiker.getDeKlant().getAutos();
+						autos = deGebruiker.getDeKlant().getDeAutos();
 					}
 					else{
 						autos = (ArrayList<Auto>) request.getAttribute("autos");

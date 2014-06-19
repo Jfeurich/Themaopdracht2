@@ -1,16 +1,19 @@
 package com.example.tests;
 
-import java.util.regex.Pattern;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
+
 import java.util.concurrent.TimeUnit;
 
-import org.junit.*;
-
-import static org.junit.Assert.*;
-import static org.hamcrest.CoreMatchers.*;
-
-import org.openqa.selenium.*;
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
+import org.openqa.selenium.Alert;
+import org.openqa.selenium.By;
+import org.openqa.selenium.NoAlertPresentException;
+import org.openqa.selenium.NoSuchElementException;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
-import org.openqa.selenium.support.ui.Select;
 
 public class ParkeerplaatsReserverenTP2 {
   private WebDriver driver;
@@ -28,6 +31,8 @@ public class ParkeerplaatsReserverenTP2 {
   @Test
   public void testParkeerplaatsReserverenTP2() throws Exception {
     driver.get(baseUrl + "/Themaopdracht/loginpage.jsp");
+    driver.findElement(By.name("username")).clear();
+    driver.findElement(By.name("username")).sendKeys("sandri");
     driver.findElement(By.name("password")).clear();
     driver.findElement(By.name("password")).sendKeys("sww");
     driver.findElement(By.cssSelector("input[type=\"submit\"]")).click();
