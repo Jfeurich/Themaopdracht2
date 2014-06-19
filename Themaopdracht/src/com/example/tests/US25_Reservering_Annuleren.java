@@ -35,22 +35,15 @@ public class US25_Reservering_Annuleren {
 		driver.findElement(By.name("password")).sendKeys("hww");
 		driver.findElement(By.cssSelector("input[type=\"submit\"]")).click();
 		driver.get("http://localhost:8080/Themaopdracht/reserveringannuleren.jsp");
-		driver.findElement(By.cssSelector("div > p > input[name=\"knop\"]"))
-				.click();
+		driver.findElement(By.cssSelector("div > p > input[name=\"knop\"]")).click();
 		driver.findElement(By.name("gekozenklant")).click();
-		driver.findElement(By.cssSelector("div > p > input[name=\"knop\"]"))
-				.click();
-		driver.findElement(By.cssSelector("div > p > input[name=\"knop\"]"))
-				.click();
-		driver.findElement(By.cssSelector("div > p > input[name=\"knop\"]"))
-				.click();
-		assertEquals("De reservering is succesvol geannuleerd", driver
-				.findElement(By.cssSelector("h3.msg > span")).getText());
-		driver.findElement(By.cssSelector("div > p > input[name=\"knop\"]"))
-				.click();
+		driver.findElement(By.cssSelector("div > p > input[name=\"knop\"]")).click();
+		driver.findElement(By.cssSelector("div > p > input[name=\"knop\"]")).click();
+		driver.findElement(By.cssSelector("div > p > input[name=\"knop\"]")).click();
+		assertEquals("De reservering is succesvol geannuleerd", driver.findElement(By.cssSelector("h3.msg > span")).getText());
+		driver.findElement(By.cssSelector("div > p > input[name=\"knop\"]")).click();
 		driver.findElement(By.name("gekozenklant")).click();
-		driver.findElement(By.cssSelector("div > p > input[name=\"knop\"]"))
-				.click();
+		driver.findElement(By.cssSelector("div > p > input[name=\"knop\"]")).click();
 		assertTrue(isElementPresent(By.cssSelector("h3.error")));
 	}
 

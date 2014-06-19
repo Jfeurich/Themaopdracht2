@@ -38,11 +38,8 @@ public class US04_Reservering_Bevestigen {
 		driver.findElement(By.name("zoekviaID")).clear();
 		driver.findElement(By.name("zoekviaID")).sendKeys("2");
 		driver.findElement(By.xpath("(//input[@name='knop'])[2]")).click();
-		driver.findElement(
-				By.cssSelector("#content > form > p > input[name=\"knop\"]"))
-				.click();
-		assertEquals("De reservering is succesvol bevestigd", driver
-				.findElement(By.cssSelector("h3.msg > span")).getText());
+		driver.findElement(By.cssSelector("#content > form > p > input[name=\"knop\"]")).click();
+		assertEquals("De reservering is succesvol bevestigd", driver.findElement(By.cssSelector("h3.msg > span")).getText());
 		driver.findElement(By.xpath("(//input[@name='knop'])[2]")).click();
 		assertTrue(isElementPresent(By.cssSelector("h3.error")));
 		driver.findElement(By.name("zoekviaID")).clear();

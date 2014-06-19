@@ -32,7 +32,7 @@ public class US30_AccountGegevensWijzigen {
     driver.findElement(By.name("password")).clear();
     driver.findElement(By.name("password")).sendKeys("sww");
     driver.findElement(By.cssSelector("input[type=\"submit\"]")).click();
-    driver.findElement(By.linkText("Mijn Account")).click();
+    driver.get("http://localhost:8080/Themaopdracht/mijnaccount.jsp");
     driver.findElement(By.name("email")).clear();
     driver.findElement(By.name("email")).sendKeys("sari@hotmail.com");
     driver.findElement(By.name("wachtwoord")).clear();

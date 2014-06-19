@@ -13,7 +13,7 @@ import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 
-public class US11_NieuweBestellingTestTP3 {
+public class US22_BTW_Overzicht_TestTP3 {
   private WebDriver driver;
   private String baseUrl;
   private StringBuffer verificationErrors = new StringBuffer();
@@ -26,21 +26,19 @@ public class US11_NieuweBestellingTestTP3 {
   }
 
   @Test
-  public void testNieuweBestellingTestTP3() throws Exception {
+  public void testBTWOverzichtTestTP3() throws Exception {
     driver.get(baseUrl + "/Themaopdracht/loginpage.jsp");
     driver.findElement(By.name("username")).clear();
     driver.findElement(By.name("username")).sendKeys("henk");
     driver.findElement(By.name("password")).clear();
     driver.findElement(By.name("password")).sendKeys("hww");
     driver.findElement(By.cssSelector("input[type=\"submit\"]")).click();
-    driver.get("http://localhost:8080/Themaopdracht/nieuwebestelling.jsp");
-    driver.findElement(By.name("gekozenProduct")).click();
-    driver.findElement(By.xpath("(//input[@name='gekozenProduct'])[2]")).click();
-    driver.findElement(By.cssSelector("#content > form > p > input[name=\"knop\"]")).click();
-    driver.findElement(By.name("wijzigaantal")).clear();
-    driver.findElement(By.name("wijzigaantal")).sendKeys("0");
-    driver.findElement(By.xpath("(//input[@name='wijzigaantal'])[2]")).clear();
-    driver.findElement(By.xpath("(//input[@name='wijzigaantal'])[2]")).sendKeys("0");
+    driver.get("http://localhost:8080/Themaopdracht/btwoverzicht.jsp");
+    driver.findElement(By.name("beginjaar")).clear();
+    driver.findElement(By.name("beginjaar")).sendKeys("2020");
+    driver.findElement(By.name("eindjaar")).clear();
+    driver.findElement(By.name("eindjaar")).sendKeys("2000");
+    driver.findElement(By.xpath("(//input[@name='eindkwartaal'])[4]")).click();
     driver.findElement(By.xpath("(//input[@name='knop'])[2]")).click();
     assertTrue(isElementPresent(By.cssSelector("h3.error")));
   }

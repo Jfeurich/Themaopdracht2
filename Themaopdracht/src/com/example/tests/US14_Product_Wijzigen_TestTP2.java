@@ -13,7 +13,7 @@ import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 
-public class US11_NieuweBestellingTestTP2 {
+public class US14_Product_Wijzigen_TestTP2 {
   private WebDriver driver;
   private String baseUrl;
   private StringBuffer verificationErrors = new StringBuffer();
@@ -26,14 +26,24 @@ public class US11_NieuweBestellingTestTP2 {
   }
 
   @Test
-  public void testNieuweBestellingTestTP2() throws Exception {
+  public void testProductWijzigenTestTP2() throws Exception {
     driver.get(baseUrl + "/Themaopdracht/loginpage.jsp");
     driver.findElement(By.name("username")).clear();
     driver.findElement(By.name("username")).sendKeys("henk");
     driver.findElement(By.name("password")).clear();
     driver.findElement(By.name("password")).sendKeys("hww");
     driver.findElement(By.cssSelector("input[type=\"submit\"]")).click();
-    driver.get("http://localhost:8080/Themaopdracht/nieuwebestelling.jsp");
+    driver.get("http://localhost:8080/Themaopdracht/product.jsp");
+    driver.findElement(By.name("zoeknummer")).clear();
+    driver.findElement(By.name("zoeknummer")).sendKeys("1");
+    driver.findElement(By.xpath("(//input[@name='knop'])[5]")).click();
+    driver.findElement(By.xpath("(//input[@name='knop'])[5]")).click();
+    driver.findElement(By.name("aantal")).clear();
+    driver.findElement(By.name("aantal")).sendKeys("A");
+    driver.findElement(By.name("minaantal")).clear();
+    driver.findElement(By.name("minaantal")).sendKeys("B");
+    driver.findElement(By.name("pps")).clear();
+    driver.findElement(By.name("pps")).sendKeys("C");
     driver.findElement(By.cssSelector("#content > form > p > input[name=\"knop\"]")).click();
     assertTrue(isElementPresent(By.cssSelector("h3.error")));
   }

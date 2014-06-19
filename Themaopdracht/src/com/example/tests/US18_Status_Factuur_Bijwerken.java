@@ -9,7 +9,7 @@ import static org.junit.Assert.*;
 import org.openqa.selenium.*;
 import org.openqa.selenium.firefox.FirefoxDriver;
 
-public class US08_Auto_Invoeren {
+public class US18_Status_Factuur_Bijwerken {
 	private WebDriver driver;
 	private String baseUrl;
 	private StringBuffer verificationErrors = new StringBuffer();
@@ -22,23 +22,18 @@ public class US08_Auto_Invoeren {
 	}
 
 	@Test
-	public void testAutoInvoeren() throws Exception {
+	public void testStatusFactuur() throws Exception {
 		driver.get(baseUrl + "/Themaopdracht/loginpage.jsp");
 		driver.findElement(By.name("username")).clear();
 		driver.findElement(By.name("username")).sendKeys("Henk");
 		driver.findElement(By.name("password")).clear();
 		driver.findElement(By.name("password")).sendKeys("hww");
 		driver.findElement(By.cssSelector("input[type=\"submit\"]")).click();
-		driver.get("http://localhost:8080/Themaopdracht/autotoevoegen.jsp");
+		driver.get("http://localhost:8080/Themaopdracht/factuur.jsp");
+		driver.findElement(By.cssSelector("div > input[name=\"knop\"]")).click();
 		driver.findElement(By.cssSelector("#content > form > p > input[name=\"knop\"]")).click();
-		driver.findElement(By.name("kenteken")).clear();
-		driver.findElement(By.name("kenteken")).sendKeys("LOL-COOL-666");
-		driver.findElement(By.name("merk")).clear();
-		driver.findElement(By.name("merk")).sendKeys("BMW");
-		driver.findElement(By.name("type")).clear();
-		driver.findElement(By.name("type")).sendKeys("Sport");
+		driver.findElement(By.xpath("(//input[@name='betaalmiddel'])[3]")).click();
 		driver.findElement(By.cssSelector("#content > form > p > input[name=\"knop\"]")).click();
-		assertEquals("Auto is met succes toegevoegd!",driver.findElement(By.cssSelector("h3.msg > span")).getText());
 	}
 
 	@After

@@ -41,8 +41,7 @@ public class US26_Klus_Annuleren {
 		driver.findElement(By.name("gekozenklus")).click();
 		driver.findElement(By.xpath("(//input[@name='knop'])[5]")).click();
 		driver.findElement(By.xpath("(//input[@name='knop'])[3]")).click();
-		assertEquals("Geen klussen gevonden met ingevoerde zoekterm(en)",
-				driver.findElement(By.cssSelector("h3.msg > span")).getText());
+		assertEquals("Geen klussen gevonden met ingevoerde zoekterm(en)",driver.findElement(By.cssSelector("h3.msg > span")).getText());
 		driver.findElement(By.name("zoekid")).clear();
 		driver.findElement(By.name("zoekid")).sendKeys("abc");
 		driver.findElement(By.xpath("(//input[@name='knop'])[3]")).click();

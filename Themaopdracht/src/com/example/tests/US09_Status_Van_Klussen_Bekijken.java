@@ -12,8 +12,6 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 public class US09_Status_Van_Klussen_Bekijken {
   private WebDriver driver;
   private String baseUrl;
-  @SuppressWarnings("unused")
-private boolean acceptNextAlert = true;
   private StringBuffer verificationErrors = new StringBuffer();
 
   @Before

@@ -13,7 +13,7 @@ import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 
-public class US21_Overizcht_Onbetaalde_Facturen {
+public class US22_BTW_Overzicht_TestTP2 {
   private WebDriver driver;
   private String baseUrl;
   private StringBuffer verificationErrors = new StringBuffer();
@@ -23,19 +23,25 @@ public class US21_Overizcht_Onbetaalde_Facturen {
     driver = new FirefoxDriver();
     baseUrl = "http://localhost:8080/";
     driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
-    driver.get(baseUrl + "/Themaopdracht/loginpage.jsp");
-    driver.findElement(By.name("password")).clear();
-    driver.findElement(By.name("password")).sendKeys("hww");
-    driver.findElement(By.cssSelector("input[type=\"submit\"]")).click();
   }
 
   @Test
-  public void testUS21OverizchtOnbetaaldeFacturen() throws Exception {
-	driver.get("http:/localhost:8080/Themaopdracht/factuur.jsp");
-    driver.findElement(By.cssSelector("div > input[name=\"knop\"]")).click();
-    assertTrue(isElementPresent(By.cssSelector("table")));
-    assertTrue(isElementPresent(By.cssSelector("#content > form > p > input[name=\"knop\"]")));
-    assertTrue(isElementPresent(By.xpath("(//input[@name='knop'])[3]")));
+  public void testBTWOverzichtTestTP2() throws Exception {
+    driver.get(baseUrl + "/Themaopdracht/loginpage.jsp");
+    driver.findElement(By.name("username")).clear();
+    driver.findElement(By.name("username")).sendKeys("henk");
+    driver.findElement(By.name("password")).clear();
+    driver.findElement(By.name("password")).sendKeys("hww");
+    driver.findElement(By.cssSelector("input[type=\"submit\"]")).click();
+    driver.get("http://localhost:8080/Themaopdracht/btwoverzicht.jsp");
+    driver.findElement(By.name("beginjaar")).clear();
+    driver.findElement(By.name("beginjaar")).sendKeys("1950");
+    driver.findElement(By.name("eindjaar")).clear();
+    driver.findElement(By.name("eindjaar")).sendKeys("1950");
+    driver.findElement(By.xpath("(//input[@name='eindkwartaal'])[2]")).click();
+    driver.findElement(By.xpath("(//input[@name='knop'])[2]")).click();
+    assertTrue(isElementPresent(By.cssSelector("h3.msg > span")));
+    driver.findElement(By.name("knop")).click();
   }
 
   @After
