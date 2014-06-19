@@ -16,32 +16,6 @@ public class ConnectDBHerinneringsbrief{
 	public ConnectDBHerinneringsbrief(Connection c){
 		con = c;
 	}
-	
-	//alle herinneringsbrieven in het systeem
-	public ArrayList<Herinneringsbrief> getBrieven(){
-		ArrayList<Herinneringsbrief> terug = new ArrayList<Herinneringsbrief>();
-		try{
-			String sql = "SELECT * FROM Herinneringsbrief";
-			Statement stmt = con.createStatement();
-			ResultSet rs = stmt.executeQuery(sql);
-			while (rs.next()) {   // rs.next() geeft false als er niets meer is 
-				int id = rs.getInt("herinneringsbriefid");
-				String reden = rs.getString("reden");
-				java.sql.Date dat = rs.getDate("datum");
-				java.util.Date datum = new Date(dat.getTime());
-				int klantid = rs.getInt("klantid");
-				ConnectDBKlant klantconn = new ConnectDBKlant(con);
-				Klant deKlant = klantconn.zoekKlant(klantid);
-				Herinneringsbrief h = new Herinneringsbrief(id, deKlant, reden, datum);
-				terug.add(h);
-			}
-			stmt.close();
-		}
-		catch(Exception ex){
-			System.out.println("Probleem bij brieven ophalen " + ex);
-		}
-		return terug;
-	}
 
 	//zoek naar alle brieven van een bepaalde klant 
 	public ArrayList<Herinneringsbrief> getBrievenVan(Klant k){
@@ -116,38 +90,5 @@ public class ConnectDBHerinneringsbrief{
 			System.out.println("Probleem bij nieuwe brief " + ex);
 		}
 		return terug;
-	}
-
-	//zet alle waardes van brief in database naar waardes van ingevoerd Herinneringsbrief-object. met uitzondering van id. 
-	public boolean updateBrief(Herinneringsbrief h){
-		try{
-			java.util.Date dat = h.getDatum();
-			java.sql.Date datum = new java.sql.Date(dat.getTime());
-			String sql = "UPDATE Herinneringsbrief SET reden='" + h.getReden() + "',  datum='" + datum + 
-					"', klantid=" + h.getDeKlant().getKlantnummer() + " WHERE herinneringsbriefid= " + h.getID();
-			Statement stmt = con.createStatement();
-			stmt.executeUpdate(sql);	
-			stmt.close();
-			return true;
-		}
-		catch(Exception ex){
-			System.out.println("Probleem bij brief updaten" + ex);
-		}
-		return false;
-	}
-	
-	//verwijderd tabelrij met ingevoerd id
-	public boolean verwijderBrief(int id){
-		try{
-			String sql = "DELETE FROM Herinneringsbrief WHERE herinneringsbriefid=" + id;
-			Statement stmt = con.createStatement();
-			stmt.executeUpdate(sql);
-			stmt.close();
-			return true;
-		}
-		catch(Exception ex){
-			System.out.println("Probleem bij brief verwijderen" + ex);
-		}
-		return false;
 	}
 }

@@ -5,7 +5,6 @@ import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
-
 import domeinklassen.Auto;
 import domeinklassen.Reservering;
 
@@ -15,38 +14,6 @@ public class ConnectDBReservering{
 	//maak connectie
 	public ConnectDBReservering(Connection c){
 		con = c;
-	}
-	
-	//alle reserveringen in het systeem
-	public ArrayList<Reservering> getReserveringen(){
-		ArrayList<Reservering> terug = new ArrayList<Reservering>();
-		try{
-			String sql = "SELECT * FROM Reservering";
-			Statement stmt = con.createStatement();
-			ResultSet rs = stmt.executeQuery(sql);
-			while (rs.next()) {   // rs.next() geeft false als er niets meer is 
-				int id = rs.getInt("reserveringid");
-				int dP = rs.getInt("deParkeerplek");
-				java.sql.Date bdat = rs.getDate("beginDat");
-				java.util.Date bD = new Date(bdat.getTime());
-				java.sql.Date edat = rs.getDate("eindDat");
-				java.util.Date eD = new Date(edat.getTime());
-				int autoid = rs.getInt("autoid");
-				String isGeweest = rs.getString("isGeweest");
-				ConnectDBAuto autoconn = new ConnectDBAuto(con);
-				Auto a = autoconn.zoekAuto(autoid);
-				Reservering nieuw = new Reservering(a, id, bD, eD, dP);
-				if(isGeweest.equals("t")){
-					nieuw.setGeweest(true);
-				}
-				terug.add(nieuw);
-			}
-			stmt.close();
-		}
-		catch(Exception ex){
-			System.out.println("Probleem bij reserveringen ophalen" + ex);
-		}
-		return terug;
 	}
 
 	//zoek naar alle reserveringen tussen begindatum en einddatum
@@ -209,5 +176,15 @@ public class ConnectDBReservering{
 			System.out.println("Probleem bij reservering verwijderen " + ex);
 		}
 		return false;
+	}
+	public ArrayList<Reservering> getAankomendeReservering(ArrayList<Auto> autos){
+		ArrayList<Reservering> deReserveringen = new ArrayList<Reservering>();
+		for(Auto a: autos){
+			ArrayList<Reservering> res = zoekReserveringenVanAuto(a.getID());
+			for(Reservering r: res){
+				deReserveringen.add(r);
+			}
+		}
+		return deReserveringen;
 	}
 }

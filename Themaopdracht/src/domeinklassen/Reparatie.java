@@ -12,10 +12,6 @@ public class Reparatie extends Klus {
 		super(dat, b, dA);
 	}
 
-	public Reparatie(String dat, String b, Auto dA) throws Exception{
-		super(dat, b, dA);
-	}
-
 	public double berekenKosten(){
 		double kosten = manuren * 8.50;
 		return kosten;

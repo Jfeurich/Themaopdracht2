@@ -7,7 +7,6 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -23,8 +22,6 @@ public class BTWServlet extends HttpServlet {
 		
 		Connection con = (Connection)req.getSession().getAttribute("verbinding");
 		String knop = req.getParameter("knop");
-		//stuur antwoord bij default terug naar klus.jsp
-		RequestDispatcher rd = req.getRequestDispatcher("btwoverzicht.jsp");
 		
 		if(knop.equals("overzicht")){
 			String bjr = req.getParameter("beginjaar");
@@ -80,6 +77,6 @@ public class BTWServlet extends HttpServlet {
 				}
 			}
 		}	
-		rd.forward(req, resp);
+		req.getRequestDispatcher("btwoverzicht.jsp").forward(req, resp);
 	}
 }

@@ -96,7 +96,7 @@ public class ConnectDBAuto{
 			stmt.close();
 		}
 		catch(Exception ex){
-			System.out.println("Probleem bij ophalen autos van klant" + ex);
+			System.out.println("Probleem bij ophalen autos van klant per ID" + ex);
 		}
 		return terug;
 	}
@@ -122,7 +122,7 @@ public class ConnectDBAuto{
 			stmt.close();
 		}
 		catch(Exception ex){
-			System.out.println("Probleem bij ophalen autos van klant" + ex);
+			System.out.println("Probleem bij ophalen autos van klant-object" + ex);
 		}
 		return terug;
 	}
@@ -154,7 +154,7 @@ public class ConnectDBAuto{
 			stmt.close();
 		}
 		catch(Exception ex){
-			System.out.println("Probleem bij zoeken naar auto" + ex);
+			System.out.println("Probleem bij zoeken naar auto op ID" + ex);
 		}
 		return terug;		
 	}
@@ -187,7 +187,7 @@ public class ConnectDBAuto{
 			stmt.close();
 		}
 		catch(Exception ex){
-			System.out.println("Probleem bij zoeken naar auto" + ex);
+			System.out.println("Probleem bij zoeken naar auto op kenteken" + ex);
 		}
 		return terug;		
 	}
@@ -220,7 +220,7 @@ public class ConnectDBAuto{
 			stmt.close();
 		}
 		catch(Exception ex){
-			System.out.println("Probleem bij zoeken naar auto" + ex);
+			System.out.println("Probleem bij zoeken naar auto op type" + ex);
 		}
 		return terug;		
 	}
@@ -253,12 +253,12 @@ public class ConnectDBAuto{
 			stmt.close();
 		}
 		catch(Exception ex){
-			System.out.println("Probleem bij zoeken naar auto" + ex);
+			System.out.println("Probleem bij zoeken naar auto op merk" + ex);
 		}
 		return terug;		
 	}
 	
-	//zoek auto op id
+	//zoek auto op id (voor aanroep vanuit ConnectDBKlus)
 	public Auto zoekAutoZonderKlussen(int autoid){
 		Auto terug = null;
 		try{
@@ -279,7 +279,7 @@ public class ConnectDBAuto{
 			stmt.close();
 		}
 		catch(Exception ex){
-			System.out.println("Probleem bij zoeken naar auto" + ex);
+			System.out.println("Probleem bij zoeken naar auto zonder klussen" + ex);
 		}
 		return terug;		
 	}
@@ -306,22 +306,6 @@ public class ConnectDBAuto{
 			System.out.println("Probleem bij nieuwe auto maken" + ex);
 		}
 		return terug;
-	}
-
-	//zet alle waardes van auto in database naar waardes van ingevoerd auto-object. met uitzondering van id. 
-	public boolean updateAuto(Auto a){
-		try{
-			String sql = "UPDATE Auto SET kenteken='" + a.getKenteken() + "',  merk='" + a.getMerk() + 
-					"', type='" + a.getType() + "' WHERE autoid = " + a.getID();
-			Statement stmt = con.createStatement();
-			stmt.executeUpdate(sql);	
-			stmt.close();
-			return true;
-		}
-		catch(Exception ex){
-			System.out.println("Probleem bij auto updaten" + ex);
-		}
-		return false;
 	}
 	
 	//zet auto op non-actief

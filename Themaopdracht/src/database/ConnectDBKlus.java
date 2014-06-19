@@ -19,53 +19,7 @@ public class ConnectDBKlus{
 	public ConnectDBKlus(Connection c){
 		con = c;
 	}
-	
-	//alle klussen (onderhoudsbeurten EN reparaties) in het systeem
-	public ArrayList<Klus> getKlussen(){
-		ArrayList<Klus> terug = new ArrayList<Klus>();
-		try{
-			String sql = "SELECT * FROM Klus WHERE actief='t' ORDER BY autoid";
-			Statement stmt = con.createStatement();
-			ResultSet rs = stmt.executeQuery(sql);
-			while (rs.next()) {   // rs.next() geeft false als er niets meer is 
-			    java.sql.Date datum = rs.getDate("datum");
-			    java.util.Date dat = new java.util.Date(datum.getTime());
-				String bes = rs.getString("beschrijving");
-				String type = rs.getString("soort");
-				int id = rs.getInt("klusid");
-				int manuren = rs.getInt("manuren");
-				String status = rs.getString("status");
-				ConnectDBAuto autoconn = new ConnectDBAuto(con);
-				Auto deAuto = autoconn.zoekAutoZonderKlussen(rs.getInt("autoid"));
-				ConnectDBGebruiktProduct gp = new ConnectDBGebruiktProduct(con);
-				ArrayList<GebruiktProduct> deProducten = gp.getProductenVanKlus(id);
-				Onderhoudsbeurt o = null;
-				Reparatie r = null;
-				if(type.equals("onderhoudsbeurt")){
-					o = new Onderhoudsbeurt(dat, bes, deAuto);
-					o.setID(id);
-					o.setGebruikteProducten(deProducten);
-					o.addManuren(manuren);
-					o.setStatus(status);
-					terug.add(o);
-				}
-				else if(type.equals("reparatie")){
-					r = new Reparatie(dat, bes, deAuto);
-					r.setID(id);
-					r.setGebruikteProducten(deProducten);
-					r.addManuren(manuren);
-					r.setStatus(status);
-					terug.add(r);
-				}
-			}
-			stmt.close();
-		}
-		catch(Exception ex){
-			System.out.println("Probleem bij klussen ophalen " + ex);
-		}
-		return terug;
-	}
-	//toegevoegd voor overzicht werkplaatsplanning
+	//toegevoegd voor overzicht werkplaatsplanning (alle klussen in de komende maand)
 	public ArrayList<Klus> getKlussenbydatum(){
 		ArrayList<Klus> terug = new ArrayList<Klus>();
 		try{
@@ -115,7 +69,7 @@ public class ConnectDBKlus{
 		}
 		return terug;
 	}
-	//zoek klussen met status...
+	//zoek klussen tussen 2 data
 	public ArrayList<Klus> getKlussenTussenData(java.util.Date dat1, java.util.Date dat2){
 		ArrayList<Klus> terug = new ArrayList<Klus>();
 		try{

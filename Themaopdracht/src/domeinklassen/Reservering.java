@@ -11,13 +11,6 @@ public class Reservering {
 	private int deParkeerplek;
 	private Auto deAuto;
 	private boolean isGeweest;
-
-	public Reservering(Date bD, Date eD, int dP){
-		beginDat = bD;
-		eindDat = eD;
-		deParkeerplek = dP;
-		isGeweest = false;
-	}
 	
 	public Reservering(Auto a, int i, Date bD, Date eD, int dP){
 		deAuto = a;
@@ -34,14 +27,6 @@ public class Reservering {
 
 	public void setGeweest(boolean isGeweest) {
 		this.isGeweest = isGeweest;
-	}
-
-	public boolean isTussenDatum(Date bD, Date eD){
-		boolean b = false;
-		if((bD.before(beginDat) || bD.equals(beginDat))&& (eD.after(eindDat) || eD.equals(eindDat))){
-			b = true;
-		}
-		return b;
 	}
 
 	public void voegAutoToe(Auto a){
@@ -67,10 +52,6 @@ public class Reservering {
 	}
 	public int getDeParkeerplek(){
 		return deParkeerplek;
-	}
-	public void setData(Date bD, Date eD){
-		beginDat = bD;
-		eindDat = eD;
 	}
 
 	public String toString(){

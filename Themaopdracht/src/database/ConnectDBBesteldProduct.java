@@ -6,6 +6,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 
 import domeinklassen.BesteldProduct;
+import domeinklassen.Bestelling;
 
 public class ConnectDBBesteldProduct{
 	
@@ -15,35 +16,11 @@ public class ConnectDBBesteldProduct{
 		con = c;;
 	}
 	
-	//alle bestelde producten
-	public ArrayList<BesteldProduct> getBesteldeProducten(){
+	//alle producten van een bestelling
+	public void getProductenVanBestelling(Bestelling b){
 		ArrayList<BesteldProduct> terug = new ArrayList<BesteldProduct>();
 		try{
-			String sql = "SELECT * FROM BesteldProduct";
-			Statement stmt = con.createStatement();
-			ResultSet rs = stmt.executeQuery(sql);
-			while (rs.next()) {   // rs.next() geeft false als er niets meer is 
-				int bpid = rs.getInt("besteldproductid");
-				int pid = rs.getInt("productid");
-				int h = rs.getInt("hoeveelheid");
-				BesteldProduct bp = new BesteldProduct(bpid, h);
-				ConnectDBProduct pconn = new ConnectDBProduct(con);
-				bp.setProduct(pconn.zoekProduct(pid));
-				terug.add(bp);
-			}
-			stmt.close();
-		}
-		catch(Exception ex){
-			System.out.println("Probleem bij bestelde producten ophalen " + ex);
-		}
-		return terug;
-	}
-	
-	//alle producten van een bestelling (per bestellingid)
-	public ArrayList<BesteldProduct> getProductenVanBestelling(int bestellingid){
-		ArrayList<BesteldProduct> terug = new ArrayList<BesteldProduct>();
-		try{
-			String sql = "SELECT * FROM BesteldProduct WHERE bestellingid=" + bestellingid;
+			String sql = "SELECT * FROM BesteldProduct WHERE bestellingid=" + b.getBestelNummer();
 			Statement stmt = con.createStatement();
 			ResultSet rs = stmt.executeQuery(sql);
 			while (rs.next()) {   // rs.next() geeft false als er niets meer is 
@@ -60,30 +37,7 @@ public class ConnectDBBesteldProduct{
 		catch(Exception ex){
 			System.out.println("Probleem bij producten van bestelling ophalen " + ex);
 		}
-		return terug;
-	}
-	
-	//get bestellingen met een bepaald product erin (per productid)
-	public ArrayList<BesteldProduct> getBestellingenVanProduct(int pid){
-		ArrayList<BesteldProduct> terug = new ArrayList<BesteldProduct>();
-		try{
-			String sql = "SELECT * FROM BesteldProduct WHERE productid=" + pid;
-			Statement stmt = con.createStatement();
-			ResultSet rs = stmt.executeQuery(sql);
-			while (rs.next()) {   // rs.next() geeft false als er niets meer is 
-				int bpid = rs.getInt("besteldproductid");
-				int h = rs.getInt("hoeveelheid");
-				BesteldProduct bp = new BesteldProduct(bpid, h);
-				ConnectDBProduct pconn = new ConnectDBProduct(con);
-				bp.setProduct(pconn.zoekProduct(pid));
-				terug.add(bp);
-			}
-			stmt.close();
-		}
-		catch(Exception ex){
-			System.out.println("Probleem bij bestellingen per product ophalen " + ex);
-		}
-		return terug;		
+		b.setBesteldeProducten(terug);
 	}
 	
 	//zoek specifiek besteld product
@@ -134,35 +88,5 @@ public class ConnectDBBesteldProduct{
 			System.out.println("Probleem bij nieuw besteldproduct" + ex);
 		}
 		return terug;
-	}
-	
-	//verander hoeveelheid
-	public boolean updateBesteldProduct(BesteldProduct bp){
-		try{
-			String sql = "UPDATE BesteldProduct SET hoeveelheid=" + bp.getHoeveelheid() + " WHERE besteldproductid = " + bp.getID();
-			Statement stmt = con.createStatement();
-			stmt.executeUpdate(sql);	
-			stmt.close();
-			return true;
-		}
-		catch(Exception ex){
-			System.out.println(ex);
-		}
-		return false;
-	}
-	
-	//verwijder besteld product
-	public boolean verwijderBesteldProduct(int bpid){
-		try{
-			String sql = "DELETE FROM BesteldProduct WHERE besteldproductid=" + bpid;
-			Statement stmt = con.createStatement();
-			stmt.executeUpdate(sql);
-			stmt.close();
-			return true;
-		}
-		catch(Exception ex){
-			System.out.println("Probleem bij update besteldproduct" + ex);
-		}
-		return false;
 	}
 }

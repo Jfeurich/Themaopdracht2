@@ -5,6 +5,14 @@ xmlns:web="http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd"
 xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd"
 version="2.4">
 <servlet>
+	<servlet-name>BestellingServlet</servlet-name>
+	<servlet-class>servlets.BestellingServlet</servlet-class>
+</servlet>
+<servlet-mapping>
+	<servlet-name>BestellingServlet</servlet-name>
+	<url-pattern>/BestellingServlet.do</url-pattern>
+</servlet-mapping>
+<servlet>
 	<servlet-name>AutoServlet</servlet-name>
 	<servlet-class>servlets.AutoServlet</servlet-class>
 </servlet>
@@ -223,6 +231,7 @@ version="2.4">
 	<servlet-name>OverzichtWerkplaatsPlanningServlet</servlet-name>
 	<servlet-name>ReserveringAnnulerenServlet</servlet-name>
 	<servlet-name>ReserveringBevestigenServlet</servlet-name>
+	<servlet-name>BestellingServlet</servlet-name>
 </filter-mapping>
 <filter>
 	<filter-name>GeenMonteurFilter</filter-name>
@@ -242,6 +251,7 @@ version="2.4">
 	<servlet-name>OverzichtWerkplaatsPlanningServlet</servlet-name>
 	<servlet-name>ReserveringAnnulerenServlet</servlet-name>
 	<servlet-name>ReserveringBevestigenServlet</servlet-name>
+	<servlet-name>BestellingServlet</servlet-name>
 </filter-mapping>
 <filter>
 	<filter-name>GeenGaragebeheerderFilter</filter-name>
@@ -264,6 +274,7 @@ version="2.4">
 	<servlet-name>NieuweGebruikersaccountServlet</servlet-name>
 	<servlet-name>OverzichtWerkplaatsPlanningServlet</servlet-name>
 	<servlet-name>KlusAnnulerenServlet</servlet-name>
+	<servlet-name>BestellingServlet</servlet-name>
 </filter-mapping>
 <listener>
 	<listener-class>logger.MyServletContextListener</listener-class>

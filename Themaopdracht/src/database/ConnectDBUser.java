@@ -76,35 +76,6 @@ public class ConnectDBUser{
 		return terug;
 	}
 	
-	//zoek naar alle users van een bepaald type (0) administratie, 1) monteur, 2) jopie, en 3) klanten)
-	public ArrayList<User> getUsersVanType(int nummer){
-		ArrayList<User> terug = new ArrayList<User>();
-		try{
-			String sql = "SELECT * FROM User WHERE actief='t' AND type=" + nummer;
-			Statement stmt = con.createStatement();
-			ResultSet rs = stmt.executeQuery(sql);
-			while (rs.next()) {   // rs.next() geeft false als er niets meer is 
-				int id = rs.getInt("userid");
-				String unm = rs.getString("gebruikersnaam");
-				String ww = rs.getString("wachtwoord");
-				String email = rs.getString("email");
-				int klantid = rs.getInt("klantid");
-				User u = new User(id, nummer, unm, ww, email);
-				if(nummer == 3){ //als het de account van een klant is, stel de klant dan in
-					ConnectDBKlant klantconn = new ConnectDBKlant(con);
-					Klant deKlant = klantconn.zoekKlant(klantid);
-					u.setDeKlant(deKlant);
-				}
-				terug.add(u);
-			}
-			stmt.close();
-		}
-		catch(Exception ex){
-			System.out.println("Probleem bij users ophalen per type " + ex);
-		}
-		return terug;
-	}
-	
 	//zoek user op id
 	public User zoekUserVanKlant(Klant k){
 		User terug = null;
@@ -265,7 +236,7 @@ public class ConnectDBUser{
 		return terug;		
 	}
 	
-	//stel nieuw wachtwoord in. 
+	//stel nieuw wachtwoord of emailadres in. 
 	public boolean updateUser(User u){
 		try{
 			String sql = "UPDATE User SET wachtwoord='" + u.getWachtwoord() + "', email='" + u.getEmail() + "' WHERE userid= " + u.getID();

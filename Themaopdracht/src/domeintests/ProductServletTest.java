@@ -35,6 +35,7 @@ public class ProductServletTest {
 	private static double[] prijsPerStuk = new double[21];
 	private static int nummer;
 	private ArrayList<BesteldProduct> besteldeproducten = new ArrayList<BesteldProduct>();
+	private static final double DELTA = 1e-5;
 	
 	public ProductServletTest(int nr){
 		nr = nummer;
@@ -51,10 +52,10 @@ public class ProductServletTest {
 	  
 	  @BeforeClass
 	  	public static void setUpBeforeClass() throws Exception{
-		  String csvPersonen = "/Themaopdracht/Product.csv	";
+		  String csvPersonen = "1;Rolland;Klinkhamer 41;Nieuwkoop;12345678;61234567>2;Steve;GraafFloris;Gouda;IBAN1234567;18212345>3;Julie;1 Nijenoord;Utrecht;98654321;69182736>4;Vonda;Bleuland;Utrecht;45665432;61211167>5;Rolland;Klinkhamer 41;Nieuwkoop;12345678;61234567>zes;dave;lalala 1234;LOL;12712312;123456>7;Sjon;sjonniestraat 1;In The CITY;23459432;!@#$%^&*()_+>8;Henk;blabla 45;kuxh;94279483;987578>9;Jan;Hehehe 456;Stadjuh;asd;3456543>10;Timmy;<(-_-)>;O_o;(-_-);asd>11;;Gaar;Weird;cool12345;987654>12;Martin;Leermos 90;Rotterdam;12356743;nullzeseentwee>13;Rene;&&;Amsterdam;IBAN 7654321;69876543>";
 			String cvsSplitBy = ";";	
 			BufferedReader brp = null;
-			String linep = "";
+			String linep = ">";
 			try {
 				brp = new BufferedReader(new FileReader(csvPersonen));
 				while ((linep = brp.readLine()) != null) {
@@ -117,7 +118,7 @@ public class ProductServletTest {
 				    	assertEquals(b.getIsGeleverd(),false);
 				    	p.setAantal(an);
 				    	assertEquals(p.toString(),"Naam: " + nm + "; Artikelnummer: " + an + "; Minimum aanwezig: " + ma+ "; Eenheid: " + eh + "; Voorraad: " + an);
-				    	assertEquals(gp.getKosten(),an*pps);
+				    	assertEquals(gp.getKosten(),an*pps,DELTA);
 				    	assertEquals(gp.getHetProduct(),p);
 				    	p.voegAantalToe(5);
 				    	assertEquals(p.getAantal(),an+5);

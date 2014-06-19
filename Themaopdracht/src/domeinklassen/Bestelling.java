@@ -5,14 +5,14 @@ import java.util.ArrayList;
 import java.util.Date;
 
 public class Bestelling {
-	private int bestelNummer;
+	private int id;
 	private boolean isGeleverd;
 	private SimpleDateFormat df = new SimpleDateFormat("dd-MM-yyyy");
 	private Date datum;
 	private ArrayList<BesteldProduct> deBesteldeProducten;
 	
 	public Bestelling(int bN){
-		bestelNummer = bN;
+		id = bN;
 		isGeleverd = false;
 		datum = null;
 	}
@@ -21,17 +21,11 @@ public class Bestelling {
 		isGeleverd = false;
 		datum = null;
 	}
-	public Bestelling(int bN, ArrayList<BesteldProduct> deBP) {
-		bestelNummer = bN;
-		deBesteldeProducten = deBP;
-		isGeleverd = false;
-		datum = null;
-	}
 	public int getBestelNummer(){
-		return bestelNummer;
+		return id;
 	}
 	public void setBestelNummer(int nr){
-		bestelNummer = nr;
+		id = nr;
 	}
 	public int getTotaal(){
 		int totaal = 0;
@@ -48,21 +42,27 @@ public class Bestelling {
 	}
 	public void setIsGeleverd(boolean b){
 		isGeleverd = b;
+		if(b){
+			for(BesteldProduct bp : deBesteldeProducten){
+				Product p = bp.getProduct();
+				p.setAantal(p.getAantal() + bp.getHoeveelheid());
+			}
+		}
 	}
 	public boolean getIsGeleverd(){
 		return isGeleverd;
 	}
-	public void setVerwachteDatum(String da) throws Exception{
-		datum = df.parse(da);
-	}	
 	public void setVerwachteDatum(Date da) throws Exception{
 		datum = da;
 	}
 	public Date getVerwachteDatum(){
 		return datum;
 	}
+	public String datum(){
+		return df.format(datum);
+	}
 	public String toString(){
-		String s = "Bestelnummer: " + bestelNummer;
+		String s = "Bestelnummer: " + id;
 		if(isGeleverd == true){
 			s += "; is geleverd";
 		}

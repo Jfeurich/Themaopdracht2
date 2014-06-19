@@ -50,7 +50,7 @@ public class ReserveringAnnulerenServlet extends HttpServlet{
 		}
 		else if(knop.equals("Haal reserveringen op")){
 			User gebruiker = (User) req.getSession().getAttribute("gebruiker");
-			ArrayList<Auto> autosVanKlant = gebruiker.getDeKlant().getAutos();
+			ArrayList<Auto> autosVanKlant = gebruiker.getDeKlant().getDeAutos();
 			ArrayList<Reservering> deReserveringen = new ArrayList<Reservering>();
 			for(Auto a: autosVanKlant){
 				ConnectDBReservering resconn = new ConnectDBReservering(con);

@@ -22,6 +22,7 @@ import domeinklassen.User;
 public class AccountServlet extends HttpServlet{
 	private static final long serialVersionUID = 1L;
 	
+	@SuppressWarnings("unchecked")
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		
 		Connection con = (Connection)req.getSession().getAttribute("verbinding");

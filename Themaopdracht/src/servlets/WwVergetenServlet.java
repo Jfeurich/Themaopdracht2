@@ -43,12 +43,6 @@ public class WwVergetenServlet extends HttpServlet {
 		String email = null;
 		String nieuwWw = null;
 		
-		Properties props = new Properties();
-		props.put("mail.smtp.host", "smtp.gmail.com");
-		props.put("mail.smtp.port", 465);
-		props.put("mail.smtp.ssl.enable", true);
-		Session mailSession = Session.getInstance(props);
-		
 		if(knopje != null){
 			//check of het veld is ingevuld
 			if(!username.equals("")){
@@ -81,7 +75,12 @@ public class WwVergetenServlet extends HttpServlet {
 		
 		//Email verzenden met het nieuwe wachtwoord
 		if(mailverzenden == true){
-			try{
+			try{		
+				Properties props = new Properties();
+				props.put("mail.smtp.host", "smtp.gmail.com");
+				props.put("mail.smtp.port", 465);
+				props.put("mail.smtp.ssl.enable", true);
+				Session mailSession = Session.getInstance(props);
 				MimeMessage msg = new MimeMessage(mailSession);
 				msg.setFrom(new InternetAddress("testvoorwebapps@gmail.com", "Test"));
 				msg.setRecipients(Message.RecipientType.TO, email);

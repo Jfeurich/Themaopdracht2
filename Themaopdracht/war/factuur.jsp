@@ -7,11 +7,11 @@
 		<%@ page import="domeinklassen.Factuur,java.util.ArrayList" %>
 		<div>
 			<h2><span>Overzicht Onbetaalde Facturen</span></h2>
-			<input type="submit" name="knop" value="overzicht" />
+			<input type="submit" name="knop" value="Naar overzicht" />
 		</div>
 		<div>
 			<h2><span>Nieuwe factuur aanmaken</span></h2>
-			<input type="submit" name="knop" value="Kies" />
+			<input type="submit" name="knop" value="Nieuwe factuur" />
 		</div>
 	</form>
 <%@ include file="footer.html" %>

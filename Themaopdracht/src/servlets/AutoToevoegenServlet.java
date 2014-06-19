@@ -42,7 +42,7 @@ public class AutoToevoegenServlet extends HttpServlet{
 				int klantid = Integer.parseInt(klantnr);
 				Klant deKlant = klantcon.zoekKlant(klantid);
 				boolean magToevoegen = true;
-				for(Auto a : deKlant.getAutos()){	//check of deze klant al een auto met dit kenteken heeft
+				for(Auto a : deKlant.getDeAutos()){	//check of deze klant al een auto met dit kenteken heeft
 					if(ken.equals(a.getKenteken())){
 						magToevoegen = false;
 						break;

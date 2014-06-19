@@ -20,7 +20,7 @@ if(o == null && factuurid == null){
 		<input type="radio" name="betaalmiddel" value="giro" checked="checked" >Giro</>
 		<input type="radio" name="betaalmiddel" value="pin">Pin</>
 		<input type="radio" name="betaalmiddel" value="contant">Contant</>
-		<input type="submit" name="knop" value="betaal" /></p>
+		<input type="submit" name="knop" value="Bevestig betaling" /></p>
 		<%
 	}
 	else{
@@ -50,7 +50,8 @@ if(o == null && factuurid == null){
 				</tr>
 		<%}%>
 		</table>
-		<p><input type="submit" name="knop" value="zoek" /></p>
+		<p><input type="submit" name="knop" value="Factuur betalen" /></p>
+		<p><input type="submit" name="knop" value="Reminder sturen" /></p>
 		<%
 	}
 	%>

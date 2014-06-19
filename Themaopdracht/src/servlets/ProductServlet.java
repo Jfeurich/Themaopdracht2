@@ -106,20 +106,15 @@ public class ProductServlet extends HttpServlet{
 				}
 				else{
 					int nummer = Integer.parseInt(anr);
-					Product p = conn.zoekProduct(nummer);
-					//wijzig antwoord naar gevonden en geef product mee
-					req.setAttribute("zoekmsg", "Product gevonden!");		
-					req.setAttribute("productgevonden", p);	
+					terug.add(conn.zoekProduct(nummer));
 				}
 			}
 			if(!nm.equals("")){
-				//wijzig antwoord naar gevonden en geef product(en) mee
 				for(Product p : conn.zoekProductNaam(nm)){
 					terug.add(p);
 				}
 			}	
 			if(!eh.equals("")){
-				//wijzig antwoord naar gevonden en geef product(en) mee
 				for(Product p : conn.zoekProductEenheid(eh)){
 					terug.add(p);
 				}

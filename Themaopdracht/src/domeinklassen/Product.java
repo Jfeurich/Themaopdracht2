@@ -8,15 +8,7 @@ public class Product{
 	private int aantal;
 	private double prijsPerStuk;
 	private boolean actief = true;
-
-	public Product(String nm, int aNr, int mA, String ee){
-		naam = nm;
-		artikelNr = aNr;
-		minimumAanwezig = mA;
-		eenheid = ee;
-		aantal = 0;
-		prijsPerStuk = 0.0;
-	}
+	
 	public Product(String nm, int aNr, int mA, String ee, double pPS){
 		naam = nm;
 		artikelNr = aNr;
