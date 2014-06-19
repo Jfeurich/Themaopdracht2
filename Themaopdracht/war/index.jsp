@@ -12,18 +12,19 @@
 	SimpleDateFormat df = new SimpleDateFormat("dd-MM-yyyy");
 	User u = (User) request.getSession().getAttribute("gebruiker");
 	if(u.getType() == 3){
+	Klant deKlant = u.getDeKlant();
 	%>
 		<h2>Mijn herinneringen</h2>
 		<div>
 			Uw laatste bezoek was: <br />
-			<%= u.getDeKlant().getLaatsteBezoek() %> <br />
+			<%= deKlant.getLaatsteBezoek() %> <br />
 			<% String s; 
-			if(u.getDeKlant().isRegelmatig() == true){ 
-			s = " wel ";}else{s = " geen ";}%>
+			if(deKlant.isRegelmatig() == true){ 
+			s = " een ";}else{s = " geen ";}%>
 			U bent <%= s %> regelmatige klant. <br />
 			De volgende auto's hebben onderhoud nodig: <br />
 			<%
-			ArrayList<Auto> autosOnderhoudNodig = u.getDeKlant().onderhoudNodig();
+			ArrayList<Auto> autosOnderhoudNodig = deKlant.onderhoudNodig();
 			if(autosOnderhoudNodig.size() == 0){
 				%>Geen van uw auto's hebben onderhoud nodig<%
 			}
@@ -55,7 +56,7 @@
 		</div>
 		<h2><span>Mijn auto's</span></h2>
 		<%
-		if(u.getDeKlant().getAutos().size() == 0){
+		if(deKlant.getDeAutos().size() == 0){
 		%>
 			U heeft nog geen auto's in het systeem staan, voeg deze toe door <a href="autotoevoegen.jsp">hier</a> te klikken.
 		<%
@@ -74,7 +75,7 @@
 				</tr>
 				<%
 				boolean eersteauto=true;
-				for(Auto a : u.getDeKlant().getAutos()){
+				for(Auto a : deKlant.getDeAutos()){
 				%>
 					<tr>
 						<td><input type="radio" name="gekozenauto" <%if(eersteauto){eersteauto=false;%>checked="checked" <%} %>value="<%=a.getID()%>" /></td>
@@ -93,7 +94,7 @@
 		<h2>Mijn klussen</h2>
 		<div>
 		<%
-		ArrayList<Klus> aankomendeKlussen = u.getDeKlant().getAankomendeKlussen();
+		ArrayList<Klus> aankomendeKlussen = deKlant.getAankomendeKlussen();
 		if(aankomendeKlussen.size() == 0){
 		%>
 			U heeft geen aankomende klussen
@@ -173,7 +174,7 @@
 		<%
 		Connection con = (Connection)session.getAttribute("verbinding");
 		ConnectDBReservering rescon = new ConnectDBReservering(con);
-		ArrayList<Reservering> deReserveringen = rescon.getAankomendeReservering(u.getDeKlant().getAutos());	
+		ArrayList<Reservering> deReserveringen = rescon.getAankomendeReservering(deKlant.getDeAutos());	
 		if(deReserveringen.size() == 0){
 			%>
 			<p>U heeft geen reserveringen voor de parkeerplaats.</p>
