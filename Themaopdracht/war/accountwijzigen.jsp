@@ -10,8 +10,8 @@ if(gebruiker.getType() != 0){
 </jsp:include> 
 	<%@ page import="java.util.ArrayList,domeinklassen.Klant,database.ConnectDBUser,java.sql.Connection" %>
 	<h1><span>Gegevens van een gebruikersaccount wijzigen</span></h1>
+	<%@ include file="messages.jsp" %> 
 	<form action="AccountServlet.do" method="post" >
-		<%@ include file="messages.jsp" %> 
 		<% 
 		Object o = request.getSession().getAttribute("wijzig"); 
 		if(o == null){
@@ -42,7 +42,7 @@ if(gebruiker.getType() != 0){
 				<%}%>
 			</table>
 			<%
-			if(nonactievegebruikers.size() > 0){	
+			if(nonactievegebruikers.size() != 0){	
 			%>	
 			<h3><span>Non-actieve gebruikers:</span></h3>
 			<table>
@@ -56,8 +56,7 @@ if(gebruiker.getType() != 0){
 					<tr>
 						<td><input type="radio" onclick="setNonActief()" name="kiesgebruiker" value="<%=u.getID()%>" /></td>
 						<td><%=u.getGebruikersnaam()%></td>
-						<td><%=u.getEmail()%></td>
-						
+						<td><%=u.getEmail()%></td>			
 					</tr>
 				<%}%>
 			</table>
@@ -120,14 +119,14 @@ if(gebruiker.getType() != 0){
 						<%}
 						if(request.getAttribute("deactiveren") != null){%>
 							<tr>
-								<th>Account deactiveren?</th>
+								<th>Account deactiveren</th>
 								<td><input type="checkbox" name="deactivate" /></td>
 							</tr>
 						<%}
 						else{
 						%>
 							<tr>
-								<th>Account activeren?</th>
+								<th>Account activeren</th>
 								<td><input type="checkbox" name="activate" /></td>
 							</tr>
 						<%}%>

@@ -2,7 +2,7 @@
 	<jsp:param name="titel" value="Nieuwe gebruikersaccount" /> 
 </jsp:include> 
 	<%@ page import="domeinklassen.User,domeinklassen.Klant" %>
-	<h1><span>17: Nieuwe Gebruikersaccount</span></h1>
+	<h1><span>Nieuwe gebruikersaccount aanmaken</span></h1>
 	<%@ include file="messages.jsp" %> 
 	<form action="NieuweGebruikersaccountServlet.do" method="post">
 		<table>
@@ -16,8 +16,8 @@
 				<th>Bevestig wachtwoord</th><td>
 				<input type="password" name="password2" /></td></tr>
 			<tr>
-				<th>Type</th><td>
-				<input type="radio" name="type" value="0" />Administratie<input type="radio" name="type" value="1" />Monteur<input type="radio" name="type" value="2" />Parkeergaragebeheerder<input type="radio" name="type" value="3" />Klant</td></tr>
+				<th>Type</th><td>Administratie<input type="radio" name="type" value="0" />Monteur<input type="radio" name="type" value="1" />
+				Parkeergaragebeheerder<input type="radio" name="type" value="2" />Klant<input type="radio" name="type" value="3" /></td></tr>
 			<tr>
 				<th>Emailadres</th><td>
 				<input type="text" name="email" value="${param.email}" /></td></tr>

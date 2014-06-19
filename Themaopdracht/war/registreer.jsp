@@ -1,9 +1,10 @@
 <jsp:include page="header.jsp" > 
 	<jsp:param name="titel" value="Registreren" /> 
 </jsp:include> 
+	<h1><span>Welkom bij ATB!</span></h1>
+	<h2><span>Maak hier uw gebruikersaccount aan</span></h2>
+	<%@ include file="messages.jsp" %> 
 	<form action="RegistreerServlet.do" method="post"> 
-		<h1>7: Registreer</h1>
-		<%@ include file="messages.jsp" %> 
 		<table>
 			<tr>
 				<th>Gebruikersnaam</th>

@@ -8,17 +8,16 @@ if(gekozen == null){
 <jsp:include page="header.jsp" > 
 	<jsp:param name="titel" value="Aritkel toevoegen aan klus" /> 
 </jsp:include> 
+	<%@ page import="java.util.ArrayList,domeinklassen.Klus,domeinklassen.Onderhoudsbeurt,domeinklassen.Reparatie,domeinklassen.Product" %>
+	<h1><span>Kies de gewenste artikel(en) en klik op "VoegToe"</span></h1>
+	<%@ include file="messages.jsp" %>
 	<form action="KlusWijzigenServlet.do" method="post">
-		<%@ page import="java.util.ArrayList,domeinklassen.Klus,domeinklassen.Onderhoudsbeurt,domeinklassen.Reparatie,domeinklassen.Product" %>
-		<h1><span>Kies de gewenste artikel(en) en klik op "VoegToe"</span></h1>
-		<%@ include file="messages.jsp" %>
-		<h2><span>Wijzig de klus</span></h2>
 		<%
 		Object o = request.getAttribute("voorraadlijst");
 		if(o == null){
 			%>
 			<h3><span>Error!</span></h3>
-			<p class="error" >Er is geen voorraad ingevoerd!</p>
+			<p class="error">Er is geen voorraad ingevoerd!</p>
 			<%
 		}
 		else{
@@ -39,15 +38,17 @@ if(gekozen == null){
 			for(Product p : voorraadlijst){
 				%>
 				<tr>
-					<td><input type="checkbox" name="product" value="<%=p.getArtikelNr()%>" /></td>
+					<td>
+						<input type="checkbox" name="product" value="<%=p.getArtikelNr()%>" />
+						<input type="hidden" name="voorraad" value="<%=p.getAantal()%>" />
+						<input type="hidden" name="alleProducten" value="<%=p.getArtikelNr()%>" />
+					</td>
 					<td><%=p.getArtikelNr()%></td>
 					<td><%=p.getNaam()%></td>
 					<td><%=p.getAantal()%></td>
 					<td><%=p.getEenheid()%></td>
 					<td><input type="text" name="aantal"  /></td>
 				</tr>
-				<input type="hidden" name="alleProducten" value="<%=p.getArtikelNr()%>" />
-				<input type="hidden" name="voorraad" value="<%=p.getAantal()%>" />
 				<%
 			}
 			%>

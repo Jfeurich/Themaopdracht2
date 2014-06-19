@@ -1,18 +1,18 @@
 <jsp:include page="header.jsp" > 
 	<jsp:param name="titel" value="Overzicht werkplaats" /> 
 </jsp:include> 
-<%@include file="datepicker.jsp" %>
-<%@ page import="java.util.ArrayList,domeinklassen.Klus,domeinklassen.Reparatie,domeinklassen.Onderhoudsbeurt,domeinklassen.Auto" %>
+	<%@include file="datepicker.jsp" %>
+	<%@ page import="java.util.ArrayList,domeinklassen.Klus,domeinklassen.Reparatie,domeinklassen.Onderhoudsbeurt,domeinklassen.Auto" %>
+	<h1><span>Overzicht werkplaats</span></h1>
 	<form action="OverzichtWerkplaatsPlanningServlet.do" method="post">
-		<h1><span>Overzicht werkplaats</span></h1>
 		<%@ include file="messages.jsp" %>
 		<%	
 		Object o = request.getAttribute("gevondenklussen");
 		if(o == null){
 			%>
-			<h2><span>Zoek klussen gepland voor de komende maand</span></h2>
+			<h2><span>Toon klussen gepland voor de komende maand</span></h2>
 			<p><input type="submit" name="knop" value="Komende maand" /></p>
-			<h2><span>Zoek klussen gepland tussen de ingevoerde data</span></h2>
+			<h2><span>Toon klussen gepland tussen de ingevoerde data</span></h2>
 			<p>Na datum:<input type="text" name="nadatum" class="datepicker" id="bdat"/> en voor datum:<input type="text" name="voordatum" class="datepicker" id="edat"/></p>
 			<p><input type="submit" name="knop" value="Zoek" /></p>
 			<%
@@ -24,7 +24,7 @@
 			Object tekst = request.getAttribute("gezochtop");
 			if(tekst != null){
 				%>
-				<h3><span>Tussen data</span></h3>
+				<h4><span>Tussen data</span></h4>
 				<p><%=(String)tekst%></p>
 				<%
 			}

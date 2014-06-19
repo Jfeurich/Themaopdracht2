@@ -2,12 +2,12 @@
 	<jsp:param name="titel" value="Overzicht bestellingen" /> 
 </jsp:include> 
 <%@include file="datepicker.jsp" %>
+<%@ page import="domeinklassen.Product,java.util.ArrayList,domeinklassen.Bestelling,domeinklassen.BesteldProduct,java.sql.Connection,database.ConnectDBBestelling" %>
 	<h1><span>Overzicht bestellingen</span></h1>
 	<%@ include file="messages.jsp" %>
 	<form action="BestellingServlet.do" method="post">
-		<%@ page import="domeinklassen.Product,java.util.ArrayList,domeinklassen.Bestelling,domeinklassen.BesteldProduct,java.sql.Connection,database.ConnectDBBestelling" %>
 		<div>
-			<h2><span>Zoek bestelling</span></h2>
+			<h2><span>Zoek een bestelling</span></h2>
 			<%
 			Object zoekmsg = request.getAttribute("zoekmsg");
 			if(zoekmsg != null){
@@ -16,7 +16,7 @@
 			Object arraygevonden = request.getAttribute("arraygevonden");
 			if(arraygevonden != null){
 				%>
-				<h3>Selecteer een niet-geleverde bestelling om deze als geleverd te markeren</h3>
+				<h3>Selecteer een niet-geleverde bestelling om deze in te boeken</h3>
 				<table>
 					<tr>
 						<th>X</th>
@@ -92,7 +92,7 @@
 			if(nietgeleverd.size() != 0){
 				%>
 				<h2><span>Niet-geleverde bestellingen</span></h2>
-				<h3>Selecteer een niet-geleverde bestelling om deze als geleverd te markeren</h3>
+				<h3>Selecteer een bestelling om deze in te boeken</h3>
 				<table>
 					<tr>
 						<th>X</th>

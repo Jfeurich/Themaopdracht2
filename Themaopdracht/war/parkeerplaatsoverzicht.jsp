@@ -1,8 +1,8 @@
 <jsp:include page="header.jsp" > 
 	<jsp:param name="titel" value="Overzicht parkeerplaats" /> 
 </jsp:include> 
-<%@include file="datepicker.jsp" %>
-	<%@ page import="java.util.ArrayList,domeinklassen.Klant,domeinklassen.Auto,domeinklassen.User,java.text.SimpleDateFormat, domeinklassen.Reservering, java.text.DateFormat, java.text.SimpleDateFormat" %>	
+	<%@include file="datepicker.jsp" %>
+	<%@ page import="java.util.ArrayList,java.sql.Connection,database.ConnectDBKlant,domeinklassen.Klant,domeinklassen.Auto,domeinklassen.User,java.text.SimpleDateFormat, domeinklassen.Reservering, java.text.DateFormat, java.text.SimpleDateFormat" %>	
 		<%
 		if(request.getSession().getAttribute("parkeerplek") != null && request.getSession().getAttribute("beginDat") != null && request.getSession().getAttribute("eindDat") != null){
 		%>
@@ -20,8 +20,8 @@
 				<p>Parkeerplek: <%=request.getSession().getAttribute("parkeerplek")%><p/>
 				<p>Van: <%=df.format(request.getSession().getAttribute("beginDat"))%></p>
 				<p>Tot: <%=df.format(request.getSession().getAttribute("eindDat"))%></p>
-				<input type="hidden" name="deAuto" value="<%=deAuto.getID()%>" />
-				<input type="submit" name="knop" value="maakReservering" />
+				<p><input type="hidden" name="deAuto" value="<%=deAuto.getID()%>" />
+				<input type="submit" name="knop" value="maakReservering" /></p>
 				<%
 			}
 			else{
@@ -38,7 +38,7 @@
 				}
 				if(autos != null){
 					%>
-					<h2><span>Selecteer de auto waar de reservering voor wordt gemaakt</span></h2>
+					<h2><span>Selecteer de auto waar u een plek voor wilt reserveren</span></h2>
 					<table>
 					<tr>
 						<th>Kies</th>
@@ -53,7 +53,7 @@
 						%>
 						<tr>
 							<td><input type="radio" name="gekozenauto" 
-							<%if(eerste){out.println("checked=checked ");eerste=false;}%>
+							<%if(eerste){%> checked="checked" <%eerste=false;}%>
 							value="<%=a.getID()%>" /></td>
 							<td><%=a.getKenteken()%></td>
 							<td><%=a.getMerk()%></td>
@@ -66,43 +66,35 @@
 					<%
 				}
 				else{
-					ArrayList<Klant> klanten = (ArrayList<Klant>)request.getAttribute("klanten");
-					if(klanten != null){	
+					Connection con = (Connection)session.getAttribute("verbinding");
+					ConnectDBKlant kcon = new ConnectDBKlant(con);
+					ArrayList<Klant> klanten = kcon.getKlanten();	
+					%>
+					<h2><span>Haal de auto's op van de geselecteerde klant</span></h2>
+					<table>
+					<tr>
+						<th>X</th>
+						<th>Klantnummer</th>
+						<th>Naam</th>
+					</tr>
+					<%
+					boolean eersteklant=true;
+					for(Klant k : klanten){
 						%>
-						<h2><span>Haal de autos op van de geselecteerde klant</span></h2>
-						<table>
 						<tr>
-							<td>Kies</td>
-							<td>Naam</td>
-							<td>Adres</td>
-							<td>Woonplaats</td>
+							<td><input type="radio" name="gekozenklant"
+							<%if(eersteklant){%> checked="checked"  <% eersteklant=false;} %>
+							value="<%=k.getKlantnummer()%>" /></td>
+							<td><%=k.getKlantnummer()%></td>
+							<td><%=k.getNaam()%></td>
 						</tr>
 						<%
-						boolean eerste=true;
-						for(Klant k : klanten){
-							%>
-							<tr>
-								<td><input type="radio" name="gekozenklant" 
-								<%if(eerste){out.println("checked=checked ");eerste=false;}%>
-								value="<%=k.getKlantnummer()%>" /></td>
-								<td><%=k.getNaam()%></td>
-								<td><%=k.getAdres()%></td>
-								<td><%=k.getPlaats()%></td>
-							</tr>
-						<%}%>
-						</table>
-						<p><input type="submit" name="knop" value="autos" /></p>
-						<%
 					}
-					else{
-						%>
-						<h2><span>Haal eerst gegevens van de klanten op</span></h2>
-						<p><input type="submit" name="knop" value="klanten" /></p>
-						<%
-					}
-				}
-			}
-			%>
+					%>
+					</table>
+					<p><input type="submit" name="knop" value="autos" /></p>
+			<%}
+		}%>
 	</form>
 	<%
 	}

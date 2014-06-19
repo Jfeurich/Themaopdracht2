@@ -9,10 +9,10 @@ if(request.getAttribute("stap1") == null && o == null){
 	<jsp:param name="titel" value="Nieuwe klus" /> 
 </jsp:include> 
 <%@include file="datepicker.jsp" %>
+	<%@ page import="java.util.ArrayList,domeinklassen.Klant,domeinklassen.Auto" %>
+	<h1><span>Nieuwe klus aanmaken</span></h1>
+	<%@ include file="messages.jsp" %>
 	<form action="NieuweKlusServlet.do" method="post">
-		<%@ page import="java.util.ArrayList,domeinklassen.Klant,domeinklassen.Auto" %>
-		<h1><span>28: Nieuwe klus aanmaken</span></h1>
-		<%@ include file="messages.jsp" %>
 		<%
 		Object gekozen = request.getAttribute("deAuto");
 		if(gekozen == null){
@@ -82,14 +82,14 @@ if(request.getAttribute("stap1") == null && o == null){
 			<table>
 				<tr>
 					<th>Reparatie</th>
-					<th>Onderhoudsbeurt</th>
+					<td><input type="radio" name="type" checked="checked" value="reparatie" /></td>
 				</tr>
 				<tr>
-					<td><input type="radio" name="type" checked="checked" value="reparatie" /></td>
+					<th>Onderhoudsbeurt</th>
 					<td><input type="radio" name="type" value="onderhoudsbeurt" /></td>
 				</tr>
 				<tr>
-					<th>Datum: </th>
+					<th>Datum</th>
 					<td><input type="text" name="datum" class="datepicker" id="dat"/></td>
 				</tr>
 				</table>

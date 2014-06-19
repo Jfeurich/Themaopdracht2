@@ -1,16 +1,16 @@
 <jsp:include page="header.jsp" > 
 	<jsp:param name="titel" value="Reservering Annuleren" /> 
 </jsp:include> 
-	<form action="ReserveringAnnulerenServlet.do" method="post"> 
 	<%@ page import="java.util.ArrayList,domeinklassen.Reservering, domeinklassen.Auto, domeinklassen.Klant, domeinklassen.User" %>
-		<h1>Een Reservering Annuleren</h1>
-		<%@ include file="messages.jsp" %>
+	<h1><span>Een Reservering Annuleren</span></h1>
+	<%@ include file="messages.jsp" %>
+	<form action="ReserveringAnnulerenServlet.do" method="post"> 
 		<%	
 		Object o = request.getAttribute("reservering");
 		if(o != null){
 			Reservering r = (Reservering) o;
 		%>
-			<h2>Bevestig annuleren van de reservering</h2>
+			<h2><span>Bevestig annuleren van de reservering</span></h2>
 			<div>
 				<table>
 					<tr>

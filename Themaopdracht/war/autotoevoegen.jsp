@@ -1,10 +1,10 @@
 <jsp:include page="header.jsp" > 
 	<jsp:param name="titel" value="Auto toevoegen" /> 
 </jsp:include> 
-	<form action="AutoToevoegenServlet.do" method="post">
 	<%@ page import="java.util.ArrayList,domeinklassen.Klant,domeinklassen.User,java.sql.Connection,database.ConnectDBKlant" %>
-		<h1><span>8: Auto toevoegen</span></h1>
-		<%@ include file="messages.jsp" %>
+	<h1><span>Een nieuwe auto toevoegen</span></h1>
+	<%@ include file="messages.jsp" %>
+	<form action="AutoToevoegenServlet.do" method="post">
 		<% 	
 		User u = (User)session.getAttribute("gebruiker");
 		Object klant = request.getAttribute("deKlant");
@@ -13,7 +13,7 @@
 		}
 		if(klant != null){
 			%>
-			<h2><span>Voer de gegevens van de auto in</span></h2>
+			<h2><span>Voer de gegevens van de auto in en klik op "VoegAutoToe"</span></h2>
 			<table>
 				<tr>
 					<th>Kenteken</th>
@@ -35,7 +35,7 @@
 			ConnectDBKlant kcon = new ConnectDBKlant(con);
 			ArrayList<Klant> klanten = kcon.getKlanten();	
 			%>
-			<h2><span>Kies klant</span></h2>
+			<h2><span>Kies de eigenaar van de auto</span></h2>
 			<table>
 			<tr>
 				<th>X</th>

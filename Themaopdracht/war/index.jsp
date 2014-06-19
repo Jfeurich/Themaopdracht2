@@ -1,13 +1,11 @@
 <jsp:include page="header.jsp" > 
 	<jsp:param name="titel" value="Homepage" /> 
 </jsp:include> 
+	<%@ page import="domeinklassen.Reservering, domeinklassen.User, domeinklassen.Auto, domeinklassen.Klant, 
+	domeinklassen.Klus, domeinklassen.GebruiktProduct, domeinklassen.Product, domeinklassen.Reparatie, 
+	java.text.SimpleDateFormat, java.util.ArrayList, database.ConnectDBReservering, java.sql.Connection" %>
 	<h1><span>Homepage</span></h1>
-	<div>
-		<%@ page import="domeinklassen.Reservering, domeinklassen.User, domeinklassen.Auto, domeinklassen.Klant, 
-		domeinklassen.Klus, domeinklassen.GebruiktProduct, domeinklassen.Product, domeinklassen.Reparatie, 
-		java.text.SimpleDateFormat, java.util.ArrayList, database.ConnectDBReservering, java.sql.Connection" %>
-		<%@ include file="messages.jsp" %>
-	</div>
+	<%@ include file="messages.jsp" %>
 	<%
 	SimpleDateFormat df = new SimpleDateFormat("dd-MM-yyyy");
 	User u = (User) request.getSession().getAttribute("gebruiker");

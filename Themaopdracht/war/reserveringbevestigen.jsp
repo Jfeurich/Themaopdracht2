@@ -1,15 +1,15 @@
 <jsp:include page="header.jsp" > 
 	<jsp:param name="titel" value="Reservering bevestigen" /> 
 </jsp:include> 
-	<form action="ReserveringBevestigenServlet.do" method="get"> 
 	<%@ page import="java.util.ArrayList,domeinklassen.Reservering" %>
-		<h1>Een Parkeer Reservering Bevestigen</h1>
-		<%@ include file="messages.jsp" %>
+	<h1><span>Een Parkeer Reservering Bevestigen</span></h1>
+	<%@ include file="messages.jsp" %>
+	<form action="ReserveringBevestigenServlet.do" method="get"> 
 		<%			
 		Object o = request.getAttribute("reserveringen");
 		if(o == null){
 			%>
-			<h2>Zoek een reservering via auto ID</h2>
+			<h2><span>Zoek een reservering via auto ID</span></h2>
 			<p><input type="text" name="zoekviaID" /></p>
 			<p><input type="submit" value="zoek" name="knop"></input></p>
 			<%

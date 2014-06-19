@@ -1,10 +1,10 @@
 <jsp:include page="header.jsp" > 
 	<jsp:param name="titel" value="Mijn Account" /> 
 </jsp:include> 
-<%@ page import="domeinklassen.User, domeinklassen.Klant" %>
+	<%@ page import="domeinklassen.User, domeinklassen.Klant" %>
 	<h1><span>Overzicht van uw gebruikersaccount</span></h1>
+	<%@ include file="messages.jsp" %> 
 	<form action="AccountServlet.do" method="post"> 
-		<%@ include file="messages.jsp" %> 
 		<% User u = (User)session.getAttribute("gebruiker"); 
 		if(request.getAttribute("controle") != null){
 			%>
@@ -19,6 +19,7 @@
 			<table>
 				<tr>
 					<th>Gebruikersnaam: <%=u.getGebruikersnaam()%></th>
+					<td class="hoofdcel"></td>
 				</tr>
 				<tr>
 					<th>Email: <%=u.getEmail()%></th>

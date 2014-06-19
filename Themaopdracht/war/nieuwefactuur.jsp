@@ -10,10 +10,10 @@ if(request.getAttribute("stap1") == null){
 <jsp:include page="header.jsp" > 
 	<jsp:param name="titel" value="Nieuwe factuur" /> 
 </jsp:include> 
+	<%@ page import="java.util.ArrayList,domeinklassen.Klant,domeinklassen.Auto,domeinklassen.Klus,domeinklassen.Factuur" %>
+	<h1><span>Nieuwe Factuur aanmaken</span></h1>
+	<%@ include file="messages.jsp" %>
 	<form action="NieuweFactuurServlet.do" method="post">
-		<%@ page import="java.util.ArrayList,domeinklassen.Klant,domeinklassen.Auto,domeinklassen.Klus,domeinklassen.Factuur" %>
-		<h1><span>6: Nieuwe Factuur aanmaken</span></h1>
-		<%@ include file="messages.jsp" %>
 		<%
 		Object fact = request.getAttribute("deFactuur");
 		if (fact != null){
@@ -26,10 +26,10 @@ if(request.getAttribute("stap1") == null){
 			<p>Klant: <%=kl.getNaam()%></p>
 			<p>Auto: <%=a.getMerk()%></p>
 			<p>Klus: <%=k.getBeschrijving()%></p>
-			<h2>Voer kortingspercentage in</h2>
-			<input type="text" name="korting" />
-			<input type="hidden" name="factuurvoorkorting" value="<%=deFactuur.getID()%>" />
-			<input type="submit" name="knop" value="bevestig" />
+			<h4><span>Voer kortingspercentage in</span></h4>
+			<p><input type="text" name="korting" /></p>
+			<p><input type="hidden" name="factuurvoorkorting" value="<%=deFactuur.getID()%>" />
+			<input type="submit" name="knop" value="bevestig" /></p>
 			<%
 		}
 		else{
@@ -120,9 +120,7 @@ if(request.getAttribute("stap1") == null){
 				<%}%>
 				</table>
 				<p><input type="submit" name="knop" value="nieuw" /></p>
-				<%					
-			}	
-		}
-		%>
+			<%}	
+		}%>
 	</form>
 <%@ include file="footer.html" %>

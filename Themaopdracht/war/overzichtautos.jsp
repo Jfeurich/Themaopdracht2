@@ -1,18 +1,19 @@
 <jsp:include page="header.jsp" > 
 	<jsp:param name="titel" value="Overzicht Auto's" /> 
 </jsp:include> 
+	<%@ page import="java.util.ArrayList,java.sql.Connection,database.ConnectDBAuto,domeinklassen.Auto,domeinklassen.Klant" %>
+	<h1><span>Overzicht auto's</span></h1>
+	<h2><span>Selecteer een auto om deze te (de)activeren</span></h2>
+	<%@ include file="messages.jsp" %>
 	<form action="AutoServlet.do" method="post">
-		<%@ page import="java.util.ArrayList,java.sql.Connection,database.ConnectDBAuto,domeinklassen.Auto,domeinklassen.Klant" %>
-		<h1><span>Overzicht auto's</span></h1>
-		<%@ include file="messages.jsp" %>
 		<%
 		Connection con = (Connection)session.getAttribute("verbinding");
 		ConnectDBAuto acon = new ConnectDBAuto(con);	
 		ArrayList<Auto> autos = acon.getAutos();
 		ArrayList<Auto> nonactief = acon.getAutosNietActief();
-		if(autos.size() > 0){
+		if(autos.size() != 0){
 			%>
-			<h2><span>Auto's</span></h2>
+			<h4><span>Auto's</span></h4>
 			<table>
 			<tr>
 				<th>X</th>
@@ -36,14 +37,14 @@
 				</tr>
 			<%}%>
 			</table>
-			<p><input type="hidden" name="actief" id="actief" value="ja" />	</p>
+			<p><input type="hidden" name="actief" id="actief" value="ja" /></p>
 		<%
 		}else{%>
-			<p><input type="hidden" name="actief" id="actief" value="nee" />	</p>
+			<p><input type="hidden" name="actief" id="actief" value="nee" /></p>
 		<%}
-		if(nonactief.size() > 0){	
+		if(nonactief.size() != 0){	
 		%>	
-		<h3><span>Non-actieve auto's:</span></h3>
+		<h4><span>Non-actieve auto's:</span></h4>
 		<table>
 		<tr>
 			<th>X</th>

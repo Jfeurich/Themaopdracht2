@@ -2,28 +2,28 @@
 	<jsp:param name="titel" value="Overzicht BTW" /> 
 </jsp:include> 
 	<%@ page import="java.util.ArrayList,domeinklassen.Factuur,domeinklassen.Klus,domeinklassen.Auto,domeinklassen.Klant" %>
+	<h1><span>Overzicht BTW</span></h1>
+	<%@ include file="messages.jsp" %>
 	<form action="BTWServlet.do" method="post">
-		<h1><span>22: Overzicht BTW</span></h1>
-		<%@ include file="messages.jsp" %>
 		<h2><span>Geef aan voor welke kwartalen u een overzicht wilt</span></h2>
-		<h4><span>Begindatum</span></h4>
-		<p class="kop" >Jaar: <input type="text" name="beginjaar" /></p>
+		<h4><span>Van:</span></h4>
 		<table>
 			<tr>
-				<td><input type="radio" name="beginkwartaal" checked="checked" value="1" />1e kwartaal</td>
-				<td><input type="radio" name="beginkwartaal" value="2" />2e kwartaal</td>
-				<td><input type="radio" name="beginkwartaal" value="3" />3e kwartaal</td>
-				<td><input type="radio" name="beginkwartaal" value="4" />4e kwartaal</td>
+				<th>Jaar</th><td class="hoofdcel"><input type="text" name="beginjaar" /></td>
+				<td class="tussenkop">1e kwartaal</td><td><input type="radio" name="beginkwartaal" checked="checked" value="1" /></td>
+				<td class="tussenkop">2e kwartaal</td><td><input type="radio" name="beginkwartaal" value="2" /></td>
+				<td class="tussenkop">3e kwartaal</td><td><input type="radio" name="beginkwartaal" value="3" /></td>
+				<td class="tussenkop">4e kwartaal</td><td><input type="radio" name="beginkwartaal" value="4" /></td>
 			</tr>
 		</table>		
-		<h4><span>Einddatum</span></h4>
-		<p class="kop" >Jaar:<input type="text" name="eindjaar" /></p>
+		<h4><span>Tot:</span></h4>
 		<table>
 			<tr>
-				<td><input type="radio" name="eindkwartaal" checked="checked" value="1" />1e kwartaal</td>
-				<td><input type="radio" name="eindkwartaal" value="2" />2e kwartaal</td>
-				<td><input type="radio" name="eindkwartaal" value="3" />3e kwartaal</td>
-				<td><input type="radio" name="eindkwartaal" value="4" />4e kwartaal</td>
+				<th>Jaar</th><td class="hoofdcel" ><input type="text" name="eindjaar" /></td>
+				<td class="tussenkop">1e kwartaal</td><td><input type="radio" name="eindkwartaal" checked="checked" value="1" /></td>
+				<td class="tussenkop">2e kwartaal</td><td><input type="radio" name="eindkwartaal" value="2" /></td>
+				<td class="tussenkop">3e kwartaal</td><td><input type="radio" name="eindkwartaal" value="3" /></td>
+				<td class="tussenkop">4e kwartaal</td><td><input type="radio" name="eindkwartaal" value="4" /></td>
 			</tr>
 		</table>
 		<p><input type="submit" name="knop" value="overzicht" /></p>
@@ -57,13 +57,6 @@
 		}
 		%>
 		</table>
-		<%
-	}
-	else{
-		%>
-		<h4>Kies voor welke periode u de betaalde facturen op wilt halen</h4>
-		<%
-	}
-	%>
+	<%}%>
 	</div>
 <%@ include file="footer.html" %>

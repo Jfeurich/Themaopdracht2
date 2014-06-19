@@ -22,10 +22,10 @@
 			document.getElementById("totaalprijs").innerHTML="Totaalprijs: " + totaal + " euro";
 		}
 	</script>
+	<%@ page import="java.util.ArrayList,java.sql.Connection,database.ConnectDBProduct,domeinklassen.Bestelling,domeinklassen.Product,domeinklassen.BesteldProduct" %>
+	<h1><span>Nieuwe bestelling aanmaken</span></h1>
+	<%@ include file="messages.jsp" %>
 	<form action="NieuweBestellingServlet.do" method="post">
-		<%@ page import="java.util.ArrayList,java.sql.Connection,database.ConnectDBProduct,domeinklassen.Bestelling,domeinklassen.Product,domeinklassen.BesteldProduct" %>
-		<h1><span>Nieuwe bestelling aanmaken</span></h1>
-		<%@ include file="messages.jsp" %>
 		<%
 		if(request.getAttribute("stap1") != null){
 			ArrayList<Product> teBestellenProducten = (ArrayList<Product>) request.getAttribute("teBestellenProducten");
@@ -62,8 +62,7 @@
 		else if(request.getAttribute("stap2") != null){
 			Bestelling deBestelling = (Bestelling) request.getAttribute("deBestelling");
 			%>
-			<h2><span>Kies de hoeveelheid van elk artikel</span></h2>
-			<p><%=deBestelling.toString()%></p>
+			<h2><span>Klik op "Done" om de bestelling te versturen</span></h2>
 			<table>
 				<tr>
 					<th>Artikelnummer</th>

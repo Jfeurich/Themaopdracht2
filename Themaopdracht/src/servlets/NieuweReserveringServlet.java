@@ -12,10 +12,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import database.ConnectDBAuto;
-import database.ConnectDBKlant;
 import database.ConnectDBReservering;
 import domeinklassen.Auto;
-import domeinklassen.Klant;
 import domeinklassen.User;
 
 public class NieuweReserveringServlet extends HttpServlet{
@@ -25,23 +23,8 @@ public class NieuweReserveringServlet extends HttpServlet{
 		Connection con = (Connection)req.getSession().getAttribute("verbinding");
 		String knop = req.getParameter("knop");
 		
-		if(knop.equals("klanten")){
-			Object g = req.getSession().getAttribute("gebruiker");
-			if(g != null){
-				User deGebruiker = (User)g;
-				if(deGebruiker.getType() == 3){
-					req.setAttribute("msg", "Leuk geprobeerd. U kunt alleen reserveren voor uw eigen auto's.");
-				}
-				else{			
-					ConnectDBKlant klantconn = new ConnectDBKlant(con);
-					ArrayList<Klant> klanten = klantconn.getKlanten();
-					req.setAttribute("klanten", klanten);
-				}
-			}
-			
-		}
 		// haal auto's uit de database
-		else if(knop.equals("autos")){
+		if(knop.equals("autos")){
 			Object g = req.getSession().getAttribute("gebruiker");
 			if(g != null){
 				User deGebruiker = (User)g;

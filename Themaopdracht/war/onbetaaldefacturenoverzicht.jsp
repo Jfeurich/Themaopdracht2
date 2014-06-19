@@ -9,24 +9,25 @@ if(o == null && factuurid == null){
 <jsp:include page="header.jsp" > 
 	<jsp:param name="titel" value="Onbetaalde facturen" /> 
 </jsp:include> 
-	<form action="FactuurServlet.do" method="post">
 	<%@ page import="java.util.ArrayList,domeinklassen.Factuur,domeinklassen.Klus" %>
 	<%@ include file="messages.jsp" %>
+	<form action="FactuurServlet.do" method="post">
 	<%
 	if(factuurid != null){
 		%>
-		<h1><span>18: Factuur betalen:</span></h1>
+		<h1><span>Factuur betalen</span></h1>
 		<p><input type="hidden" name="factuurid" value="<%=(String)factuurid%>" />
-		<input type="radio" name="betaalmiddel" value="giro" checked="checked" >Giro</>
-		<input type="radio" name="betaalmiddel" value="pin">Pin</>
-		<input type="radio" name="betaalmiddel" value="contant">Contant</>
-		<input type="submit" name="knop" value="Bevestig betaling" /></p>
+		Giro<input type="radio" name="betaalmiddel" value="giro" checked="checked" />
+		Pin<input type="radio" name="betaalmiddel" value="pin" />
+		Contant<input type="radio" name="betaalmiddel" value="contant" /></p>
+		<p><input type="submit" name="knop" value="Bevestig betaling" /></p>
 		<%
 	}
 	else{
 		ArrayList<Factuur> facturen = (ArrayList<Factuur>)o;
 		%>
-		<h1><span>21: De onbetaalde facturen zijn:</span></h1>
+		<h1><span>Overzicht onbetaaalde facturen</span></h1>
+		<h2><span>Selecteer een factuur om deze te betalen of een herinneringsbrief naar de klant te sturen</span></h2>
 		<table>
 			<tr>
 				<th>Kies</th>
@@ -50,8 +51,7 @@ if(o == null && factuurid == null){
 				</tr>
 		<%}%>
 		</table>
-		<p><input type="submit" name="knop" value="Factuur betalen" /></p>
-		<p><input type="submit" name="knop" value="Reminder sturen" /></p>
+		<p><input type="submit" name="knop" value="Factuur betalen" /><input type="submit" name="knop" value="Reminder sturen" /></p>
 		<%
 	}
 	%>

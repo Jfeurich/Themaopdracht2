@@ -9,9 +9,9 @@ if(hetProduct == null){
 	<jsp:param name="titel" value="Wijzig product" /> 
 </jsp:include> 
 	<%@ page import="domeinklassen.Product" %>
+	<h1><span>Product wijzigen</span></h1>
+	<%@ include file="messages.jsp" %>
 	<form action="WijzigProductServlet.do" method="post">
-		<h1><span>14: Product wijzigen</span></h1>
-		<%@ include file="messages.jsp" %>
 		<%
 		Product p = (Product)hetProduct;
 		%>
@@ -26,12 +26,12 @@ if(hetProduct == null){
 				<th>Prijs per stuk</th>
 			</tr>
 			<tr>
-				<td><input type="hidden" name="product" value="<%=p.getArtikelNr()%>" /><%=p.getArtikelNr()%></td>
-				<td><%=p.getNaam()%></td>
-				<td><%=p.getAantal()%></td>
-				<td><%=p.getEenheid()%></td>
-				<td><%=p.getMinimumAanwezig()%></td>
-				<td><%=p.getPrijsPerStuk()%></td>
+				<td class="hoofdcel"><input type="hidden" name="product" value="<%=p.getArtikelNr()%>" /><%=p.getArtikelNr()%></td>
+				<td class="hoofdcel"><%=p.getNaam()%></td>
+				<td class="hoofdcel"><%=p.getAantal()%></td>
+				<td class="hoofdcel"><%=p.getEenheid()%></td>
+				<td class="hoofdcel"><%=p.getMinimumAanwezig()%></td>
+				<td class="hoofdcel"><%=p.getPrijsPerStuk()%></td>
 			</tr>
 			<tr>
 				<td><%=p.getArtikelNr()%></td>
@@ -49,5 +49,4 @@ if(hetProduct == null){
 			<input type="submit" name="knop" value="Activeren" />
 		<%}%></p>
 	</form>
-	<p><a href="product.jsp">Terug naar hoofdmenu product</a></p>
 <%@ include file="footer.html" %>

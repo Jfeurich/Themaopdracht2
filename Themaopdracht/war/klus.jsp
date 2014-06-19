@@ -2,12 +2,12 @@
 	<jsp:param name="titel" value="Hoofdmenu klus" /> 
 </jsp:include> 
 <%@include file="datepicker.jsp" %>
+	<%@ page import="domeinklassen.Klus,java.sql.Connection,database.ConnectDBKlus,domeinklassen.Onderhoudsbeurt,domeinklassen.Reparatie,domeinklassen.Product,domeinklassen.GebruiktProduct,java.util.ArrayList" %>
 	<h1><span>Hoofdmenu Klus</span></h1>
 	<%@ include file="messages.jsp" %>
 	<form action="KlusServlet.do" method="post">
-		<%@ page import="domeinklassen.Klus,java.sql.Connection,database.ConnectDBKlus,domeinklassen.Onderhoudsbeurt,domeinklassen.Reparatie,domeinklassen.Product,domeinklassen.GebruiktProduct,java.util.ArrayList" %>
 		<div>
-			<h2><span>28: Nieuwe klus aanmaken</span></h2>
+			<h2><span>Nieuwe klus aanmaken</span></h2>
 			<p><input type="submit" name="knop" value="nieuw" /></p>
 		</div>
 		<%
@@ -16,6 +16,7 @@
 			%>
 			<div>
 				<h2><span>Zoek klussen</span></h2>
+				<h4><span>Vul minimaal 1 zoekcriterium in</span></h4>
 				<table>
 					<tr>
 						<th>ID klus:</th>
@@ -62,7 +63,7 @@
 			String s = (String)request.getAttribute("gezochtop");
 			%>
 			<div>
-				<h2><span>9: Overzicht gevonden klussen</span></h2>
+				<h2><span>Gevonden klussen</span></h2>
 				<h4><span>Zoektermen:</span></h4>
 				<p><%=s%></p>
 				<input type="submit" name="knop" value="Nieuwe zoektermen" />
@@ -124,15 +125,8 @@
 				}
 				%>
 				</table>
+				<p><input type="submit" name="knop" value="wijzig" /><input type="submit" name="knop" value="annuleren" /></p>
 			</div>
-			<div>
-				<h2><span>Klus wijzigen</span></h2>
-				<p><input type="submit" name="knop" value="wijzig" /></p>
-			</div>
-			<div>
-				<h2><span>Klus annuleren</span></h2>
-				<p><input type="submit" name="knop" value="annuleren" /></p>
-			</div>
-		<%} %>
+		<%}%>
 	</form>
 <%@ include file="footer.html" %>

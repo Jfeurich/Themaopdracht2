@@ -8,11 +8,12 @@ if(o == null){
 <jsp:include page="header.jsp" > 
 	<jsp:param name="titel" value="Overzicht alle producten" /> 
 </jsp:include> 
+	<%@ page import="java.util.ArrayList,domeinklassen.Product" %>
+	<h1><span>Overzicht alle producten</span></h1>
+	<%@ include file="messages.jsp" %>
 	<form action="ProductServlet.do" method="post">
-		<%@ page import="java.util.ArrayList,domeinklassen.Product" %>
-		<h1><span>27: Alle producten</span></h1>
-		<h2>Selecteer een product om te wijzigen of klik op WerkVoorraadBij om een bestelling te maken van alle producten onder de minimumvoorraad</h2>
-		<%@ include file="messages.jsp" %>
+	<h2><span>klik op WerkVoorraadBij om een bestelling te maken van alle producten onder de minimumvoorraad</span></h2>
+	<h2><span>Selecteer een product om dit te wijzigen of op non-actief te zetten</span></h2>
 		<table>
 			<tr>
 				<th>Kies</th>
@@ -45,5 +46,4 @@ if(o == null){
 		<input type="submit" name="knop" value="wijzig" />
 		<input type="submit" name="knop" value="verwijder" /></p>
 	</form>
-	<p><a href="product.jsp">Terug naar hoofdmenu product</a></p>
 <%@ include file="footer.html" %>

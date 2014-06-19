@@ -1,10 +1,10 @@
 <jsp:include page="header.jsp" > 
 	<jsp:param name="titel" value="Hoofdmenu product" /> 
 </jsp:include> 
+	<%@ page import="domeinklassen.Product,java.util.ArrayList" %>
 	<h1><span>Hoofdmenu Product</span></h1>
 	<%@ include file="messages.jsp" %>
 	<form action="ProductServlet.do" method="post">
-		<%@ page import="domeinklassen.Product,java.util.ArrayList" %>
 		<div>
 			<h2><span>Overzicht alle producten</span></h2>
 			<input type="submit" name="knop" value="overzicht" />
@@ -36,7 +36,8 @@
 			<p><input type="submit" name="knop" value="nieuw" /></p>
 		</div>
 		<div>
-			<h2><span>Zoek product</span></h2>
+			<h2><span>Zoek een producten</span></h2>
+			<h4><span>Vul minimaal 1 zoekcriterium in</span></h4>
 			<%
 				Object zoekmsg = request.getAttribute("zoekmsg");
 				if(zoekmsg != null){
