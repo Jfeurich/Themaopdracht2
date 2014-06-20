@@ -1,3 +1,7 @@
+package database;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
 /**	
 *	Dit is klasse ConnectDB
 *	Deze klasse maakt de connectie met de database.
@@ -6,12 +10,6 @@
 *	@author Team3SoftwareDevelopment
 *	@version 1.0
 **/
-
-package database;
-
-import java.sql.Connection;
-import java.sql.DriverManager;
-
 public class ConnectDB {
 	/**
 	 * Variabele DB_Driv, type String
