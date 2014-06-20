@@ -93,7 +93,7 @@ if(request.getAttribute("stap1") == null && o == null){
 					<td><input type="text" name="datum" class="datepicker" id="dat"/></td>
 				</tr>
 				</table>
-			<textarea name="beschrijving" placeholder="Omschrijving van de klus"></textarea>
+			<textarea name="beschrijving" placeholder="Omschrijving van de klus" rows="40" cols="40"></textarea>
 			<p><input type="hidden" name="autovanklus" value="<%=deAuto.getID()%>" />
 			<input type="submit" name="knop" value="nieuw" /></p>
 		<%}%>

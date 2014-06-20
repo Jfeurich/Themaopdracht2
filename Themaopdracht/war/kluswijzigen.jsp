@@ -35,7 +35,7 @@ if(o == null){
 			<tr><td class="tussenkop">Uren toevoegen</td><td><input type="text" name="manuren" /></td></tr>
 		</table>
 		<h4><span>Beschrijving</span></h4>
-		<textarea name="beschrijving"><%=deKlus.getBeschrijving()%></textarea>
+		<textarea name="beschrijving" rows="40" cols="40"><%=deKlus.getBeschrijving()%></textarea>
 		<p><input type="hidden" name="gekozenklus" value="<%=deKlus.getID()%>" /></p>
 		<p><input type="submit" name="knop" value="Bevestig" /></p>
 	</form>

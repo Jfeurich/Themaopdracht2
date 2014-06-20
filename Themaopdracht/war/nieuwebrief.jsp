@@ -12,7 +12,7 @@
 			Klant deKlant = (Klant)klant;
 			%>
 			<h2><span>Schrijf de brief en klik op "Versturen" om hem naar de klant te mailen</span></h2>
-			<textarea name="reden">Beste <%=deKlant.getNaam()%>, 
+			<textarea name="reden" rows="40" cols="40">Beste <%=deKlant.getNaam()%>, 
 <%if(fact != null){Factuur deFactuur = (Factuur)request.getAttribute("deFactuur");%>
 Graag willen wij u helpen herinneren dat er sinds <%=deFactuur.getAanmaakDatumNetjes()%> een factuur open staat ter waarde van <%=deFactuur.getTotaal()%> euro.
 
