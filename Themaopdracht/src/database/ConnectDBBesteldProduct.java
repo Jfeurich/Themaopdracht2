@@ -7,16 +7,35 @@ import java.util.ArrayList;
 
 import domeinklassen.BesteldProduct;
 import domeinklassen.Bestelling;
-
+/**	
+*	Dit is klasse ConnectDBBesteldProduct
+*	Deze klasse haalt alle database informatie op in relatie met het object BesteldProduct
+*	@author Team3SoftwareDevelopment
+*	@version 1.0
+**/
 public class ConnectDBBesteldProduct{
-	
+	/**
+	 * Variabele con, type Connection
+	 * Deze variabele wordt aangeroepen als er een SQL statement uigevoerd moet worden
+	 */
 	private Connection con = null;
-	
+	/**
+	 * Constructor ConnectDBBesteldProduct.
+	 * Dit is de constructor van de ConnectDBBesteldProduct klasse.
+	 * @param c		de connectie met de database wordt opgeslagen in de klasse
+	 */
 	public ConnectDBBesteldProduct(Connection c){
 		con = c;;
 	}
 	
 	//alle producten van een bestelling
+	/**
+	 * Methode getProductenVanBestelling.
+	 * Deze methode haalt alle producten op van de ingevoerde bestelling.
+	 * De producten worden in het ingevoerde Bestelling-object gezet.
+	 * Hierdoor is er geen return statement.
+	 * @param b	Het bestelling-object waarop gezocht moet worden
+	 */
 	public void getProductenVanBestelling(Bestelling b){
 		ArrayList<BesteldProduct> terug = new ArrayList<BesteldProduct>();
 		try{
@@ -41,6 +60,12 @@ public class ConnectDBBesteldProduct{
 	}
 	
 	//zoek specifiek besteld product
+	/**
+	 * Methode zoekBesteldProduct.
+	 * Deze methode zoekt alle het bestelde product bij het bestelde product ID
+	 * @param bpid	Het besteldproduct ID van het gezocht BesteldProduct
+	 * @return	terug	Het gezocht BesteldProduct-object. Als deze niet gevonden is, wordt er null teruggegeven
+	 */
 	public BesteldProduct zoekBesteldProduct(int bpid){
 		BesteldProduct terug = null;
 		int pid = 0;
@@ -64,6 +89,14 @@ public class ConnectDBBesteldProduct{
 	}
 	
 	//maak besteldproduct aan
+	/**
+	 * Methode nieuwBesteldProduct.
+	 * Deze methode voegt een nieuw BesteldProduct toe.
+	 * @param bestellingid	BestellingID waaraan het product moet worden toegevoegd
+	 * @param productid	ProductID van het bestelde product
+	 * @param hoeveelheid	Hoeveelheid van het bestelde product
+	 * @return terug	Het nieuwe bestelde product wordt gereturned
+	 */
 	public BesteldProduct nieuwBesteldProduct(int bestellingid, int productid, int hoeveelheid){
 		BesteldProduct terug = null;
 		try{			

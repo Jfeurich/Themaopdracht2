@@ -7,16 +7,34 @@ import java.util.ArrayList;
 
 import domeinklassen.Auto;
 import domeinklassen.Klant;
-
+/**	
+*	Dit is klasse ConnectDBAuto.
+*	Deze klasse haalt alle database informatie op in relatie met het object Auto.
+*	@author Team3SoftwareDevelopment
+*	@version 1.0
+**/
 public class ConnectDBAuto{
-	
+	/**
+	 * Variabele con, type Connection.
+	 * Deze variabele wordt aangeroepen als er een SQL statement uigevoerd moet worden.
+	 */
 	private Connection con = null;
 	//maak connectie
+	/**
+	 * Constructor ConnectDBAuto.
+	 * Dit is de constructor van de ConnectDBAuto klasse.
+	 * @param c		de connectie met de database wordt opgeslagen in de klasse
+	 */
 	public ConnectDBAuto(Connection c){
 		con = c;
 	}
 	
 	//alle autos in het systeem
+	/**
+	 * Methode getAutos.
+	 * Deze methode haalt alle autos uit het systeem op.
+	 * @return terug	Een ArrayList met alle autos 
+	 */
 	public ArrayList<Auto> getAutos(){
 		ArrayList<Auto> terug = new ArrayList<Auto>();
 		try{
@@ -46,6 +64,11 @@ public class ConnectDBAuto{
 	}
 
 	//alle nonactieve autos in het systeem
+	/**
+	 * Methode getAutosNietActief.
+	 * Deze methode geeft alle autos die niet actief zijn.
+	 * @return terug	Een ArrayList met alle niet-actieve autos 
+	 */
 	public ArrayList<Auto> getAutosNietActief(){
 		ArrayList<Auto> terug = new ArrayList<Auto>();
 		try{
@@ -74,6 +97,12 @@ public class ConnectDBAuto{
 		return terug;
 	}
 	//zoek naar alle autos van een bepaalde klant (per klantid)
+	/**
+	 * Methode getAutosVan.
+	 * Deze methode haalt alle autos van een specefieke klant op, gezocht op klantID.
+	 * @param zoekid	Het id van de gezochte klant
+	 * @return terug	Een ArrayList met alle autos van de gezochte klant
+	 */
 	public ArrayList<Auto> getAutosVan(int zoekid){
 		ArrayList<Auto> terug = new ArrayList<Auto>();
 		try{
@@ -102,6 +131,12 @@ public class ConnectDBAuto{
 	}
 
 	//zoek naar alle autos van een bepaalde klant (per klant-object)
+	/**
+	 * Methode getAutosVan.
+	 *  Deze methode haalt alle autos van een specefieke klant op, gezocht op klantobject.
+	 * @param k		Het klant object van de klant
+	 * @return	terug	Een ArrayList met alle autos van de klant
+	 */
 	public ArrayList<Auto> getAutosVan(Klant k){
 		ArrayList<Auto> terug = new ArrayList<Auto>();
 		try{
@@ -126,7 +161,12 @@ public class ConnectDBAuto{
 		}
 		return terug;
 	}
-	
+	/**
+	 * Methode zoekAuto.
+	 * Deze methode zoekt een auto op basis van autoID.
+	 * @param autoid	ID van de gezochte auto
+	 * @return	terug	De gezochte auto, als de auto niet gevonden is wordt null terug gegeven
+	 */
 	//zoek auto op id
 	public Auto zoekAuto(int autoid){
 		Auto terug = null;
@@ -160,6 +200,12 @@ public class ConnectDBAuto{
 	}
 	
 	//zoek auto op kenteken
+	/**
+	 * Methode zoekAutoKenteken.
+	 * Deze methode zoekt de autos op basis van kenteken.
+	 * @param kenteken	Kenteken van de gezochte auto(s)
+	 * @return	terug	Alle autos met kentekens die de ingevoerde waarde bevatten
+	 */
 	public ArrayList<Auto> zoekAutoKenteken(String kenteken){
 		ArrayList<Auto> terug = new ArrayList<Auto>();
 		try{
@@ -193,6 +239,12 @@ public class ConnectDBAuto{
 	}
 	
 	//zoek auto op type
+	/**
+	 * Methode zoekAutoType.
+	 * Deze methode zoekt autos op basis van het type.
+	 * @param type	Type van de gezochte auto(s)
+	 * @return	terug	Alle autos met types die de ingevoerde waarde bevatten
+	 */
 	public ArrayList<Auto> zoekAutoType(String type){
 		ArrayList<Auto> terug = new ArrayList<Auto>();
 		try{
@@ -224,7 +276,12 @@ public class ConnectDBAuto{
 		}
 		return terug;		
 	}
-	
+	/**
+	 * Methode zoekAutoMerk.
+	 * Deze methode zoekt autos op basis van het merk.
+	 * @param merk	Merk van de gezochte auto(s)
+	 * @return	terug	Alle autos met merken die de ingevoerde waarde bevatten
+	 */	
 	//zoek auto's op merk
 	public ArrayList<Auto> zoekAutoMerk(String merk){
 		ArrayList<Auto> terug = new ArrayList<Auto>();
@@ -257,7 +314,12 @@ public class ConnectDBAuto{
 		}
 		return terug;		
 	}
-	
+	/**
+	 * Methode zoekAutoZonderKlussen.
+	 * Deze methode zoekt de auto die geen klus heeft.
+	 * @param autoid	AutoID van gezochte auto
+	 * @return	terug	Het gezochte auto-object, als deze niet is gevonden wordt null teruggegeven
+	 */
 	//zoek auto op id (voor aanroep vanuit ConnectDBKlus)
 	public Auto zoekAutoZonderKlussen(int autoid){
 		Auto terug = null;
@@ -285,6 +347,15 @@ public class ConnectDBAuto{
 	}
 	
 	//maak nieuwe auto. id wordt automatisch toegewezen. geeft auto-object terug zodat je het id weet.
+	/**
+	 * Methode nieuweAuto.
+	 * Deze methode voegt een nieuwe Auto toe aan de database.
+	 * @param kenteken	kenteken van de nieuwe auto
+	 * @param merk	merk van de nieuwe auto
+	 * @param type	type  van de nieuwe auto
+	 * @param eigenaar eigenaar  van de nieuwe auto
+	 * @return terug	De nieuwe auto wordt als object teruggegeven
+	 */
 	public Auto nieuweAuto(String kenteken, String merk, String type, Klant eigenaar){
 		Auto terug = null;
 		try{
@@ -309,6 +380,13 @@ public class ConnectDBAuto{
 	}
 	
 	//zet auto op non-actief
+	/**
+	 * Methode verwijderAuto.
+	 * Deze methode zet een auto op non-actief in het systeem.
+	 * Dit wordt gedaan als een auto niet gebruikt wordt.
+	 * @param autoid	AutoID van de auto die op non-actief gezet moet worden
+	 * @return	boolean	Er wordt aangegeven of de auto succesvol op non-actief gezet kon worden
+	 */
 	public boolean verwijderAuto(int autoid){
 		try{
 			String sql = "UPDATE Auto SET actief='f' WHERE autoid=" + autoid;
@@ -324,6 +402,12 @@ public class ConnectDBAuto{
 	}
 	
 	//zet autos van een klant op non-actief
+	/**
+	 * Methode verwijderAutosVan.
+	 * Deze methode zet alle auto's van een klant op non-actief.
+	 * @param klantid	KlantID van de klant waarvan alle autos op non-actief moeten
+	 * @return boolean	Er wordt aangegeven of de autos van de klant succesvol op non-actief zijn gezet
+	 */
 	public boolean verwijderAutosVan(int klantid){
 		try{
 			String sql = "UPDATE Auto SET actief='f' WHERE klantid=" + klantid;
@@ -339,6 +423,12 @@ public class ConnectDBAuto{
 	}
 	
 	//zet auto op actief
+	/**
+	 * Methode activeerAuto.
+	 * Deze methode wordt gebruikt om non-actieve autos weer actief te maken.
+	 * @param autoid	AutoID van de auto die op actief moet worden gezet
+	 * @return	boolean	Er wordt aangegeven of de auto succesvol op actief gezet is
+	 */
 	public boolean activeerAuto(int autoid){
 		try{
 			String sql = "UPDATE Auto SET actief='t' WHERE autoid=" + autoid;
@@ -354,6 +444,12 @@ public class ConnectDBAuto{
 	}
 	
 	//zet autos van een klant op actief
+	/**
+	 * Methode activeerAutosVan.
+	 * Deze methode zet alle auto's van een klant op actief.
+	 * @param klantid	KlantID van de klant waarvan alle autos op actief moeten
+	 * @return boolean	Er wordt aangegeven of de autos van de klant succesvol op actief zijn gezet
+	 */
 	public boolean activeerAutosVan(int klantid){
 		try{
 			String sql = "UPDATE Auto SET actief='t' WHERE klantid=" + klantid;

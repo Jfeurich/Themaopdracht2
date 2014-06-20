@@ -9,16 +9,34 @@ import java.util.Calendar;
 
 import domeinklassen.BesteldProduct;
 import domeinklassen.Bestelling;
-
+/**	
+*	Dit is klasse ConnectBestelling
+*	Deze klasse haalt alle database informatie op in relatie met het object Bestelling.
+*	@author Team3SoftwareDevelopment
+*	@version 1.0
+**/
 public class ConnectDBBestelling{
-	
+	/**
+	 * Variabele con, type Connection.
+	 * Deze variabele wordt aangeroepen als er een SQL statement uigevoerd moet worden.
+	 */
 	private Connection con = null;
 	//maak connectie
+	/**
+	 * Constructor ConnectDBBestelling.
+	 * Dit is de constructor van de ConnectDBBestelling klasse.
+	 * @param c		de connectie met de database wordt opgeslagen in de klasse
+	 */
 	public ConnectDBBestelling(Connection c){
 		con = c;
 	}
 	
 	//alle geleverde bestellingen in het systeem
+	/**
+	 * Methode getBestellingGeleverd.
+	 * Deze methode geeft alle bestellingen met status 'Geleverd'.
+	 * @return terug	Een ArrayList met alle bestellingen die geleverd zijn
+	 */
 	public ArrayList<Bestelling> getBestellingenGeleverd(){
 		ArrayList<Bestelling> terug = new ArrayList<Bestelling>();
 		try{			
@@ -44,6 +62,11 @@ public class ConnectDBBestelling{
 	}
 	
 	//alle bestellingen in het systeem die nog NIET zijn geleverd
+	/**
+	 * Methode getBestellingenNietGeleverd
+	 * Deze methode geeft alle bestelling met status 'Niet geleverd'.
+	 * @return terug	Een ArrayList met alle bestellingen die niet geleverd zijn
+	 */
 	public ArrayList<Bestelling> getBestellingenNietGeleverd(){
 		ArrayList<Bestelling> terug = new ArrayList<Bestelling>();
 		try{			
@@ -71,6 +94,12 @@ public class ConnectDBBestelling{
 	}
 	
 	//get bestellingen met een bepaald product erin (per productid)
+	/**
+	 * Methode getBestellingenVanProduct.
+	 * Deze methode geeft alle bestellingen van het gezochte product.
+	 * @param pid	ProductID van het gezochte product
+	 * @return	terug	Een ArrayList met alle bestellingen die het gezochte product bevatten
+	 */
 	public ArrayList<Bestelling> getBestellingenVanProduct(int pid){
 		ArrayList<Bestelling> terug = new ArrayList<Bestelling>();
 		ArrayList<Integer> bestellingids = new ArrayList<Integer>();
@@ -93,6 +122,12 @@ public class ConnectDBBestelling{
 	}
 	
 	//get bestellingen met een bepaalde datum
+	/**
+	 * Methode getBestellingenOpDatum.
+	 * Deze methode geeft alle bestellingen van de gezochte datum.
+	 * @param dat	De datum waarvan alle bestellingen gezocht worden
+	 * @return return	Een ArrayList met alle bestellingen van de gezochte datum
+	 */
 	public ArrayList<Bestelling> getBestellingenOpDatum(java.util.Date dat){
 		ArrayList<Bestelling> terug = new ArrayList<Bestelling>();
 		try{
@@ -121,6 +156,12 @@ public class ConnectDBBestelling{
 	}
 	
 	//zoek bestelling (per id)
+	/**
+	 * Methode zoekBestelling.
+	 * Deze methode geeft de bestelling met het gezochte BestellingID.
+	 * @param id	Het BestellingID van de gezochte bestelling
+	 * @return terug	Het Bestelling-object van het gezochte BestellingID. Als deze niet gevonden is wordt er null gereturned
+	 */
 	public Bestelling zoekBestelling(int id){
 		Bestelling terug = null;
 		try{			
@@ -151,6 +192,12 @@ public class ConnectDBBestelling{
 	}
 	
 	//maak nieuwe bestelling (per Bestelling-object)
+	/**
+	 * Methode nieuweBestelling.
+	 * Deze methode maakt een nieuwe bestelling.
+	 * @param deBestelling Het Bestelling-object dat gemaakt moet worden
+	 * @return terug Het gemaakte Bestelling-object
+	 */
 	public Bestelling nieuwBestelling(Bestelling deBestelling){
 		Bestelling terug = deBestelling;
 		try{			
@@ -186,6 +233,12 @@ public class ConnectDBBestelling{
 		return terug;
 	}
 	//boolean updateClass
+	/**
+	 * Methode updateBestelling.
+	 * Deze methode update een bestelling als deze is bijgewerkt.
+	 * @param b De bestelling die geupdate moet worden
+	 * @return b	Een boolean die aangeeft of het updaten is gelukt
+	 */
 	public boolean updateBestelling(Bestelling b){
 		try{
 			java.util.Date datum = b.getVerwachteDatum();

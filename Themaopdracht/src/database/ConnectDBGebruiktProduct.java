@@ -7,15 +7,32 @@ import java.util.ArrayList;
 
 import domeinklassen.GebruiktProduct;
 import domeinklassen.Product;
-
+/**	
+*	Dit is klasse ConnectDBGebruiktProduct.
+*	Deze klasse haalt alle database informatie op in relatie met het object Auto.
+*	@author Team3SoftwareDevelopment
+*	@version 1.0
+**/
 public class ConnectDBGebruiktProduct{
-	
+	/**
+	 * Variabele con, type Connection.
+	 * Deze variabele wordt aangeroepen als er een SQL statement uigevoerd moet worden.
+	 */
 	private Connection con = null;
-	
+	/**
+	 * Constructor ConnectDBGebruiktProduct
+	 * Dit is de constructor van de ConnectDBGebruiktProduct klasse.
+	 * @param c		de connectie met de database wordt opgeslagen in de klasse
+	 */
 	public ConnectDBGebruiktProduct(Connection c){
 		con = c;
 	}
-	
+	/**
+	 * Methode getProductenVanKlus.
+	 * Deze methode haalt alle gebruikteproducten van de ingeoverde KlusID op.
+	 * @param klusid	KlusID van de gezochte klus
+	 * @return terug	Een ArrayList met alle gebruikte producten van de gezochte KlusID
+	 */
 	public ArrayList<GebruiktProduct> getProductenVanKlus(int klusid){
 		ArrayList<GebruiktProduct> terug = new ArrayList<GebruiktProduct>();
 		try{
@@ -39,6 +56,12 @@ public class ConnectDBGebruiktProduct{
 		return terug;
 	}	
 	
+	/**
+	 * Methode zoekGebruiktProduct.
+	 * Deze methode zoekt een GebruiktProduct-object op basis van het GebruiktProductID.
+	 * @param gpid	GebruiktProductID van het gezochte gebruikte product
+	 * @return terug	Het gezochte GebruiktProduct-object. Als deze niet is gevonden wordt null gereturned
+	 */
 	public GebruiktProduct zoekGebruiktProduct(int gpid){
 		GebruiktProduct terug = null;
 		int pid = 0;
@@ -61,6 +84,14 @@ public class ConnectDBGebruiktProduct{
 		return terug;
 	}
 	
+	/**
+	 * Methode nieuwGebruiktProduct.
+	 * Deze methode maakt een nieuw GebruiktProduct-object aan.
+	 * @param klusid	KlusID van het nieuwe gebruikte product
+	 * @param productid	ProductID wat aangeeft welk product het nieuwe gebruikte product is
+	 * @param aantal	Aantal van het nieuwe gebruikte product
+	 * @return terug	Het nieuwe GebruiktProduct-object wordt gereturned. Als het niet is gelukt om het nieuwe GebruiktProduct-object aan temaken wordt null gereturned
+	 */
 	public GebruiktProduct nieuwGebruiktProduct(int klusid, int productid, int aantal){
 		GebruiktProduct terug = null;
 		try{			

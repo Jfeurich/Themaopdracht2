@@ -8,16 +8,35 @@ import java.util.ArrayList;
 
 import domeinklassen.Herinneringsbrief;
 import domeinklassen.Klant;
-
+/**	
+*	Dit is klasse ConnectDBHerinneringsBrief.
+*	Deze klasse haalt alle database informatie op in relatie met het object Auto.
+*	@author Team3SoftwareDevelopment
+*	@version 1.0
+**/
 public class ConnectDBHerinneringsbrief{
-	
+	/**
+	 * Variabele con, type Connection.
+	 * Deze variabele wordt aangeroepen als er een SQL statement uigevoerd moet worden.
+	 */
 	private Connection con = null;
 	//maak connectie
+	/**
+	 * Constructor ConnectDBHerinneringsBrief.
+	 * Dit is de constructor van de ConnectDBHerinneringsBrief klasse.
+	 * @param c		de connectie met de database wordt opgeslagen in de klasse
+	 */
 	public ConnectDBHerinneringsbrief(Connection c){
 		con = c;
 	}
 
 	//zoek naar alle brieven van een bepaalde klant 
+	/**
+	 * Methode getBrievenVan.
+	 * Deze methode geeft alle brieven van het gezochte Klant-object.
+	 * @param k	Het Klant-object van de gezochte klant
+	 * @return terug	Een ArrayList met alle brieven van de gezochte klant
+	 */
 	public ArrayList<Herinneringsbrief> getBrievenVan(Klant k){
 		ArrayList<Herinneringsbrief> terug = new ArrayList<Herinneringsbrief>();
 		try{
@@ -42,6 +61,12 @@ public class ConnectDBHerinneringsbrief{
 	}
 	
 	//zoek brief op id
+	/**
+	 * Methode zoekBrief.
+	 * Deze methode zoekt de brief met het ingevoerde BriefID.
+	 * @param id	BriefID van het gezochte Herinneringsbrief-object
+	 * @return terug	Het Herinneringsbrief-object van de gezochte BriefID. Als deze niet gevonden is wordt null gereturned
+	 */
 	public Herinneringsbrief zoekBrief(int id){
 		Herinneringsbrief terug = null;
 		try{
@@ -67,6 +92,13 @@ public class ConnectDBHerinneringsbrief{
 	}
 	
 	//maak nieuwe Herinneringsbrief. id wordt automatisch toegewezen. geeft Herinneringsbrief-object terug zodat je het id weet.
+	/**
+	 * Methode nieuweBrief.
+	 * Deze methode maakt een nieuwe brief aan .
+	 * @param klantid	KlantID van de klant waarvoor de brief aangemaakt wordt
+	 * @param reden	De reden van de herinneringsbrief
+	 * @return	terug	Het Herinneringsbrief-object van de nieuwe brief. Als dit niet gelukt is wordt er null gereturned
+	 */
 	public Herinneringsbrief nieuweBrief(int klantid, String reden){
 		Herinneringsbrief terug = null;
 		try{

@@ -7,16 +7,33 @@ import java.util.ArrayList;
 
 import domeinklassen.Factuur;
 import domeinklassen.Klus;
-
+/**	
+*	Dit is klasse ConnectDBFactuur.
+*	Deze klasse haalt alle database informatie op in relatie met het object Auto.
+*	@author Team3SoftwareDevelopment
+*	@version 1.0
+**/
 public class ConnectDBFactuur{
-
+	/**
+	 * Variabele con, type Connection.
+	 * Deze variabele wordt aangeroepen als er een SQL statement uigevoerd moet worden.
+	 */
 	private Connection con = null;
-	
+	/**
+	 * Constructor ConnectDBFactuur.
+	 * Dit is de constructor van de ConnectDBFactuur klasse.
+	 * @param c		de connectie met de database wordt opgeslagen in de klasse
+	 */
 	public ConnectDBFactuur(Connection c){
 		con = c;
 	}
 	
 	//alle facturen die nog niet zijn betaald
+	/**
+	 * Methode getFacturenNietBetaald.
+	 * Deze methode geeft de facturen terug die niet betaald zijn.
+	 * @return terug	Een ArrayList met alle niet-betaalde facturen
+	 */
 	public ArrayList<Factuur> getFacturenNietBetaald(){
 		ArrayList<Factuur> terug = new ArrayList<Factuur>();
 		try{
@@ -45,6 +62,13 @@ public class ConnectDBFactuur{
 		return terug;
 	}
 
+	/**
+	 * Methode getBetaaldeFacturenTussen.
+	 * Deze methode geeft alle facturen terug die tussen de ingevoerde datums zitten.
+	 * @param d1	De begindatum tussen welke gezocht wordt
+	 * @param d2	De einddatum tussen welke gezocht wordt
+	 * @return terug	Een ArrayList met alle facturen die tussen de ingevoerde datums zitten
+	 */
 	public ArrayList<Factuur> getBetaaldeFacturenTussen(java.util.Date d1, java.util.Date d2){
 		ArrayList<Factuur> terug = new ArrayList<Factuur>();
 		try{
@@ -80,6 +104,12 @@ public class ConnectDBFactuur{
 		return terug;
 	}
 	
+	/**
+	 * Methode getFactuurVanKlus.
+	 * Deze methode geeft de Factuur van de Klus met ingvoerde KlusID.
+	 * @param klusid Het KlusID van de gezochte klus
+	 * @return terug	Het Factuur-object van de gezochte klus. Als deze niet gevonden is wordt null gereturned
+	 */
 	public Factuur getFactuurVanKlus(int klusid){
 		Factuur terug = null;
 		try{
@@ -113,6 +143,12 @@ public class ConnectDBFactuur{
 	}
 	
 	//zoek factuur (per id)
+	/**
+	 * Methode zoekFactuur.
+	 * Deze methode zoekt de factuur van de ingevoerde FactuurID.
+	 * @param factuurid	FactuurID van de gezochte factuur
+	 * @return terug	Het Factuur-object van de gezochte FactuurID. Als deze niet is gevonden wordt null gereturned
+	 */
 	public Factuur zoekFactuur(int factuurid){
 		Factuur terug = null;
 		try{
@@ -146,6 +182,13 @@ public class ConnectDBFactuur{
 	}
 	
 	//nieuwe factuur (per Klus)
+	/**
+	 * Methode nieuweFactuur.
+	 * Deze methode maakt een nieuwe Factuur aan.
+	 * Alle gegevens om dit te doen staan in het Klus-object.
+	 * @param k De klus waarvan het nieuwe Factuur-object is
+	 * @return terug Het nieuwe Factuur-object wordt gereturned. Als dit niet is gelukt wordt null gereturned.
+	 */
 	public Factuur nieuweFactuur(Klus k){
 		Factuur terug = null;
 		java.util.Date vandaag = new java.util.Date();
@@ -172,6 +215,12 @@ public class ConnectDBFactuur{
 	}
 	
 	//zet alle waardes van factuur in database naar die van ingevoerde factuur-object
+	/**
+	 * Methode updateFactuur.
+	 * Deze methode werkt een ingevoerde factuur bij.
+	 * @param f Het ingevoerde Factuur-object dat bijgewerkt moet worden
+	 * @return boolean	Er wordt aangegeven of het bijwerken is gelukt
+	 */
 	public boolean updateFactuur(Factuur f){
 		try{
 			String sql = "";
