@@ -1,14 +1,49 @@
 package domeinklassen;
-
+/**	
+*	Dit is klasse Product
+*	Deze klasse wordt gebruikt om de gegevens van producten op te kunnen slaan.
+*	@author Team3SoftwareDevelopment
+*	@version 1.0
+**/
 public class Product{
+	/**
+	*	De naam van het product
+	**/
 	private String naam;
+	/**
+	*	Het artikelnummer
+	**/
 	private int artikelNr;
+	/**
+	*	Minimum aantal aanwezig product in de voorraad
+	**/
 	private int minimumAanwezig;
+	/**
+	*	De eenheid waarin het product opgeslagen/aangekocht wordt
+	**/
 	private String eenheid;
+	/**
+	*	Aantal van het product in de voorraad
+	**/
 	private int aantal;
+	/**
+	*	Prijs per individueel product
+	**/
 	private double prijsPerStuk;
-	private boolean actief = true;
 	
+	/**
+	*	Wordt het product gebruikt of niet (winterbanden/zomerbanden)
+	**/
+	private boolean actief = true;
+	/**
+	*	Constructor voor Product
+	*	@param String naam	 naam van het product
+	*	@param int artikelNr	artikelnummer van het product
+	*	@param int minimumAanwezig minimale voorraad van het product
+	*	@param String eenheid	eenheid van het product
+	*	@param int aantal	aantal product in de voorraad
+	*	@param int prijsPerStuk	Prijs per product
+	**/	
 	public Product(String nm, int aNr, int mA, String ee, double pPS){
 		naam = nm;
 		artikelNr = aNr;
@@ -17,42 +52,94 @@ public class Product{
 		aantal = 0;
 		prijsPerStuk = pPS;
 	}
+	/**
+	*	Deze methode returnt de status van een product
+	*	@return boolean actief
+	**/	
 	public boolean isActief() {
 		return actief;
 	}
+	/**
+	*	Deze methode verandert de status van een product
+	*	@param boolean actief 
+	**/	
 	public void setActief(boolean actief) {
 		this.actief = actief;
 	}
+	/**
+	*	Deze methode returnt de naam van een product
+	*	@return String naam
+	**/	
 	public String getNaam(){
 		return naam;
 	}
+	/**
+	*	Deze methode returnt het artikelnummer van een product
+	*	@return int artikelNr
+	**/	
 	public int getArtikelNr(){
 		return artikelNr;
 	}
+	/**
+	*	Deze methode returnt de minimumvoorraad van een product
+	*	@return int minimumAanwezig
+	**/	
 	public int getMinimumAanwezig(){
 		return minimumAanwezig;
 	}
+	/**
+	*	Deze methode verandert de minimumvoorraad van een product
+	*	@param int minimumAanwezig
+	**/	
 	public void setMinimumAanwezig(int mA){
 		minimumAanwezig = mA;
 	}
+	/**
+	*	Deze methode returnt de voorraad van een product
+	*	@return int aantal
+	**/	
 	public int getAantal(){
 		return aantal;
 	}
+	/**
+	*	Deze methode verandert de voorraad van een product
+	*	@param itn aantal
+	**/	
 	public void setAantal(int aa){
 		aantal = aa;
 	}
+	/**
+	*	Deze methode returnt de eenheid van een product
+	*	@return String eenheid
+	**/	
 	public String getEenheid(){
 		return eenheid;
 	}
+	/**
+	*	Deze methode verandert de naam van een product
+	*	@param String naam
+	**/	
 	public void setNaam(String naam) {
 		this.naam = naam;
 	}
+	/**
+	*	Deze methode verandert het artikelnummer van een product
+	*	@param int artikelNr 
+	**/	
 	public void setArtikelNr(int artikelNr) {
 		this.artikelNr = artikelNr;
 	}
+	/**
+	*	Deze methode verandert de eenheid van een product
+	*	@param String eenheid
+	**/	
 	public void setEenheid(String eenheid) {
 		this.eenheid = eenheid;
 	}
+	/**
+	*	Deze methode verandert de prijs van een product
+	*	@param double prijsPerStukf 
+	**/	
 	public void setPrijsPerStuk(double prijsPerStuk) {
 		this.prijsPerStuk = prijsPerStuk;
 	}
@@ -60,9 +147,17 @@ public class Product{
 	public void voegAantalToe(int aa){
 		aantal += aa;
 	}
+	/**
+	*	Deze methode returnt de prijs van een product
+	*	@return double prijsPerStuk
+	**/	
 	public double getPrijsPerStuk(){
 		return prijsPerStuk;
 	}
+	/**
+	*	Deze methode returnt een geformatteerde String van een product
+	*	@return String s
+	**/	
 	public String toString(){
 		String s = "";
 		if(!actief){
