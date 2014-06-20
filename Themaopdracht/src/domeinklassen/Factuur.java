@@ -55,12 +55,13 @@ public class Factuur {
 	
 	/**
 	*	Variabele df
-	*	Zodat de factuur een mooie datum heeft
+	*	Voor het formatten en parsen van de datum
 	**/
 	private SimpleDateFormat df = new SimpleDateFormat("dd-MM-yyyy");
 	
 	/**
 	*	Constructor Factuur
+	*	De constructor voor een nieuwe Factuur
 	*	@param aD	Date is een datum
 	*	@param dK	Klus is een klus object
 	**/
@@ -74,9 +75,10 @@ public class Factuur {
 	
 	/**
 	*	Methode betaal
-	*	Zodat je een factuur kan betalen
+	*	Betaalt een factuur met de gekozen betalingswijze op de gegeven datum.
 	*	@param bw	String de betalingswijze
 	*	@param bD	Date de betaalDatum
+	*	@return	void
 	**/
 	public void betaal(String bw, Date bD){
 		isBetaald = true;
@@ -88,7 +90,7 @@ public class Factuur {
 	*	Methode toString
 	*	Geeft alle informatie van een factuur 
 	*	@param btw	double de btw
-	*	@return s van type String
+	*	@return String
 	**/
 	public String toString(double btw){
 		double totaal = 0.0;
@@ -114,7 +116,7 @@ public class Factuur {
 	/**
 	*	Methode getID
 	*	Haalt het ID op van de factuur
-	*	@return factuurid van type int
+	*	@return int
 	**/
 	public int getID(){
 		return factuurid;
@@ -124,7 +126,7 @@ public class Factuur {
 	*	Methode setID
 	*	Zodat je een factuur een uniek nummer kan geven
 	*	@param id	int een getal
-	*	@return factuurid
+	*	@return void
 	**/
 	public void setID(int id){
 		factuurid = id;
@@ -133,7 +135,7 @@ public class Factuur {
 	/**
 	*	Methode getAanmaakDatum
 	*	Haalt de datum op van wanneer de factuuur is gemaakt
-	*	@return aanmaakDatum van type Date
+	*	@return Date
 	**/
 	public Date getAanmaakDatum(){
 		return aanmaakDatum;
@@ -142,7 +144,7 @@ public class Factuur {
 	/**
 	*	Methode getBetaalDatum
 	*	Haalt de betaal datum op van de factuur
-	*	@return betaalDatum van type Date
+	*	@return Date
 	**/
 	public Date getBetaalDatum(){
 		return betaaldDatum;
@@ -151,7 +153,7 @@ public class Factuur {
 	/**
 	*	Methode getKorting
 	*	Haalt de gegeven korting op van een factuur
-	*	@return kortingsPercentage van type int
+	*	@return int
 	**/
 	public int getKorting(){
 		return kortingsPercentage;
@@ -159,9 +161,9 @@ public class Factuur {
 	
 	/**
 	*	Methode setKortingsPercentage
-	*	Zodat je korting kan geven
-	*	@param kp	int een getal
-	*	@return kortingsPercentage van type int
+	*	Zodat je korting kan geven.
+	*	@param kP	int Het gewenste percentage als heel nummer.
+	*	@return void
 	**/
 	public void setKortingsPercentage(int kP){
 		kortingsPercentage = kP;
@@ -170,7 +172,7 @@ public class Factuur {
 	/**
 	*	Methode getKlus
 	*	Haalt de klus op van de factuur
-	*	@return deKlus van type Klus
+	*	@return Klus
 	**/
 	public Klus getDeKlus(){
 		return deKlus;
@@ -179,7 +181,7 @@ public class Factuur {
 	/**
 	*	Methode getBetaalwijze
 	*	Haalt de betaalwijze op hoe de factuur betaald is
-	*	@return betalingswijze type String
+	*	@return String
 	**/
 	public String getBetaalwijze(){
 		return betalingswijze;
@@ -187,8 +189,8 @@ public class Factuur {
 	
 	/**
 	*	Methode getTotaal
-	*	Haalt het totaalbedrag op van de factuur
-	*	@return totaal type double 
+	*	Berekent en geeft het totaalbedrag van de factuur
+	*	@return double 
 	**/
 	public double getTotaal(){
 		double totaal = 0.0;
@@ -202,8 +204,8 @@ public class Factuur {
 	
 	/**
 	*	Methode getBTW
-	*	Haalt het BTW op van de factuur
-	*	@return getTotaal() * (btw * 0.01) van type double
+	*	Berekent en geeft de BTW van de factuur
+	*	@return double
 	**/
 	public double getBTW(double btw){
 		return getTotaal() * (btw * 0.01);
@@ -211,8 +213,8 @@ public class Factuur {
 
 	/**
 	*	Methode getBetaalDatumNetjes
-	*	Haalt de datum op van de factuur wanneer die is betaald
-	*	@return df.format(betaalDatum) van type String
+	*	Haalt de datum op van de factuur wanneer die is betaald als String.
+	*	@return String
 	**/
 	public String getBetaalDatumNetjes(){
 		return df.format(betaaldDatum);
@@ -220,8 +222,8 @@ public class Factuur {
 
 	/**
 	*	Methode getAanmaakDatumNetjes
-	*	Haalt de datum op wanneer de factuur is aangemaakt
-	*	@return df.format(aanmaakDatum) van type String
+	*	Haalt de datum op wanneer de factuur is aangemaakt als String.
+	*	@return String
 	**/
 	public String getAanmaakDatumNetjes(){
 		return df.format(aanmaakDatum);
@@ -230,7 +232,7 @@ public class Factuur {
 	/**
 	*	Methode getIsBetaald
 	*	Haalt de status van een factuur op of die is betaald of niet
-	*	@return isBetaald van type boolean
+	*	@return boolean
 	**/
 	public boolean getIsBetaald(){
 		return isBetaald;

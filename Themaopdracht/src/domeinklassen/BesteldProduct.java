@@ -27,7 +27,8 @@ public class BesteldProduct{
 	private Product hetProduct;
 	
 	/**
-	 * Constructor1 voor BesteldProduct
+	 * Constructor BesteldProduct
+	 * Constructor met Product en hoeveelheid
 	 * @param pr	is het product
 	 * @param hh	is de hoeveelheid
 	 */
@@ -37,7 +38,8 @@ public class BesteldProduct{
 	}
 	
 	/**
-	 * Constructor1 voor BesteldProduct
+	 * Constructor BesteldProduct
+	 * Constructor met ID en hoeveelheid
 	 * @param i		is het ID
 	 * @param hh	is de hoeveelheid
 	 */
@@ -50,7 +52,7 @@ public class BesteldProduct{
 	*	Methode setID
 	*	Deze methode zorgt ervoor dat je een ID kan instellen voor BesteldProduct
 	*	@param i	int een getal
-	*	@return id van type int
+	*	@return void
 	**/
 	public void setID(int i){
 		id = i;
@@ -60,7 +62,7 @@ public class BesteldProduct{
 	*	Methode setProduct
 	*	Deze methode zorgt ervoor dat je een Product aan het BesteldProduct kan koppelen
 	*	@param p	Product het product dat je aan BesteldProduct wilt koppelen
-	*	@return hetProduct van type Product
+	*	@return void
 	**/
 	public void setProduct(Product p){
 		hetProduct = p;
@@ -69,7 +71,7 @@ public class BesteldProduct{
 	/**
 	*	Methode getID
 	*	Haalt het ID op van BesteldProduct
-	*	@return id van type int
+	*	@return int
 	**/
 	public int getID(){
 		return id;
@@ -78,7 +80,7 @@ public class BesteldProduct{
 	/**
 	*	Methode getHoeveelheid
 	*	Deze methode haalt de hoeveelheid op van BesteldProduct
-	*	@return hoeveelheid van type int
+	*	@return int
 	**/
 	public int getHoeveelheid(){
 		return hoeveelheid;
@@ -87,7 +89,7 @@ public class BesteldProduct{
 	/**
 	*	Methode getProduct
 	*	Deze methode haalt het product op van BesteldProduct
-	*	@return hetProduct van type Product
+	*	@return Product
 	**/
 	public Product getProduct(){
 		return hetProduct;
@@ -96,7 +98,7 @@ public class BesteldProduct{
 	/**
 	*	Methode toString
 	*	Deze methode geeft alle informatie van het BesteldProduct
-	*	@return s van type String
+	*	@return String
 	**/
 	public String toString(){
 		return hetProduct.getNaam() + "; " + hoeveelheid + " " + hetProduct.getEenheid();

@@ -26,7 +26,7 @@ public class Bestelling {
 	
 	/**
 	*	Variabele df
-	*	Zodat een bestelling een mooie datum heeft
+	*	Voor het formatten en parsen van de datum
 	**/
 	private SimpleDateFormat df = new SimpleDateFormat("dd-MM-yyyy");
 	
@@ -38,12 +38,13 @@ public class Bestelling {
 	
 	/**
 	*	Variabele deBesteldeProducten
-	*	Zodat je Product objecten in een bestelling kan opslaan
+	*	Zodat je Product objecten in een bestelling kan opslaan in een ArrayList
 	**/
 	private ArrayList<BesteldProduct> deBesteldeProducten;
 	
 	/**
-	 * Constructor1 voor Bestelling
+	 * Constructor Bestelling
+	 * Constructor met als parameter een ID.
 	 * @param bN	is het ID
 	 */
 	public Bestelling(int bN){
@@ -53,7 +54,8 @@ public class Bestelling {
 	}
 	
 	/**
-	 * Constructor2 voor Bestelling
+	 * Constructor Bestelling
+	 * Lege constructor voor bestelling
 	 */
 	public Bestelling(){
 		isGeleverd = false;
@@ -63,7 +65,7 @@ public class Bestelling {
 	/**
 	*	Methode getBestelNummer
 	*	Haalt het bestelnummer op, op basis van ID van de bestelling
-	*	@return id van type int
+	*	@return int
 	**/	
 	public int getBestelNummer(){
 		return id;
@@ -73,7 +75,7 @@ public class Bestelling {
 	*	Methode setBestelNummer
 	*	Met deze methode kan je een bestelling een BestelNummer geven
 	*	@param nr	int een getal
-	*	@return id van type int
+	*	@return void
 	**/	
 	public void setBestelNummer(int nr){
 		id = nr;
@@ -81,8 +83,8 @@ public class Bestelling {
 	
 	/**
 	*	Methode getTotaal
-	*	Haalt het totaal op van de bestelling
-	*	@return totaal van type int
+	*	Berekend en geeft de totale kosten van de bestelling
+	*	@return int
 	**/	
 	public int getTotaal(){
 		int totaal = 0;
@@ -95,7 +97,7 @@ public class Bestelling {
 	/**
 	*	Methode getBesteldeProducten
 	*	Haalt alle Producten op van een bestelling
-	*	@return deBesteldeProducten van type Array
+	*	@return ArrayList<BesteldProduct>
 	**/	
 	public ArrayList<BesteldProduct> getBesteldeProducten(){
 		return deBesteldeProducten;
@@ -103,9 +105,9 @@ public class Bestelling {
 	
 	/**
 	*	Methode setBesteldeProducten
-	*	Zodat je producten kan toevoegen aan een bestelling
-	*	@param bp	ArrayList
-	*	@return deBesteldeProducten van type Array
+	*	Zet de producten van de bestelling om naar de gegeven ArrayList
+	*	@param bp	ArrayList<BesteldProduct>
+	*	@return void
 	**/	
 	public void setBesteldeProducten(ArrayList<BesteldProduct> bp){
 		deBesteldeProducten = bp;
@@ -114,7 +116,7 @@ public class Bestelling {
 	/**
 	*	Methode setIsGeleverd
 	*	Met deze methode kan je een bestelling zeggen dat hij is geleverd
-	*	@param b	boolean
+	*	@param boolean
 	**/	
 	public void setIsGeleverd(boolean b){
 		isGeleverd = b;
@@ -129,7 +131,7 @@ public class Bestelling {
 	/**
 	*	Methode getIsGeleverd
 	*	Haalt op of een Bestelling is geleverd
-	*	@return isGeleverd van type boolean
+	*	@return boolean
 	**/	
 	public boolean getIsGeleverd(){
 		return isGeleverd;
@@ -139,7 +141,7 @@ public class Bestelling {
 	*	Methode setVerwacht
 	*	Met deze methode kan je een verwachte datum meegeven aan een bestelling
 	*	@param da	Date verwachte datum
-	*	@return datum van type Date
+	*	@return void
 	**/	
 	public void setVerwachteDatum(Date da) throws Exception{
 		datum = da;
@@ -148,7 +150,7 @@ public class Bestelling {
 	/**
 	*	Methode getVerwachteDatum
 	*	Met deze methode kan je een verwachte datum opvragen
-	*	@return datum van type Date
+	*	@return Date
 	**/	
 	public Date getVerwachteDatum(){
 		return datum;
@@ -156,8 +158,8 @@ public class Bestelling {
 	
 	/**
 	*	Methode datum
-	*	Parst een datum naar een SimpleDateFormat
-	*	@return df.format(datum)
+	*	Parst de datum naar een SimpleDateFormat en geeft hem als String
+	*	@return String
 	**/	
 	public String datum(){
 		return df.format(datum);
@@ -166,7 +168,7 @@ public class Bestelling {
 	/**
 	*	Methode toString
 	*	Geeft alle informatie van een bestelling 
-	*	@return s van type String
+	*	@return String
 	**/	
 	public String toString(){
 		String s = "Bestelnummer: " + id;

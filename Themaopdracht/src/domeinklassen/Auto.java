@@ -55,7 +55,8 @@ public class Auto {
 	private boolean actief = true;
 	
 	/**
-	 * Constructor voor auto
+	 * Constructor Auto
+	 * De Constructor van auto
 	 * @param ken	is het kenteken van de auto
 	 * @param mk	is het merk van de auto
 	 * @param tp	is het auto type
@@ -71,8 +72,8 @@ public class Auto {
 	
 	/**
 	*	Methode isActief
-	*	Deze methode return actief van type boolean
-	*	@return actief van type boolean
+	*	Deze methode returned actief van type boolean
+	*	@return boolean
 	**/	
 	public boolean isActief() {
 		return actief;
@@ -80,9 +81,9 @@ public class Auto {
 	
 	/**
 	*	Methode setActief
-	*	Deze methode zet de auto op actief
+	*	Deze methode zet de auto op (non-)actief afhankelijk van de gegeven boolean
 	*	@param actief	boolean 
-	*	@return actief van type boolean
+	*	@return void
 	**/	
 	public void setActief(boolean actief) {
 		this.actief = actief;
@@ -90,9 +91,9 @@ public class Auto {
 	
 	/**
 	*	Methode setID
-	*	Deze methode kan je de auto een id geven
+	*	Met deze methode kan je de auto een id geven
 	*	@param id	int het gewenste int getal
-	*	@return id van type int
+	*	@return void
 	**/	
 	public void setID(int id){
 		autoid = id;
@@ -101,7 +102,7 @@ public class Auto {
 	/**
 	*	Methode getID
 	*	Deze methode haalt het id op van de auto
-	*	@return autoid van type int
+	*	@return int
 	**/	
 	public int getID(){
 		return autoid;
@@ -110,7 +111,7 @@ public class Auto {
 	/**
 	*	Methode getKenteken
 	*	Deze methode haalt het kenteken op van de auto
-	*	@return kenteken van type String
+	*	@return String
 	**/	
 	public String getKenteken(){
 		return kenteken;
@@ -119,7 +120,7 @@ public class Auto {
 	/**
 	*	Methode getMerk
 	*	Deze methode haalt het merk op van de auto
-	*	@return merk van type String
+	*	@return String
 	**/	
 	public String getMerk(){
 		return merk;
@@ -128,7 +129,7 @@ public class Auto {
 	/**
 	*	Methode getType
 	*	Deze methode haalt het type op van de auto
-	*	@return type van type String
+	*	@return String
 	**/	
 	public String getType(){
 		return type;
@@ -136,9 +137,9 @@ public class Auto {
 	
 	/**
 	*	Methode voegKlusToe
-	*	Deze methode voegt een Klus toe aan de auto
+	*	Deze methode voegt een Klus toe aan de ArrayList deKlussen
 	*	@param k	Klus is een Klus object
-	*	@return k van type Klus wordt aan de array deKlussen toegevoegd
+	*	@return void
 	**/	
 	public void voegKlusToe(Klus k){
 		deKlussen.add(k);
@@ -147,7 +148,7 @@ public class Auto {
 	/**
 	*	Methode getEigenaar
 	*	Deze methode kan je de eigenaar van de auto opvragen
-	*	@return deEigenaar van type Klant
+	*	@return Klant
 	**/	
 	public Klant getEigenaar(){
 		return deEigenaar;
@@ -156,7 +157,7 @@ public class Auto {
 	/**
 	*	Methode laatsteKlus
 	*	Laat de datum zien van de laatste klus
-	*	@return d van type Date
+	*	@return Date
 	**/	
 	public Date laatsteKlus() throws Exception {
 		SimpleDateFormat df = new SimpleDateFormat("dd-MM-yyyy");
@@ -174,7 +175,7 @@ public class Auto {
 	/**
 	*	Methode getKlussen
 	*	Haalt alle klussen op die in de ArrayList staat deKlussen
-	*	@return deKlussen van type ArrayList
+	*	@return ArrayList<Klus>
 	**/	
 	public ArrayList<Klus> getKlussen(){
 		return deKlussen;
@@ -183,7 +184,7 @@ public class Auto {
 	/**
 	*	Methode toString
 	*	Geeft alle informatie over de auto
-	*	@return s van type String
+	*	@return String
 	**/	
 	@Override
 	public String toString() {
