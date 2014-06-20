@@ -7,14 +7,36 @@ import java.util.ArrayList;
 
 import domeinklassen.Klant;
 
+/**	
+*	Dit is klasse ConnectDBKlant
+*	Deze klasse is verantwoordelijk voor het communiceren met en beheren van de tabel Klant in de database
+*	@author Team3SoftwareDevelopment
+*	@version 1.0
+**/
+
 public class ConnectDBKlant{
 	
+	/**
+	*   Variabele con, type Connection
+	*	Hier wordt de verbinding met de database opgeslagen
+	*	Deze fungeert als brug tussen de java code en de MySQL database
+	**/
 	private Connection con;
-	//maak connectie
+	
+	/**
+	*	Constructor ConnectDBKlant
+	*	Dit is de constructor voor ConnectDBKlant
+	*	@param c	Connection met de database
+	**/
 	public ConnectDBKlant(Connection c){
 		con = c;
 	}
 
+	/**
+	*	Methode getKlanten
+	*	Haalt alle regels op uit tabel Klant waar actief 't' is
+	*	@return ArrayList<Klant>
+	**/	
 	//alle klanten in de database
 	public ArrayList<Klant> getKlanten(){
 		ArrayList<Klant> terug = new ArrayList<Klant>();
@@ -45,7 +67,12 @@ public class ConnectDBKlant{
 		}
 		return terug;
 	}
-	
+
+	/**
+	*	Methode zoekKlant
+	*	Haalt de regel uit de tabel waar het klantid overeen komt met het gegeven nummer, maakt hier een Klant-object van, en geeft dit terug.
+	*	@return Klant
+	**/	
 	//zoek klant op klantnummer
 	public Klant zoekKlant(int klantnummer){
 		Klant terug = null;
@@ -74,7 +101,13 @@ public class ConnectDBKlant{
 		}
 		return terug;		
 	}
-	
+
+	/**
+	*	Methode zoekKlant
+	*	Voor gebruik door ConnectDBAuto. Het Klant-object wat hier mee terug wordt gegeven heeft geen aangesloten Auto-objecten.
+	*	Haalt de regel uit de tabel waar het klantid overeen komt met het gegeven nummer, maakt hier een Klant-object van, en geeft dit terug.
+	*	@return Klant
+	**/	
 	//zoek klant op klantnummer
 	public Klant zoekEigenaar(int klantnummer){
 		Klant terug = null;
@@ -100,6 +133,16 @@ public class ConnectDBKlant{
 		return terug;		
 	}
 	
+	/**
+	*	Methode nieuweKlant
+	*	Voegt een regel toe met de ingevoerde gegevens, zoekt de hoogste Primary Key in Klant, en roept zoekKlant aan met dit nummer.
+	*	@param	nm	String De naam van de nieuwe Klant.
+	*	@param	adr	String Het adres van de nieuwe Klant.
+	*	@param	wp	String De woonplaats van de nieuwe Klant.
+	*	@param	rnr	String	Het rekeningnummer van de nieuwe Klant (String ivm introductie van IBAN).
+	*	@param	nr	String	Het telefoonnummer van de nieuwe Klant.
+	*	@return Klant
+	**/		
 	//maakt nieuwe klant.  id wordt automatisch toegewezen. geeft klant-object terug zodat je het id weet.
 	public Klant nieuweKlant(String nm, String adr, String wp, String rnr, int nr){
 		Klant terug = null;
@@ -129,6 +172,12 @@ public class ConnectDBKlant{
 		return terug;
 	}
 	
+	/**
+	*	Methode updateKlant
+	*	Haalt de regel uit de tabel waar het klantid overeen komt met het id van de gegeven Klant en wijzig de gegevens naar die van de Klant.
+	*	@param	k	Klant	De klant waarvoor de tabel moet worden geupdate.
+	*	@return boolean
+	**/		
 	//wijzigt klant in database naar alle waarden van ingevoerde klant-object (exclusief het id)
 	public boolean updateKlant(Klant k){
 		try{
@@ -146,6 +195,12 @@ public class ConnectDBKlant{
 		return false;
 	}
 	
+	/**
+	*	Methode verwijderKlant
+	*	Haalt de regel uit de tabel waar het klantid overeen komt met het geven nummer en zet actief op 'f'.
+	*	@param	klantid	int	Het klantid van de klant die op non-actief wordt gezet.
+	*	@return boolean
+	**/		
 	//zet klant op non-actief
 	public boolean verwijderKlant(int klantid){
 		try{
@@ -162,6 +217,13 @@ public class ConnectDBKlant{
 		}
 		return false;
 	}
+	
+	/**
+	*	Methode activeerKlant
+	*	Haalt de regel uit de tabel waar het klantid overeen komt met het geven nummer en zet actief op 't'.
+	*	@param	klantid	int	Het klantid van de klant die op actief wordt gezet.
+	*	@return boolean
+	**/	
 	//zet klant op actief
 	public boolean activeerKlant(int klantid){
 		try{

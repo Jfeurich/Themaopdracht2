@@ -12,13 +12,36 @@ import domeinklassen.Klus;
 import domeinklassen.Onderhoudsbeurt;
 import domeinklassen.Reparatie;
 
+/**	
+*	Dit is klasse ConnectDBKlus
+*	Deze klasse is verantwoordelijk voor het communiceren met en beheren van de tabel Klus in de database
+*	@author Team3SoftwareDevelopment
+*	@version 1.0
+**/
+
 public class ConnectDBKlus{
 	
+	/**
+	*   Variabele con, type Connection
+	*	Hier wordt de verbinding met de database opgeslagen
+	*	Deze fungeert als brug tussen de java code en de MySQL database
+	**/
 	private Connection con;
-	//maak connectie
+	
+	/**
+	*	Constructor ConnectDBKlus
+	*	Dit is de constructor voor ConnectDBKlus
+	*	@param c	Connection met de database
+	**/
 	public ConnectDBKlus(Connection c){
 		con = c;
 	}
+	
+	/**
+	*	Methode getKlussenbydatum
+	*	Haalt alle klussen op die gepland staan voor de komende maand
+	*	@return ArrayList<Klus>
+	**/
 	//toegevoegd voor overzicht werkplaatsplanning (alle klussen in de komende maand)
 	public ArrayList<Klus> getKlussenbydatum(){
 		ArrayList<Klus> terug = new ArrayList<Klus>();
@@ -69,6 +92,14 @@ public class ConnectDBKlus{
 		}
 		return terug;
 	}
+	
+	/**
+	*	Methode getKlussenTussenData
+	*	Haalt alle klussen op die gepland staan tussen de gegeven data
+	*	@param	dat1	java.util.Date Geeft de begindatum waar op moet worden gezocht.
+	*	@param	dat2	java.util.Date Geeft de einddatum waar op moet worden gezocht.
+	*	@return ArrayList<Klus>
+	**/
 	//zoek klussen tussen 2 data
 	public ArrayList<Klus> getKlussenTussenData(java.util.Date dat1, java.util.Date dat2){
 		ArrayList<Klus> terug = new ArrayList<Klus>();
@@ -117,6 +148,12 @@ public class ConnectDBKlus{
 		return terug;
 	}
 
+	/**
+	*	Methode getKlussenMetStatus
+	*	Haalt alle klussen waarvan de status (deels) overeen komt met de gegeven tekst
+	*	@param	status	String Geeft de tekst waar op moet worden gezocht.
+	*	@return ArrayList<Klus>
+	**/
 	//zoek klussen met status...
 	public ArrayList<Klus> getKlussenMetStatus(String status){
 		ArrayList<Klus> terug = new ArrayList<Klus>();
@@ -162,6 +199,13 @@ public class ConnectDBKlus{
 		}
 		return terug;
 	}
+	
+	/**
+	*	Methode getKlussenMetBeschrijving
+	*	Haalt alle klussen waarvan de beschrijving (deels) overeen komt met de gegeven tekst
+	*	@param	bes	String Geeft de tekst waar op moet worden gezocht.
+	*	@return ArrayList<Klus>
+	**/
 	//zoek klussen met beschrijving...
 	public ArrayList<Klus> getKlussenMetBeschrijving(String bes){
 		ArrayList<Klus> terug = new ArrayList<Klus>();
@@ -207,6 +251,13 @@ public class ConnectDBKlus{
 		}
 		return terug;
 	}
+	
+	/**
+	*	Methode getKlussenVoorAuto
+	*	Haalt alle klussen waarvan het autoid overeen komt de gegeven int
+	*	@param	autoid	int Geeft het autoid waar op moet worden gezocht.
+	*	@return ArrayList<Klus>
+	**/
 	//geeft alle klussen bij het ingevoerde id
 	public ArrayList<Klus> getKlussenVoorAuto(int autoid){
 		ArrayList<Klus> terug = new ArrayList<Klus>();
@@ -251,6 +302,13 @@ public class ConnectDBKlus{
 		}
 		return terug;
 	}
+	
+	/**
+	*	Methode getKlussenVoorAutoObject
+	*	Haalt alle klussen waarvan het autoid overeen komt met het id van de gegeven Auto
+	*	@param	deAuto	Auto Geeft het auto waar op moet worden gezocht.
+	*	@return ArrayList<Klus>
+	**/
 	//geeft alle klussen bij het ingevoerde Auto-object
 	public ArrayList<Klus> getKlussenVoorAutoObject(Auto deAuto){
 		ArrayList<Klus> terug = new ArrayList<Klus>();
@@ -293,6 +351,13 @@ public class ConnectDBKlus{
 		}
 		return terug;
 	}
+	
+	/**
+	*	Methode getVoltooideKlussenVoorAuto
+	*	Haalt alle klussen waarvan het autoid overeen komt met het gegeven nummer waarvan de status 'voltooid' is en waarvan nog geen factuur is gemaakt.
+	*	@param	autoid	int Geeft het autoid waar op moet worden gezocht.
+	*	@return ArrayList<Klus>
+	**/
 	//geeft alle klussen bij het ingevoerde id
 	public ArrayList<Klus> getVoltooideKlussenVoorAuto(int autoid){
 		ArrayList<Klus> terug = new ArrayList<Klus>();
@@ -338,7 +403,13 @@ public class ConnectDBKlus{
 		}
 		return terug;
 	}
-	
+
+	/**
+	*	Methode zoekKlus
+	*	Zoekt de regel waarvan het klusid overeen komt met het gegeven nummer, maakt een Klus-object aan de hand van die regel, en geeft deze Klus terug
+	*	@param	klusid	int Geeft het klusid waar op moet worden gezocht.
+	*	@return Klus
+	**/
 	//zoek op id en krijg Onderhoudsbeurt OF Reparatie terug.
 	public Klus zoekKlus(int klusid){
 		Klus terug = null;
@@ -376,7 +447,16 @@ public class ConnectDBKlus{
 		}
 		return terug;		
 	}
-	
+
+	/**
+	*	Methode zoekKlus
+	*	Voegt een regel toe aan Klus met de ingevoerde gegevens, zoekt de hoogste Primary Key in klus, en roept zoekKlus aan op dit nummer.
+	*	@param	datum	java.util.Date	De datum van de klus.
+	*	@param	bes	String	De beschrijving van de klus.
+	*	@param	tp	String	Het type van de klus (onderhoud of reparatie)
+	*	@param	autoid	int	Het id van de auto waar de klus aan uit is gevoerd.
+	*	@return Klus
+	**/
 	//nieuwe klus (paramters datum, beschrijving, type, autoid). id wordt automatisch toegewezen. geeft klus-object terug zodat je het id weet.
 	public Klus nieuweKlus(java.util.Date datum, String bes, String tp, int autoid){
 		Klus terug = null;
@@ -405,7 +485,13 @@ public class ConnectDBKlus{
 		}
 		return terug;
 	}
-	
+
+	/**
+	*	Methode updateKlus
+	*	Zoekt de regel in de database waarvan het klusid overeen komt met het id van de gegeven Klus en update die regel naar alle gegevens van de Klus.
+	*	@param	k	Klus	De klus waarop de update uit moet worden gevoerd.
+	*	@return boolean
+	**/
 	//update klus in database naar alle waarden van het ingevoerde klus-object (uiteraard NIET het id)
 	public boolean updateKlus(Klus k){
 		try{
@@ -427,7 +513,13 @@ public class ConnectDBKlus{
 		}
 		return false;
 	}
-	
+
+	/**
+	*	Methode verwijderKlus
+	*	Zoekt de regel in de database waarvan het klusid overeen komt met het gegeven nummer en zet actief op 'f'.
+	*	@param	klusid	int	Het klusid van de klus die op non-actief moet worden gezet.
+	*	@return boolean
+	**/
 	//zet klus op non-actief
 	public boolean verwijderKlus(int klusid){
 		try{
