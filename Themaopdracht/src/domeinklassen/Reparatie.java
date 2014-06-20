@@ -27,7 +27,7 @@ public class Reparatie extends Klus {
 	}
 	/**
 	*	Deze methode berekent de kosten van een reparatie
-	*	@return double kosten
+	*	@return kosten
 	**/	
 	public double berekenKosten(){
 		double kosten = manuren * 8.50;
@@ -35,7 +35,7 @@ public class Reparatie extends Klus {
 	}
 	/**
 	*	Deze methode returnt een geformatteerde String van een reparatie
-	*	@return String s
+	*	@return s
 	**/	
 	public String toString(){
 		String s = super.toString() + "Reparatie: " + datum + "; ";

@@ -51,28 +51,28 @@ public class User {
 	}
 	/**
 	*	Deze methode returnt de ID van een Useraccount. 
-	*	@return integer ID
+	*	@return ID
 	**/	
 	public int getID(){
 		return id;
 	}
 	/**
 	*	Deze methode returnt het type van een Useraccount. 
-	*	@return integer type
+	*	@return type
 	**/	
 	public int getType() {
 		return type;
 	}
 	/**
 	*	Deze methode returnt het emailadres van een Useraccount. 
-	*	@return integer type
+	*	@return type
 	**/	
 	public String getEmail(){
 		return email;
 	}
 	/**
 	*	Deze methode verandert het emailadres van een Useraccount.
-	*	@param String email 
+	*	@param email 
 	**/	
 	public void setEmail(String mail){
 		email = mail;
@@ -80,21 +80,21 @@ public class User {
 	
 	/**
 	*	Deze methode returnt de gebruikersnaam van een Useraccount. 
-	*	@return String gebruikersnaam;
+	*	@return gebruikersnaam;
 	**/	
 	public String getGebruikersnaam() {
 		return gebruikersnaam;
 	}
 	/**
 	*	Deze methode returnt het wachtwoord van een Useraccount. 
-	*	@return String wachtwoord
+	*	@return wachtwoord
 	**/	
 	public String getWachtwoord() {
 		return wachtwoord;
 	}
 	/**
 	*	Deze methode verandert het wachtwoord van een Useraccount. 
-	*	@param String wachtwoord
+	*	@param wachtwoord
 	**/	
 	public void setWachtwoord(String password) {
 		this.wachtwoord = password;
@@ -108,7 +108,7 @@ public class User {
 	}
 	/**
 	*	Deze methode Koppelt een Klant Object aan een User Object
-	*	@param Klant de Klant
+	*	@param deKlant
 	**/	
 	public void setDeKlant(Klant deKlant) {
 		this.deKlant = deKlant;
@@ -116,7 +116,7 @@ public class User {
 	}
 	/**
 	*	Deze methode Returnt alle gegevens van een useraccount geformatteerd tot een String. 
-	*	@return String s 
+	*	@return s 
 	**/	
 	@Override
 	public String toString() {

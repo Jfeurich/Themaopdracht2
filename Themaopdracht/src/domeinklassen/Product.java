@@ -82,63 +82,63 @@ public class Product{
 	}
 	/**
 	*	Deze methode returnt de minimumvoorraad van een product
-	*	@return int minimumAanwezig
+	*	@return minimumAanwezig
 	**/	
 	public int getMinimumAanwezig(){
 		return minimumAanwezig;
 	}
 	/**
 	*	Deze methode verandert de minimumvoorraad van een product
-	*	@param int minimumAanwezig
+	*	@param minimumAanwezig
 	**/	
 	public void setMinimumAanwezig(int mA){
 		minimumAanwezig = mA;
 	}
 	/**
 	*	Deze methode returnt de voorraad van een product
-	*	@return int aantal
+	*	@return aantal
 	**/	
 	public int getAantal(){
 		return aantal;
 	}
 	/**
 	*	Deze methode verandert de voorraad van een product
-	*	@param itn aantal
+	*	@param aantal
 	**/	
 	public void setAantal(int aa){
 		aantal = aa;
 	}
 	/**
 	*	Deze methode returnt de eenheid van een product
-	*	@return String eenheid
+	*	@return eenheid
 	**/	
 	public String getEenheid(){
 		return eenheid;
 	}
 	/**
 	*	Deze methode verandert de naam van een product
-	*	@param String naam
+	*	@param naam
 	**/	
 	public void setNaam(String naam) {
 		this.naam = naam;
 	}
 	/**
 	*	Deze methode verandert het artikelnummer van een product
-	*	@param int artikelNr 
+	*	@param artikelNr 
 	**/	
 	public void setArtikelNr(int artikelNr) {
 		this.artikelNr = artikelNr;
 	}
 	/**
 	*	Deze methode verandert de eenheid van een product
-	*	@param String eenheid
+	*	@param eenheid
 	**/	
 	public void setEenheid(String eenheid) {
 		this.eenheid = eenheid;
 	}
 	/**
 	*	Deze methode verandert de prijs van een product
-	*	@param double prijsPerStukf 
+	*	@param prijsPerStukf 
 	**/	
 	public void setPrijsPerStuk(double prijsPerStuk) {
 		this.prijsPerStuk = prijsPerStuk;
@@ -149,14 +149,14 @@ public class Product{
 	}
 	/**
 	*	Deze methode returnt de prijs van een product
-	*	@return double prijsPerStuk
+	*	@return prijsPerStuk
 	**/	
 	public double getPrijsPerStuk(){
 		return prijsPerStuk;
 	}
 	/**
 	*	Deze methode returnt een geformatteerde String van een product
-	*	@return String s
+	*	@return s
 	**/	
 	public String toString(){
 		String s = "";

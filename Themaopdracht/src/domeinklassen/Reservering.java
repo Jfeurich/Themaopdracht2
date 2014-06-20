@@ -41,11 +41,11 @@ public class Reservering {
 	/**
 	*	Constructor voor Reservering.
 	*	@param Auto deAuto 	Dit is de Auto gekoppeld aan de reservering
-	*	@param int id 		Dit is het ID van de reservering voor de database
-	*	@param Date beginDat Dit is de begindatum van de reservering
-	*	@param Date eindDat Dit is de einddatum van de reservering
-	*	@param int deParkeerplek Dit is het ID van de parkeerplek
-	*	@param boolean isGeweest Dit beschrijft of de Auto aanwezig was op de parkeerplek
+	*	@param int id	Dit is het ID van de reservering voor de database
+	*	@param Date beginDat	Dit is de begindatum van de reservering
+	*	@param Date eindDat	Dit is de einddatum van de reservering
+	*	@param int deParkeerplek	Dit is het ID van de parkeerplek
+	*	@param boolean isGeweest	Dit beschrijft of de Auto aanwezig was op de parkeerplek
 	**/	
 	public Reservering(Auto a, int i, Date bD, Date eD, int dP){
 		deAuto = a;
@@ -57,77 +57,77 @@ public class Reservering {
 	}
 	/**
 	*	Methode isGeweest() returnt of de Auto aanwezig was tijdens de reservering
-	*	@return boolean isGeweest
+	*	@return isGeweest
 	**/
 	public boolean isGeweest() {
 		return isGeweest;
 	}
 	/**
 	*	Methode setGeweest verandert de waarde van isGeweest naar true of false
-	*	@param boolean isGeweest
+	*	@param isGeweest
 	**/
 	public void setGeweest(boolean isGeweest) {
 		this.isGeweest = isGeweest;
 	}
 	/**
 	*	Methode voegAutoToe voegt een auto toe aan een reservering
-	*	@param Auto a
+	*	@param a
 	**/
 	public void voegAutoToe(Auto a){
 		deAuto = a;
 	}
 	/**
 	*	Methode getID() returnt het ID van de reservering
-	*	@return int id
+	*	@return id
 	**/
 	public int getID(){
 		return id;
 	}
 	/**
 	*	Methode getBegDat() returnt de begindatum van de reservering
-	*	@return Date beginDat
+	*	@return beginDat
 	**/
 	public Date getBegDat(){
 		return beginDat;
 	}
 	/**
 	*	Methode getEindDat() returnt de einddatum van de reservering
-	*	@return Date eindDat
+	*	@return eindDat
 	**/
 	public Date getEindDat(){
 		return eindDat;
 	}
 	/**
 	*	Methode getBegDatNetjes() returnt een geformatteerde versie van begindatum
-	*	@return String beginDat
+	*	@return beginDat
 	**/
 	public String getBegDatNetjes(){
 		return df.format(beginDat);
 	}
 	/**
 	*	Methode getEindDatNetjes() returnt een geformatteerde verdie van einddatum
-	*	@return String eindDat
+	*	@return eindDat
 	**/
 	public String getEindDatNetjes(){
 		return df.format(eindDat);
 	}
 	/**
 	*	Methode getAuto() returnt het Auto-Object van een reservering
-	*	@return Auto deAuto
+	*	@return deAuto
 	**/
 	public Auto getAuto(){
 		return deAuto;
 	}
 	/**
 	*	Methode getDeParkeerplek() returnt het id van de parkeerplek
-	*	@return int deParkeerplek
+	*	@return deParkeerplek
 	**/
 	public int getDeParkeerplek(){
 		return deParkeerplek;
 	}
 	/**
 	*	Methode toString() returnt een geformatteerde string van een reservering
-	*	@return String s
+	*	@return s
 	**/
 	public String toString(){
 		return "Van " + df.format(beginDat) + " tot " + df.format(eindDat) + " op parkeerplek " + deParkeerplek + " staat auto met kenteken " + deAuto.getKenteken();
