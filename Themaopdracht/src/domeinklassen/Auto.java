@@ -11,7 +11,13 @@ public class Auto {
 	private ArrayList<Klus> deKlussen = new ArrayList<Klus>();
 	private Klant deEigenaar;
 	private boolean actief = true;
-
+	/**
+	 * Constructor voor auto
+	 * @param ken
+	 * @param mk
+	 * @param tp
+	 * @param dE
+	 */
 	public Auto(String ken, String mk, String tp, Klant dE){
 		kenteken = ken;
 		merk = mk;
