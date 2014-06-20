@@ -105,9 +105,10 @@ public class ProductServletTest {
 				    	int an = Integer.parseInt(artikelNr[nummer]);
 				    	int ma = Integer.parseInt(minimumAanwezig[nummer]);
 				    	String eh = eenheid[nummer];
-				    	double pps = Double.parseDouble(prijsPerStuk[nummer]);
-				    	
+				    	int al = Integer.parseInt(aantal[nummer]);
+				    	double pps = Double.parseDouble(prijsPerStuk[nummer]);			    	
 				    	Product p = new Product(nm,an,ma,eh,pps);
+				    	p.setAantal(al);
 				    	GebruiktProduct gp = new GebruiktProduct(an, p);
 				    	BesteldProduct bp = new BesteldProduct(p, an);
 				    	Bestelling b = new Bestelling(an);
@@ -116,7 +117,8 @@ public class ProductServletTest {
 				    	besteldeproducten.add(bp);
 				    	b.setBesteldeProducten(besteldeproducten);
 				    	assertEquals(b.getIsGeleverd(),false);
-				    	p.setAantal(an);
+				    	p.setAantal(al);
+				    	assertEquals(al,p.getAantal());
 				    	assertEquals(p.toString(),"Naam: " + nm + "; Artikelnummer: " + an + "; Minimum aanwezig: " + ma+ "; Eenheid: " + eh + "; Voorraad: " + an);
 				    	assertEquals(gp.getKosten(),an*pps,DELTA);
 				    	assertEquals(gp.getHetProduct(),p);
