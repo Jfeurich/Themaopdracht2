@@ -35,11 +35,11 @@ public class SQLtestparser {
   protected void processLine(String aLine){
     //use a second Scanner to parse the content of each line 
     Scanner scanner = new Scanner(aLine);
-    scanner.useDelimiter("=");
+    scanner.useDelimiter("<br>");
     if (scanner.hasNext()){
       //assumes the line has a certain structure
       String waarde = scanner.next();
-      log("<br></div><div class" + quote(waarde.trim()) + "Tested value:");
+      log("Tested value:" + quote(waarde.trim()) + "<br></div><div class");
     }
     else {
       log("Empty or invalid line. Unable to process.");

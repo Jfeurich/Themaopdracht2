@@ -38,7 +38,7 @@ public class ProductServletTest {
 	private static final double DELTA = 1e-5;
 	
 	public ProductServletTest(int nr){
-		nr = nummer;
+		nummer = nr;
 	}
 	  @Parameters
 	  public static Collection<Object[]> data() {

@@ -44,7 +44,7 @@ public class KlantServletTest {
 	private static int nummer;
 	
 	public KlantServletTest(int nr){
-		nr = nummer;
+		nummer = nr;
 	}
 	  @Parameters
 	  public static Collection<Object[]> data() {
@@ -63,24 +63,27 @@ public class KlantServletTest {
 			BufferedReader brp = null;
 			String linep = "";
 			try {
+				int teller = 0;
 				brp = new BufferedReader(new FileReader(csvPersonen));
 				while ((linep = brp.readLine()) != null) {
 					String[] regel = linep.split(cvsSplitBy); //file is gescheiden door ;
-				    klantnummer[nummer] = "";
-				    naam[nummer] = "";
-				    adres[nummer] = "";
-				    plaats[nummer] = "";
-				    rekeningnummer[nummer] = "";
-				    telefoonnummer[nummer] = "";
+				    klantnummer[teller] = "";
+				    naam[teller] = "";
+				    adres[teller] = "";
+				    plaats[teller] = "";
+				    rekeningnummer[teller] = "";
+				    telefoonnummer[teller] = "";
+				    System.out.println(teller);
 				    try{
-					    klantnummer[nummer] = regel[0];
-					    naam[nummer] = regel[1];
-					    adres[nummer] = regel[2];
-					    plaats[nummer] = regel[3];
-					    rekeningnummer[nummer] = regel[4];
-					    telefoonnummer[nummer] = regel[5];
+					    klantnummer[teller] = regel[0];
+					    naam[teller] = regel[1];
+					    adres[teller] = regel[2];
+					    plaats[teller] = regel[3];
+					    rekeningnummer[teller] = regel[4];
+					    telefoonnummer[teller] = regel[5];
+					    
 				    }catch(ArrayIndexOutOfBoundsException e){ }
-				    nummer++;
+				    teller++;
 				}
 			}
 		catch (FileNotFoundException e) {
@@ -97,7 +100,6 @@ public class KlantServletTest {
 					e.printStackTrace();
 				}
 			}
-			nummer = 0;
 		}
 	  }
 	  
@@ -112,6 +114,7 @@ public class KlantServletTest {
 		  int tnr = Integer.parseInt(telefoonnummer[nummer]);
 		  
 		    Klant klant = new Klant(knr, nm, adr, ps, rkn, tnr);
+		    System.out.println(klant.toString());
 		    User gebruiker = new User(1, 3, klant.getNaam(),"wachtwoord", "test@test.test");
 		    Auto auto = new Auto("kenteken", "merk", "type", klant);
 		    Klus klus = new Reparatie(dat, "testreparatie");
