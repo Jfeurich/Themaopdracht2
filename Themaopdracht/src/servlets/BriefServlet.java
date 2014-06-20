@@ -63,9 +63,9 @@ public class BriefServlet extends HttpServlet{
 			}
 			catch (Exception e) {
 				e.printStackTrace();
+				req.setAttribute("msg", "Brief versturen mislukt!");
+				req.setAttribute("deKlant", deKlant);
 			}
-			req.setAttribute("msg", "Brief versturen mislukt!");
-			req.setAttribute("deKlant", deKlant);
 		}
 		req.getRequestDispatcher("nieuwebrief.jsp").forward(req, resp);
 	}

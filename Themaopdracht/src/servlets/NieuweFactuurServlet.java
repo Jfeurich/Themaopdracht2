@@ -35,6 +35,7 @@ public class NieuweFactuurServlet extends HttpServlet{
 		String knop = req.getParameter("knop");
 		RequestDispatcher rd = req.getRequestDispatcher("nieuwefactuur.jsp");
 		req.setAttribute("stap1", "done");
+		
 		if(knop.equals("Done")){
 			resp.sendRedirect("index.html");
 		}
@@ -50,10 +51,11 @@ public class NieuweFactuurServlet extends HttpServlet{
 		else if(knop.equals("klus")){
 			ConnectDBKlus klusconn = new ConnectDBKlus(con);
 			int autoid = Integer.parseInt(req.getParameter("gekozenauto"));
+			//Zoek alleen de klussen met status "voltooid" waar nog geen factuur voor bestaat
 			ArrayList<Klus> klussen = klusconn.getVoltooideKlussenVoorAuto(autoid);
 			req.setAttribute("klussen", klussen);
 		}
-		//gebruiker heeft een klus geselecteerd en wil een factuur maken
+		//Gebruiker heeft een klus geselecteerd en wil een factuur maken
 		else if(knop.equals("nieuw")){
 			String klus = req.getParameter("gekozenklus");
 			boolean gemaakt = false;
@@ -61,25 +63,20 @@ public class NieuweFactuurServlet extends HttpServlet{
 				int klusid = Integer.parseInt(klus);
 				ConnectDBKlus klusconn = new ConnectDBKlus(con);
 				Klus deKlus = klusconn.zoekKlus(klusid);
-				if(deKlus.getStatus().equals("voltooid")){	//is de status van de klus wel "voltooid?"
-					ConnectDBFactuur fconn = new ConnectDBFactuur(con);
-					if(fconn.getFactuurVanKlus(klusid) == null){	//check of deze klus al een factuur heeft
-						Factuur nieuw = fconn.nieuweFactuur(deKlus);
-						if(nieuw != null){		//kijk of de factuur met succes in de database is gezet
-							req.setAttribute("msg", "Factuur aangemaakt");
-							req.setAttribute("deFactuur", nieuw);
-							gemaakt = true;
-						}
-						else{
-							req.setAttribute("error", "Factuur kan niet aangemaakt worden");
-						}
+				ConnectDBFactuur fconn = new ConnectDBFactuur(con);
+				if(fconn.getFactuurVanKlus(klusid) == null){	//check of deze klus al een factuur heeft
+					Factuur nieuw = fconn.nieuweFactuur(deKlus);
+					if(nieuw != null){		//kijk of de factuur met succes in de database is gezet
+						req.setAttribute("msg", "Factuur aangemaakt");
+						req.setAttribute("deFactuur", nieuw);
+						gemaakt = true;
 					}
 					else{
-						req.setAttribute("error", "De factuur van deze klus bestaat al!");
+						req.setAttribute("error", "Factuur kan niet aangemaakt worden");
 					}
 				}
 				else{
-					req.setAttribute("error", "Deze klus is nog niet voltooid!");
+					req.setAttribute("error", "De factuur van deze klus bestaat al!");
 				}
 			}
 			else{

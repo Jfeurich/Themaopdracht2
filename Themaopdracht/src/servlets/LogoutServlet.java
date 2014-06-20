@@ -23,13 +23,15 @@ public class LogoutServlet extends HttpServlet {
 		HttpSession session = req.getSession();
 		Logger logger = Logger.getLogger("ATDlogger");
 		logger.info("Gebruiker uitgelogd: " + naam);
+		//Sluit session af
 		session.setAttribute("gebruiker", null);
-		String terug = "Tot ziens, " + naam + "!";
-		req.setAttribute("msg", terug);
-		req.getRequestDispatcher("loginpage.jsp").forward(req, resp); 
 		ConnectDB database = new ConnectDB();
 		Connection con = (Connection)session.getAttribute("verbinding");
 		database.sluitVerbinding(con);
 		session.invalidate();
+		//Stuur tot ziens bericht terug en stuur gebruiker naar login pagina
+		String terug = "Tot ziens, " + naam + "!";
+		req.setAttribute("msg", terug);
+		req.getRequestDispatcher("loginpage.jsp").forward(req, resp); 
 	}
 }

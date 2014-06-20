@@ -38,7 +38,7 @@ public class KlusServlet extends HttpServlet {
 		if(knop.equals("nieuw")){
 			ConnectDBKlant klantconn = new ConnectDBKlant(con);	
 			ArrayList<Klant> klanten = klantconn.getKlanten();
-			if(klanten.size() > 0){
+			if(klanten.size() != 0){
 				req.setAttribute("klanten", klanten);
 				req.setAttribute("stap1", "done");
 				rd = req.getRequestDispatcher("nieuweklus.jsp");

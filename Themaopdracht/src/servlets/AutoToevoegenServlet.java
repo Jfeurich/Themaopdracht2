@@ -13,6 +13,7 @@ import database.ConnectDBAuto;
 import database.ConnectDBKlant;
 import domeinklassen.Auto;
 import domeinklassen.Klant;
+import domeinklassen.User;
 
 public class AutoToevoegenServlet extends HttpServlet{
 	private static final long serialVersionUID = 1L;
@@ -50,7 +51,14 @@ public class AutoToevoegenServlet extends HttpServlet{
 				}
 				if(magToevoegen){
 					ConnectDBAuto autocon = new ConnectDBAuto(con);	
-					autocon.nieuweAuto(ken, mk, tp, deKlant);
+					Auto a = autocon.nieuweAuto(ken, mk, tp, deKlant);
+					User u = (User)req.getSession().getAttribute("gebruiker");
+					if(u.getType() == 3){
+						//voeg de auto toe aan de arraylist van auto's van de ingelogde klant
+						Klant k = u.getDeKlant();
+						k.voegAutoToe(a);
+						req.getSession().setAttribute("gebruiker", u);
+					}
 					req.setAttribute("msg", "Auto met succes toegevoegd!");
 				}
 				else{

@@ -32,14 +32,18 @@ public class AccountServlet extends HttpServlet{
 		User gebruiker = (User)req.getSession().getAttribute("gebruiker");
 		HttpSession session = req.getSession();
 		
-		if(knop.equals("Wijzigingen opslaan") || knop.equals("Account aanpassen")){
-			boolean magWijzigen = true;
+		if(knop.equals("Wijzigingen opslaan")/*Voor eigen account*/ || knop.equals("Account aanpassen")/*Voor administratie*/){
+			boolean magWijzigen = true;	//check op geldig nummer bij telefoonnummer
+			//Sla wijzigingen op in een HashMap. De key geeft aan welke waarde is gewijzigd, het value wat de nieuwe waarde moet worden.
 			Map<String, String> w = new HashMap<String, String>();
 			boolean isKlant = false;
 			if(gebruiker.getType() == 3){
 				isKlant = true;
 			}
 			if(knop.equals("Account aanpassen")){
+				//Als de administratie aan het werk is wordt bij gehouden welke account moet worden gewijzigd (andere gebruikers wijzigen alleen hun eigen account)
+				//De actra waarde (de)activate kan worden gewijzigd, en de administratie wordt terug gestuurd naar accountwijzigen ipv mijnaccount.
+				rd = req.getRequestDispatcher("accountwijzigen.jsp");
 				User u = (User)session.getAttribute("wijzig");
 				if(u.getType() == 3){
 					isKlant = true;
@@ -59,15 +63,17 @@ public class AccountServlet extends HttpServlet{
 					}
 				}
 			}
-			String em = req.getParameter("email");
-			if(!em.equals("")){
-				w.put("em", em);
-			}
-			if(knop.equals("Wijzigingen opslaan")){
+			else if(knop.equals("Wijzigingen opslaan")){
+				//Alleen de gebruiker zelf mag zijn/haar wachtwoord wijzigen.
 				String ww = req.getParameter("wachtwoord");
 				if(!ww.equals("")){
 					w.put("ww", ww);
 				}
+			}
+			//Ga nu de andere mogelijke velden af en kijk wat er nog meer is gewijzigd.
+			String em = req.getParameter("email");
+			if(!em.equals("")){
+				w.put("em", em);
 			}
 			if(isKlant){
 				String nm = req.getParameter("naam");
@@ -104,15 +110,13 @@ public class AccountServlet extends HttpServlet{
 			else if(magWijzigen){
 				req.setAttribute("msg", "Geen wijzigingen aanwezig");
 			}
-			if(knop.equals("Account aanpassen")){			
-				rd = req.getRequestDispatcher("accountwijzigen.jsp");
-			}
 		}
 		else if(knop.equals("Bevestig")){
-			String ww = req.getParameter("bevestigwachtwoord");
+			String ww = req.getParameter("bevestigwachtwoord");	//automatisch ingevuld voor administratie
 			Object wijzigingen = session.getAttribute("wijzigingen");
 			if(ww.equals(gebruiker.getWachtwoord())){
-				Object o = session.getAttribute("wijzig");
+				//check of eigen account moet worden gewijzigd of de administratie bezig is aan andermans account
+				Object o = session.getAttribute("wijzig");	
 				if(o != null){
 					gebruiker = (User)o;
 					rd = req.getRequestDispatcher("accountwijzigen.jsp");
@@ -124,6 +128,7 @@ public class AccountServlet extends HttpServlet{
 				ConnectDBUser ucon = new ConnectDBUser(con);
 				String wijzignaam = gebruiker.getGebruikersnaam();
 				Map<String, String> w = (HashMap<String, String>)wijzigingen;
+				//Doorloop HashMap met wijzigingen, wijzig aan de hand van de keys alle gekozen waarden in het bijbehorende value
 				for (Entry<String, String> entry : w.entrySet()) {
 				    String key = entry.getKey();
 				    String value = entry.getValue();

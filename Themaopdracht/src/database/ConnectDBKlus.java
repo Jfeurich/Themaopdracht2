@@ -297,7 +297,8 @@ public class ConnectDBKlus{
 	public ArrayList<Klus> getVoltooideKlussenVoorAuto(int autoid){
 		ArrayList<Klus> terug = new ArrayList<Klus>();
 		try{
-			String sql = "SELECT * FROM Klus WHERE actief='t' AND status='voltooid' AND autoid=" + autoid;
+			String sql = "SELECT * FROM Klus WHERE actief='t' AND status='voltooid' AND autoid=" + autoid + 
+					" AND klusid NOT IN(SELECT klusid FROM Factuur);";
 			Statement stmt = con.createStatement();
 			ResultSet rs = stmt.executeQuery(sql);
 			while (rs.next()) {   // rs.next() geeft false als er niets meer is 

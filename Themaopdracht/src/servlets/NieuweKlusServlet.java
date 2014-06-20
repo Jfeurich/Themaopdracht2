@@ -73,7 +73,16 @@ public class NieuweKlusServlet extends HttpServlet {
 							}
 							req.setAttribute("msg", terug);
 							if(utp == 3){
-								req.setAttribute("nieuweklus", nieuw);
+								//Voeg de klus toe aan de klant in sessie zodat deze op de homepage wordt getoond
+								Klant k = u.getDeKlant();
+								Auto deAuto = nieuw.getAuto();
+								for(Auto a : k.getDeAutos()){
+									if(a.getID() == deAuto.getID()){
+										deAuto = a;
+									}
+								}
+								deAuto.voegKlusToe(nieuw);
+								req.getSession().setAttribute("gebruiker", u);
 							}
 							else{
 								ConnectDBKlant kcon = new ConnectDBKlant(con);

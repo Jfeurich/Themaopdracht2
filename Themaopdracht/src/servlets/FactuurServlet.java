@@ -30,16 +30,6 @@ public class FactuurServlet extends HttpServlet {
 			ArrayList<Factuur> terug = conn.getFacturenNietBetaald();
 			req.setAttribute("OverzichtFacturenNietBetaald", terug);
 		}
-		//betaal geselecteerde factuur
-		else if(knop.equals("Bevestig betaling")){
-			ConnectDBFactuur factuurcon = new ConnectDBFactuur(con);
-			Factuur deFactuur = factuurcon.zoekFactuur(Integer.parseInt(req.getParameter("factuurid")));
-			Date datum = new Date();
-			deFactuur.betaal(req.getParameter("betaalmiddel"), datum);
-			factuurcon.updateFactuur(deFactuur);
-			ArrayList<Factuur> terug = factuurcon.getFacturenNietBetaald();
-			req.setAttribute("OverzichtFacturenNietBetaald", terug);
-		}
 		//nieuwe factuur aanmaken
 		else if(knop.equals("Nieuwe factuur")){
 			ConnectDBKlant klantconn = new ConnectDBKlant(con);
@@ -51,6 +41,7 @@ public class FactuurServlet extends HttpServlet {
 			String gekozenfactuur = req.getParameter("factuurid");
 			req.setAttribute("factuurid", gekozenfactuur);
 			if(knop.equals("Reminder sturen")){
+				//Stuur gebruiker door naar nieuwebrief met de gegevens van de factuur waarvoor de brief wordt geschreven
 				ConnectDBFactuur factuurcon = new ConnectDBFactuur(con);
 				Factuur deFactuur = factuurcon.zoekFactuur(Integer.parseInt(req.getParameter("factuurid")));
 				Klant deKlant = deFactuur.getDeKlus().getAuto().getEigenaar();
@@ -59,6 +50,16 @@ public class FactuurServlet extends HttpServlet {
 				req.setAttribute("deKlant", deKlant);
 				rd = req.getRequestDispatcher("nieuwebrief.jsp");
 			}
+		}
+		//betaal geselecteerde factuur
+		else if(knop.equals("Bevestig betaling")){
+			ConnectDBFactuur factuurcon = new ConnectDBFactuur(con);
+			Factuur deFactuur = factuurcon.zoekFactuur(Integer.parseInt(req.getParameter("factuurid")));
+			Date datum = new Date();
+			deFactuur.betaal(req.getParameter("betaalmiddel"), datum);
+			factuurcon.updateFactuur(deFactuur);
+			ArrayList<Factuur> terug = factuurcon.getFacturenNietBetaald();
+			req.setAttribute("OverzichtFacturenNietBetaald", terug);
 		}
 		rd.forward(req, resp);
 	}
